@@ -1,9 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-
+import { Roboto, Inter } from 'next/font/google';
+import { Header } from './components/Header/Header';
 import './globals.css';
+import DataDevs from './components/DataDevs';
 
 const inter = Inter({ subsets: ['latin'] });
+
+const roboto = Roboto({
+  weight: '400',
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Pinterest Clon',
@@ -17,7 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body className={`${roboto.className} ${inter.className}`}>
+        <Header />
+        <DataDevs />
+        {children}
+      </body>
     </html>
   );
 }
