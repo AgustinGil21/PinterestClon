@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Roboto, Inter } from 'next/font/google';
 import { Header } from './components/Header/Header';
 import './globals.css';
+import DataDevs from './components/DataDevs';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${roboto.className} ${inter.className}`}>
         <Header />
+        <DataDevs />
         {children}
       </body>
     </html>
