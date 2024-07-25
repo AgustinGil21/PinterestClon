@@ -9,6 +9,7 @@ const SearchInput = () => {
   const [modalState, setModal] = useState(false);
 
   const { modalRef } = useCloseModal({ setModal });
+  console.log(modalState);
 
   return (
     <>
@@ -28,6 +29,7 @@ const SearchInput = () => {
             <SearchIcon />
           </div>
         )}
+
         {modalState && <ModalSearch modalRef={modalRef} />}
       </div>
     </>

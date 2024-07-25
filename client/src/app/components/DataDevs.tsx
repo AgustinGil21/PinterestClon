@@ -14,14 +14,14 @@ const DataDevs = () => {
 
   return (
     <>
-      <div
+      <button
         className='fixed bottom-6 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white'
         onClick={() => setModal(!modal)}
       >
         <Tooltip tooltipText='Mas' isVisible={modal}>
           <AnswerIcon />
         </Tooltip>
-      </div>
+      </button>
       {modal && (
         <ModalStyled
           modalRef={modalRef}
