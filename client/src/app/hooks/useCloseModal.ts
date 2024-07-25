@@ -16,7 +16,7 @@ const useCloseModal = ({ setModal }: UseCloseModalType) => {
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [handleClickOutside]);
 
   return {
     modalRef,
