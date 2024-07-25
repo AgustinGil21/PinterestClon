@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 const SwitchMode = () => {
   const [enabled, setEnabled] = useState(false);
+
   return (
     <Switch
       checked={enabled}
