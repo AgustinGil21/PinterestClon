@@ -1,5 +1,5 @@
 import { Crypt, CryptCompare } from '../libs/crypt.js';
-import { dateNow as createdAt } from '../libs/date-now.js';
+import { dateNow as createdAt } from '../libs/date.js';
 import { pool } from '../dbpool.js';
 import getFirstLetter from '../libs/firstLetter.js';
 
