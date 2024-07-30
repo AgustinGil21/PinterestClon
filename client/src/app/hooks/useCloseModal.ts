@@ -1,22 +1,24 @@
 import { useEffect, useRef, Dispatch, SetStateAction } from 'react';
 
 interface UseCloseModalType {
-  setModal: Dispatch<SetStateAction<boolean>>;
+  setModal?: Dispatch<SetStateAction<boolean>>;
+  closeBothModal?: () => void;
 }
 
-const useCloseModal = ({ setModal }: UseCloseModalType) => {
+const useCloseModal = ({ setModal, closeBothModal }: UseCloseModalType) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setModal(false);
+      if (setModal) setModal(false);
+      if (closeBothModal) closeBothModal();
     }
   };
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, [handleClickOutside]);
+  }, [handleClickOutside, closeBothModal]);
 
   return {
     modalRef,

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import SearchIcon from '../icons/SearchIcon';
+import SearchIcon from '../../icons/SearchIcon';
 import ModalSearch from './ModalSearch';
 import useCloseModal from '@/app/hooks/useCloseModal';
 

@@ -10,7 +10,7 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
 
   return (
     <nav>
-      <ul className='text-black font-medium flex gap-6 text-xs '>
+      <ul className='text-black dark:text-white font-medium flex gap-6 text-[13.5px] mr-2'>
         {loginAuth ? (
           <>
             <LinkNavigate
@@ -34,8 +34,18 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
           </>
         ) : (
           <>
-            <LinkNavigate href={'/#'}>Inicio</LinkNavigate>
-            <LinkNavigate href={'/#'}>Explorar</LinkNavigate>
+            <LinkNavigate
+              classProps={`${pathname === '/' ? 'active' : ''}`}
+              href={'/'}
+            >
+              Inicio
+            </LinkNavigate>
+            <LinkNavigate
+              classProps={`${pathname === '/explore' ? 'active' : ''}`}
+              href={'/explore'}
+            >
+              Explorar
+            </LinkNavigate>
           </>
         )}
       </ul>

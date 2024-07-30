@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import ArrowBottomUser from '../icons/ArrowBottomUser';
-import MessageIcon from '../icons/MessageIcon';
+import ArrowBottomUser from '../../icons/ArrowBottomUser';
+import MessageIcon from '../../icons/MessageIcon';
 import MoreOptionsModal from './MoreOptionsModal';
-import Tooltip from './ToolTip';
-import LinkNavigate from './LinkNavigate';
+import Tooltip from '../../Basic/ToolTip';
+import LinkNavigate from '../Nav/LinkNavigate';
 
 export const UserLoggedIn = () => {
   const [modal, setModal] = useState(false);

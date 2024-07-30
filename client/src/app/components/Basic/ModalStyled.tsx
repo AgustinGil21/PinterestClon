@@ -3,7 +3,7 @@ import { RefObject } from 'react';
 interface ModalStyledProps {
   children: React.ReactNode;
   classProps?: string;
-  modalRef: RefObject<HTMLDivElement>;
+  modalRef?: RefObject<HTMLDivElement>;
 }
 
 const ModalStyled = ({ children, classProps, modalRef }: ModalStyledProps) => {
@@ -11,7 +11,7 @@ const ModalStyled = ({ children, classProps, modalRef }: ModalStyledProps) => {
     <>
       <div
         ref={modalRef}
-        className={`absolute shadow-uniform bg-white  w-full rounded-xl z-50 ${classProps}`}
+        className={`absolute shadow-uniform bg-white dark:bg-gray-800  w-full z-50  ${classProps}`}
       >
         {children}
       </div>
