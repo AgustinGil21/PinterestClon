@@ -88,6 +88,27 @@ export const registerSchema = z.object({
     .uuid({
       message: 'Country id must be a valid UUID.',
     }),
+  avatarBackground: z
+    .string({
+      required_error: 'Avatar background is required.',
+      message: 'Avatar background must be a string.',
+    })
+    .length(7)
+    .trim(),
+  avatarLetterColor: z
+    .string({
+      required_error: 'Avatar letter color is required.',
+      message: 'Avatar letter color must be a string.',
+    })
+    .length(7)
+    .trim(),
+  avatarLetter: z
+    .string({
+      required_error: 'Avatar letter is required.',
+      message: 'Avatar letter must be a string.',
+    })
+    .length(1)
+    .trim(),
 });
 
 export const loginSchema = z.object({

@@ -1,6 +1,5 @@
 import AuthModel from '../models/auth.model.js';
 import { createJWT } from '../libs/jwt.js';
-import getRandomColor from '../libs/colors.js';
 import generateUserAuthCode from '../libs/generateUserAuthCode.js';
 import {
   registerSchema,
@@ -21,6 +20,9 @@ export default class AuthController {
       genderId,
       countryId,
       langId,
+      avatarBackground,
+      avatarLetterColor,
+      avatarLetter,
     } = req.body;
 
     try {
@@ -33,8 +35,6 @@ export default class AuthController {
       return res.status(500).json({ message: 'Internal error!' });
     }
 
-    const defaultAvatarColors = await getRandomColor();
-
     try {
       const data = await AuthModel.register({
         password,
@@ -44,7 +44,9 @@ export default class AuthController {
         genderId,
         countryId,
         langId,
-        defaultAvatarColors,
+        avatarBackground,
+        avatarLetterColor,
+        avatarLetter,
       });
 
       if (data.ok) {
