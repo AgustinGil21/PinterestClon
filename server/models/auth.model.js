@@ -77,11 +77,24 @@ export default class AuthModel {
     return { response, ok: false };
   }
 
-  static async changePassword({ emailAddress, password }) {
-    const encryptedPassword = Crypt(password);
+  static async recoverAccount({ emailAddress }) {
+    const response = await pool.query(
+      'SELECT id FROM users WHERE email_address = $1;',
+      [emailAddress]
+    );
+
+    const [data] = response.rows;
+
+    if (response) return { response: data, ok: true };
+
+    return { response, ok: false };
+  }
+
+  static async resetPassword({ password, emailAddress }) {
+    const encryptedPassword = await Crypt(password);
 
     const response = pool.query(
-      'UPDATE users SET password = $1 WHERE email_address = $2 RETURNING id;',
+      'UPDATE users SET password = $1 WHERE email_address = $2;',
       [encryptedPassword, emailAddress]
     );
 

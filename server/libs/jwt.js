@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
-import 'dotenv/config';
+import { SECRETKEY } from '../config.js';
 
 export const createJWT = async (payload) => {
   return new Promise((resolve, reject) => {
     jwt.sign(
       payload,
-      process.env.SECRETKEY,
+      SECRETKEY,
       {
         expiresIn: '30d',
       },
