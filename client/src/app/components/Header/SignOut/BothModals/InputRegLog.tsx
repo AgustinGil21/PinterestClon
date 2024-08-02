@@ -14,12 +14,14 @@ interface RegisterInterface {
   errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   type: string;
   textLabel: string;
+  infoName: string;
 }
 
 const InputRegLog = ({
   register,
   errors,
   type,
+  infoName,
   textLabel,
 }: RegisterInterface) => {
   return (
@@ -33,6 +35,7 @@ const InputRegLog = ({
       <InputStyled
         register={register}
         type={type}
+        infoName={infoName}
         placeHolder={textLabel}
         classProps='w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px] text-sm'
       />

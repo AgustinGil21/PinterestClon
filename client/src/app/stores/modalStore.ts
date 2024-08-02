@@ -14,6 +14,7 @@ export interface ModalStateInterface {
   closeGenderModal: () => void;
   reverseNationalityForGender: () => void;
   openAvatarModal: () => void;
+  closeAvatarModal: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
@@ -62,6 +63,11 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
     set({
       isAvatarModalOpen: true,
       isNationalityModalOpen: false,
+    });
+  },
+  closeAvatarModal: () => {
+    set({
+      isAvatarModalOpen: false,
     });
   },
 });

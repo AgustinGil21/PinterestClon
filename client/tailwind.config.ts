@@ -18,6 +18,9 @@ const config: Config = {
         buttonGreyBg: '#e9e9e9',
         redPinterestBg: '#e60023',
       },
+      backgroundImage: {
+        Feed: 'url(/bgFeed.jpg)',
+      },
       boxShadow: {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
         '4xl':

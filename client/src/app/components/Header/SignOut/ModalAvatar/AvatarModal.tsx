@@ -1,26 +1,27 @@
-import { useForm } from 'react-hook-form';
 import InputRegLog from '../BothModals/InputRegLog';
 import ModalStyled from '@/app/components/Basic/ModalStyled';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { UsernameSchema } from '@/app/schemas/validation-form';
 import ButtonStyled from '@/app/components/Basic/ButtonStyled';
 import useValidateSequentially from '@/app/hooks/useValidateSequentially';
 import CameraIcon from '@/app/components/icons/CameraIcon';
 import InputAvatar from './InputAvatar';
+import { useAppsStore } from '@/app/stores/useAppStore';
+import useFormHook from '@/app/hooks/useFormHook';
 
 const AvatarModal = () => {
-  const {
-    register,
-    trigger,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(UsernameSchema),
-  });
+  const { register, trigger, errors, isValid } = useFormHook(UsernameSchema);
+
+  const getDataUser = useAppsStore((state) => state.getDataUser);
+  const closeAvatarModal = useAppsStore((state) => state.closeAvatarModal);
 
   const { validateSequentially } = useValidateSequentially(trigger);
-  const handleClick = (event: React.FormEvent) => {
+  const handleClick = async (event: React.FormEvent) => {
     event.preventDefault();
-    validateSequentially();
+    await validateSequentially();
+    if (isValid) {
+      closeAvatarModal();
+      getDataUser();
+    }
   };
 
   return (
@@ -43,10 +44,11 @@ const AvatarModal = () => {
             textLabel='Nombre de usuario'
             errors={errors.username}
             register={register}
+            infoName='username'
           />
           <ButtonStyled
             disabled={false}
-            className='w-full text-white bg-redPinterestBg mt-3'
+            className='w-full text-white bg-redPinterestBg mt-3 hover:bg-red-700'
             handleClick={handleClick}
           >
             Finalizar

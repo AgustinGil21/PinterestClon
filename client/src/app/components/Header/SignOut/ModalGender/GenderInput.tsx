@@ -21,6 +21,7 @@ const GenderInput = ({ register, value, textLabel }: GenderInputInterface) => {
         defaultChecked
         type='radio'
         register={register}
+        infoName='radio'
         value={value}
         classProps='form-radio h-4 w-4 text-black focus:ring-blue-500 custom-radio'
       />

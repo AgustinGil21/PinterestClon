@@ -1,20 +1,14 @@
+'use client';
 import PasswordLose from './PasswordLose';
 import ButtonStartSession from './ButtonStartSession';
 import ButtonGoogleSession from '../BothModals/ButtonGoogleSession';
-import { useForm } from 'react-hook-form';
 import { loginSchema } from '@/app/schemas/validation-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import InputRegLog from '../BothModals/InputRegLog';
 import useValidateSequentially from '@/app/hooks/useValidateSequentially';
+import useFormHook from '@/app/hooks/useFormHook';
 
 const FormLogin = () => {
-  const {
-    register,
-    trigger,
-    formState: { errors },
-  } = useForm({
-    resolver: zodResolver(loginSchema),
-  });
+  const { register, trigger, errors } = useFormHook(loginSchema);
 
   const { validateSequentially } = useValidateSequentially(trigger);
 
@@ -25,12 +19,14 @@ const FormLogin = () => {
         errors={errors.email}
         type='email'
         textLabel='Correo electronico'
+        infoName='email'
       />
       <InputRegLog
         register={register}
         errors={errors.password}
         type='password'
         textLabel='Contraseña'
+        infoName='password'
       />
       <PasswordLose />
       <ButtonStartSession validateSequentially={validateSequentially} />

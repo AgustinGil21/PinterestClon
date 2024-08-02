@@ -7,7 +7,7 @@ interface InputStyledInterface {
   placeHolder?: string;
   errors?: string;
   register?: UseFormRegister<FieldValues>;
-  name?: string;
+  infoName: string;
   value?: string | number;
   defaultChecked?: boolean;
 }
@@ -17,6 +17,7 @@ const InputStyled = ({
   classProps,
   placeHolder,
   register,
+  infoName,
   value,
 }: InputStyledInterface) => {
   return (
@@ -26,7 +27,7 @@ const InputStyled = ({
       type={type}
       className={` w-full p-1 text-black outline-outline-search ${classProps}`}
       placeholder={placeHolder}
-      {...(register ? register(type) : {})}
+      {...(register ? register(infoName) : {})}
     />
   );
 };

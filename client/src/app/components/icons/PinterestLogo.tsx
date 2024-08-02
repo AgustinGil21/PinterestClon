@@ -1,8 +1,8 @@
-interface PinterestLogo {
-  classProps: string;
+interface PinterestLogoInterface {
+  classProps?: string;
 }
 
-const PinterestLogo = ({ classProps }: PinterestLogo) => {
+const PinterestLogo = ({ classProps }: PinterestLogoInterface) => {
   return (
     <svg
       aria-hidden='true'

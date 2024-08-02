@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+'use client';
 import { Roboto, Poppins, Inter } from 'next/font/google';
 import { Header } from './components/Header/Header';
 import './globals.css';
 import DataDevs from './components/DataDevs';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,29 +13,26 @@ const roboto = Roboto({
 });
 
 const poppins = Poppins({
-  // Usar Poppins como alternativa
   weight: '400',
   subsets: ['latin'],
 });
-
-export const metadata: Metadata = {
-  title: 'Pinterest Clon',
-  description: 'Pinterest Clon',
-};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const routesWithoutHeader = ['/recover-password'];
+
   return (
     <html lang='en'>
       <body
-        className={`${roboto.className}  ${inter.className} dark:bg-gray-900`}
+        className={`${roboto.className} ${inter.className} dark:bg-gray-900`}
       >
-        <Header />
+        {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

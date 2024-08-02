@@ -147,3 +147,22 @@ export const UsernameSchema = z.object({
     })
     .trim(),
 });
+
+export const RecoverPasswordSchema = z.object({
+  password: z
+    .string({
+      required_error: 'Se requiere una contraseña.',
+      message: 'La contraseña debe ser una cadena.',
+    })
+    .min(8, {
+      message: 'La contraseña debe contener al menos 8 caracteres.',
+    })
+    .max(128, {
+      message: 'La contraseña puede contener hasta 128 caracteres.',
+    })
+    .regex(passwordRegex, {
+      message:
+        'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial.',
+    })
+    .trim(),
+});
