@@ -1,7 +1,8 @@
 import bcrypt from 'bcryptjs';
+import { SALT_ROUNDS } from '../config.js';
 
 export const Crypt = async (password) => {
-  const passwordHash = await bcrypt.hash(password, 10);
+  const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
 
   return passwordHash;
 };

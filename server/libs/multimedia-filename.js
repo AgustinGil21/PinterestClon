@@ -1,4 +1,4 @@
-import dateNow from './date-now.js';
+import { dateNow } from './date.js';
 import UUID from './uuid.js';
 
 export default function multimediaFileName() {
