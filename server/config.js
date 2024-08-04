@@ -7,6 +7,9 @@ export const {
   ACCEPTED_ORIGINS,
   RESEND_API_KEY,
   EMAIL_ADDRESS,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_API_SECRET,
 } = process.env;
 
 export const BASE_URL = '/pinterest-clon-api';
