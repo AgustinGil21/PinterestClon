@@ -1,4 +1,4 @@
-import { pool } from '../dbpool';
+import { pool } from '../dbpool.js';
 
 export default class AvatarModel {
   static async newAvatar({ id, avatarUrl }) {

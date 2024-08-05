@@ -9,6 +9,7 @@ import GenderRoutes from './routes/genders.routes.js';
 import LanguagesRoutes from './routes/languages.routes.js';
 import EditProfileRoutes from './routes/edit-profile.routes.js';
 import AvatarRoutes from './routes/avatar.routes.js';
+import UserDataRoute from './routes/user-data.routes.js';
 
 export const app = express();
 
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.disable('x-powered-by');
 app.use(cors());
 
+app.use(`${BASE_URL}`, UserDataRoute);
 app.use(`${BASE_URL}/auth`, AuthRoutes);
 app.use(`${BASE_URL}/countries`, CountriesRoutes);
 app.use(`${BASE_URL}/genders`, GenderRoutes);

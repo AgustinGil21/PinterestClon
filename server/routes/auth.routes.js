@@ -4,6 +4,7 @@ import { authRequired } from '../middlewares/validateToken.js';
 
 const router = Router();
 
+router.post('/email-address', AuthController.checkIfEmailAlreadyExists);
 router.post('/register', AuthController.register);
 router.post('/login', AuthController.logIn);
 router.post('/logout', authRequired, AuthController.logOut);
