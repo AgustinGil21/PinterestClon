@@ -1,29 +1,9 @@
-import InputRegLog from '../BothModals/InputRegLog';
 import ModalStyled from '@/app/components/Basic/ModalStyled';
-import { UsernameSchema } from '@/app/schemas/validation-form';
-import ButtonStyled from '@/app/components/Basic/ButtonStyled';
-import useValidateSequentially from '@/app/hooks/useValidateSequentially';
 import CameraIcon from '@/app/components/icons/CameraIcon';
 import InputAvatar from './InputAvatar';
-import { useAppsStore } from '@/app/stores/useAppStore';
-import useFormHook from '@/app/hooks/useFormHook';
+import FormAvatar from './FormAvatar';
 
 const AvatarModal = () => {
-  const { register, trigger, errors, isValid } = useFormHook(UsernameSchema);
-
-  const getDataUser = useAppsStore((state) => state.getDataUser);
-  const closeAvatarModal = useAppsStore((state) => state.closeAvatarModal);
-
-  const { validateSequentially } = useValidateSequentially(trigger);
-  const handleClick = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await validateSequentially();
-    if (isValid) {
-      closeAvatarModal();
-      getDataUser();
-    }
-  };
-
   return (
     <div className='fixed inset-0 z-40 flex items-center justify-center'>
       <div className='absolute inset-0 bg-black opacity-50'></div>
@@ -37,23 +17,8 @@ const AvatarModal = () => {
               <CameraIcon />
             </InputAvatar>
           </div>
+          <FormAvatar />
         </div>
-        <form>
-          <InputRegLog
-            type='text'
-            textLabel='Nombre de usuario'
-            errors={errors.username}
-            register={register}
-            infoName='username'
-          />
-          <ButtonStyled
-            disabled={false}
-            className='w-full text-white bg-redPinterestBg mt-3 hover:bg-red-700'
-            handleClick={handleClick}
-          >
-            Finalizar
-          </ButtonStyled>
-        </form>
       </ModalStyled>
     </div>
   );

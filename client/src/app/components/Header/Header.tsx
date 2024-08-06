@@ -9,7 +9,6 @@ import { useAppsStore } from '@/app/stores/useAppStore';
 
 export const Header = () => {
   const [loginAuth, setLoginAuth] = useState(false);
-  const isLoggedIn = useAppsStore((state) => state.isLoggedIn);
 
   return (
     <header className='w-full  text-white py-3 flex gap-3 px-5 items-center bg-white dark:bg-gray-900  '>
@@ -22,7 +21,7 @@ export const Header = () => {
 
       <SearchInput />
 
-      {isLoggedIn ? <UserLoggedIn /> : <HeaderAuth />}
+      {loginAuth ? <UserLoggedIn /> : <HeaderAuth />}
     </header>
   );
 };

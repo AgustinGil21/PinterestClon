@@ -15,7 +15,6 @@ app.use(json());
 app.use(cookieParser());
 app.disable('x-powered-by');
 app.use(cors());
-
 app.use(`${BASE_URL}/auth`, AuthRoutes);
 app.use(`${BASE_URL}/countries`, CountriesRoutes);
 app.use(`${BASE_URL}/genders`, GenderRoutes);

@@ -8,6 +8,7 @@ const useFormHook = (schema: ZodSchema<any>) => {
     handleSubmit,
     watch,
     trigger,
+    getValues,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(schema),
@@ -20,6 +21,7 @@ const useFormHook = (schema: ZodSchema<any>) => {
     trigger,
     errors,
     isValid,
+    getValues,
   };
 };
 

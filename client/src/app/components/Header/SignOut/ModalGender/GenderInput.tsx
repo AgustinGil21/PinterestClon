@@ -6,9 +6,15 @@ interface GenderInputInterface {
   value: string;
   textLabel: string;
   defaultChecked?: boolean;
+  id: string;
 }
 
-const GenderInput = ({ register, value, textLabel }: GenderInputInterface) => {
+const GenderInput = ({
+  register,
+  value,
+  textLabel,
+  id,
+}: GenderInputInterface) => {
   return (
     <div className='flex flex-row-reverse gap-4 items-center'>
       <label
@@ -18,6 +24,7 @@ const GenderInput = ({ register, value, textLabel }: GenderInputInterface) => {
         {textLabel}
       </label>
       <InputStyled
+        id={id}
         defaultChecked
         type='radio'
         register={register}

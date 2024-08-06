@@ -1,7 +1,9 @@
+'use client';
 import ButtonStyled from '@/app/components/Basic/ButtonStyled';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { useAppsStore } from '@/app/stores/useAppStore';
 import GenderInput from './GenderInput';
+import { useEffect } from 'react';
 
 const FormGender = () => {
   const {
@@ -11,29 +13,39 @@ const FormGender = () => {
   } = useForm();
 
   const closeGenderModal = useAppsStore((state) => state.closeGenderModal);
-  const handleClick = () => {
+  const getGenders = useAppsStore((state) => state.getDataGender);
+  const Genders = useAppsStore((state) => state.genders);
+  const updateStateRegisterUser = useAppsStore(
+    (state) => state.updateStateRegisterUser
+  );
+
+  useEffect(() => {
+    getGenders();
+  }, [getGenders]);
+
+  const handleClick: SubmitHandler<FieldValues> = (data) => {
     if (isValid) {
+      updateStateRegisterUser('gender', data.radio);
       closeGenderModal();
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => console.log(data))}
-      className='flex flex-col justify-start items-start gap-5 w-full'
-    >
-      <GenderInput register={register} value='Female' textLabel='Mujer' />
-      <GenderInput register={register} value='Male' textLabel='Hombre' />
-      <GenderInput
-        register={register}
-        value='Other'
-        textLabel='No binario'
-        defaultChecked
-      />
+    <form className='flex flex-col justify-start items-start gap-5 w-full'>
+      {Genders.map((elem) => (
+        <GenderInput
+          key={elem.id}
+          register={register}
+          value={elem.id}
+          textLabel={elem.name}
+          id={elem.id}
+        />
+      ))}
+
       <ButtonStyled
         className='bg-redPinterestBg mt-10 text-white w-full hover:bg-red-800'
         disabled={false}
-        handleClick={handleClick}
+        handleClick={handleSubmit(handleClick)}
       >
         Siguiente
       </ButtonStyled>

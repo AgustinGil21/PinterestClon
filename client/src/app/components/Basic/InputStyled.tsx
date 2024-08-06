@@ -10,6 +10,7 @@ interface InputStyledInterface {
   infoName: string;
   value?: string | number;
   defaultChecked?: boolean;
+  id?: string;
 }
 
 const InputStyled = ({
@@ -19,9 +20,11 @@ const InputStyled = ({
   register,
   infoName,
   value,
+  id,
 }: InputStyledInterface) => {
   return (
     <input
+      id={id}
       defaultChecked
       value={value}
       type={type}

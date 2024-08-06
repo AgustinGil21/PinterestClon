@@ -19,7 +19,7 @@ const config: Config = {
         redPinterestBg: '#e60023',
       },
       backgroundImage: {
-        Feed: 'url(/bgFeed.jpg)',
+        Feed: 'url(assets/bgFeed.webp)',
       },
       boxShadow: {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',

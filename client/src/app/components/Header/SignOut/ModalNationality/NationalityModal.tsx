@@ -7,6 +7,9 @@ import { useAppsStore } from '@/app/stores/useAppStore';
 
 const NationalityModal = () => {
   const openAvatarModal = useAppsStore((state) => state.openAvatarModal);
+  const handleClick = () => {
+    openAvatarModal();
+  };
 
   return (
     <div className='fixed inset-0 z-40 flex items-center justify-center'>
@@ -28,7 +31,7 @@ const NationalityModal = () => {
           <ButtonStyled
             className='bg-redPinterestBg w-full text-white hover:bg-red-800'
             disabled={false}
-            handleClick={openAvatarModal}
+            handleClick={handleClick}
           >
             Siguiente
           </ButtonStyled>
