@@ -14,7 +14,7 @@ import { NODE_ENV } from '../config.js';
 
 const cookieOptions = {
   httpOnly: true,
-  sameSite: 'none',
+  sameSite: 'lax',
   maxAge: 1000 * 60 * 60 * 24 * 30,
   secure: NODE_ENV === 'production',
 };
@@ -93,8 +93,11 @@ export default class AuthController {
           id,
         });
 
-        res.cookie('access_token', accessToken, cookieOptions);
-        res.status(200).json({ message: 'User successfully created!' });
+        // res.cookie('access_token', accessToken, cookieOptions);
+        res
+          .status(200)
+          .cookie('access_token', accessToken, cookieOptions)
+          .json({ message: 'User successfully created!' });
       }
     } catch (err) {
       return res.status(401).json({ message: 'User already exists!' });
@@ -127,8 +130,10 @@ export default class AuthController {
           id,
         });
 
-        res.cookie('access_token', accessToken, cookieOptions);
-        res.status(200).json({ message: 'User successfully logged in!' });
+        res
+          .status(200)
+          .cookie('access_token', accessToken, cookieOptions)
+          .json({ message: 'User successfully logged in!' });
       }
     } catch (err) {
       return res
