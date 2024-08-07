@@ -10,6 +10,14 @@ import {
 } from '../schemas/auth.schema.js';
 import { resend } from '../resend.js';
 import { recoverAccountEmail } from '../email.js';
+import { NODE_ENV } from '../config.js';
+
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: 'none',
+  maxAge: 1000 * 60 * 60 * 24 * 30,
+  secure: NODE_ENV === 'production',
+};
 
 export default class AuthController {
   static async checkIfEmailAlreadyExists(req, res) {
@@ -85,8 +93,7 @@ export default class AuthController {
           id,
         });
 
-        res.cookie('access_token', accessToken);
-        const { response: user } = data;
+        res.cookie('access_token', accessToken, cookieOptions);
         res.status(200).json({ message: 'User successfully created!' });
       }
     } catch (err) {
@@ -114,14 +121,13 @@ export default class AuthController {
       });
 
       if (data.ok) {
-        const { response: user } = data;
         const { id } = data.response;
 
         const accessToken = await createJWT({
           id,
         });
 
-        res.cookie('access_token', accessToken);
+        res.cookie('access_token', accessToken, cookieOptions);
         res.status(200).json({ message: 'User successfully logged in!' });
       }
     } catch (err) {

@@ -3,6 +3,8 @@ import UserDataModel from '../models/user-data.model.js';
 export default class UserDataController {
   static async getData(req, res) {
     const { id } = req.user;
+    const { access_token } = req.cookies;
+    console.log(access_token);
 
     try {
       const data = await UserDataModel.getData({ id });
