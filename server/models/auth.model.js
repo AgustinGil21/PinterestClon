@@ -3,6 +3,16 @@ import { dateNow as createdAt } from '../libs/date.js';
 import { pool } from '../dbpool.js';
 
 export default class AuthModel {
+  static async checkIfEmailAlreadyExists({ emailAddress }) {
+    const response = await pool.query(
+      'SELECT id FROM users WHERE email_address = $1;',
+      [emailAddress]
+    );
+
+    if (!response.rowCount) return { response, ok: true };
+    return { response, ok: false };
+  }
+
   static async register({
     emailAddress,
     password,
@@ -16,11 +26,11 @@ export default class AuthModel {
     avatarLetter,
   }) {
     const alreadyExists = await pool.query(
-      'SELECT id FROM users WHERE username = $1 OR email_address = $2;',
-      [username, emailAddress]
+      'SELECT id FROM users WHERE username = $1;',
+      [username]
     );
 
-    if (alreadyExists.rowCount) throw new Error('User already exists!');
+    if (alreadyExists.rowCount) throw new Error('Username already exists!');
 
     const encryptedPassword = await Crypt(password);
 

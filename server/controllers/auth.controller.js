@@ -6,11 +6,40 @@ import {
   loginSchema,
   resetPasswordSchema,
   recoverAccountSchema,
+  checkEmailAddressSchema,
 } from '../schemas/auth.schema.js';
 import { resend } from '../resend.js';
 import { recoverAccountEmail } from '../email.js';
 
 export default class AuthController {
+  static async checkIfEmailAlreadyExists(req, res) {
+    const { emailAddress } = req.body;
+
+    try {
+      const result = checkEmailAddressSchema.safeParse({ emailAddress });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
+
+    try {
+      const alreadyExists = await AuthModel.checkIfEmailAlreadyExists({
+        emailAddress,
+      });
+
+      if (alreadyExists.ok) {
+        return res.status(200).json({ message: 'Valid email address!' });
+      }
+
+      return res.status(400).json({ message: 'Email address already exists!' });
+    } catch (err) {
+      return res.status(400).json({ message: 'Email address already exists!' });
+    }
+  }
+
   static async register(req, res) {
     const {
       password,

@@ -4,7 +4,7 @@ import {
   ArrayGenderSchema,
   ArrayLanguagesSchema,
 } from '../schemas/validation-service-api';
-import { UserRegister, UserLogin } from '../types';
+import { UserRegister, UserLogin, UserEmail } from '../types';
 
 export const serviceGetGender = async () => {
   try {
@@ -69,6 +69,19 @@ export const serviceGetColors = async () => {
   }
 };
 
+export const servicePostEmailUser = async (data: UserEmail) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:1234/pinterest-clon-api/auth/email-address',
+      data
+    );
+    console.log(response);
+    console.log(response.status);
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const servicePostRegisterUser = async (data: UserRegister) => {
   try {
     const response = await axios.post(
@@ -91,6 +104,33 @@ export const servicePostLoginUser = async (data: UserLogin) => {
     console.log(response);
     console.log(response.status);
   } catch (error) {
+    throw error;
+  }
+};
+
+export const serviceGetDataUserLogged = async () => {
+  try {
+    const response = await axios.get(
+      'http://localhost:1234/pinterest-clon-api/'
+    );
+
+    console.log(response);
+    console.log(response.status);
+  } catch (error) {
     console.log(error);
+  }
+};
+
+export const servicePostAvatarUser = async (data: any) => {
+  try {
+    const response = await axios.post(
+      'http://localhost:1234/pinterest-clon-api/avatar',
+      data
+    );
+    console.log(data);
+    console.log(response);
+    console.log(response.status);
+  } catch (error) {
+    throw error;
   }
 };

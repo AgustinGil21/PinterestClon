@@ -4,7 +4,6 @@ const ErrorInputIcon = ({ className }: { className?: string }) => {
   return (
     <svg
       aria-hidden='true'
-      aria-label=''
       className={` ${className}`}
       role='img'
       viewBox='0 0 24 24'

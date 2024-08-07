@@ -2,13 +2,16 @@ import ErrorInputIcon from '../icons/ErrorInputIcon';
 
 interface ChildrenErrorInterface {
   children: React.ReactNode;
+  classname?: string;
 }
 
-const ErrorStyled = ({ children }: ChildrenErrorInterface) => {
+const ErrorStyled = ({ children, classname }: ChildrenErrorInterface) => {
   return (
-    <div className='flex flex-row items-center mt-1  '>
-      <ErrorInputIcon className='w-6 h-3 relative left-0.5' />
-      <p className='text-red-500 text-[10px] px-1 '>{children}</p>
+    <div
+      className={`flex flex-row items-center mt-1 gap-1  px-1 relative right-2 ${classname}`}
+    >
+      <ErrorInputIcon className='w-6 h-3 relative left-0.5 ' />
+      <p className='text-red-500 text-[10px] '>{children}</p>
     </div>
   );
 };

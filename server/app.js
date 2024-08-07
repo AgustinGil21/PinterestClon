@@ -8,6 +8,8 @@ import CountriesRoutes from './routes/countries.routes.js';
 import GenderRoutes from './routes/genders.routes.js';
 import LanguagesRoutes from './routes/languages.routes.js';
 import EditProfileRoutes from './routes/edit-profile.routes.js';
+import AvatarRoutes from './routes/avatar.routes.js';
+import UserDataRoute from './routes/user-data.routes.js';
 
 export const app = express();
 
@@ -15,11 +17,14 @@ app.use(json());
 app.use(cookieParser());
 app.disable('x-powered-by');
 app.use(cors());
+
+app.use(`${BASE_URL}`, UserDataRoute);
 app.use(`${BASE_URL}/auth`, AuthRoutes);
 app.use(`${BASE_URL}/countries`, CountriesRoutes);
 app.use(`${BASE_URL}/genders`, GenderRoutes);
 app.use(`${BASE_URL}/languages`, LanguagesRoutes);
 app.use(`${BASE_URL}/setting/edit-profile`, EditProfileRoutes);
+app.use(`${BASE_URL}/avatar`, AvatarRoutes);
 // app.use(`${BASE_URL}/setting/account-settings`);
 // app.use(`${BASE_URL}/setting/profile-visibility`);
 // app.use(`${BASE_URL}/settings/security`);

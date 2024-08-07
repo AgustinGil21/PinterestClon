@@ -5,6 +5,27 @@ import {
   emailRegex,
 } from '../regex/auth.regex.js';
 
+export const checkEmailAddressSchema = z.object({
+  emailAddress: z
+    .string({
+      required_error: 'Email address is required.',
+      message: 'Email address must be a string.',
+    })
+    .email({
+      message: 'Please enter a valid email address',
+    })
+    .min(12, {
+      message: 'Email address must contain at least 12 characters long',
+    })
+    .max(320, {
+      message: 'Email address can contain up to 320 characters long.',
+    })
+    .regex(emailRegex, {
+      message: 'Please enter a valid email address.',
+    })
+    .trim(),
+});
+
 export const registerSchema = z.object({
   username: z
     .string({

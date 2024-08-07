@@ -1,5 +1,7 @@
 import React from 'react';
 import ButtonStyled from '@/app/components/Basic/ButtonStyled';
+import CameraIcon from '@/app/components/icons/CameraIcon';
+import InputAvatar from './InputAvatar';
 import InputRegLog from '../BothModals/InputRegLog';
 import { useAppsStore } from '@/app/stores/useAppStore';
 import useFormHook from '@/app/hooks/useFormHook';
@@ -9,20 +11,10 @@ import { SubmitHandler, FieldValues } from 'react-hook-form';
 import { serviceGetColors } from '@/app/services/service-register';
 
 const FormAvatar = () => {
-  const {
-    email,
-    password,
-    birthdate,
-    lang,
-    username,
-    gender,
-    country,
-    avatarBackgroundColor,
-    avatarLetter,
-    avatarTextColor,
-  } = useAppsStore();
+  const { email, password, birthdate, lang, gender, country, avatarLetter } =
+    useAppsStore();
 
-  const { register, trigger, errors, isValid, handleSubmit } =
+  const { register, trigger, errors, isValid, handleSubmit, getValues } =
     useFormHook(UsernameSchema);
   const { validateSequentially } = useValidateSequentially(trigger);
 
@@ -33,6 +25,8 @@ const FormAvatar = () => {
   const postDataRegisterUser = useAppsStore(
     (state) => state.postDataRegisterUser
   );
+  const postDataAvatarUser = useAppsStore((state) => state.postDataAvatarUser);
+  const getDataUserLogged = useAppsStore((state) => state.getDataUserLogged);
 
   const handleClick: SubmitHandler<FieldValues> = async (data) => {
     await validateSequentially();
@@ -55,12 +49,23 @@ const FormAvatar = () => {
         avatarLetter: avatarLetter,
       });
 
+      // const result = getValues();
+      // console.log(result);
+
+      const response = await getDataUserLogged();
+      console.log(response);
+
       closeAvatarModal();
     }
   };
 
   return (
-    <form>
+    <form className='flex justify-center flex-col items-center'>
+      <div className=' bg-redPinterestBg rounded-full p-5 h-[100px] w-[100px] z-20 cursor-pointer '>
+        <InputAvatar>
+          <CameraIcon />
+        </InputAvatar>
+      </div>
       <InputRegLog
         type='text'
         textLabel='Nombre de usuario'

@@ -1,6 +1,5 @@
 import ModalStyled from '@/app/components/Basic/ModalStyled';
-import CameraIcon from '@/app/components/icons/CameraIcon';
-import InputAvatar from './InputAvatar';
+
 import FormAvatar from './FormAvatar';
 
 const AvatarModal = () => {
@@ -12,11 +11,6 @@ const AvatarModal = () => {
           <p className='text-center text-2xl text-black font-bold m-2 dark:text-white'>
             Foto Avatar
           </p>
-          <div className=' bg-redPinterestBg rounded-full p-5 h-[100px] w-[100px] z-20 cursor-pointer '>
-            <InputAvatar>
-              <CameraIcon />
-            </InputAvatar>
-          </div>
           <FormAvatar />
         </div>
       </ModalStyled>

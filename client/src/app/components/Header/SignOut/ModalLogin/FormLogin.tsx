@@ -7,19 +7,22 @@ import useValidateSequentially from '@/app/hooks/useValidateSequentially';
 import useFormHook from '@/app/hooks/useFormHook';
 import { useAppsStore } from '@/app/stores/useAppStore';
 import ButtonStyled from '@/app/components/Basic/ButtonStyled';
+import { AxiosError } from 'axios';
+import ErrorStyled from '@/app/components/Basic/ErrorStyled';
+import { useState } from 'react';
 
 const FormLogin = () => {
   const { register, trigger, errors, getValues, isValid } =
     useFormHook(loginSchema);
 
+  const [serverError, setServerError] = useState('');
   const { validateSequentially } = useValidateSequentially(trigger);
 
   const {
     updateStateRegisterUser,
-    email,
-    password,
     postDataLoginUser,
     closeLoginModal,
+    getDataUserLogged,
   } = useAppsStore();
 
   const handleClick = async (event: React.FormEvent) => {
@@ -28,14 +31,27 @@ const FormLogin = () => {
     if (isValid) {
       const values = getValues();
       updateStateRegisterUser('email', values.email);
-      updateStateRegisterUser('email', values.password);
+      updateStateRegisterUser('password', values.password);
 
-      postDataLoginUser({
-        emailAddress: email,
-        password: password,
-      });
+      try {
+        await postDataLoginUser({
+          emailAddress: values.email,
+          password: values.password,
+        });
 
-      closeLoginModal();
+        const response = await getDataUserLogged();
+        console.log(response);
+
+        closeLoginModal();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 404) {
+            setServerError('El email ingresado no esta registrado');
+          } else {
+            setServerError('Ocurrió un error al iniciar sesión.');
+          }
+        }
+      }
     }
   };
 
@@ -48,6 +64,7 @@ const FormLogin = () => {
         textLabel='Correo electronico'
         infoName='email'
       />
+      {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
       <InputRegLog
         register={register}
         errors={errors.password}
@@ -55,6 +72,7 @@ const FormLogin = () => {
         textLabel='Contraseña'
         infoName='password'
       />
+
       <PasswordLose />
       <ButtonStyled
         handleClick={handleClick}

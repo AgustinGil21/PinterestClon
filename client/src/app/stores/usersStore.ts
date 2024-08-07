@@ -1,13 +1,17 @@
 import { StateCreator } from 'zustand';
 import {
   serviceGetCountry,
+  serviceGetDataUserLogged,
   serviceGetGender,
   serviceGetLanguages,
+  servicePostAvatarUser,
+  servicePostEmailUser,
   servicePostLoginUser,
 } from '../services/service-register';
 import { servicePostRegisterUser } from '../services/service-register';
-import { Countries, Gender, Languages, UserLogin } from '../types';
+import { Countries, Gender, Languages, UserEmail, UserLogin } from '../types';
 import { UserRegister } from '../types';
+import { string } from 'zod';
 
 export interface UserStoreInterface {
   genders: Gender[];
@@ -30,8 +34,12 @@ export interface UserStoreInterface {
     key: keyof UserStoreInterface,
     value: string
   ) => void;
+  postDataEmailUser: (data: UserEmail) => Promise<void>;
   postDataRegisterUser: (data: UserRegister) => Promise<void>;
   postDataLoginUser: (data: UserLogin) => Promise<void>;
+  getDataUserLogged: () => Promise<void>;
+  postDataAvatarUser: (data: any) => Promise<void>;
+  user: any;
 }
 
 export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
@@ -48,6 +56,7 @@ export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
   genders: [],
   countries: [],
   languages: [],
+  user: [],
   getDataGender: async () => {
     const response = await serviceGetGender();
     set({
@@ -74,10 +83,23 @@ export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
       [key]: value,
     }));
   },
+  postDataEmailUser: async (data: UserEmail) => {
+    await servicePostEmailUser(data);
+  },
   postDataRegisterUser: async (data: UserRegister) => {
     await servicePostRegisterUser(data);
   },
+  postDataAvatarUser: async (data: any) => {
+    await servicePostAvatarUser(data);
+  },
   postDataLoginUser: async (data: UserLogin) => {
     await servicePostLoginUser(data);
+  },
+  getDataUserLogged: async () => {
+    const response = await serviceGetDataUserLogged();
+    set({
+      user: response,
+    });
+    console.log(response);
   },
 });

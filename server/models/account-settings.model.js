@@ -2,9 +2,9 @@ import { pool } from '../dbpool.js';
 import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 
 export default class EditProfileModel {
-  static async getPublicData({ id }) {
+  static async getData({ id }) {
     const response = await pool.query(
-      'SELECT username, avatar_background, avatar_letter_color, avatar_letter, name, surname, about_you, website, avatar FROM users WHERE id = $1;',
+      'SELECT email_address, account_type_id, birthdate, gender_id, lang_id, country_id FROM users WHERE id = $1;',
       [id]
     );
 
@@ -14,8 +14,6 @@ export default class EditProfileModel {
     if (response) return { response: filteredData, ok: true };
     return { response, ok: false };
   }
-
-  static async avatar({ avatarURL }) {}
 
   static async editData({
     id,

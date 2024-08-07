@@ -28,3 +28,7 @@ export type UserLogin = {
   emailAddress: string;
   password: string;
 };
+
+export type UserEmail = {
+  emailAddress: string;
+};

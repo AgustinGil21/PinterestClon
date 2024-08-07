@@ -25,7 +25,7 @@ const InputRegLog = ({
   textLabel,
 }: RegisterInterface) => {
   return (
-    <div className=' w-full'>
+    <div className='w-full '>
       <label
         className='text-black text-[12px] px-2 dark:text-white'
         htmlFor={type}
@@ -39,6 +39,7 @@ const InputRegLog = ({
         placeHolder={textLabel}
         classProps='w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px] text-sm'
       />
+
       {errors?.message && (
         <ErrorStyled>{errors?.message as string}</ErrorStyled>
       )}
