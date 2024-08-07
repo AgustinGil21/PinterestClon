@@ -10,6 +10,7 @@ export const {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,
+  NODE_ENV,
 } = process.env;
 
 export const BASE_URL = '/pinterest-clon-api';
