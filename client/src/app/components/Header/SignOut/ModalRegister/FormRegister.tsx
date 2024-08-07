@@ -54,7 +54,7 @@ const FormRegister = () => {
   };
 
   return (
-    <form className='w-full max-w-[220px] flex flex-col items-start'>
+    <form className='w-full max-w-[220px] flex flex-col items-center'>
       <InputRegLog
         register={register}
         errors={errors.email}
@@ -63,7 +63,7 @@ const FormRegister = () => {
         infoName='email'
       />
       {serverError && (
-        <div>
+        <div className='relative right-[4px]'>
           {' '}
           <ErrorStyled>{serverError}</ErrorStyled>
         </div>
@@ -90,7 +90,9 @@ const FormRegister = () => {
       >
         Continuar
       </ButtonStyled>
-      <span className='text-black my-0.5 text-[16px] dark:text-white'>o</span>
+      <span className='text-black my-0.5 text-[16px] text-center dark:text-white'>
+        o
+      </span>
       <ButtonGoogleSession />
     </form>
   );
