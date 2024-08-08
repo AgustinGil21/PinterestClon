@@ -93,7 +93,6 @@ export default class AuthController {
           id,
         });
 
-        // res.cookie('access_token', accessToken, cookieOptions);
         res
           .status(200)
           .cookie('access_token', accessToken, cookieOptions)
