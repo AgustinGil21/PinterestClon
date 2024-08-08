@@ -16,7 +16,12 @@ export const app = express();
 app.use(json());
 app.use(cookieParser());
 app.disable('x-powered-by');
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
 
 app.use(`${BASE_URL}`, UserDataRoute);
 app.use(`${BASE_URL}/auth`, AuthRoutes);

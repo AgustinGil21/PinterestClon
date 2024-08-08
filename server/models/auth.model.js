@@ -100,7 +100,7 @@ export default class AuthModel {
   static async resetPassword({ password, emailAddress }) {
     const encryptedPassword = await Crypt(password);
 
-    const response = pool.query(
+    const response = await pool.query(
       'UPDATE users SET password = $1 WHERE email_address = $2;',
       [encryptedPassword, emailAddress]
     );
