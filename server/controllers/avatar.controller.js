@@ -1,38 +1,30 @@
-import { v2 as cloudinary } from 'cloudinary';
-import {
-  CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET,
-  CLOUDINARY_CLOUD_NAME,
-} from '../config.js';
 import AvatarModel from '../models/avatar.model.js';
-
-cloudinary.config({
-  cloud_name: CLOUDINARY_CLOUD_NAME,
-  api_key: CLOUDINARY_API_KEY,
-  api_secret: CLOUDINARY_API_SECRET,
-});
+import cloudinary from '../utils/cloudinary.js';
+import { optimizeImg } from '../libs/optimize-image.js';
 
 export default class AvatarController {
   static async newAvatar(req, res) {
     const { id } = req.user;
-    const data = await req.formData();
-    const avatar = data.get('avatar');
 
-    if (!avatar) {
-      return res.status(400).json({ message: 'Avatar is required!' });
-    }
+    // const fileName = req.file.filename.split('.')[0];
+    // const filePath = req.file.path;
 
-    const bytes = await avatar.arrayBuffer();
-    const buffer = Buffer.from(bytes);
+    // const optimizedImg = optimizeImg({
+    //   filePath,
+    //   fileName,
+    //   width: 128,
+    //   height: 128,
+    // });
+    // console.log(optimizedImg);
 
     const avatarResponse = await new Promise((resolve, reject) => {
       cloudinary.uploader
-        .upload_stream({}, (err, result) => {
+        .upload({}, (err, result) => {
           if (err) reject(err);
 
           resolve(result);
         })
-        .end(buffer);
+        .end(req.file.path);
     });
 
     const avatarUrl = avatarResponse.secure_url;
@@ -65,7 +57,7 @@ export default class AvatarController {
         await cloudinary.uploader.destroy(public_id);
       }
     } catch (err) {
-      return res.status(400).json({ message: 'User avatar does not exists!' });
+      return res.status(400).json({ message: 'User avatar does not exist!' });
     }
 
     try {

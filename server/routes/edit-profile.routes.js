@@ -5,10 +5,6 @@ import { authRequired } from '../middlewares/validateToken.js';
 const router = Router();
 
 router.get('/', authRequired, EditProfileController.getPublicData);
-router.put(
-  '/public-data',
-  authRequired,
-  EditProfileController.changePublicData
-);
+router.put('/', authRequired, EditProfileController.changePublicData);
 
 export default router;
