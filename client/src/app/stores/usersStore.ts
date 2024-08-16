@@ -7,11 +7,18 @@ import {
   servicePostAvatarUser,
   servicePostEmailUser,
   servicePostLoginUser,
+  servicePostLogOut,
 } from '../services/service-register';
 import { servicePostRegisterUser } from '../services/service-register';
-import { Countries, Gender, Languages, UserEmail, UserLogin } from '../types';
-import { UserRegister } from '../types';
-import { string } from 'zod';
+import {
+  AvatarData,
+  Countries,
+  Gender,
+  Languages,
+  UserEmail,
+  UserLogin,
+} from '../types';
+import { UserRegister, UserData } from '../types';
 
 export interface UserStoreInterface {
   genders: Gender[];
@@ -39,7 +46,9 @@ export interface UserStoreInterface {
   postDataLoginUser: (data: UserLogin) => Promise<void>;
   getDataUserLogged: () => Promise<void>;
   postDataAvatarUser: (data: any) => Promise<void>;
-  user: any;
+  isAuth: boolean;
+  user: UserData;
+  postDataLogOut: () => Promise<void>;
 }
 
 export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
@@ -56,7 +65,21 @@ export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
   genders: [],
   countries: [],
   languages: [],
-  user: [],
+  user: {
+    account_type: 'Personal',
+    avatar_background: '',
+    avatar_letter: '',
+    avatar_letter_color: '',
+    birthdate: '',
+    country: '',
+    created_at: '',
+    email_address: '',
+    gender: 'Nonbinary',
+    id: '',
+    lang: '',
+    username: '',
+  },
+  isAuth: false,
   getDataGender: async () => {
     const response = await serviceGetGender();
     set({
@@ -89,7 +112,7 @@ export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
   postDataRegisterUser: async (data: UserRegister) => {
     await servicePostRegisterUser(data);
   },
-  postDataAvatarUser: async (data: any) => {
+  postDataAvatarUser: async (data: AvatarData) => {
     await servicePostAvatarUser(data);
   },
   postDataLoginUser: async (data: UserLogin) => {
@@ -97,9 +120,15 @@ export const createUserStore: StateCreator<UserStoreInterface> = (set) => ({
   },
   getDataUserLogged: async () => {
     const response = await serviceGetDataUserLogged();
+    console.log(response);
+    if (!response?.id) return;
     set({
+      isAuth: true,
       user: response,
     });
-    console.log(response);
+  },
+
+  postDataLogOut: async () => {
+    await servicePostLogOut();
   },
 });

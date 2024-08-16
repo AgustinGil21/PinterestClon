@@ -9,11 +9,14 @@ const SelectLanguage = () => {
   const languages = useAppsStore((state) => state.languages);
 
   useEffect(() => {
-    getDataLanguages();
+    if (languages.length === 0) {
+      getDataLanguages();
+    }
+
     if (languages.length > 0) {
       updateStateRegister('lang', languages[0].id);
     }
-  }, [getDataLanguages, updateStateRegister, languages]);
+  }, [getDataLanguages, languages.length, updateStateRegister, languages]);
 
   const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(event.target.value);

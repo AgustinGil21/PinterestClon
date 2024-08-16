@@ -2,6 +2,8 @@ import {
   genderSchema,
   CountrySchema,
   LanguageSchema,
+  UserDataSchema,
+  FileSchema,
 } from '../schemas/validation-service-api';
 import { z } from 'zod';
 
@@ -10,6 +12,10 @@ export type Gender = z.infer<typeof genderSchema>;
 export type Countries = z.infer<typeof CountrySchema>;
 
 export type Languages = z.infer<typeof LanguageSchema>;
+
+export type UserData = z.infer<typeof UserDataSchema>;
+
+export type AvatarData = z.infer<typeof FileSchema>;
 
 export type UserRegister = {
   emailAddress: string;

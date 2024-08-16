@@ -10,13 +10,14 @@ import ButtonInverse from '../BothModals/ButtonInverse';
 export const RegisterModal = () => {
   const closeBothModal = useAppsStore((state) => state.closeBothModal);
   const openLoginModal = useAppsStore((state) => state.openLoginModal);
-  const { modalRef } = useCloseModal({ closeBothModal });
+  const { modalRef } = useCloseModal({ setModal: closeBothModal });
+
   return (
-    <div className='fixed inset-0 z-40 flex items-center justify-center'>
-      <div className='absolute inset-0 bg-black opacity-50'></div>
+    <div className='fixed inset-0 flex items-center justify-center z-[200]'>
+      <div className='absolute inset-0 bg-black opacity-50 '></div>
       <ModalStyled
         modalRef={modalRef}
-        classProps='relative z-50 max-w-[395px] px-6  bg-white py-7 bottom-5 shadow-lg rounded-[30px] flex flex-col items-center'
+        classProps='relative  max-w-[395px] px-6  bg-white py-7 bottom-5 shadow-lg rounded-[30px] flex flex-col items-center '
       >
         <CloseX />
         <TextLogo>

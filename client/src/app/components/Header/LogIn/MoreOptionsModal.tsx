@@ -29,7 +29,7 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
           </span>
           <hr />
           <LinkNavigate
-            href={'#'}
+            href={'/edit-user'}
             classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 rounded-lg cursor-pointer px-2'
           >
             Configuracion

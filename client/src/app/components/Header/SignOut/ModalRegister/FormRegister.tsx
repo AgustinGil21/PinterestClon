@@ -11,24 +11,26 @@ import { useState } from 'react';
 import ErrorStyled from '@/app/components/Basic/ErrorStyled';
 
 const FormRegister = () => {
-  const { register, trigger, errors, isValid, getValues } =
-    useFormHook(registerSchema);
+  const { register, trigger, errors, getValues } = useFormHook({
+    schema: registerSchema,
+    event: 'onSubmit',
+  });
   const { validateSequentially } = useValidateSequentially(trigger);
   const openGenderModal = useAppsStore((state) => state.openGenderModal);
   const postDataEmailUser = useAppsStore((state) => state.postDataEmailUser);
   const updateStateRegisterUser = useAppsStore(
     (state) => state.updateStateRegisterUser
   );
-  const getDataUserLogged = useAppsStore((state) => state.getDataUserLogged);
+
   const [serverError, setServerError] = useState('');
 
   const handleClick = async (event: React.FormEvent) => {
     event.preventDefault();
-    await validateSequentially();
+    const validationPassed = await validateSequentially();
     const currentValues = getValues();
-    const letter = await getFirstLetter(currentValues.email);
 
-    if (isValid) {
+    if (validationPassed) {
+      const letter = await getFirstLetter(currentValues.email);
       updateStateRegisterUser('email', currentValues.email);
       updateStateRegisterUser('password', currentValues.password);
       updateStateRegisterUser('birthdate', currentValues.date);
@@ -55,33 +57,30 @@ const FormRegister = () => {
 
   return (
     <form className='w-full max-w-[220px] flex flex-col items-center'>
-      <InputRegLog
-        register={register}
-        errors={errors.email}
-        type='email'
-        textLabel='Correo electrónico'
-        infoName='email'
-      />
-      {serverError && (
-        <div className='relative right-[4px]'>
-          {' '}
-          <ErrorStyled>{serverError}</ErrorStyled>
-        </div>
-      )}
-      <InputRegLog
-        register={register}
-        errors={errors.password}
-        type='password'
-        textLabel='Contraseña'
-        infoName='password'
-      />
-      <InputRegLog
-        register={register}
-        errors={errors.date}
-        type='date'
-        textLabel='Fecha de nacimiento'
-        infoName='date'
-      />
+      <div className='flex flex-col '>
+        <InputRegLog
+          register={register}
+          errors={errors.email}
+          type='email'
+          textLabel='Correo electrónico'
+          infoName='email'
+        />
+        {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
+        <InputRegLog
+          register={register}
+          errors={errors.password}
+          type='password'
+          textLabel='Contraseña'
+          infoName='password'
+        />
+        <InputRegLog
+          register={register}
+          errors={errors.date}
+          type='date'
+          textLabel='Fecha de nacimiento'
+          infoName='date'
+        />
+      </div>
 
       <ButtonStyled
         handleClick={handleClick}

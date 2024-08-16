@@ -15,7 +15,7 @@ const DataDevs = () => {
   return (
     <>
       <button
-        className='fixed bottom-6 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300'
+        className='fixed bottom-5 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300'
         onClick={() => setModal(!modal)}
       >
         <Tooltip tooltipText='Mas' isVisible={modal}>

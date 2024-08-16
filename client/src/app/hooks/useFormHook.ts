@@ -2,7 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { ZodSchema } from 'zod';
 
-const useFormHook = (schema: ZodSchema<any>) => {
+interface UseFormHookInterface {
+  schema: ZodSchema<any>;
+  event?: 'onChange' | 'onBlur' | 'onSubmit' | 'all';
+}
+
+const useFormHook = ({ schema, event }: UseFormHookInterface) => {
   const {
     register,
     handleSubmit,
@@ -12,6 +17,7 @@ const useFormHook = (schema: ZodSchema<any>) => {
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(schema),
+    mode: event,
   });
 
   return {

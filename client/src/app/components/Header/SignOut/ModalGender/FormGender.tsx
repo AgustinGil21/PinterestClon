@@ -5,6 +5,12 @@ import { useAppsStore } from '@/app/stores/useAppStore';
 import GenderInput from './GenderInput';
 import { useEffect } from 'react';
 
+const translations: { [key: string]: string } = {
+  male: 'Masculino',
+  female: 'Femenino',
+  nonbinary: 'No binario',
+};
+
 const FormGender = () => {
   const {
     register,
@@ -37,7 +43,7 @@ const FormGender = () => {
           key={elem.id}
           register={register}
           value={elem.id}
-          textLabel={elem.name}
+          textLabel={translations[elem.name.toLowerCase()]}
           id={elem.id}
         />
       ))}

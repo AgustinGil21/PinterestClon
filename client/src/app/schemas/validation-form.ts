@@ -41,6 +41,8 @@ Caracteres permitidos: Solo puede contener letras, dígitos y los caracteres esp
 
 */
 
+export const nameAndLastnameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?$/;
+
 export const registerSchema = z.object({
   email: z
     .string({
@@ -165,4 +167,48 @@ export const RecoverPasswordSchema = z.object({
         'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial.',
     })
     .trim(),
+});
+
+//Schema de edicion Nombre y Apellido
+
+export const fullNameSchema = z.object({
+  name: z
+    .string()
+    .max(30, { message: 'El nombre no puede tener más de 30 caracteres' })
+    .regex(nameAndLastnameRegex, {
+      message:
+        'El nombre debe contener solo letras y, opcionalmente, un espacio seguido de más letras.',
+    })
+    .optional(),
+
+  lastname: z
+    .string()
+    .max(30, { message: 'El apellido no puede tener más de 30 caracteres' })
+    .regex(nameAndLastnameRegex, {
+      message:
+        'El apellido debe contener solo letras y, opcionalmente, un espacio seguido de más letras.',
+    })
+    .optional(),
+  content: z
+    .string()
+    .max(500, {
+      message: 'El contenido no puede tener más de 500 caracteres',
+    })
+    .optional(),
+  url: z
+    .string()
+    .url({ message: 'Ingresa una url valida' })
+
+    .optional(),
+  username: z
+    .string()
+    .max(24, {
+      message: 'El nombre de usuario puede contener hasta 24 caracteres.',
+    })
+    .regex(usernameRegex, {
+      message:
+        'El nombre de usuario debe contener caracteres alfanuméricos y también puede incluir caracteres especiales como . (punto) o _ (guion bajo).',
+    })
+    .trim()
+    .optional(),
 });

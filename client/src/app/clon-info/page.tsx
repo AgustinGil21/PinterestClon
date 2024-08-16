@@ -1,3 +1,7 @@
-export default function Create() {
-  return <p>Clon info</p>;
-}
+import React from 'react';
+
+const page = () => {
+  return <div>Clon-info</div>;
+};
+
+export default page;

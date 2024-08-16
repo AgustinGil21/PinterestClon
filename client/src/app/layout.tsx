@@ -4,6 +4,8 @@ import { Header } from './components/Header/Header';
 import './globals.css';
 import DataDevs from './components/DataDevs';
 import { usePathname } from 'next/navigation';
+import AsideConfig from './components/configurationProfile/AsideConfig';
+import { useAppsStore } from './stores/useAppStore';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +26,12 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
+  const routesWithoutAside = [
+    '/edit-user',
+    '/privacy-info',
+    '/admin-user',
+    '/security-profile',
+  ];
 
   return (
     <html lang='en'>
@@ -32,7 +40,11 @@ export default function RootLayout({
       >
         {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
-        <main>{children}</main>
+
+        <main className='flex '>
+          {routesWithoutAside.includes(pathname) && <AsideConfig />}
+          {children}
+        </main>
       </body>
     </html>
   );

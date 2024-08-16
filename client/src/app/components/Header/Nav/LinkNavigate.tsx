@@ -8,9 +8,9 @@ interface LinkNavigateProps {
 
 const LinkNavigate = ({ children, href, classProps }: LinkNavigateProps) => {
   return (
-    <li className={`list-none ${classProps}`}>
-      <Link href={href}>{children}</Link>
-    </li>
+    <Link href={href}>
+      <li className={`list-none  ${classProps} `}>{children}</li>
+    </Link>
   );
 };
 

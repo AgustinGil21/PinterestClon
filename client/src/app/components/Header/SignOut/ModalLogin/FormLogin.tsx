@@ -12,8 +12,10 @@ import ErrorStyled from '@/app/components/Basic/ErrorStyled';
 import { useState } from 'react';
 
 const FormLogin = () => {
-  const { register, trigger, errors, getValues, isValid } =
-    useFormHook(loginSchema);
+  const { register, trigger, errors, getValues, isValid } = useFormHook({
+    schema: loginSchema,
+    event: 'onSubmit',
+  });
 
   const [serverError, setServerError] = useState('');
   const { validateSequentially } = useValidateSequentially(trigger);
@@ -27,8 +29,8 @@ const FormLogin = () => {
 
   const handleClick = async (event: React.FormEvent) => {
     event.preventDefault();
-    await validateSequentially();
-    if (isValid) {
+    const validationPassed = await validateSequentially();
+    if (validationPassed) {
       const values = getValues();
       updateStateRegisterUser('email', values.email);
       updateStateRegisterUser('password', values.password);
@@ -46,7 +48,9 @@ const FormLogin = () => {
       } catch (error) {
         if (error instanceof AxiosError) {
           if (error.response?.status === 404) {
-            setServerError('El email ingresado no esta registrado');
+            setServerError(
+              'El email ingresado o la contraseña no esta registrada'
+            );
           } else {
             setServerError('Ocurrió un error al iniciar sesión.');
           }
@@ -57,22 +61,24 @@ const FormLogin = () => {
 
   return (
     <form className='w-full max-w-[220px] flex flex-col  items-center'>
-      <InputRegLog
-        register={register}
-        errors={errors.email}
-        type='email'
-        textLabel='Correo electronico'
-        infoName='email'
-      />
       {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
-      <InputRegLog
-        register={register}
-        errors={errors.password}
-        type='password'
-        textLabel='Contraseña'
-        infoName='password'
-      />
+      <div>
+        <InputRegLog
+          register={register}
+          errors={errors.email}
+          type='email'
+          textLabel='Correo electronico'
+          infoName='email'
+        />
 
+        <InputRegLog
+          register={register}
+          errors={errors.password}
+          type='password'
+          textLabel='Contraseña'
+          infoName='password'
+        />
+      </div>
       <PasswordLose />
       <ButtonStyled
         handleClick={handleClick}

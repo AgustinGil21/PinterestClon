@@ -9,11 +9,13 @@ const SelectCountry = () => {
   );
 
   useEffect(() => {
-    getDataCountries();
+    if (Countries.length === 0) {
+      getDataCountries();
+    }
     if (Countries.length > 0) {
       updateStateRegister('country', Countries[0].id);
     }
-  }, [Countries, updateStateRegister, getDataCountries]);
+  }, [getDataCountries, updateStateRegister, Countries]);
 
   const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
     console.log(event.target.value);

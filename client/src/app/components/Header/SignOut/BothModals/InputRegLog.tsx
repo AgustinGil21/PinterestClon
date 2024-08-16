@@ -15,6 +15,7 @@ interface RegisterInterface {
   type: string;
   textLabel: string;
   infoName: string;
+  className?: string;
 }
 
 const InputRegLog = ({
@@ -23,6 +24,7 @@ const InputRegLog = ({
   type,
   infoName,
   textLabel,
+  className,
 }: RegisterInterface) => {
   return (
     <div className='w-full '>
@@ -37,7 +39,7 @@ const InputRegLog = ({
         type={type}
         infoName={infoName}
         placeHolder={textLabel}
-        classProps='w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px] text-sm'
+        classProps={`w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px] text-sm ${className}`}
       />
 
       {errors?.message && (

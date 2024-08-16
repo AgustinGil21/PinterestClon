@@ -9,14 +9,21 @@ import useValidateSequentially from '@/app/hooks/useValidateSequentially';
 import { UsernameSchema } from '@/app/schemas/validation-form';
 import { SubmitHandler, FieldValues } from 'react-hook-form';
 import { serviceGetColors } from '@/app/services/service-register';
+import { useState } from 'react';
+import { AxiosError } from 'axios';
+import ErrorStyled from '@/app/components/Basic/ErrorStyled';
 
 const FormAvatar = () => {
   const { email, password, birthdate, lang, gender, country, avatarLetter } =
     useAppsStore();
 
   const { register, trigger, errors, isValid, handleSubmit, getValues } =
-    useFormHook(UsernameSchema);
+    useFormHook({
+      schema: UsernameSchema,
+      event: 'onSubmit',
+    });
   const { validateSequentially } = useValidateSequentially(trigger);
+  const [serverError, setServerError] = useState('');
 
   const closeAvatarModal = useAppsStore((state) => state.closeAvatarModal);
   const updateStateRegisterUser = useAppsStore(
@@ -29,40 +36,58 @@ const FormAvatar = () => {
   const getDataUserLogged = useAppsStore((state) => state.getDataUserLogged);
 
   const handleClick: SubmitHandler<FieldValues> = async (data) => {
-    await validateSequentially();
-    const resultColor = await serviceGetColors();
-    updateStateRegisterUser('username', data.username);
-    updateStateRegisterUser('avatarBackgroundColor', resultColor.hex);
-    updateStateRegisterUser('avatarTextColor', resultColor.letter);
+    const validationPassed = await validateSequentially();
 
-    if (isValid) {
-      postDataRegisterUser({
-        emailAddress: email,
-        password: password,
-        username: data.username,
-        birthdate: birthdate,
-        genderId: gender,
-        countryId: country,
-        langId: lang,
-        avatarBackground: resultColor.hex,
-        avatarLetterColor: resultColor.letter,
-        avatarLetter: avatarLetter,
-      });
+    if (validationPassed) {
+      const currentValues = getValues();
+      console.log(currentValues);
+      console.log(currentValues.avatar[0]);
 
-      // const result = getValues();
-      // console.log(result);
+      const resultColor = await serviceGetColors();
+      updateStateRegisterUser('username', data.username);
+      updateStateRegisterUser('avatarBackgroundColor', resultColor.hex);
+      updateStateRegisterUser('avatarTextColor', resultColor.letter);
 
-      const response = await getDataUserLogged();
-      console.log(response);
+      try {
+        await postDataRegisterUser({
+          emailAddress: email,
+          password: password,
+          username: data.username,
+          birthdate: birthdate,
+          genderId: gender,
+          countryId: country,
+          langId: lang,
+          avatarBackground: resultColor.hex,
+          avatarLetterColor: resultColor.letter,
+          avatarLetter: avatarLetter,
+        });
 
-      closeAvatarModal();
+        // const formData = new FormData();
+
+        // formData.append('file', currentValues.avatar[0]);
+
+        // const response = await postDataAvatarUser(formData);
+        // console.log(response);
+
+        await getDataUserLogged();
+
+        closeAvatarModal();
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            setServerError('El nombre de usuario ya esta en uso');
+          } else {
+            setServerError('Ocurrió un error al registrar el usuario');
+          }
+        }
+      }
     }
   };
 
   return (
     <form className='flex justify-center flex-col items-center'>
       <div className=' bg-redPinterestBg rounded-full p-5 h-[100px] w-[100px] z-20 cursor-pointer '>
-        <InputAvatar>
+        <InputAvatar register={register}>
           <CameraIcon />
         </InputAvatar>
       </div>
@@ -73,6 +98,7 @@ const FormAvatar = () => {
         register={register}
         infoName='username'
       />
+      {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
       <ButtonStyled
         disabled={!isValid}
         className='w-full text-white bg-redPinterestBg mt-3 hover:bg-red-700'

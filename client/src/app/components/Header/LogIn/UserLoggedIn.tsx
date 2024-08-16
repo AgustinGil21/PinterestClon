@@ -4,9 +4,11 @@ import MessageIcon from '../../icons/MessageIcon';
 import MoreOptionsModal from './MoreOptionsModal';
 import Tooltip from '../../Basic/ToolTip';
 import LinkNavigate from '../Nav/LinkNavigate';
+import { useAppsStore } from '@/app/stores/useAppStore';
 
 export const UserLoggedIn = () => {
   const [modal, setModal] = useState(false);
+  const { user } = useAppsStore();
 
   return (
     <div className='flex gap-2.5'>
@@ -19,8 +21,15 @@ export const UserLoggedIn = () => {
           href='#a'
           classProps='hover:bg-slate-200 p-2 rounded-full cursor-pointer '
         >
-          <div className='text-white bg-UserBg p-3 rounded-full w-[6px] h-[6px] text-[12px] flex justify-center items-center cursor-pointer '>
-            <Tooltip tooltipText='Tu perfil'>A</Tooltip>
+          <div
+            className='text-white bg-UserBg p-3 rounded-full w-[6px] h-[6px] text-[12px] flex justify-center items-center cursor-pointer '
+            style={{ backgroundColor: `${user.avatar_background}` }}
+          >
+            <Tooltip tooltipText='Tu perfil'>
+              <span style={{ color: `${user.avatar_letter_color}` }}>
+                {user.avatar_letter}
+              </span>
+            </Tooltip>
           </div>
         </LinkNavigate>
 
