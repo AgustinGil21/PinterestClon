@@ -9,7 +9,7 @@ import GenderRoutes from './routes/genders.routes.js';
 import LanguagesRoutes from './routes/languages.routes.js';
 import EditProfileRoutes from './routes/edit-profile.routes.js';
 import AvatarRoutes from './routes/avatar.routes.js';
-import UserDataRoute from './routes/user-data.routes.js';
+import UserHomeDataRoute from './routes/user-home-data.routes.js';
 import AccountManagementRoutes from './routes/account-management.routes.js';
 import ProfileVisibilityRoutes from './routes/profile-visibility.routes.js';
 import AccountSecurityRoutes from './routes/account-security.routes.js';
@@ -26,16 +26,18 @@ app.use(
   })
 );
 
-app.use(`${BASE_URL}`, UserDataRoute);
+const SETTINGS_BASE_URL = `${BASE_URL}/settings`;
+
+app.use(`${BASE_URL}`, UserHomeDataRoute);
 app.use(`${BASE_URL}/auth`, AuthRoutes);
 app.use(`${BASE_URL}/countries`, CountriesRoutes);
 app.use(`${BASE_URL}/genders`, GenderRoutes);
 app.use(`${BASE_URL}/languages`, LanguagesRoutes);
 app.use(`${BASE_URL}/avatar`, AvatarRoutes);
-app.use(`${BASE_URL}/settings/edit-profile`, EditProfileRoutes);
-app.use(`${BASE_URL}/settings/account-management`, AccountManagementRoutes);
-app.use(`${BASE_URL}/settings/profile-visibility`, ProfileVisibilityRoutes);
-app.use(`${BASE_URL}/settings/account-security`, AccountSecurityRoutes);
+app.use(`${SETTINGS_BASE_URL}/edit-profile`, EditProfileRoutes);
+app.use(`${SETTINGS_BASE_URL}/account-management`, AccountManagementRoutes);
+app.use(`${SETTINGS_BASE_URL}/profile-visibility`, ProfileVisibilityRoutes);
+app.use(`${SETTINGS_BASE_URL}/account-security`, AccountSecurityRoutes);
 // app.use(`${BASE_URL}/pins`); ==> home page y single pin (id)
 // app.use(`${BASE_URL}/:username`); ==> user page, boards, created pins, etc
 // app.use(`${BASE_URL}/boards`); ==> user boards
