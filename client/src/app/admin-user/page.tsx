@@ -1,11 +1,11 @@
 'use client';
-import FormAdminUser from '../components/configurationProfile/adminUser/FormAdminUser';
-import { useAppsStore } from '../stores/useAppStore';
+import FormAdminUser from './components/FormAdminUser';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 const AdminProfile = () => {
-  const { isAuth } = useAppsStore();
+  const { isAuth, user } = useAppsStore();
 
-  if (!isAuth) {
+  if (!user?.id) {
     return null;
   }
   return (

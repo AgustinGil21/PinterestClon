@@ -1,11 +1,15 @@
+'use client';
 import React from 'react';
-import Prueba from './components/Prueba';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 const SecurityProfile = () => {
+  const { user } = useAppsStore();
+
+  if (!user?.id) return null;
+
   return (
     <>
       <div>Security profile</div>
-      <Prueba></Prueba>
     </>
   );
 };

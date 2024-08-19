@@ -1,11 +1,11 @@
 'use client';
 import React from 'react';
-import { useAppsStore } from '../stores/useAppStore';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 const PrivacyInfo = () => {
-  const { isAuth } = useAppsStore();
+  const { isAuth, user } = useAppsStore();
 
-  if (!isAuth) {
+  if (!user?.id) {
     return null;
   }
   return <div>Privacy</div>;

@@ -4,7 +4,7 @@ import { authRequired } from '../middlewares/validateToken.js';
 
 const router = Router();
 
-router.post('/', AvatarController.newAvatar);
+router.post('/', authRequired, AvatarController.newAvatar);
 router.delete('/', authRequired, AvatarController.deleteAvatar);
 
 export default router;

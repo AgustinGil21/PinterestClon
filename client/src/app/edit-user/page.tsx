@@ -1,11 +1,11 @@
 'use client';
-import FormEditUser from '../components/configurationProfile/editUser/FormEditUser';
-import { useAppsStore } from '../stores/useAppStore';
+import FormEditUser from './components/FormEditUser';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 const EditUser = () => {
-  const { isAuth } = useAppsStore();
+  const { isAuth, user } = useAppsStore();
 
-  if (!isAuth) {
+  if (!user?.id) {
     return null;
   }
 

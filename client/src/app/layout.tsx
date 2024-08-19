@@ -1,11 +1,10 @@
 'use client';
 import { Roboto, Poppins, Inter } from 'next/font/google';
-import { Header } from './components/Header/Header';
+import { Header } from './interfaces/layout/Header/Header';
 import './globals.css';
-import DataDevs from './components/DataDevs';
+import DataDevs from './interfaces/layout/DataDevs';
 import { usePathname } from 'next/navigation';
-import AsideConfig from './components/configurationProfile/AsideConfig';
-import { useAppsStore } from './stores/useAppStore';
+import AsideConfig from './interfaces/layout/settingsConfig/AsideSettings';
 
 const inter = Inter({ subsets: ['latin'] });
 
