@@ -11,6 +11,7 @@ import {
 import { resend } from '../resend.js';
 import { recoverAccountEmail } from '../email.js';
 import { NODE_ENV } from '../config.js';
+import { uploadFileToCloudinary } from '../libs/cloudinary-files.js';
 
 const cookieOptions = {
   httpOnly: true,
@@ -49,6 +50,8 @@ export default class AuthController {
   }
 
   static async register(req, res) {
+    let avatar;
+
     const {
       password,
       emailAddress,
@@ -61,6 +64,14 @@ export default class AuthController {
       avatarLetterColor,
       avatarLetter,
     } = req.body;
+
+    if (req.files?.avatar) {
+      const result = await uploadFileToCloudinary(
+        req.files.avatar.tempFilePath
+      );
+
+      avatar = result.secure_url;
+    }
 
     try {
       const result = registerSchema.safeParse(req.body);
@@ -84,6 +95,7 @@ export default class AuthController {
         avatarBackground,
         avatarLetterColor,
         avatarLetter,
+        avatar,
       });
 
       if (data.ok) {

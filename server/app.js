@@ -2,6 +2,7 @@ import express, { json } from 'express';
 import { BASE_URL, PORT } from './config.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload';
 import 'dotenv/config';
 import AuthRoutes from './routes/auth.routes.js';
 import CountriesRoutes from './routes/countries.routes.js';
@@ -16,6 +17,9 @@ import AccountSecurityRoutes from './routes/account-security.routes.js';
 
 export const app = express();
 
+const safeFileNamesRegex = /^[a-zA-Z0-9_\-!@#\$%\^&\*\(\)]+(\.png|\.jpg)$/;
+const tempFileDirStr = './uploads';
+
 app.use(json({ limit: '50mb' }));
 app.use(cookieParser());
 app.disable('x-powered-by');
@@ -23,6 +27,14 @@ app.use(
   cors({
     origin: 'http://localhost:3000',
     credentials: true,
+  })
+);
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: tempFileDirStr,
+    safeFileNames: safeFileNamesRegex,
+    preserveExtension: true,
   })
 );
 
