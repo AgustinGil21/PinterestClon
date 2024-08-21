@@ -4,6 +4,7 @@ import {
   passwordRegex,
   emailRegex,
 } from '../regex/auth.regex.js';
+import { dateRegex } from '../regex/globals.regex.js';
 
 export const checkEmailAddressSchema = z.object({
   emailAddress: z
@@ -82,7 +83,7 @@ export const registerSchema = z.object({
       required_error: 'Birthdate is required.',
       message: 'Password must be a string.',
     })
-    .date({
+    .regex(dateRegex, {
       message: 'Birthdate must be a valid date.',
     }),
   genderId: z

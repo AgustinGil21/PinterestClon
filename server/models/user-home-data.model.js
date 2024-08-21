@@ -15,4 +15,17 @@ export default class UserHomeDataModel {
 
     return { response, ok: false };
   }
+
+  static async getFollowersAndFollowingCount({ id }) {
+    const response = await pool.query(
+      'SELECT (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = $1) AS followers,(SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = $1) AS following;',
+      [id]
+    );
+
+    const [data] = response.rows;
+
+    if (response) return { response: data, ok: true };
+
+    return { response, ok: false };
+  }
 }

@@ -4,7 +4,7 @@ import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 export default class EditProfileModel {
   static async getPublicData({ id }) {
     const response = await pool.query(
-      'SELECT username, avatar_background, avatar_letter_color, avatar_letter, name, surname, about_you, website, avatar FROM users WHERE id = $1;',
+      'SELECT username, avatar_background, avatar_letter_color, avatar_letter, name, surname, about_you, website, avatar, birthdate FROM users WHERE id = $1;',
       [id]
     );
 
@@ -22,6 +22,7 @@ export default class EditProfileModel {
     surname,
     about,
     website,
+    birthdate,
   }) {
     const getPreviousUsername = await pool.query(
       'SELECT username FROM users WHERE id = $1;',
@@ -43,8 +44,8 @@ export default class EditProfileModel {
     }
 
     const response = await pool.query(
-      'UPDATE users SET name = $1, surname = $2, about_you = $3, website = $4, username = $5 WHERE id = $6;',
-      [name, surname, about, website, newUsername, id]
+      'UPDATE users SET name = $1, surname = $2, about_you = $3, website = $4, username = $5, birthdate = $6 WHERE id = $7;',
+      [name, surname, about, website, newUsername, birthdate, id]
     );
 
     const [data] = response.rows;

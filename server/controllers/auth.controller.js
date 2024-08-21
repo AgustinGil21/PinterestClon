@@ -65,14 +65,6 @@ export default class AuthController {
       avatarLetter,
     } = req.body;
 
-    if (req.files?.avatar) {
-      const result = await uploadFileToCloudinary(
-        req.files.avatar.tempFilePath
-      );
-
-      avatar = result.secure_url;
-    }
-
     try {
       const result = registerSchema.safeParse(req.body);
 
@@ -81,6 +73,14 @@ export default class AuthController {
       }
     } catch (err) {
       return res.status(500).json({ message: 'Internal error!' });
+    }
+
+    if (req.files?.avatar) {
+      const result = await uploadFileToCloudinary(
+        req.files.avatar.tempFilePath
+      );
+
+      avatar = result.secure_url;
     }
 
     try {
