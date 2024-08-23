@@ -14,6 +14,7 @@ import UserHomeDataRoute from './routes/user-home-data.routes.js';
 import AccountManagementRoutes from './routes/account-management.routes.js';
 import ProfileVisibilityRoutes from './routes/profile-visibility.routes.js';
 import AccountSecurityRoutes from './routes/account-security.routes.js';
+import PinsRoutes from './routes/pins.routes.js';
 
 export const app = express();
 
@@ -50,7 +51,7 @@ app.use(`${SETTINGS_BASE_URL}/edit-profile`, EditProfileRoutes);
 app.use(`${SETTINGS_BASE_URL}/account-management`, AccountManagementRoutes);
 app.use(`${SETTINGS_BASE_URL}/profile-visibility`, ProfileVisibilityRoutes);
 app.use(`${SETTINGS_BASE_URL}/account-security`, AccountSecurityRoutes);
-// app.use(`${BASE_URL}/pins`); ==> home page y single pin (id)
+app.use(`${BASE_URL}/pins`, PinsRoutes);
 // app.use(`${BASE_URL}/:username`); ==> user page, boards, created pins, etc
 // app.use(`${BASE_URL}/boards`); ==> user boards
 // app.use(`${BASE_URL}/created-pins`); ==> user pins
