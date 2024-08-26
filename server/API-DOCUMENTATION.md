@@ -19,9 +19,12 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/auth/register`
   "langId": "a2071c45-12e1-4c10-b240-4141b1cdc2bc",
   "avatarBackground": "#f05227",
   "avatarLetterColor": "#ffffff",
-  "avatarLetter": "N"
+  "avatarLetter": "N",
+  "avatar": file
 }
 ```
+
+(HEADERS): `"Content-type": "multipart/form-data"`
 
 [Response:] Mensaje de éxito y status 200 (OK)
 
@@ -139,6 +142,225 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/languages/b3dcac23-7006-489b-a
 [Error:] Mensaje de error y status 404 (NOT FOUND)
 
 ## Settings (PRÓXIMAMENTE)
+
+### Edit profile
+
+#### Get user public data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/settings/edit-profile`
+
+[RESPONSE]
+
+```json
+{
+  "userData": {
+    "username": "PinterestCldadon123324",
+    "avatar_background": "#f05227",
+    "avatar_letter_color": "#ffffff",
+    "avatar_letter": "N",
+    "name": "Hola",
+    "surname": "Mundo"
+  }
+}
+```
+
+#### Edit user data
+
+_*PUT*_ `http://localhost:1234/pinterest-clon-api/settings/edit-profile`
+
+[BODY]
+
+Todos son valores opcionales:
+
+```json
+{
+  "username": "MiNuevo@migo123",
+  "name": "Pablo",
+  "surname": "Dominguez",
+  "about": "Hello World",
+  "website": "https://helloWorld.com"
+}
+```
+
+#### Get user data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/settings/edit-profile`
+
+[RESPONSE]
+
+```json
+{
+  "userData": {
+    "username": "PinterestCldadon123324",
+    "avatar_background": "#f05227",
+    "avatar_letter_color": "#ffffff",
+    "avatar_letter": "N",
+    "name": "Hola",
+    "surname": "Mundo"
+  }
+}
+```
+
+### Profile visibility
+
+#### Get data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/settings/profile-visibility`
+
+[RESPONSE]
+
+```json
+{
+  "userData": {
+    "account_type": "Business",
+    "private_account": false
+  }
+}
+```
+
+#### Convert account
+
+_*PATCH*_ `http://localhost:1234/pinterest-clon-api/settings/profile-visibility/convert-account`
+
+[RESPONSE]
+
+```json
+{
+  "message": ""
+}
+```
+
+#### Private account
+
+_*PATCH*_ `http://localhost:1234/pinterest-clon-api/settings/profile-visibility/private-account`
+
+[RESPONSE]
+
+```json
+{
+  "message": ""
+}
+```
+
+### Security
+
+#### Get data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/settings/account-security`
+
+[RESPONSE]
+
+```json
+{
+  "userData": {
+    "two_factor_authentication": false
+  }
+}
+```
+
+#### Toggle 2fa
+
+_*PATCH*_ `http://localhost:1234/pinterest-clon-api/settings/account-security/2fa`
+
+[RESPONSE]
+
+```json
+{
+  "message": ""
+}
+```
+
+### Account management
+
+#### Delete account
+
+_*DELETE*_ `http://localhost:1234/pinterest-clon-api/settings/account-management/delete-account`
+
+[RESPONSE]
+
+```json
+{
+  "message": ""
+}
+```
+
+#### Get user data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/settings/account-management/`
+
+[RESPONSE]
+
+```json
+{
+  "userData": {
+    "email_address": "nuevotes32t@gmail.com",
+    "birthdate": "2006-02-20T03:00:00.000Z",
+    "gender": "Male",
+    "country": "Argentina",
+    "language": "Spanish",
+    "account_type": "Business"
+  }
+}
+```
+
+#### Edit personal info
+
+_*PUT*_ `http://localhost:1234/pinterest-clon-api/settings/account-management/personal-info`
+
+[BODY]
+
+Todos son valores opcionales:
+
+```json
+{
+  "gender": "UUID",
+  "country": "UUID",
+  "language": "UUID",
+  "emailAddress": "miemail23@gmail.com",
+  "birthdate": "2006-02-20"
+}
+```
+
+#### Change password
+
+_*PATCH*_ `http://localhost:1234/pinterest-clon-api/settings/account-management/change-password`
+
+[BODY]
+
+```json
+{
+  "prevPassword": "uSer@esdst2",
+  "newPassword": "helloWorld12@"
+}
+```
+
+## Avatar
+
+### Delete avatar
+
+_*DELETE*_ `http://localhost:1234/pinterest-clon-api/avatar`
+
+[RESPONSE]
+
+```json
+{
+  "message": "User avatar successfully deleted!"
+}
+```
+
+### New avatar
+
+_*DELETE*_ `http://localhost:1234/pinterest-clon-api/avatar`
+
+[Body]
+
+```json
+{
+  "avatar": file
+}
+```
+
+(HEADERS): `"Content-type": "multipart/form-data"`
 
 ## Posts (PRÓXIMAMENTE)
 

@@ -8,8 +8,8 @@ import { getCloudinaryPublicId } from '../libs/get-cloudinary-publicId.js';
 export default class AvatarController {
   static async newAvatar(req, res) {
     const { id } = req.user;
-    const avatar = await uploadFileToCloudinary(req.files.avatar.tempFilePath);
 
+    const avatar = await uploadFileToCloudinary(req.files.avatar.tempFilePath);
     const avatarUrl = avatar.secure_url;
 
     try {

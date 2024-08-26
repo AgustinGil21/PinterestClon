@@ -34,7 +34,6 @@ export default class CountriesController {
 
       if (data.ok) {
         const { response: country } = data;
-
         return res.status(200).json({ country });
       }
     } catch (err) {

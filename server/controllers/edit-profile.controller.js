@@ -1,6 +1,8 @@
 import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 import EditProfileModel from '../models/edit-profile.model.js';
+import { dateNow } from '../libs/date.js';
+import { editProfileSchema } from '../schemas/edit-profile.schema.js';
 
 export default class EditProfileController {
   static async getPublicData(req, res) {
@@ -23,12 +25,23 @@ export default class EditProfileController {
     const { id } = req.user;
     let userDataObject = {};
 
+    try {
+      const result = editProfileSchema.safeParse(req.body);
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
+
     const objectSkeleton = {
       username: '',
       name: '',
       surname: '',
       about: '',
       website: '',
+      birthdate: dateNow,
     };
 
     const bodyFiltered = filterFalsyValues(req.body);
@@ -45,7 +58,8 @@ export default class EditProfileController {
     }
 
     try {
-      const { username, name, surname, about, website } = userDataObject;
+      const { username, name, surname, about, website, birthdate } =
+        userDataObject;
 
       const data = await EditProfileModel.editData({
         id,
@@ -54,6 +68,7 @@ export default class EditProfileController {
         surname,
         about,
         website,
+        birthdate,
       });
 
       if (data.ok) {
