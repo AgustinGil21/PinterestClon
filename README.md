@@ -8,7 +8,8 @@ Services: Realizan las operaciones concretas con la API o la base de datos, como
 
 Ejemplo de Flujo:
 UI: Un componente de la UI solicita la información del usuario.
-Controller: El controller recibe la solicitud, llama al adapter para obtener los datos del usuario.
+Contr
+oller: El controller recibe la solicitud, llama al adapter para obtener los datos del usuario.
 Adapter: El adapter llama al servicio para obtener los datos de la API.
 Service: El servicio realiza la llamada a la API, recibe los datos, y los devuelve al adapter.
 Adapter: El adapter transforma los datos si es necesario y los devuelve al controller.
