@@ -1,6 +1,5 @@
-import { postRegisterUser } from '@/app/infrastructure/adapters/UserAdapter';
-import { UserRegister } from '../../domain/types';
+import { postRegisterUserAdapter } from '@/app/infrastructure/adapters/UserAdapter';
 
-export const registerUser = async (data: UserRegister): Promise<void> => {
-  await postRegisterUser(data);
+export const registerUserCase = async (data: FormData): Promise<void> => {
+  await postRegisterUserAdapter(data);
 };

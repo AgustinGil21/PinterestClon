@@ -3,78 +3,122 @@ import {
   serviceGetDataUserLogged,
   serviceGetGender,
   serviceGetLanguages,
-  servicePostAvatarUser,
   servicePostEmailUser,
   servicePostLoginUser,
   servicePostLogOut,
   servicePostRegisterUser,
 } from '../services/service-register';
 import {
-  AvatarData,
   Country,
   Gender,
   Language,
   UserEmail,
   UserLogin,
-  UserRegister,
-  UserData,
+  UserPublicData,
+  UserPublicDataExtraInfo,
+  UserDataAccountEdit,
 } from '../../domain/types';
+import {
+  serviceDeleteAccountUser,
+  serviceGetDataAccountManagment,
+  servicePutUserPublicData,
+} from '../services/service-user-edit';
 
-export const fetchGenders = async (): Promise<Gender[]> => {
+export const fetchGendersAdapter = async (): Promise<Gender[]> => {
   return await serviceGetGender();
 };
 
-export const fetchCountries = async (): Promise<Country[]> => {
+export const fetchCountriesAdapter = async (): Promise<Country[]> => {
   return await serviceGetCountry();
 };
 
-export const fetchLanguages = async (): Promise<Language[]> => {
+export const fetchLanguagesAdapter = async (): Promise<Language[]> => {
   return await serviceGetLanguages();
 };
 
-export const postAvatarUser = async (data: AvatarData): Promise<void> => {
-  await servicePostAvatarUser(data);
-};
-
-export const postEmailUser = async (data: UserEmail): Promise<void> => {
+export const postEmailUserAdapter = async (data: UserEmail): Promise<void> => {
   await servicePostEmailUser(data);
 };
 
-export const postLoginUser = async (data: UserLogin): Promise<void> => {
+export const postLoginUserAdapter = async (data: UserLogin): Promise<void> => {
   await servicePostLoginUser(data);
 };
 
-export const postRegisterUser = async (data: UserRegister): Promise<void> => {
+export const postRegisterUserAdapter = async (
+  data: FormData
+): Promise<void> => {
   await servicePostRegisterUser(data);
 };
 
-export const postLogOutUser = async (): Promise<void> => {
+export const postLogOutUserAdapter = async (): Promise<void> => {
   await servicePostLogOut();
 };
 
-export const fetchUserLogged = async (): Promise<UserData | null> => {
-  try {
-    const response = await serviceGetDataUserLogged();
-    if (response) {
-      return {
-        id: response.id,
-        avatar_background: response.avatar_background,
-        avatar_letter: response.avatar_letter,
-        avatar_letter_color: response.avatar_letter_color,
-        birthdate: new Date(response.birthdate).toLocaleDateString(),
-        country: response.country,
-        created_at: new Date(response.created_at).toLocaleDateString(),
-        email_address: response.email_address,
-        lang: response.lang,
-        username: response.username,
-        account_type: response.account_type,
-        gender: response.gender,
-      };
-    }
+export const fetchUserLoggedAdapter =
+  async (): Promise<UserPublicData | null> => {
+    try {
+      const response = await serviceGetDataUserLogged();
+      console.log(response);
+      if (response) {
+        return {
+          avatar_background: response.avatar_background,
+          avatar_letter: response.avatar_letter,
+          avatar_letter_color: response.avatar_letter_color,
+          email_address: response.email_address,
+          username: response.username,
+          account_type: response.account_type,
+          avatar: response.avatar,
+          name: response.name,
+          surname: response.surname,
+          about: response.about,
+          website: response.website,
+        };
+      }
 
-    return null;
+      return null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
+
+export const fetchUserEditDataAdapter =
+  async (): Promise<UserDataAccountEdit | null> => {
+    try {
+      const response = await serviceGetDataAccountManagment();
+      if (response) {
+        return {
+          email_address: response.email_address,
+          birthdate: new Date(response.birthdate).toISOString().split('T')[0],
+          country: response.country,
+          account_type: response.account_type,
+          language: response.language,
+          gender: response.gender,
+        };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+export const putUserPublicDataAdapter = async (
+  data: UserPublicDataExtraInfo
+) => {
+  try {
+    await servicePutUserPublicData(data);
   } catch (error) {
-    console.error(error);
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteUserAccountAdapter = async () => {
+  try {
+    await serviceDeleteAccountUser();
+  } catch (error) {
+    console.log(error);
     return null;
   }
 };

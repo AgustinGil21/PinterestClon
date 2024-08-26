@@ -24,6 +24,7 @@ export default class AuthModel {
     avatarBackground,
     avatarLetterColor,
     avatarLetter,
+    avatar,
   }) {
     const alreadyExists = await pool.query(
       'SELECT id FROM users WHERE username = $1;',
@@ -35,7 +36,7 @@ export default class AuthModel {
     const encryptedPassword = await Crypt(password);
 
     const response = await pool.query(
-      'INSERT INTO users(username, email_address, password, country_id, lang_id, birthdate, gender_id, created_at, avatar_background, avatar_letter, avatar_letter_color) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id;',
+      'INSERT INTO users(username, email_address, password, country_id, lang_id, birthdate, gender_id, created_at, avatar_background, avatar_letter, avatar_letter_color, avatar) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id;',
       [
         username,
         emailAddress,
@@ -48,6 +49,7 @@ export default class AuthModel {
         avatarBackground,
         avatarLetter,
         avatarLetterColor,
+        avatar,
       ]
     );
 

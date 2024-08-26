@@ -31,7 +31,7 @@ export default class AvatarModel {
       ['', id]
     );
 
-    if (response) return { response: data, ok: true };
+    if (response) return { response, ok: true };
 
     return { response, ok: false };
   }

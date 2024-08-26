@@ -35,17 +35,16 @@ export const ArrayLanguagesSchema = z.object({
 //Data user Schema
 export const UserDataSchema = z.object({
   account_type: z.enum(['Personal', 'Business']).optional(),
-  avatar_background: z.string(),
-  avatar_letter: z.string().length(1),
-  avatar_letter_color: z.string(),
-  birthdate: z.string(),
-  country: z.string(),
-  created_at: z.string(),
-  email_address: z.string().email(),
-  gender: z.enum(['Male', 'Female', 'Nonbinary']).optional(),
-  id: z.string(),
-  lang: z.string(),
-  username: z.string().min(1),
+  avatar_background: z.string().optional(),
+  avatar_letter: z.string().length(1).optional(),
+  avatar_letter_color: z.string().optional(),
+  email_address: z.string().email().optional(),
+  username: z.string().min(1).optional(),
+  avatar: z.string().optional().optional(),
+  name: z.string().min(1).max(50).optional(),
+  surname: z.string().min(1).max(50).optional(),
+  about: z.string().min(1).max(500).optional(),
+  website: z.string().url().optional(),
 });
 
 //Data Avatar Schema
@@ -58,3 +57,24 @@ export const FileSchema = z.object({
     .regex(/^image\/(png|jpg|jpeg|gif)$/, 'Tipo de archivo no soportado'),
   webkitRelativePath: z.string().optional(),
 });
+
+//User Account Managnment schema
+
+export const UserAccountManagmentSchema = z.object({
+  email_address: z
+    .string()
+    .email({ message: 'Debe ser una dirección de correo electrónico válida' }),
+  birthdate: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: 'Debe ser una fecha válida',
+  }),
+  gender: z.enum(['Male', 'Female', 'Nonbinary'], {
+    errorMap: () => ({ message: "Debe ser 'Male', 'Female' o 'Nonbinary'" }),
+  }),
+  country: z.string().min(1, { message: 'El país es obligatorio' }),
+  language: z.string().min(1, { message: 'El idioma es obligatorio' }),
+  account_type: z.enum(['Personal', 'Business'], {
+    errorMap: () => ({ message: "Debe ser 'Personal' o 'Business'" }),
+  }),
+});
+
+// export const UserExtraInfoEditSchema = z.object({});

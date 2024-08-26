@@ -19,6 +19,7 @@ const InputAvatar = ({ children, register, errors }: InputAvatarInterface) => {
     <>
       <label className={`cursor-pointer`}>
         <InputStyled
+          accept='.png, .jpg, .jpeg'
           infoName='avatar'
           type='file'
           register={register}

@@ -1,5 +1,5 @@
-import { postLogOutUser } from '@/app/infrastructure/adapters/UserAdapter';
+import { postLogOutUserAdapter } from '@/app/infrastructure/adapters/UserAdapter';
 
-export const logoutUser = async (): Promise<void> => {
-  await postLogOutUser();
+export const logoutUserCase = async (): Promise<void> => {
+  await postLogOutUserAdapter();
 };

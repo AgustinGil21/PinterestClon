@@ -5,18 +5,18 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const AsideConfig = () => {
   const pathname = usePathname();
-  const { user } = useAppsStore();
+  const { userPublicData } = useAppsStore();
 
   useEffect(() => {
     const verification = async () => {
-      if (!user?.id) {
+      if (!userPublicData?.email_address) {
         window.location.replace('/');
       }
       verification();
     };
-  }, [user]);
+  }, [userPublicData]);
 
-  if (!user?.id) {
+  if (!userPublicData?.email_address || pathname === '/') {
     return null;
   }
 

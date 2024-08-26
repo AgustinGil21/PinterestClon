@@ -1,7 +1,8 @@
-import { fetchUserLogged } from '@/app/infrastructure/adapters/UserAdapter';
-import { UserData } from '@/app/domain/types';
+import { fetchUserLoggedAdapter } from '@/app/infrastructure/adapters/UserAdapter';
+import { UserPublicData } from '@/app/domain/types';
 
-export const getUserLogged = async (): Promise<UserData | null> => {
-  const response = await fetchUserLogged();
-  return !response?.id ? null : response;
+export const getUserLoggedCase = async (): Promise<UserPublicData | null> => {
+  const response = await fetchUserLoggedAdapter();
+  console.log(response);
+  return !response ? null : response;
 };

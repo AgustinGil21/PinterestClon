@@ -1,12 +1,33 @@
 'use client';
 import FormEditUser from './components/FormEditUser';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import { useEffect, useState } from 'react';
+import Loader from '../interfaces/components/Basic/Loader';
 
 const EditUser = () => {
-  const { isAuth, user } = useAppsStore();
+  const { userPublicData, getDataUserLogged, getDataUserAccountEdit } =
+    useAppsStore();
+  const [loading, setLoading] = useState(true); // Estado de carga
 
-  if (!user?.id) {
+  useEffect(() => {
+    const loadUserData = async () => {
+      await getDataUserLogged();
+      setLoading(false);
+    };
+
+    loadUserData();
+  }, []);
+
+  if (!userPublicData?.email_address) {
     return null;
+  }
+
+  if (loading) {
+    return (
+      <section className='w-full flex justify-center '>
+        <Loader />
+      </section>
+    );
   }
 
   return (

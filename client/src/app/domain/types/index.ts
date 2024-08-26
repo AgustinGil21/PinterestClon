@@ -23,6 +23,28 @@ export interface ArrayLanguages {
   languages: Language[];
 }
 
+export interface UserPublicData {
+  account_type?: string;
+  avatar_letter?: string;
+  avatar_letter_color?: string;
+  avatar_background?: string;
+  email_address?: string;
+  username?: string;
+  avatar?: string;
+  name?: string;
+  surname?: string;
+  about?: string;
+  website?: string;
+}
+
+export interface AvatarData {
+  name: string;
+  lastModified: number;
+  size: number;
+  type: string;
+  webkitRelativePath?: string;
+}
+
 export type UserRegister = {
   emailAddress: string;
   password: string;
@@ -34,30 +56,8 @@ export type UserRegister = {
   avatarBackground: string;
   avatarLetterColor: string;
   avatarLetter: string;
+  avatar: File;
 };
-
-export interface UserData {
-  account_type?: 'Personal' | 'Business';
-  avatar_background: string;
-  avatar_letter: string;
-  avatar_letter_color: string;
-  birthdate: string;
-  country: string;
-  created_at: string;
-  email_address: string;
-  gender?: 'Male' | 'Female' | 'Nonbinary';
-  id: string;
-  lang: string;
-  username: string;
-}
-
-export interface AvatarData {
-  name: string;
-  lastModified: number;
-  size: number;
-  type: string;
-  webkitRelativePath?: string;
-}
 
 export type UserLogin = {
   emailAddress: string;
@@ -66,4 +66,21 @@ export type UserLogin = {
 
 export interface UserEmail {
   emailAddress: string;
+}
+
+export interface UserDataAccountEdit {
+  email_address: string;
+  birthdate: string;
+  gender: string;
+  country: string;
+  language: string;
+  account_type: string;
+}
+
+export interface UserPublicDataExtraInfo {
+  username?: string;
+  name?: string;
+  surname?: string;
+  about?: string;
+  website?: string;
 }

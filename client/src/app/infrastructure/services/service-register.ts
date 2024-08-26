@@ -6,14 +6,12 @@ import {
   UserDataSchema,
 } from '../schemas/validation-service-api';
 import {
-  UserRegister,
   UserLogin,
   UserEmail,
-  AvatarData,
   Country,
   Gender,
   Language,
-  UserData,
+  UserPublicData,
 } from '../../domain/types';
 
 export const serviceGetGender = async (): Promise<Gender[]> => {
@@ -81,16 +79,23 @@ export const servicePostEmailUser = async (data: UserEmail): Promise<void> => {
 };
 
 export const servicePostRegisterUser = async (
-  data: UserRegister
+  formData: FormData
 ): Promise<void> => {
   try {
-    await axios.post(
+    const response = await axios.post(
       'http://localhost:1234/pinterest-clon-api/auth/register',
-      data,
-      { withCredentials: true }
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
     );
+
+    console.log(response.status);
   } catch (error) {
-    console.error(error);
+    console.error('Error al enviar los datos:', error);
     throw error;
   }
 };
@@ -114,24 +119,15 @@ export const serviceGetDataUserLogged = async () => {
       'http://localhost:1234/pinterest-clon-api/',
       { withCredentials: true }
     );
+
+    console.log(response.data);
     const result = UserDataSchema.safeParse(response.data.userData);
+    console.log(result);
+
     return result.success ? result.data : null;
   } catch (error) {
     console.error(error);
     return null;
-  }
-};
-
-export const servicePostAvatarUser = async (
-  data: AvatarData
-): Promise<void> => {
-  try {
-    await axios.post('http://localhost:1234/pinterest-clon-api/avatar', data, {
-      withCredentials: true,
-    });
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 };
 

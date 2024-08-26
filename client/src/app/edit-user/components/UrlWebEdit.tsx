@@ -1,12 +1,47 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
-import { UseFormRegister, FieldErrors, FieldValues } from 'react-hook-form';
+import { useEffect } from 'react';
+import {
+  UseFormRegister,
+  FieldErrors,
+  FieldValues,
+  UseFormGetValues,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
 
 interface UrlWebInterface {
   errors: FieldErrors<FieldValues>;
   register: UseFormRegister<FieldValues>;
+  getValue: UseFormGetValues<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
 }
 
-const UrlWebEdit = ({ register, errors }: UrlWebInterface) => {
+const UrlWebEdit = ({
+  register,
+  errors,
+  getValue,
+  setValue,
+  watch,
+}: UrlWebInterface) => {
+  const { updateValuesExtraInfoUser, userPublicData } = useAppsStore();
+  const refUrl = watch('url');
+
+  useEffect(() => {
+    if (userPublicData?.website) {
+      setValue('url', userPublicData?.website);
+    }
+  }, [userPublicData?.website]);
+
+  useEffect(() => {
+    const currentValueUrl = getValue('url');
+
+    if (userPublicData?.website !== currentValueUrl) {
+      updateValuesExtraInfoUser(currentValueUrl, 'website');
+    }
+  }, [refUrl]);
+
   return (
     <div>
       <InputLabelStyled

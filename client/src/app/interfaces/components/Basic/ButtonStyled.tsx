@@ -1,5 +1,9 @@
 interface ButtonProps {
-  handleClick?: (event: React.FormEvent) => void;
+  handleClick?: (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.FormEvent<HTMLFormElement>
+  ) => void;
   className: string;
   children: React.ReactNode;
   type?: 'button' | 'submit';

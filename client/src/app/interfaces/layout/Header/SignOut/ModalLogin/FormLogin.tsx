@@ -41,10 +41,8 @@ const FormLogin = () => {
           password: values.password,
         });
 
-        const response = await getDataUserLogged();
-        console.log(response);
-
         closeLoginModal();
+        window.location.reload();
       } catch (error) {
         if (error instanceof AxiosError) {
           if (error.response?.status === 404) {

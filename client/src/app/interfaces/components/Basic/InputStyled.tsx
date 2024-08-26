@@ -13,10 +13,14 @@ interface InputStyledInterface {
   id?: string;
   min?: string;
   max?: string;
+  checked?: boolean;
+  defaultValue?: string;
+  accept?: string;
 }
 
 const InputStyled = ({
   type,
+  accept,
   classProps,
   placeHolder,
   register,
@@ -25,10 +29,15 @@ const InputStyled = ({
   id,
   min,
   max,
+  checked,
+  defaultValue,
 }: InputStyledInterface) => {
   return (
     <input
+      accept={accept}
+      checked={checked}
       min={min}
+      defaultValue={defaultValue}
       max={max}
       id={id}
       defaultChecked

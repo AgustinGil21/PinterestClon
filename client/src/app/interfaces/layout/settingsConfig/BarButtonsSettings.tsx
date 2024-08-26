@@ -2,17 +2,15 @@
 import { useEffect, useState } from 'react';
 import ButtonStyled from '../../components/Basic/ButtonStyled';
 import { UseFormGetValues, UseFormWatch, FieldValues } from 'react-hook-form';
-import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface InterfaceBarButtons {
   getValues: UseFormGetValues<FieldValues>;
   watch: UseFormWatch<FieldValues>;
-  handleClick?: (data: any) => Promise<void>;
+  handleClick?: (data: any) => void;
 }
 
 const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
   const [hasAnyValue, setHasAnyValue] = useState(false);
-  const { username } = useAppsStore();
 
   useEffect(() => {
     const checkValues = () => {
@@ -39,13 +37,15 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
   };
 
   return (
-    <div className='bottom-0 left-0 absolute w-full p-5 bg-white shadow-top font-semibold dark:bg-slate-800'>
+    <div className='bottom-0 left-0 fixed w-full p-5 bg-white shadow-top font-semibold dark:bg-slate-800'>
       <div className='flex flex-row gap-2 max-w-[850px] justify-end'>
         <ButtonStyled
           handleClick={handleReload}
           disabled={!hasAnyValue}
           className={`bg-buttonGreyBg py-2 font-semibold dark:text-black ${
-            !hasAnyValue ? 'opacity-50 cursor-not-allowed' : ''
+            !hasAnyValue
+              ? 'opacity-50 cursor-not-allowed'
+              : ' hover:bg-gray-300'
           }`}
         >
           Restablecer
@@ -53,10 +53,10 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
         <ButtonStyled
           handleClick={handleClick}
           disabled={!hasAnyValue}
-          className={`text-white py-2 font-semibold ${
+          className={`text-white py-2 font-semibold  ${
             !hasAnyValue
               ? 'opacity-50 bg-gray-500 cursor-not-allowed'
-              : 'bg-redPinterestBg'
+              : 'bg-redPinterestBg hover:bg-red-700'
           }`}
         >
           Guardar

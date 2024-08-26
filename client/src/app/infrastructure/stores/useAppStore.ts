@@ -3,15 +3,23 @@ import { devtools } from 'zustand/middleware';
 import { createThemeSlice, ThemeSliceInterface } from './themeSlice';
 import { createModalStore } from './modalStore';
 import { ModalStateInterface } from './modalStore';
-import { createUserStore } from './usersStore';
-import { UserStoreInterface } from './usersStore';
+import { createUserRegisterStore } from './userRegisterStore';
+import { UserRegisterStoreInterface } from './userRegisterStore';
+import {
+  createUserAccountStore,
+  UserAccountInterface,
+} from './userAccountStore';
 
-type AppState = ThemeSliceInterface & ModalStateInterface & UserStoreInterface;
+type AppState = ThemeSliceInterface &
+  ModalStateInterface &
+  UserRegisterStoreInterface &
+  UserAccountInterface;
 
 export const useAppsStore = create<AppState>()(
   devtools((...a) => ({
     ...createThemeSlice(...a),
     ...createModalStore(...a),
-    ...createUserStore(...a),
+    ...createUserRegisterStore(...a),
+    ...createUserAccountStore(...a),
   }))
 );

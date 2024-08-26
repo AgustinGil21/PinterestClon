@@ -1,55 +1,76 @@
-import React from 'react';
 import BarButtons from '@/app/interfaces/layout/settingsConfig/BarButtonsSettings';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
-import { UsernameSchema } from '@/app/infrastructure/schemas/validation-form';
-import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
-import ButtonStyled from '../../interfaces/components/Basic/ButtonStyled';
+import { EditAdminAccountSchema } from '@/app/infrastructure/schemas/validation-form';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import EmailAdmin from './EmailAdmin';
+import PasswordAdmin from './PasswordAdmin';
+import TypeAcountAdmin from './TypeAcountAdmin';
+import BirthdateAdmin from './BirthdateAdmin';
+import GendersAdmin from './GendersAdmin';
+import CountriesAdmin from './CountriesAdmin';
+import LanguagesAdmin from './LanguagesAdmin';
+import DeactiveAccount from './DeactiveAccount';
+import DeleteAccount from './DeleteAccount';
 
 const FormAdminUser = () => {
-  const { watch, handleSubmit, getValues } = useFormHook(UsernameSchema);
+  const { getDataUserAccountEdit } = useAppsStore();
 
-  const handleClick = async (data: any) => {};
+  const { watch, handleSubmit, getValues, register, errors, setValue } =
+    useFormHook({
+      schema: EditAdminAccountSchema,
+      event: 'onChange',
+    });
+
+  const handleClick = (event: any) => {
+    event.preventDefault();
+    const currentValues = getValues();
+    const hasValue = Object.values(currentValues).some(
+      (value) => typeof value === 'string' && value.trim().length > 0
+    );
+    if (!hasValue) return;
+
+    console.log(currentValues);
+  };
 
   return (
     <form>
       <div className='mt-2 flex flex-col gap-1'>
-        <div>
-          <span className='px-1.5 font-semibold'>Tu cuenta</span>
-          <InputLabelStyled
-            textLabel='Correo electrónico • Privado'
-            infoName='email'
-            type='email'
-          />
-        </div>
-        <div className='flex flex-row items-center gap-3 mt-2'>
-          <InputLabelStyled
-            textLabel='Contraseña'
-            infoName='password'
-            type='password'
-          />
-          <ButtonStyled
-            disabled={false}
-            className='bg-buttonGreyBg font-semibold mt-6'
-          >
-            Cambiar
-          </ButtonStyled>
-        </div>
-        <div className='flex flex-row items-center mt-4  justify-between'>
-          <div>
-            <span className='text-sm font-semibold'>
-              Convertir a una cuenta para empresa
-            </span>
-            <p className='text-[12px] max-w-[270px]'>
-              Con una cuenta para empresa, tendrás acceso a herramientas como
-              anuncios y analytics para hacer crecer tu negocio en Pinterest.
-            </p>
-          </div>
-          <ButtonStyled
-            disabled={false}
-            className='bg-buttonGreyBg font-semibold'
-          >
-            Convertir cuenta
-          </ButtonStyled>
+        <EmailAdmin
+          register={register}
+          errors={errors}
+          getValues={getValues}
+          watch={watch}
+          setValue={setValue}
+        />
+        <PasswordAdmin />
+
+        <TypeAcountAdmin />
+        <BirthdateAdmin
+          register={register}
+          getValues={getValues}
+          watch={watch}
+          setValue={setValue}
+        />
+
+        <GendersAdmin
+          register={register}
+          setValue={setValue}
+          getValues={getValues}
+        />
+
+        <CountriesAdmin
+          setValue={setValue}
+          register={register}
+          getValues={getValues}
+          watch={watch}
+        />
+
+        <LanguagesAdmin register={register} setValue={setValue} />
+
+        <div className='mt-4 '>
+          <span className='font-semibold'>Desactivación y eliminación</span>
+          <DeactiveAccount />
+          <DeleteAccount />
         </div>
       </div>
 

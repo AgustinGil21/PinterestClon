@@ -212,3 +212,30 @@ export const fullNameSchema = z.object({
     .trim()
     .optional(),
 });
+
+//Schema admin form
+
+export const EditAdminAccountSchema = z.object({
+  email: z
+    .string({
+      required_error: 'Se requiere dirección de correo electrónico.',
+      message: 'La dirección de correo electrónico debe ser una cadena.',
+    })
+    .email({
+      message:
+        'Por favor, introduce una dirección de correo electrónico válida.',
+    })
+    .min(12, {
+      message:
+        'La dirección de correo electrónico debe contener al menos 12 caracteres.',
+    })
+    .max(320, {
+      message:
+        'La dirección de correo electrónico puede contener hasta 320 caracteres.',
+    })
+    .regex(emailRegex, {
+      message:
+        'Por favor, introduce una dirección de correo electrónico válida.',
+    })
+    .trim(),
+});

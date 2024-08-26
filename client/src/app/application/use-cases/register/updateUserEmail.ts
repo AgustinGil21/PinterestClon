@@ -1,6 +1,6 @@
-import { postEmailUser } from '@/app/infrastructure/adapters/UserAdapter';
-import { UserEmail } from '../../domain/types';
+import { postEmailUserAdapter } from '@/app/infrastructure/adapters/UserAdapter';
+import { UserEmail } from '@/app/domain/types';
 
-export const updateUserEmail = async (data: UserEmail): Promise<void> => {
-  await postEmailUser(data);
+export const updateUserEmailCase = async (data: UserEmail): Promise<void> => {
+  await postEmailUserAdapter(data);
 };

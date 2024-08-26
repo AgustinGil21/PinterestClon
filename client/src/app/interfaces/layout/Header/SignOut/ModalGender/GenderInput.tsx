@@ -2,11 +2,13 @@ import InputStyled from '@/app/interfaces/components/Basic/InputStyled';
 import { UseFormRegister, FieldValues } from 'react-hook-form';
 
 interface GenderInputInterface {
-  register: UseFormRegister<FieldValues>;
-  value: string;
-  textLabel: string;
+  register?: UseFormRegister<FieldValues>;
+  value?: string;
+  textLabel?: string;
   defaultChecked?: boolean;
-  id: string;
+  id?: string;
+  checked?: boolean;
+  defaultValue?: string;
 }
 
 const GenderInput = ({
@@ -14,18 +16,22 @@ const GenderInput = ({
   value,
   textLabel,
   id,
+  checked,
+  defaultValue,
 }: GenderInputInterface) => {
   return (
     <div className='flex flex-row-reverse gap-4 items-center'>
       <label
         htmlFor={textLabel}
-        className='text-black dark:text-white text-nowrap'
+        className='text-black text-sm dark:text-white text-nowrap'
       >
         {textLabel}
       </label>
       <InputStyled
+        defaultValue={defaultValue}
         id={id}
         defaultChecked
+        checked={checked}
         type='radio'
         register={register}
         infoName='radio'

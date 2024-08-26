@@ -10,12 +10,13 @@ import useCloseModal from '../hooks/useCloseModal';
 
 const DataDevs = () => {
   const [modal, setModal] = useState(false);
+
   const { modalRef } = useCloseModal({ setModal });
 
   return (
     <>
       <button
-        className='fixed bottom-5 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300'
+        className='fixed bottom-3.5 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300'
         onClick={() => setModal(!modal)}
       >
         <Tooltip tooltipText='Mas' isVisible={modal}>

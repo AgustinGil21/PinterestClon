@@ -1,6 +1,6 @@
-import { fetchLanguages } from '@/app/infrastructure/adapters/UserAdapter';
+import { fetchLanguagesAdapter } from '@/app/infrastructure/adapters/UserAdapter';
 import { Language } from '@/app/domain/types';
 
-export const getLanguages = async (): Promise<Language[]> => {
-  return await fetchLanguages();
+export const getLanguagesCase = async (): Promise<Language[]> => {
+  return await fetchLanguagesAdapter();
 };

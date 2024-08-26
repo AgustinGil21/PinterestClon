@@ -15,8 +15,6 @@ export default class EditProfileModel {
     return { response, ok: false };
   }
 
-  static async avatar({ avatarURL }) {}
-
   static async editData({
     id,
     username: newUsername,
@@ -34,18 +32,18 @@ export default class EditProfileModel {
     const { username } = previousUsername;
 
     if (username !== newUsername) {
-      const checkIfAlreadyExists = await pool.query(
+      const checkIfUsernameAlreadyExists = await pool.query(
         'SELECT id FROM users WHERE username = $1;',
         [newUsername]
       );
 
-      if (checkIfAlreadyExists) {
+      if (checkIfUsernameAlreadyExists) {
         throw new Error('Username already exists, please try to another one!');
       }
     }
 
     const response = await pool.query(
-      'UPDATE users SET name = $1, surname = $2, about_you = $3, website = $4, username = $ 5 WHERE id = $6',
+      'UPDATE users SET name = $1, surname = $2, about_you = $3, website = $4, username = $5 WHERE id = $6;',
       [name, surname, about, website, newUsername, id]
     );
 

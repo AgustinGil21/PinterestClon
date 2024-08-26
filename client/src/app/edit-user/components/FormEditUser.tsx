@@ -6,12 +6,26 @@ import NameLastnameEdit from './NameLastnameEdit';
 import TextareaEdit from './TextareaEdit';
 import UrlWebEdit from './UrlWebEdit';
 import UsernameEdit from './UsernameEdit';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useEffect } from 'react';
 
 const FormEditUser = () => {
-  const { register, isValid, errors, getValues, watch } = useFormHook({
-    schema: fullNameSchema,
-    event: 'onChange',
-  });
+  const { putPublicUserData, getDataUserLogged } = useAppsStore();
+  const { register, isValid, errors, getValues, watch, setValue } = useFormHook(
+    {
+      schema: fullNameSchema,
+      event: 'onChange',
+    }
+  );
+
+  useEffect(() => {
+    const x = async () => {
+      const response = await getDataUserLogged();
+      console.log(response);
+    };
+
+    x();
+  }, []);
 
   const handleClick = async (event: any) => {
     event.preventDefault();
@@ -21,29 +35,52 @@ const FormEditUser = () => {
     );
     if (!hasValue) return;
 
+    try {
+      putPublicUserData(currentValues);
+    } catch (error) {
+      console.log(error);
+    }
+
     console.log(currentValues);
     console.log(event);
-
-    // const formData = new FormData();
-
-    // formData.append('avatar', currentValues.avatar[0]);
-
-    // const response = await postDataAvatarUser(formData);
-    // console.log(response);
   };
 
   return (
     <form>
-      <Avatar register={register} />
+      <Avatar register={register} watch={watch} />
 
-      <NameLastnameEdit register={register} errors={errors} />
+      <NameLastnameEdit
+        register={register}
+        errors={errors}
+        getValues={getValues}
+        watch={watch}
+        setValue={setValue}
+      />
 
       <div className='flex flex-col gap-2 mt-4'>
-        <TextareaEdit register={register} errors={errors} />
+        <TextareaEdit
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          watch={watch}
+          getValues={getValues}
+        />
 
-        <UrlWebEdit register={register} errors={errors} />
+        <UrlWebEdit
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          watch={watch}
+          getValue={getValues}
+        />
 
-        <UsernameEdit register={register} errors={errors} />
+        <UsernameEdit
+          register={register}
+          errors={errors}
+          setValue={setValue}
+          watch={watch}
+          getValue={getValues}
+        />
       </div>
       <BarButtons
         getValues={getValues}
