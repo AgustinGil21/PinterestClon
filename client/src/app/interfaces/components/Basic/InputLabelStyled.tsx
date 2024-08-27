@@ -38,7 +38,7 @@ const InputLabelStyled = ({
     <div className='w-full '>
       <label
         className='text-black text-[12px] px-2 dark:text-white'
-        htmlFor={type}
+        htmlFor={id}
       >
         {textLabel}
       </label>

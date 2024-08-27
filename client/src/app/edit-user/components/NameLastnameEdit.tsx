@@ -72,7 +72,7 @@ const NameLastnameEdit = ({
         value={userPublicData?.name}
       />
       <InputLabelStyled
-        textLabel='Apellidos'
+        textLabel='Apellido(s)'
         infoName='surname'
         type='text'
         register={register}

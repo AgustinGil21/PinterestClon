@@ -20,12 +20,41 @@ export const serviceGetDataAccountManagment =
     }
   };
 
+export const serviceGetEditProfileData =
+  async (): Promise<UserDataAccountEdit | null> => {
+    try {
+      const response = await axios.get(
+        'http://localhost:1234/pinterest-clon-api/settings/edit-profile/',
+        { withCredentials: true }
+      );
+
+      // if (response) response.data;
+      // return null;
+      const result = UserAccountManagmentSchema.safeParse(
+        response.data.userData
+      );
+      return result.success ? result.data : null;
+    } catch (error) {
+      return null;
+    }
+  };
+
 export const servicePutUserPublicData = async (data: UserPublicData) => {
+  console.log(data);
+
+  const newData = {
+    name: data?.name,
+    surname: data?.surname,
+    about: data?.about,
+    website: data?.website,
+    username: data?.username,
+  };
+
   try {
     const response = await axios.put(
       'http://localhost:1234/pinterest-clon-api/settings/edit-profile',
       {
-        data,
+        ...newData,
       },
       { withCredentials: true }
     );

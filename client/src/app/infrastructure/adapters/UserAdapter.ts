@@ -21,6 +21,7 @@ import {
 import {
   serviceDeleteAccountUser,
   serviceGetDataAccountManagment,
+  serviceGetEditProfileData,
   servicePutUserPublicData,
 } from '../services/service-user-edit';
 
@@ -58,7 +59,7 @@ export const fetchUserLoggedAdapter =
   async (): Promise<UserPublicData | null> => {
     try {
       const response = await serviceGetDataUserLogged();
-      console.log(response);
+
       if (response) {
         return {
           avatar_background: response.avatar_background,
@@ -85,7 +86,8 @@ export const fetchUserLoggedAdapter =
 export const fetchUserEditDataAdapter =
   async (): Promise<UserDataAccountEdit | null> => {
     try {
-      const response = await serviceGetDataAccountManagment();
+      const response = await serviceGetEditProfileData();
+
       if (response) {
         return {
           email_address: response.email_address,
