@@ -25,15 +25,15 @@ export default class EditProfileController {
     const { id } = req.user;
     let userDataObject = {};
 
-    try {
-      const result = editProfileSchema.safeParse(req.body);
+    // try {
+    //   const result = editProfileSchema.safeParse(req.body);
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     const objectSkeleton = {
       username: '',
@@ -44,14 +44,12 @@ export default class EditProfileController {
       birthdate: dateNow,
     };
 
-    const bodyFiltered = filterFalsyValues(req.body);
-
     try {
       const data = await EditProfileModel.getPublicData({ id });
 
       if (data.ok) {
         const { response: userData } = data;
-        userDataObject = objectsCompare(userData, bodyFiltered, objectSkeleton);
+        userDataObject = objectsCompare(userData, req.body, objectSkeleton);
       }
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get user data!' });

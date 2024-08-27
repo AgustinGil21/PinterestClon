@@ -27,15 +27,15 @@ export default class AccountManagementController {
     const { id } = req.user;
     let userDataObject = {};
 
-    try {
-      const result = editPersonalInfoSchema.safeParse(req.body);
+    // try {
+    //   const result = editPersonalInfoSchema.safeParse(req.body);
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     const objectSkeleton = {
       emailAddress: '',
