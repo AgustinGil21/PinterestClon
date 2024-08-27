@@ -5,9 +5,9 @@ import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const EditUser = () => {
-  const { userPublicData, getDataUserLogged, getDataUserAccountEdit } =
+  const { userPublicData, getDataUserLogged, getPublicUserData } =
     useAppsStore();
-  const [loading, setLoading] = useState(true); // Estado de carga
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUserData = async () => {

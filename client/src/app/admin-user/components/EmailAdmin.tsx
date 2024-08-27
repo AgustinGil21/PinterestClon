@@ -25,24 +25,24 @@ const EmailAdmin = ({
   watch,
   setValue,
 }: EmailAdminInterface) => {
-  const { userDatEditAccount, updateValues } = useAppsStore();
+  const { userAccountManagment, updateValues } = useAppsStore();
   const emailRef = watch('email');
 
   useEffect(() => {
     if (
-      userDatEditAccount?.email_address &&
-      getValues('email') !== userDatEditAccount.email_address
+      userAccountManagment?.email_address &&
+      getValues('email') !== userAccountManagment.email_address
     ) {
-      setValue('email', userDatEditAccount.email_address);
+      setValue('email', userAccountManagment.email_address);
     }
-  }, [setValue, userDatEditAccount?.email_address, getValues]);
+  }, [setValue, userAccountManagment?.email_address, getValues]);
 
   useEffect(() => {
     const currentValue = getValues('email');
-    if (currentValue && userDatEditAccount?.email_address !== currentValue) {
+    if (currentValue && userAccountManagment?.email_address !== currentValue) {
       updateValues(currentValue, 'email_address');
     }
-  }, [emailRef, getValues, userDatEditAccount?.email_address, updateValues]);
+  }, [emailRef, getValues, userAccountManagment?.email_address, updateValues]);
 
   return (
     <div>

@@ -25,7 +25,12 @@ const NameLastnameEdit = ({
   watch,
   setValue,
 }: NameLastnameInterface) => {
-  const { userPublicData, updateValuesExtraInfoUser } = useAppsStore();
+  const {
+    userPublicData,
+    updateValuesExtraInfoUser,
+    getDataUserLogged,
+    getPublicUserData,
+  } = useAppsStore();
 
   const refName = watch('name');
   const refSurname = watch('surname');

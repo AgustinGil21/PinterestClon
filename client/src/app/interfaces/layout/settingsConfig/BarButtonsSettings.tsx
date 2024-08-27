@@ -7,6 +7,7 @@ interface InterfaceBarButtons {
   getValues: UseFormGetValues<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   handleClick?: (data: any) => void;
+  isValid: boolean;
 }
 
 const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
@@ -30,7 +31,7 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
     return () => subscription.unsubscribe();
   }, [getValues, watch]);
 
-  const handleReload = (e: any) => {
+  const handleReload = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!hasAnyValue) return;
     window.location.reload();
@@ -40,7 +41,7 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
     <div className='bottom-0 left-0 fixed w-full p-5 bg-white shadow-top font-semibold dark:bg-slate-800'>
       <div className='flex flex-row gap-2 max-w-[850px] justify-end'>
         <ButtonStyled
-          handleClick={handleReload}
+          handleClick={() => handleReload}
           disabled={!hasAnyValue}
           className={`bg-buttonGreyBg py-2 font-semibold dark:text-black ${
             !hasAnyValue

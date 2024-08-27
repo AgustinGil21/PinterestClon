@@ -25,7 +25,7 @@ const GendersAdmin = ({
   setValue,
   getValues,
 }: GendersAdminInterface) => {
-  const { genders, getDataGender, userDatEditAccount, updateValues } =
+  const { genders, getDataGender, userAccountManagment, updateValues } =
     useAppsStore();
 
   useEffect(() => {
@@ -33,20 +33,26 @@ const GendersAdmin = ({
   }, [getDataGender]);
 
   useEffect(() => {
-    if (genders.length > 0 && userDatEditAccount?.gender) {
+    if (genders.length > 0 && userAccountManagment?.gender) {
       const radioIdGender = genders.find(
         (elem) =>
-          elem.name.toLowerCase() === userDatEditAccount.gender.toLowerCase()
+          elem.name.toLowerCase() === userAccountManagment.gender.toLowerCase()
       );
 
       if (radioIdGender) {
         setValue('radio', radioIdGender.id);
-        if (radioIdGender.name !== userDatEditAccount.gender) {
+        if (radioIdGender.name !== userAccountManagment.gender) {
           updateValues(radioIdGender.id, 'gender');
         }
       }
     }
-  }, [setValue, userDatEditAccount?.gender, genders, updateValues, getValues]);
+  }, [
+    setValue,
+    userAccountManagment?.gender,
+    genders,
+    updateValues,
+    getValues,
+  ]);
 
   return (
     <div className='flex gap-2 mt-5 flex-col'>

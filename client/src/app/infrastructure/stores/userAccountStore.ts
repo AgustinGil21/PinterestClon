@@ -8,10 +8,11 @@ import { StateCreator } from 'zustand';
 import { getUserLoggedCase } from '@/app/application/use-cases/user/getUserLogged';
 import { putUserPublicDataCase } from '@/app/application/use-cases/user/putUserPublicData';
 import { deleteUserAccountCase } from '@/app/application/use-cases/user/deleteUserAccount';
+import { getUserPublicDataCase } from '@/app/application/use-cases/user/getUserPublicData';
 
 export interface UserAccountInterface {
   getDataUserAccountEdit: () => Promise<void>;
-  userDatEditAccount: UserDataAccountEdit | null;
+  userAccountManagment: UserDataAccountEdit | null;
   getDataUserLogged: () => Promise<void>;
   isAuth: boolean;
   userPublicData: UserPublicData | null;
@@ -19,6 +20,7 @@ export interface UserAccountInterface {
   updateValuesExtraInfoUser: (value: string, key: keyof UserPublicData) => void;
   putPublicUserData: (data: UserPublicDataExtraInfo) => Promise<void>;
   deleteUserAccount: () => void;
+  getPublicUserData: () => Promise<void>;
 }
 
 export const createUserAccountStore: StateCreator<UserAccountInterface> = (
@@ -41,7 +43,7 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
     website: '',
   },
 
-  userDatEditAccount: {
+  userAccountManagment: {
     email_address: '',
     birthdate: '',
     country: '',
@@ -68,20 +70,19 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
   },
   getDataUserAccountEdit: async () => {
     const response = await getUserPrivateDataAccountCase();
-    console.log(response);
 
     set({
-      userDatEditAccount: response,
+      userAccountManagment: response,
     });
   },
   updateValues: (value: string, key: keyof UserDataAccountEdit) => {
     set((state) => ({
-      userDatEditAccount: {
-        ...state.userDatEditAccount!,
+      userAccountManagment: {
+        ...state.userAccountManagment!,
         [key]: value,
       },
     }));
-    // console.log(get().userDatEditAccount);
+    // console.log(get().userAccountManagment);
   },
   updateValuesExtraInfoUser: (value: string, key: keyof UserPublicData) => {
     set((state) => ({
@@ -95,6 +96,16 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
 
   putPublicUserData: async (data: UserPublicDataExtraInfo) => {
     await putUserPublicDataCase(data);
+  },
+
+  getPublicUserData: async () => {
+    const response = await getUserPublicDataCase();
+    console.log(response);
+    if (response) {
+      set({
+        userPublicData: response,
+      });
+    }
   },
 
   deleteUserAccount: async () => {

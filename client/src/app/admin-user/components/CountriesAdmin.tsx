@@ -16,7 +16,7 @@ interface CountriesAdminInterface {
 }
 
 const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
-  const { countries, userDatEditAccount, getDataCountries, updateValues } =
+  const { countries, userAccountManagment, getDataCountries, updateValues } =
     useAppsStore();
 
   useEffect(() => {
@@ -24,18 +24,18 @@ const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
   }, [getDataCountries]);
 
   useEffect(() => {
-    if (userDatEditAccount?.country && countries.length > 0) {
+    if (userAccountManagment?.country && countries.length > 0) {
       const selectedCountry = countries.find(
-        (elem) => elem.name === userDatEditAccount.country
+        (elem) => elem.name === userAccountManagment.country
       );
       if (selectedCountry) {
         setValue('country', selectedCountry.id);
-        if (selectedCountry.name !== userDatEditAccount.country) {
+        if (selectedCountry.name !== userAccountManagment.country) {
           updateValues(selectedCountry.id, 'country');
         }
       }
     }
-  }, [userDatEditAccount, countries, setValue, updateValues]);
+  }, [userAccountManagment, countries, setValue, updateValues]);
 
   return (
     <div className='mt-5'>

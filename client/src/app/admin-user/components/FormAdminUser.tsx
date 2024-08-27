@@ -9,17 +9,24 @@ import BirthdateAdmin from './BirthdateAdmin';
 import GendersAdmin from './GendersAdmin';
 import CountriesAdmin from './CountriesAdmin';
 import LanguagesAdmin from './LanguagesAdmin';
-import DeactiveAccount from './DeactiveAccount';
 import DeleteAccount from './DeleteAccount';
+import { isValid } from 'zod';
 
 const FormAdminUser = () => {
   const { getDataUserAccountEdit } = useAppsStore();
 
-  const { watch, handleSubmit, getValues, register, errors, setValue } =
-    useFormHook({
-      schema: EditAdminAccountSchema,
-      event: 'onChange',
-    });
+  const {
+    watch,
+    handleSubmit,
+    getValues,
+    register,
+    errors,
+    setValue,
+    isValid,
+  } = useFormHook({
+    schema: EditAdminAccountSchema,
+    event: 'onChange',
+  });
 
   const handleClick = (event: any) => {
     event.preventDefault();
@@ -69,12 +76,13 @@ const FormAdminUser = () => {
 
         <div className='mt-4 '>
           <span className='font-semibold'>Desactivación y eliminación</span>
-          <DeactiveAccount />
+
           <DeleteAccount />
         </div>
       </div>
 
       <BarButtons
+        isValid={isValid}
         watch={watch}
         handleClick={handleClick}
         getValues={getValues}

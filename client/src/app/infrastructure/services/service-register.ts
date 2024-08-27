@@ -92,8 +92,6 @@ export const servicePostRegisterUser = async (
         },
       }
     );
-
-    console.log(response.status);
   } catch (error) {
     console.error('Error al enviar los datos:', error);
     throw error;
@@ -112,7 +110,7 @@ export const servicePostLoginUser = async (data: UserLogin): Promise<void> => {
     throw error;
   }
 };
-
+//  '';
 export const serviceGetDataUserLogged = async () => {
   try {
     const response = await axios.get(

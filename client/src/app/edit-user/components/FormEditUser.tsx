@@ -10,7 +10,13 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect } from 'react';
 
 const FormEditUser = () => {
-  const { putPublicUserData, getDataUserLogged } = useAppsStore();
+  const {
+    putPublicUserData,
+    getDataUserLogged,
+    getDataUserAccountEdit,
+    getPublicUserData,
+    userPublicData,
+  } = useAppsStore();
   const { register, isValid, errors, getValues, watch, setValue } = useFormHook(
     {
       schema: fullNameSchema,
@@ -18,25 +24,42 @@ const FormEditUser = () => {
     }
   );
 
-  useEffect(() => {
-    const x = async () => {
-      const response = await getDataUserLogged();
-      console.log(response);
-    };
-
-    x();
-  }, []);
-
   const handleClick = async (event: any) => {
     event.preventDefault();
+
     const currentValues = getValues();
+
     const hasValue = Object.values(currentValues).some(
       (value) => typeof value === 'string' && value.trim().length > 0
     );
-    if (!hasValue) return;
+
+    const hasValidFields = Object.keys(currentValues).every((field) => {
+      const fieldError = errors[field];
+      const fieldValue = currentValues[field];
+      return (
+        !fieldError ||
+        (typeof fieldValue === 'string' && fieldValue.trim().length > 0)
+      );
+    });
+
+    const hasNoErrors = Object.keys(errors).length === 0;
+
+    if (!hasValue || !hasValidFields || !hasNoErrors) {
+      console.log(
+        'El formulario tiene errores o no tiene valores válidos para enviar.'
+      );
+      return;
+    }
 
     try {
-      putPublicUserData(currentValues);
+      await putPublicUserData({
+        name: userPublicData?.name,
+        surname: userPublicData?.surname,
+        about: userPublicData?.about,
+        website: userPublicData?.website,
+        username: userPublicData?.username,
+      });
+      // window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -83,6 +106,7 @@ const FormEditUser = () => {
         />
       </div>
       <BarButtons
+        isValid={isValid}
         getValues={getValues}
         handleClick={handleClick}
         watch={watch}

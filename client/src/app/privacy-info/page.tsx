@@ -3,9 +3,13 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import PrivacyOrPublicSwitch from './Components/PrivacyOrPublicSwitch';
 import Loader from '../interfaces/components/Basic/Loader';
 import { useState, useEffect } from 'react';
+import BarButtons from '../interfaces/layout/settingsConfig/BarButtonsSettings';
+import useFormHook from '../interfaces/hooks/useFormHook';
+import { UserDataSchema } from '../infrastructure/schemas/validation-service-api';
 
 const PrivacyInfo = () => {
   const { userPublicData } = useAppsStore();
+  const { watch, getValues, register, setValue } = useFormHook({});
 
   const [loading, setLoading] = useState(true);
 
@@ -38,8 +42,9 @@ const PrivacyInfo = () => {
             Administra cómo se puede ver tu perfil dentro y fuera de Pinterest.
           </p>
         </div>
-        <PrivacyOrPublicSwitch />
+        <PrivacyOrPublicSwitch register={register} setValue={setValue} />
       </div>
+      <BarButtons watch={watch} getValues={getValues} />
     </section>
   );
 };

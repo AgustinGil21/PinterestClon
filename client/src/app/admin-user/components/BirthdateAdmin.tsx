@@ -22,21 +22,21 @@ const BirthdateAdmin = ({
   getValues,
   setValue,
 }: BirthdateAdminInterface) => {
-  const { userDatEditAccount, updateValues } = useAppsStore();
+  const { userAccountManagment, updateValues } = useAppsStore();
   const ref = watch('date');
 
   useEffect(() => {
-    if (userDatEditAccount?.birthdate) {
-      setValue('date', userDatEditAccount.birthdate);
+    if (userAccountManagment?.birthdate) {
+      setValue('date', userAccountManagment.birthdate);
     }
-  }, [userDatEditAccount?.birthdate, setValue]);
+  }, [userAccountManagment?.birthdate, setValue]);
 
   useEffect(() => {
     const currentValue = getValues('date');
-    if (currentValue !== userDatEditAccount?.birthdate) {
+    if (currentValue !== userAccountManagment?.birthdate) {
       updateValues(currentValue, 'birthdate');
     }
-  }, [ref, getValues, userDatEditAccount?.birthdate, updateValues]);
+  }, [ref, getValues, userAccountManagment?.birthdate, updateValues]);
 
   return (
     <div className='mt-5'>

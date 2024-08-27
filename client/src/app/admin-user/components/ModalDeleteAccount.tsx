@@ -39,7 +39,7 @@ const ModalDeleteAccount = () => {
             </ButtonStyled>
             <ButtonStyled
               handleClick={closeDeleteUserAccountModal}
-              className='bg-buttonGreyBg font-semibold w-full hover:bg-gray-300'
+              className='bg-buttonGreyBg font-semibold w-full hover:bg-gray-300 dark:text-black'
               disabled={false}
             >
               Cancelar

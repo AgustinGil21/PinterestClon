@@ -13,6 +13,7 @@ export const Header = () => {
   useEffect(() => {
     const fetchData = async () => {
       await getDataUserLogged();
+
       setLoading(false);
     };
 

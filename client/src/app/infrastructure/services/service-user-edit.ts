@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { UserAccountManagmentSchema } from '../schemas/validation-service-api';
+import {
+  UserAccountManagmentSchema,
+  UserDataSchema,
+} from '../schemas/validation-service-api';
 import { UserDataAccountEdit, UserPublicData } from '@/app/domain/types';
 
 export const serviceGetDataAccountManagment =
@@ -21,6 +24,7 @@ export const serviceGetDataAccountManagment =
   };
 
 export const servicePutUserPublicData = async (data: UserPublicData) => {
+  console.log(data);
   try {
     const response = await axios.put(
       'http://localhost:1234/pinterest-clon-api/settings/edit-profile',
@@ -30,10 +34,13 @@ export const servicePutUserPublicData = async (data: UserPublicData) => {
       { withCredentials: true }
     );
 
+    console.log(data);
+
     console.log(response.status);
     console.log(response);
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
 
@@ -45,10 +52,15 @@ export const serviceGetUserPublicData = async () => {
       { withCredentials: true }
     );
 
-    console.log(response.status);
     console.log(response);
+    console.log(response.data);
+    const result = UserDataSchema.safeParse(response.data);
+    console.log(result.data);
+
+    return result.success ? result.data : null;
   } catch (error) {
     console.log(error);
+    return null;
   }
 };
 

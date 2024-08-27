@@ -21,6 +21,7 @@ import {
 import {
   serviceDeleteAccountUser,
   serviceGetDataAccountManagment,
+  serviceGetUserPublicData,
   servicePutUserPublicData,
 } from '../services/service-user-edit';
 
@@ -106,8 +107,34 @@ export const fetchUserEditDataAdapter =
 export const putUserPublicDataAdapter = async (
   data: UserPublicDataExtraInfo
 ) => {
+  console.log(data);
   try {
     await servicePutUserPublicData(data);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const fetchGetUserPublicDataAdapter = async () => {
+  try {
+    const response = await serviceGetUserPublicData();
+    console.log(response);
+    if (response) {
+      return {
+        avatar_background: response.avatar_background,
+        avatar_letter: response.avatar_letter,
+        avatar_letter_color: response.avatar_letter_color,
+        email_address: response.email_address,
+        username: response.username,
+        account_type: response.account_type,
+        avatar: response.avatar,
+        name: response.name,
+        surname: response.surname,
+        about: response.about,
+        website: response.website,
+      };
+    }
   } catch (error) {
     console.log(error);
     return null;

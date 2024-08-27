@@ -43,7 +43,7 @@ const InputStyled = ({
       defaultChecked
       value={value}
       type={type}
-      className={` w-full p-1 text-black outline-outline-search ${classProps}`}
+      className={` w-full p-1 text-black outline-outline-search  ${classProps}`}
       placeholder={placeHolder}
       {...(register ? register(infoName) : {})}
     />

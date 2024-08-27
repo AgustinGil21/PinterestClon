@@ -9,7 +9,7 @@ interface LanguagesAdminInterface {
 }
 
 const LanguagesAdmin = ({ register, setValue }: LanguagesAdminInterface) => {
-  const { languages, getDataLanguages, userDatEditAccount, updateValues } =
+  const { languages, getDataLanguages, userAccountManagment, updateValues } =
     useAppsStore();
 
   useEffect(() => {
@@ -17,18 +17,18 @@ const LanguagesAdmin = ({ register, setValue }: LanguagesAdminInterface) => {
   }, []);
 
   useEffect(() => {
-    if (userDatEditAccount?.language && languages.length > 0) {
+    if (userAccountManagment?.language && languages.length > 0) {
       const selectedLanguage = languages.find(
-        (elem) => elem.name === userDatEditAccount.language
+        (elem) => elem.name === userAccountManagment.language
       );
       if (selectedLanguage) {
         setValue('language', selectedLanguage.id);
-        if (selectedLanguage.name !== userDatEditAccount.language) {
+        if (selectedLanguage.name !== userAccountManagment.language) {
           updateValues(selectedLanguage.id, 'language');
         }
       }
     }
-  }, [userDatEditAccount?.language, setValue, languages, updateValues]);
+  }, [userAccountManagment?.language, setValue, languages, updateValues]);
 
   return (
     <div className='mt-1'>
