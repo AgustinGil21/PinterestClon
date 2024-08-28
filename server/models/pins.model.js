@@ -97,4 +97,37 @@ export default class PinsModel {
     if (data) return { response: { data, results }, ok: true };
     return { response, ok: false };
   }
+
+  static async searchPins({ value, page, limit }) {
+    const offset = (page - 1) * limit;
+    const searchValue = `%${value}%`;
+
+    const response = await pool.query(
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id ,users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title LIKE $1 OR alt_text LIKE $1 OR description LIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      [searchValue, limit, offset]
+    );
+
+    const data = response.rows;
+    const results = response.rowCount;
+
+    if (data) return { response: { data, results }, ok: true };
+    return { response, ok: false };
+  }
+
+  static async searchByCategory({ category, page, limit }) {
+    const offset = (page - 1) * limit;
+
+    // category = UUID
+
+    const response = await pool.query(
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id ,users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(categories) ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      [category, limit, offset]
+    );
+
+    const data = response.rows;
+    const results = response.rowCount;
+
+    if (data) return { response: { data, results }, ok: true };
+    return { response, ok: false };
+  }
 }

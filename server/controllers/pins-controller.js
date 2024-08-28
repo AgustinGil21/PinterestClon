@@ -168,4 +168,19 @@ export default class PinsController {
       return res.status(400).json({ message: 'Error' });
     }
   }
+
+  static async searchPins(req, res) {
+    const { value, page, limit } = req.query;
+
+    try {
+      const data = await PinsModel.searchPins({ value, page, limit });
+
+      if (data.ok) {
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Pins not found!' });
+    }
+  }
+
+  static async;
 }

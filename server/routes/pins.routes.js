@@ -10,5 +10,6 @@ router.get('/', PinsController.getHomePins);
 router.post('/create', authRequired, PinsController.createPin);
 router.delete('/:id', authRequired, PinsController.deletePin);
 router.put('/', authRequired, PinsController.editPin);
+router.get('/', PinsController.searchPins);
 
 export default router;
