@@ -3,7 +3,7 @@ import { pool } from '../dbpool.js';
 export default class PinsModel {
   static async getCreatedPins({ username }) {
     const response = await pool.query(
-      'SELECT body, title, url, adult_content FROM posts WHERE username = $1 GROUP BY id ORDER BY created_at ASC;',
+      'SELECT body, title, url, adult_content, alt_text FROM posts WHERE username = $1 GROUP BY id ORDER BY created_at ASC;',
       [username]
     );
 
@@ -73,7 +73,7 @@ export default class PinsModel {
 
   static async getSinglePin({ id }) {
     const response = await pool.query(
-      'SELECT posts.id AS pin_id , body, title, description, url, type_id AS pin_type, posts.created_at, topics,alt_text, COUNT(likes.post_id) AS likes, users.name, users.surname, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter, users.id AS user_id, COUNT(following_accounts.following_id) AS followers FROM posts LEFT JOIN likes ON posts.id = post_id INNER JOIN users ON users.id = posts.user_id LEFT JOIN following_accounts ON following_accounts.following_id = users.id WHERE posts.id = $1 GROUP BY posts.id, users.id;',
+      'SELECT posts.id AS pin_id , body, title, description, url,  posts.created_at, topics,alt_text, COUNT(likes.post_id) AS likes, users.name, users.surname, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter, users.id AS user_id, COUNT(following_accounts.following_id) AS followers FROM posts LEFT JOIN likes ON posts.id = post_id INNER JOIN users ON users.id = posts.user_id LEFT JOIN following_accounts ON following_accounts.following_id = users.id WHERE posts.id = $1 GROUP BY posts.id, users.id;',
       [id]
     );
 
@@ -87,7 +87,7 @@ export default class PinsModel {
     const offset = (page - 1) * limit;
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id ,users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id ORDER BY posts.id LIMIT $1 OFFSET $2;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id ORDER BY posts.id LIMIT $1 OFFSET $2;',
       [limit, offset]
     );
 
@@ -103,7 +103,7 @@ export default class PinsModel {
     const searchValue = `%${value}%`;
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id ,users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title LIKE $1 OR alt_text LIKE $1 OR description LIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title LIKE $1 OR alt_text LIKE $1 OR description LIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
       [searchValue, limit, offset]
     );
 
@@ -120,7 +120,7 @@ export default class PinsModel {
     // category = UUID
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id ,users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(categories) ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(categories) ORDER BY posts.id LIMIT $2 OFFSET $3;',
       [category, limit, offset]
     );
 

@@ -1,3 +1,4 @@
+import { deleteCloudinaryFile } from '../libs/cloudinary-files.js';
 import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 import AccountManagementModel from '../models/account-management.model.js';
@@ -185,6 +186,11 @@ export default class AccountManagementController {
       const data = await AccountManagementModel.deleteAccount({ id });
 
       if (data.ok) {
+        if (data.response) {
+          const { avatar } = data.response;
+          await deleteCloudinaryFile(avatar);
+        }
+
         return res
           .status(200)
           .json({ message: 'Account successfully deleted!' });

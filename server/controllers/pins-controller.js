@@ -2,10 +2,9 @@ import PinsModel from '../models/pins.model.js';
 import { getSinglePinSchema, deletePinSchema } from '../schemas/pins.schema.js';
 import { objectsCreator } from '../libs/objectsCreator.js';
 import {
-  destroyCloudinaryFile,
+  deleteCloudinaryFile,
   uploadFileToCloudinary,
 } from '../libs/cloudinary-files.js';
-import { getCloudinaryPublicId } from '../libs/get-cloudinary-publicId.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 
 const createPinSkeleton = {
@@ -67,6 +66,7 @@ export default class PinsController {
         return res.status(200).json({ message: 'Pin successfully created!' });
       }
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ message: 'Cannot create pin!' });
     }
   }
@@ -144,8 +144,7 @@ export default class PinsController {
     try {
       const data = await PinsModel.deletePin({ pinID, userID });
       const { body: url } = data.response;
-      const publicId = getCloudinaryPublicId(url);
-      await destroyCloudinaryFile(publicId);
+      await deleteCloudinaryFile(url);
 
       return res.status(200).json({ message: 'Pin successfully deleted!' });
     } catch (err) {
@@ -174,13 +173,28 @@ export default class PinsController {
 
     try {
       const data = await PinsModel.searchPins({ value, page, limit });
+      const { data: pins, results } = data.response;
 
       if (data.ok) {
+        return res.status(200).json({ pins, results });
       }
     } catch (err) {
       return res.status(400).json({ message: 'Pins not found!' });
     }
   }
 
-  static async;
+  static async searchByCategory(req, res) {
+    const { category, page, limit } = req.query;
+
+    try {
+      const data = await PinsModel.searchByCategory({ category, page, limit });
+      const { data: pins, results } = data.response;
+
+      if (data.ok) {
+        return res.status(200).json({ pins, results });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Pins not found!' });
+    }
+  }
 }
