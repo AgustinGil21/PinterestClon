@@ -72,7 +72,9 @@ export default class PinsController {
   }
 
   static async editPin(req, res) {
-    const { id, title, description, url, adultContent, altText } = req.body;
+    const { title, description, url, adultContent, altText } = req.body;
+    const { id } = req.params;
+
     let prevValues;
 
     try {

@@ -362,7 +362,182 @@ _*DELETE*_ `http://localhost:1234/pinterest-clon-api/avatar`
 
 (HEADERS): `"Content-type": "multipart/form-data"`
 
-## Posts (PRÓXIMAMENTE)
+## Posts
+
+### Home pins
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins?page=1&limit=10`
+
+_limit_: Máximo de pins a mostrar por carga ejecutada.
+
+_page_: Página actual en la cual se encuentra el usuario (min 0)
+
+[Response]
+
+```json
+{
+  {
+  "pins": [
+    {
+      "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874315/pinterest-clon/hupwbbc6o2lgtrh80wnz.png",
+      "title": "Me encanta",
+      "url": "",
+      "adult_content": false,
+      "pin_id": "c0898a7c-83be-4db2-864a-daa1c0f74ad7",
+      "alt_text": "Pajaros cantan",
+      "name": null,
+      "surname": null,
+      "username": "PinterestCldadon123324",
+      "avatar": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874164/pinterest-clon/k62w54pol1dkdxhh8tsj.png",
+      "avatar_background": "#f05227",
+      "avatar_letter_color": "#ffffff",
+      "avatar_letter": "N"
+    },
+    {
+      "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874181/pinterest-clon/bvvjc3tltrd7oyaa2sjg.png",
+      "title": "Este es muy nuevo",
+      "url": "",
+      "adult_content": true,
+      "pin_id": "e1d7cff3-4c59-480c-94ba-29d39b2e1992",
+      "alt_text": "Imagen anananananashe",
+      "name": null,
+      "surname": null,
+      "username": "PinterestCldadon123324",
+      "avatar": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874164/pinterest-clon/k62w54pol1dkdxhh8tsj.png",
+      "avatar_background": "#f05227",
+      "avatar_letter_color": "#ffffff",
+      "avatar_letter": "N"
+    }
+  ],
+  "results": 2
+}
+}
+```
+
+### Create pin
+
+_*POST*_ `http://localhost:1234/pinterest-clon-api/pins?page=1&limit=10`
+
+[Body] (formData)
+
+```json
+{
+  "title": "String",
+  "adultContent": "Boolean",
+  "altText": "String",
+  "description": "String",
+  "topics": "String []",
+  "url": "String",
+  "body": "File"
+}
+```
+
+### Get pin
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/:id`
+
+_:id_ => UUID Pin
+
+[Response]
+
+```json
+{
+  "pin": {
+    "pin_id": "e1d7cff3-4c59-480c-94ba-29d39b2e1992",
+    "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874181/pinterest-clon/bvvjc3tltrd7oyaa2sjg.png",
+    "title": "Este es muy nuevo",
+    "description": "Buenas tardes señor",
+    "url": "",
+    "created_at": "2024-08-28T03:00:00.000Z",
+    "topics": [],
+    "alt_text": "Imagen anananananashe",
+    "likes": "0",
+    "name": null,
+    "surname": null,
+    "avatar": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874164/pinterest-clon/k62w54pol1dkdxhh8tsj.png",
+    "avatar_background": "#f05227",
+    "avatar_letter_color": "#ffffff",
+    "avatar_letter": "N",
+    "user_id": "6a719e16-5347-4e2e-8177-9399aa6858fd",
+    "followers": "0"
+  }
+}
+```
+
+### Delete pin
+
+_*DELETE*_ `http://localhost:1234/pinterest-clon-api/pins/:id`
+
+_:id_ => UUID Pin
+
+[Response]
+
+```json
+{
+  "message": "Success"
+}
+```
+
+### Edit pin
+
+_*PUT*_ `http://localhost:1234/pinterest-clon-api/pins/:id`
+
+_:id_ => UUID Pin
+
+[Body]
+
+```json
+{
+  "title": "String",
+  "adultContent": "Boolean",
+  "altText": "String",
+  "description": "String",
+  "url": "String",
+  "body": "File"
+}
+```
+
+### Search
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/search?value=h&page=1&limit=10`
+
+_value_: Search input value
+
+_limit_: Máximo de pins a mostrar por carga ejecutada.
+
+_page_: Página actual en la cual se encuentra el usuario (min 0)
+
+[Response]
+
+```json
+{
+  "pins": [
+    {
+      "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874181/pinterest-clon/bvvjc3tltrd7oyaa2sjg.png",
+      "title": "Este es muy nuevo",
+      "url": "",
+      "adult_content": true,
+      "pin_id": "e1d7cff3-4c59-480c-94ba-29d39b2e1992",
+      "alt_text": "Imagen anananananashe",
+      "name": null,
+      "surname": null,
+      "username": "PinterestCldadon123324",
+      "avatar": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874164/pinterest-clon/k62w54pol1dkdxhh8tsj.png",
+      "avatar_background": "#f05227",
+      "avatar_letter_color": "#ffffff",
+      "avatar_letter": "N"
+    }
+  ],
+  "results": 1
+}
+```
+
+_NOTA_ El buscador toma como parámetros de búsqueda
+el title y el alt_text
+
+### Search by Category
+
+Ya esta terminado pero todavía tengo que definir algunos detalles, pero la url esta activada, pero no la uses.
 
 ## Rooms (PRÓXIMAMENTE)
 
