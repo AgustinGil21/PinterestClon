@@ -98,10 +98,13 @@ export default class AccountManagementController {
     }
 
     try {
-      await AccountManagementModel.comparePassword({
+      const result = await AccountManagementModel.comparePassword({
         id,
         prevPassword,
       });
+
+      if (!result.ok)
+        return res.status(400).json({ message: 'Invalid password' });
     } catch (err) {
       return res.status(400).json({ message: 'Invalid password' });
     }
