@@ -1,9 +1,8 @@
 import AvatarModel from '../models/avatar.model.js';
 import {
   uploadFileToCloudinary,
-  destroyCloudinaryFile,
+  deleteCloudinaryFile,
 } from '../libs/cloudinary-files.js';
-import { getCloudinaryPublicId } from '../libs/get-cloudinary-publicId.js';
 
 export default class AvatarController {
   static async newAvatar(req, res) {
@@ -29,21 +28,12 @@ export default class AvatarController {
     const { id } = req.user;
 
     try {
-      const getAvatarUrl = await AvatarModel.getAvatar({ id });
+      const data = await AvatarModel.deleteAvatar({ id });
 
-      if (getAvatarUrl.ok) {
-        const { avatar } = getAvatarUrl.response;
-        const publicId = getCloudinaryPublicId(avatar);
-        await destroyCloudinaryFile(publicId);
-      }
-    } catch (err) {
-      return res.status(400).json({ message: 'User avatar does not exist!' });
-    }
+      if (data.ok) {
+        const { avatar } = data.response;
+        await deleteCloudinaryFile(avatar);
 
-    try {
-      const response = await AvatarModel.deleteAvatar({ id });
-
-      if (response.ok) {
         return res
           .status(200)
           .json({ message: 'User avatar successfully deleted!' });

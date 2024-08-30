@@ -143,9 +143,14 @@ export default class AccountManagementModel {
   }
 
   static async deleteAccount({ id }) {
-    const response = await pool.query('DELETE FROM users WHERE id = $1;', [id]);
+    const response = await pool.query(
+      'DELETE FROM users WHERE id = $1 RETURNING avatar;',
+      [id]
+    );
 
-    if (response) return { response, ok: true };
+    const [data] = response.rows;
+
+    if (response) return { response: data, ok: true };
 
     return { response, ok: false };
   }

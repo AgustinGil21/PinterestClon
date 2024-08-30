@@ -27,12 +27,13 @@ export default class AvatarModel {
 
   static async deleteAvatar({ id }) {
     const response = await pool.query(
-      'UPDATE users SET avatar = $1 WHERE id = $2;',
+      'UPDATE users SET avatar = $1 WHERE id = $2 RETURNING avatar;',
       ['', id]
     );
 
-    if (response) return { response, ok: true };
+    const [data] = response.rows;
 
+    if (data) return { response: data, ok: true };
     return { response, ok: false };
   }
 }
