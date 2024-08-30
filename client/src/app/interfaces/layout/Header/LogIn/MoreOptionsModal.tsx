@@ -30,13 +30,13 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
           <hr />
           <LinkNavigate
             href={'/edit-user'}
-            classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 rounded-lg cursor-pointer px-2'
+            classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 rounded-lg cursor-pointer px-2 font-semibold'
           >
             Configuracion
           </LinkNavigate>
           <LinkNavigate
             href={'#'}
-            classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 rounded-lg cursor-pointer px-2'
+            classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 rounded-lg cursor-pointer px-2 font-semibold'
           >
             Información sobre el clon
           </LinkNavigate>
@@ -44,7 +44,7 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
         </div>
         <hr />
         <div className='flex items-center justify-between mt-2'>
-          <span className='text-black dark:text-white text-sm  px-2'>
+          <span className='text-black dark:text-white text-sm  px-2 font-semibold'>
             {' '}
             Light/Dark mode
           </span>

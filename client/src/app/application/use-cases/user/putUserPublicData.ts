@@ -1,6 +1,8 @@
-import { putUserPublicDataAdapter } from '@/app/infrastructure/adapters/UserAdapter';
-import { UserPublicDataExtraInfo } from '@/app/domain/types';
+import { putUserSettingsEditProfileAdapter } from '@/app/infrastructure/adapters/UserAdapter';
+import { UserSettingsEditProfile } from '@/app/domain/types';
 
-export const putUserPublicDataCase = async (data: UserPublicDataExtraInfo) => {
-  await putUserPublicDataAdapter(data);
+export const putUserSettingsEditProfileCase = async (
+  data: UserSettingsEditProfile
+) => {
+  await putUserSettingsEditProfileAdapter(data);
 };

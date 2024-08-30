@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import ButtonGoogleSession from '../BothModals/ButtonGoogleSession';
 import { registerSchema } from '@/app/infrastructure/schemas/validation-form';
 import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
@@ -7,7 +8,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import getFirstLetter from '@/app/interfaces/helpers/getFirstLetter';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { AxiosError } from 'axios';
-import { useState } from 'react';
+import EyePasswordStyled from '@/app/interfaces/components/Basic/EyePasswordStyled';
 import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
 
 const FormRegister = () => {
@@ -23,6 +24,15 @@ const FormRegister = () => {
   );
 
   const [serverError, setServerError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setShowPassword((prev) => !prev);
+  };
 
   const handleClick = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -57,7 +67,7 @@ const FormRegister = () => {
 
   return (
     <form className='w-full max-w-[220px] flex flex-col items-center'>
-      <div className='flex flex-col '>
+      <div className='flex flex-col'>
         <InputLabelStyled
           register={register}
           errors={errors.email}
@@ -66,13 +76,22 @@ const FormRegister = () => {
           infoName='email'
         />
         {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
-        <InputLabelStyled
-          register={register}
-          errors={errors.password}
-          type='password'
-          textLabel='Contraseña'
-          infoName='password'
-        />
+        <div className='w-full mt-2 relative'>
+          <InputLabelStyled
+            register={register}
+            errors={errors.password}
+            type={showPassword ? 'text' : 'password'}
+            textLabel='Contraseña'
+            infoName='password'
+            className='w-full'
+          />
+
+          <EyePasswordStyled
+            classname='left-[216px] top-[61px]'
+            showPassword={showPassword}
+            togglePasswordVisibility={togglePasswordVisibility}
+          />
+        </div>
         <InputLabelStyled
           min='1940-01-01'
           max='2008-01-01'
@@ -86,7 +105,7 @@ const FormRegister = () => {
 
       <ButtonStyled
         handleClick={handleClick}
-        className='bg-redPinterestBg w-full  text-sm mt-2 hover:bg-red-800 '
+        className='bg-redPinterestBg w-full text-sm mt-2 hover:bg-red-800'
         disabled={false}
       >
         Continuar

@@ -5,20 +5,26 @@ import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const EditUser = () => {
-  const { userPublicData, getDataUserLogged, getPublicUserData } =
-    useAppsStore();
+  const {
+    userPublicData,
+    getDataUserLogged,
+    getUserSettingsEditProfile,
+    userSettingsEditProfile,
+  } = useAppsStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUserData = async () => {
       await getDataUserLogged();
+      await getUserSettingsEditProfile();
+
       setLoading(false);
     };
 
     loadUserData();
   }, []);
 
-  if (!userPublicData?.email_address) {
+  if (!userPublicData?.username) {
     return null;
   }
 

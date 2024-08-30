@@ -29,14 +29,14 @@ export const HeaderAuth = () => {
             <div className='text-black dark:text-white flex flex-col text-sm'>
               <LinkNavigate
                 href={'#'}
-                classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 px-2 rounded-lg cursor-pointer'
+                classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 px-2 rounded-lg cursor-pointer font-semibold'
               >
                 Información sobre el clon
               </LinkNavigate>
             </div>
             <hr />
             <div className='flex items-center justify-between mt-2'>
-              <span className='text-black dark:text-white text-sm  px-2'>
+              <span className='text-black dark:text-white text-sm  px-2 font-semibold'>
                 {' '}
                 Light/Dark mode
               </span>

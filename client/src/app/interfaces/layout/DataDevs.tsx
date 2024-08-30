@@ -27,7 +27,7 @@ const DataDevs = () => {
         <ModalStyled
           modalRef={modalRef}
           classProps={
-            'right-9 bottom-20 max-w-[180px] p-2 border-[0.5px] rounded-xl  '
+            'fixed-modal right-9 top-[700px] max-w-[180px] p-2 border-[0.5px] rounded-xl  '
           }
         >
           <div className='flex flex-col text-sm gap-3'>

@@ -7,29 +7,28 @@ interface InterfaceBarButtons {
   getValues: UseFormGetValues<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   handleClick?: (data: any) => void;
-  isValid: boolean;
 }
 
 const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
-  const [hasAnyValue, setHasAnyValue] = useState(false);
+  const [hasAnyValue, setHasAnyValue] = useState(true);
 
-  useEffect(() => {
-    const checkValues = () => {
-      const currentValues = getValues();
-      const hasValue = Object.values(currentValues).some(
-        (value) => typeof value === 'string' && value.trim().length > 0
-      );
-      setHasAnyValue(hasValue);
-    };
+  // useEffect(() => {
+  //   const checkValues = () => {
+  //     const currentValues = getValues();
+  //     const hasValue = Object.values(currentValues).some(
+  //       (value) => typeof value === 'string' && value.trim().length > 0
+  //     );
+  //     setHasAnyValue(hasValue);
+  //   };
 
-    checkValues();
+  //   checkValues();
 
-    const subscription = watch(() => {
-      checkValues();
-    });
+  //   const subscription = watch(() => {
+  //     checkValues();
+  //   });
 
-    return () => subscription.unsubscribe();
-  }, [getValues, watch]);
+  //   return () => subscription.unsubscribe();
+  // }, [getValues, watch]);
 
   const handleReload = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

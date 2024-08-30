@@ -1,5 +1,4 @@
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
-import { fullNameSchema } from '@/app/infrastructure/schemas/validation-form';
 import BarButtons from '../../interfaces/layout/settingsConfig/BarButtonsSettings';
 import Avatar from './AvatarEdit';
 import NameLastnameEdit from './NameLastnameEdit';
@@ -7,22 +6,19 @@ import TextareaEdit from './TextareaEdit';
 import UrlWebEdit from './UrlWebEdit';
 import UsernameEdit from './UsernameEdit';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useEffect } from 'react';
+import { UserSettingsEditProfileValidationSchema } from '@/app/infrastructure/schemas/validation-form';
 
 const FormEditUser = () => {
   const {
-    putPublicUserData,
-    getDataUserLogged,
-    getDataUserAccountEdit,
-    getPublicUserData,
+    putUserSettingsEditProfile,
+    userSettingsEditProfile,
     userPublicData,
+    patchAvatar,
   } = useAppsStore();
-  const { register, isValid, errors, getValues, watch, setValue } = useFormHook(
-    {
-      schema: fullNameSchema,
-      event: 'onChange',
-    }
-  );
+  const { register, errors, getValues, watch, setValue } = useFormHook({
+    schema: UserSettingsEditProfileValidationSchema,
+    event: 'onChange',
+  });
 
   const handleClick = async (event: any) => {
     event.preventDefault();
@@ -51,21 +47,29 @@ const FormEditUser = () => {
       return;
     }
 
+    if (currentValues.avatar[0]) {
+      try {
+        patchAvatar({
+          avatar: currentValues.avatar[0],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
     try {
-      await putPublicUserData({
-        name: userPublicData?.name,
-        surname: userPublicData?.surname,
-        about: userPublicData?.about,
-        website: userPublicData?.website,
-        username: userPublicData?.username,
+      await putUserSettingsEditProfile({
+        username: currentValues?.username,
+        name: userSettingsEditProfile?.name,
+        surname: userSettingsEditProfile?.surname,
+        about_you: currentValues?.about_you,
+        website: currentValues.website,
       });
-      // window.location.reload();
+
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
-
-    console.log(currentValues);
-    console.log(event);
   };
 
   return (
@@ -106,7 +110,6 @@ const FormEditUser = () => {
         />
       </div>
       <BarButtons
-        isValid={isValid}
         getValues={getValues}
         handleClick={handleClick}
         watch={watch}

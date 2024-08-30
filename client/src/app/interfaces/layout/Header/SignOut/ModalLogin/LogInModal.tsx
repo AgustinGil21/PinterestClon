@@ -2,16 +2,17 @@ import ModalStyled from '../../../../components/Basic/ModalStyled';
 import TextLogo from '../BothModals/TextLogo';
 import CloseX from '../BothModals/CloseX';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 import FormLogin from './FormLogin';
 import ButtonInverse from '../BothModals/ButtonInverse';
 import InfoModalLogin from '../BothModals/InfoModal';
+import useCloseModalModalForLoginAndRegister from '@/app/interfaces/hooks/useCloseModalForLoginAndRegister';
 
 export const LogInModal = () => {
-  const closeBothModal = useAppsStore((state) => state.closeBothModal);
-  const openRegisterModal = useAppsStore((state) => state.openRegisterModal);
+  const { openRegisterModal, closeBothModal } = useAppsStore();
 
-  const { modalRef } = useCloseModal({ setModal: closeBothModal });
+  const { modalRef } = useCloseModalModalForLoginAndRegister({
+    setModal: closeBothModal,
+  });
 
   return (
     <div className='fixed inset-0  flex items-center justify-center z-[200]'>

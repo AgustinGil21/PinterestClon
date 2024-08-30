@@ -9,8 +9,12 @@ interface LanguagesAdminInterface {
 }
 
 const LanguagesAdmin = ({ register, setValue }: LanguagesAdminInterface) => {
-  const { languages, getDataLanguages, userAccountManagment, updateValues } =
-    useAppsStore();
+  const {
+    languages,
+    getDataLanguages,
+    userAccountManagment,
+    updateValuesUserAccountManagment,
+  } = useAppsStore();
 
   useEffect(() => {
     getDataLanguages();
@@ -24,18 +28,23 @@ const LanguagesAdmin = ({ register, setValue }: LanguagesAdminInterface) => {
       if (selectedLanguage) {
         setValue('language', selectedLanguage.id);
         if (selectedLanguage.name !== userAccountManagment.language) {
-          updateValues(selectedLanguage.id, 'language');
+          updateValuesUserAccountManagment(selectedLanguage.id, 'language');
         }
       }
     }
-  }, [userAccountManagment?.language, setValue, languages, updateValues]);
+  }, [
+    userAccountManagment?.language,
+    setValue,
+    languages,
+    updateValuesUserAccountManagment,
+  ]);
 
   return (
     <div className='mt-1'>
       <span className='text-[12px]'>Idioma</span>
       <select
         id='language'
-        className='w-full p-3 px-4 border-gray-200 border-2 rounded-xl text-sm mt-1 text-black'
+        className='w-full p-2.5 px-4 border-gray-300 border-[1px] rounded-xl text-sm mt-1  outline-outline-search text-black'
         {...register('language')}
       >
         {languages.map((elem) => (

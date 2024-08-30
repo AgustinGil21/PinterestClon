@@ -5,10 +5,10 @@ const MessageIcon = () => {
         aria-hidden='true'
         aria-label=''
         className='Hn_ BNH gUZ U9O kVc'
-        height='20'
+        height='22'
         role='img'
         viewBox='0 0 24 24'
-        width='20'
+        width='22'
         fill='#767676'
         cursor={'pointer'}
       >

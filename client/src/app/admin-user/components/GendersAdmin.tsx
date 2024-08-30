@@ -25,8 +25,12 @@ const GendersAdmin = ({
   setValue,
   getValues,
 }: GendersAdminInterface) => {
-  const { genders, getDataGender, userAccountManagment, updateValues } =
-    useAppsStore();
+  const {
+    genders,
+    getDataGender,
+    userAccountManagment,
+    updateValuesUserAccountManagment,
+  } = useAppsStore();
 
   useEffect(() => {
     getDataGender();
@@ -42,7 +46,7 @@ const GendersAdmin = ({
       if (radioIdGender) {
         setValue('radio', radioIdGender.id);
         if (radioIdGender.name !== userAccountManagment.gender) {
-          updateValues(radioIdGender.id, 'gender');
+          updateValuesUserAccountManagment(radioIdGender.id, 'gender');
         }
       }
     }
@@ -50,7 +54,7 @@ const GendersAdmin = ({
     setValue,
     userAccountManagment?.gender,
     genders,
-    updateValues,
+    updateValuesUserAccountManagment,
     getValues,
   ]);
 

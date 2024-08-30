@@ -1,4 +1,5 @@
 'use client';
+import React, { useState } from 'react';
 import PasswordLose from './PasswordLose';
 import ButtonGoogleSession from '../BothModals/ButtonGoogleSession';
 import { loginSchema } from '@/app/infrastructure/schemas/validation-form';
@@ -9,7 +10,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { AxiosError } from 'axios';
 import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
-import { useState } from 'react';
+import EyePasswordStyled from '@/app/interfaces/components/Basic/EyePasswordStyled';
 
 const FormLogin = () => {
   const { register, trigger, errors, getValues, isValid } = useFormHook({
@@ -18,14 +19,20 @@ const FormLogin = () => {
   });
 
   const [serverError, setServerError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault(); // Evita cualquier comportamiento predeterminado
+    event.stopPropagation(); // Detiene la propagación del evento
+    setShowPassword((prev) => !prev);
+  };
+
   const { validateSequentially } = useValidateSequentially(trigger);
 
-  const {
-    updateStateRegisterUser,
-    postDataLoginUser,
-    closeLoginModal,
-    getDataUserLogged,
-  } = useAppsStore();
+  const { updateStateRegisterUser, postDataLoginUser, closeLoginModal } =
+    useAppsStore();
 
   const handleClick = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -47,7 +54,7 @@ const FormLogin = () => {
         if (error instanceof AxiosError) {
           if (error.response?.status === 404) {
             setServerError(
-              'El email ingresado o la contraseña no esta registrada'
+              'El email ingresado o la contraseña no está registrada'
             );
           } else {
             setServerError('Ocurrió un error al iniciar sesión.');
@@ -58,36 +65,50 @@ const FormLogin = () => {
   };
 
   return (
-    <form className='w-full max-w-[220px] flex flex-col  items-center'>
+    <form
+      className='w-full max-w-[220px] flex flex-col items-center'
+      onSubmit={handleClick}
+    >
       {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
-      <div>
+      <div className='relative w-full'>
         <InputLabelStyled
           register={register}
           errors={errors.email}
           type='email'
-          textLabel='Correo electronico'
+          textLabel='Correo electrónico'
           infoName='email'
+          className='w-full'
         />
+      </div>
 
+      <div className='relative w-full mt-2'>
         <InputLabelStyled
           register={register}
           errors={errors.password}
-          type='password'
+          type={showPassword ? 'text' : 'password'}
           textLabel='Contraseña'
           infoName='password'
+          className='w-full'
+        />
+        <EyePasswordStyled
+          classname='left-[216px] top-[61px]'
+          showPassword={showPassword}
+          togglePasswordVisibility={togglePasswordVisibility}
         />
       </div>
+
       <PasswordLose />
+
       <ButtonStyled
         handleClick={handleClick}
         disabled={false}
-        className={
-          'bg-redPinterestBg w-full py-1 text-[11px] mt-2 rounded-[23px] hover:bg-red-700'
-        }
+        className='bg-redPinterestBg w-full py-1 text-[11px] mt-2 rounded-[23px] hover:bg-red-700'
+        type='submit'
       >
-        Iniciar Sesion
+        Iniciar Sesión
       </ButtonStyled>
-      <span className='text-black my-0.5 text-[16px] dark:text-white '>o</span>
+
+      <span className='text-black my-0.5 text-[16px] dark:text-white'>o</span>
       <ButtonGoogleSession />
     </form>
   );

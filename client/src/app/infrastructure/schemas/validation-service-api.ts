@@ -40,11 +40,20 @@ export const UserDataSchema = z.object({
   avatar_letter_color: z.string().optional(),
   email_address: z.string().email().optional(),
   username: z.string().min(1).optional(),
-  avatar: z.string().optional().optional(),
   name: z.string().min(1).max(50).optional(),
   surname: z.string().min(1).max(50).optional(),
-  about: z.string().min(1).max(500).optional(),
+  avatar: z.string().optional(),
+});
+
+export const UserSettingsEditProfileSchema = z.object({
+  avatar_background: z.string().optional(),
+  avatar_letter: z.string().length(1).optional(),
+  avatar_letter_color: z.string().optional(),
+  name: z.string().min(1).max(50).optional(),
+  surname: z.string().min(1).max(50).optional(),
+  about_you: z.string().min(1).max(500).optional(),
   website: z.string().url().optional(),
+  username: z.string().min(1).optional(),
 });
 
 //Data Avatar Schema
@@ -77,4 +86,7 @@ export const UserAccountManagmentSchema = z.object({
   }),
 });
 
-// export const UserExtraInfoEditSchema = z.object({});
+export const UserVisibilityAccountSchema = z.object({
+  account_type: z.enum(['Personal', 'Business']),
+  private_account: z.boolean(),
+});

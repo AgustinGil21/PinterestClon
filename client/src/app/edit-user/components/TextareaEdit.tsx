@@ -25,34 +25,40 @@ const TextareaEdit = ({
   getValues,
   watch,
 }: TextareaInterface) => {
-  const { updateValuesExtraInfoUser, userPublicData } = useAppsStore();
-  const refContent = watch('about');
+  const { updateValuesUserSettingsEditProfile, userSettingsEditProfile } =
+    useAppsStore();
+  const refContent = watch('about_you');
 
   useEffect(() => {
-    if (userPublicData?.about) {
-      setValue('about', userPublicData?.about);
+    if (userSettingsEditProfile?.about_you) {
+      setValue('about', userSettingsEditProfile?.about_you);
     }
-  }, [userPublicData?.about]);
+  }, [userSettingsEditProfile?.about_you, setValue]);
 
   useEffect(() => {
-    const currentValueContent = getValues('about');
+    const currentValueContent = getValues('about_you');
 
-    if (currentValueContent !== userPublicData?.about) {
-      updateValuesExtraInfoUser(currentValueContent, 'about');
+    if (currentValueContent !== userSettingsEditProfile?.about_you) {
+      updateValuesUserSettingsEditProfile(currentValueContent, 'about_you');
     }
-  }, [refContent]);
+  }, [
+    refContent,
+    getValues,
+    userSettingsEditProfile?.about_you,
+    updateValuesUserSettingsEditProfile,
+  ]);
 
   return (
     <div>
       <label className='text-[12px]  px-2'>Informacion</label>
       <textarea
-        {...register('about')}
+        value={userSettingsEditProfile?.about_you}
         placeholder='Cuenta tu historia'
         className='w-full rounded-[13px] py-2 px-3 h-[100px]  border-gray-300 border-[1px] text-sm outline-outline-search resize-none'
-        value={userPublicData?.about}
+        {...register('about_you')}
       ></textarea>
-      {errors.content && (
-        <ErrorStyled>{errors.content.message as string}</ErrorStyled>
+      {errors.about && (
+        <ErrorStyled>{errors.about.message as string}</ErrorStyled>
       )}
     </div>
   );

@@ -10,10 +10,9 @@ import GendersAdmin from './GendersAdmin';
 import CountriesAdmin from './CountriesAdmin';
 import LanguagesAdmin from './LanguagesAdmin';
 import DeleteAccount from './DeleteAccount';
-import { isValid } from 'zod';
 
 const FormAdminUser = () => {
-  const { getDataUserAccountEdit } = useAppsStore();
+  const { putUserAccountManagement, userAccountManagment } = useAppsStore();
 
   const {
     watch,
@@ -37,6 +36,22 @@ const FormAdminUser = () => {
     if (!hasValue) return;
 
     console.log(currentValues);
+    console.log(userAccountManagment?.gender);
+    console.log(currentValues.date);
+
+    try {
+      putUserAccountManagement({
+        gender: currentValues.radio,
+        country: currentValues.country,
+        emailAddress: currentValues.email,
+        language: currentValues.language,
+        birthdate: currentValues.date,
+      });
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -82,7 +97,6 @@ const FormAdminUser = () => {
       </div>
 
       <BarButtons
-        isValid={isValid}
         watch={watch}
         handleClick={handleClick}
         getValues={getValues}

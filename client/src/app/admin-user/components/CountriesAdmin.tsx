@@ -16,8 +16,12 @@ interface CountriesAdminInterface {
 }
 
 const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
-  const { countries, userAccountManagment, getDataCountries, updateValues } =
-    useAppsStore();
+  const {
+    countries,
+    userAccountManagment,
+    getDataCountries,
+    updateValuesUserAccountManagment,
+  } = useAppsStore();
 
   useEffect(() => {
     getDataCountries();
@@ -31,18 +35,23 @@ const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
       if (selectedCountry) {
         setValue('country', selectedCountry.id);
         if (selectedCountry.name !== userAccountManagment.country) {
-          updateValues(selectedCountry.id, 'country');
+          updateValuesUserAccountManagment(selectedCountry.id, 'country');
         }
       }
     }
-  }, [userAccountManagment, countries, setValue, updateValues]);
+  }, [
+    userAccountManagment,
+    countries,
+    setValue,
+    updateValuesUserAccountManagment,
+  ]);
 
   return (
     <div className='mt-5'>
       <span className='text-[12px]'>País/región</span>
       <select
         id='country'
-        className='w-full p-3 px-4 border-gray-200 border-2 rounded-xl text-sm mt-1 text-black'
+        className='w-full p-2.5 px-4 border-gray-300 border-[1px] rounded-xl text-sm mt-1  outline-outline-search text-black'
         {...register('country')}
       >
         {countries.map((elem) => (

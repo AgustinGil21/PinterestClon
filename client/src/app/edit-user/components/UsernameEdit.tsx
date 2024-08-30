@@ -25,26 +25,32 @@ const UsernameEdit = ({
   getValue,
   setValue,
 }: UsernameEdiInterface) => {
-  const { userPublicData, updateValuesExtraInfoUser } = useAppsStore();
+  const {
+    userSettingsEditProfile,
+    updateValuesUserSettingsEditProfile,
+    userPublicData,
+  } = useAppsStore();
 
   const refUsername = watch('username');
-  useEffect(() => {
-    setValue('username', userPublicData?.username);
-  }, []);
 
   useEffect(() => {
-    if (userPublicData?.username) {
-      setValue('username', userPublicData.username);
+    if (userSettingsEditProfile?.username) {
+      setValue('username', userSettingsEditProfile?.username);
     }
-  }, [userPublicData?.username]);
+  }, [userSettingsEditProfile?.username, setValue]);
 
   useEffect(() => {
     const currentValueUsername = getValue('username');
 
-    if (currentValueUsername !== userPublicData?.username) {
-      updateValuesExtraInfoUser(currentValueUsername, 'username');
+    if (currentValueUsername !== userSettingsEditProfile?.username) {
+      updateValuesUserSettingsEditProfile(currentValueUsername, 'username');
     }
-  }, [refUsername]);
+  }, [
+    refUsername,
+    getValue,
+    userSettingsEditProfile?.username,
+    updateValuesUserSettingsEditProfile,
+  ]);
 
   return (
     <div>
@@ -54,10 +60,9 @@ const UsernameEdit = ({
         textLabel='Nombre de usuario'
         register={register}
         errors={errors.username}
-        value={userPublicData?.username}
       />
       <span className='text-[10px] px-2 text-gray-500'>
-        www.pinterest.com/{userPublicData?.username}
+        www.pinterest.com/{userSettingsEditProfile?.username}
       </span>
     </div>
   );

@@ -25,45 +25,45 @@ const NameLastnameEdit = ({
   watch,
   setValue,
 }: NameLastnameInterface) => {
-  const {
-    userPublicData,
-    updateValuesExtraInfoUser,
-    getDataUserLogged,
-    getPublicUserData,
-  } = useAppsStore();
+  const { userSettingsEditProfile, updateValuesUserSettingsEditProfile } =
+    useAppsStore();
 
   const refName = watch('name');
   const refSurname = watch('surname');
 
   useEffect(() => {
-    if (userPublicData?.name) {
-      setValue('name', userPublicData?.name);
+    if (userSettingsEditProfile?.name) {
+      setValue('name', userSettingsEditProfile?.name);
     }
 
-    if (userPublicData?.surname) {
-      setValue('surname', userPublicData?.surname);
+    if (userSettingsEditProfile?.surname) {
+      setValue('surname', userSettingsEditProfile?.surname);
     }
-  }, [userPublicData?.surname, userPublicData?.name, setValue]);
+  }, [
+    userSettingsEditProfile?.surname,
+    userSettingsEditProfile?.name,
+    setValue,
+  ]);
 
   useEffect(() => {
     const currentValueName = getValues('name');
 
-    if (currentValueName !== userPublicData?.name) {
-      updateValuesExtraInfoUser(currentValueName, 'name');
+    if (currentValueName !== userSettingsEditProfile?.name) {
+      updateValuesUserSettingsEditProfile(currentValueName, 'name');
     }
 
     const currentValueSurname = getValues('surname');
 
-    if (currentValueSurname !== userPublicData?.surname) {
-      updateValuesExtraInfoUser(currentValueSurname, 'surname');
+    if (currentValueSurname !== userSettingsEditProfile?.surname) {
+      updateValuesUserSettingsEditProfile(currentValueSurname, 'surname');
     }
   }, [
     refName,
     refSurname,
     getValues,
-    updateValuesExtraInfoUser,
-    userPublicData?.name,
-    userPublicData?.surname,
+    updateValuesUserSettingsEditProfile,
+    userSettingsEditProfile?.name,
+    userSettingsEditProfile?.surname,
   ]);
 
   return (
@@ -74,15 +74,15 @@ const NameLastnameEdit = ({
         type='text'
         register={register}
         errors={errors.name}
-        value={userPublicData?.name}
+        value={userSettingsEditProfile?.name}
       />
       <InputLabelStyled
-        textLabel='Apellidos'
+        textLabel='Apellido(s)'
         infoName='surname'
         type='text'
         register={register}
         errors={errors.lastname}
-        value={userPublicData?.surname}
+        value={userSettingsEditProfile?.surname}
       />
     </div>
   );

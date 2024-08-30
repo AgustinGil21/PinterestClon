@@ -6,6 +6,7 @@ import AvatarImageEdit from './AvatarImageEdit';
 import AvatarGenerateEdit from './AvatarGenerateEdit';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import DeleteAvatar from './DeleteAvatar';
 
 interface AvatarInterface {
   register: UseFormRegister<FieldValues>;
@@ -13,7 +14,7 @@ interface AvatarInterface {
 }
 
 const AvatarEdit = ({ register, watch }: AvatarInterface) => {
-  const { userPublicData } = useAppsStore();
+  const { userPublicData, userSettingsEditProfile } = useAppsStore();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const avatarFile = watch('avatar');
@@ -49,7 +50,7 @@ const AvatarEdit = ({ register, watch }: AvatarInterface) => {
           <AvatarGenerateEdit />
         )}
       </div>
-      <div className='mt-5'>
+      <div className='mt-5 flex flex-row gap-2 '>
         <ButtonStyled
           disabled={false}
           className='bg-buttonGreyBg hover:bg-gray-200 items-center font-semibold w-fit relative cursor-pointer dark:text-black'
@@ -64,6 +65,7 @@ const AvatarEdit = ({ register, watch }: AvatarInterface) => {
             classProps='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer'
           />
         </ButtonStyled>
+        {userPublicData?.avatar && <DeleteAvatar />}
       </div>
     </div>
   );

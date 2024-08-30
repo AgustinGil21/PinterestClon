@@ -28,7 +28,7 @@ const SelectLanguage = () => {
       name='language'
       id='language'
       onChange={handleChange}
-      className='w-full p-3 px-4 border-gray-200 border-2 rounded-xl text-sm mt-2 text-black'
+      className='w-full p-2 px-4 border-gray-300 border-[1px] rounded-xl text-sm mt-2 text-black  outline-outline-search '
     >
       {languages.map((elem) => (
         <option key={elem.id} value={elem.id}>

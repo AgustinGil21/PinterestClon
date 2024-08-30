@@ -6,11 +6,14 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import FormRegister from './FormRegister';
 import InfoModalLogin from '../BothModals/InfoModal';
 import ButtonInverse from '../BothModals/ButtonInverse';
+import useCloseModalModalForLoginAndRegister from '@/app/interfaces/hooks/useCloseModalForLoginAndRegister';
 
 export const RegisterModal = () => {
   const closeBothModal = useAppsStore((state) => state.closeBothModal);
   const openLoginModal = useAppsStore((state) => state.openLoginModal);
-  const { modalRef } = useCloseModal({ setModal: closeBothModal });
+  const { modalRef } = useCloseModalModalForLoginAndRegister({
+    setModal: closeBothModal,
+  });
 
   return (
     <div className='fixed inset-0 flex items-center justify-center z-[200]'>

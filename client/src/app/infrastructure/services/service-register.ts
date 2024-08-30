@@ -11,7 +11,6 @@ import {
   Country,
   Gender,
   Language,
-  UserPublicData,
 } from '../../domain/types';
 
 export const serviceGetGender = async (): Promise<Gender[]> => {
@@ -118,9 +117,7 @@ export const serviceGetDataUserLogged = async () => {
       { withCredentials: true }
     );
 
-    console.log(response.data);
     const result = UserDataSchema.safeParse(response.data.userData);
-    console.log(result);
 
     return result.success ? result.data : null;
   } catch (error) {

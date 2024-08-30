@@ -26,7 +26,7 @@ const SelectCountry = () => {
     <select
       name='countries'
       id='countries'
-      className='w-full p-3 px-4 border-gray-200 border-2 rounded-xl text-sm mt-4 text-black'
+      className='w-full p-2 px-4 border-gray-300 border-[1px] rounded-xl text-sm mt-4 text-black  outline-outline-search '
       onChange={handleChange}
     >
       {Countries.map((elem) => (

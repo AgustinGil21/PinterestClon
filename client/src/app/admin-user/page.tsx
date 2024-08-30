@@ -5,20 +5,21 @@ import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const AdminProfile = () => {
-  const { userPublicData, getDataUserAccountEdit } = useAppsStore();
+  const { userPublicData, getUserAccountManagement, userAccountManagment } =
+    useAppsStore();
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUserData = async () => {
-      getDataUserAccountEdit();
+      getUserAccountManagement();
       setLoading(false);
     };
 
     loadUserData();
   }, []);
 
-  if (!userPublicData?.email_address) {
+  if (!userAccountManagment?.email_address) {
     return null;
   }
 

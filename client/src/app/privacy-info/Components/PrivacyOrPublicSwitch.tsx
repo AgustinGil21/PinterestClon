@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { Switch } from '@headlessui/react';
 import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface PrivacyOrPublicSwitchProps {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
 }
 
-const PrivacyOrPublicSwitch = ({
-  register,
-  setValue,
-}: PrivacyOrPublicSwitchProps) => {
-  const [enabled, setEnabled] = useState(false);
+const PrivacyOrPublicSwitch = ({ setValue }: PrivacyOrPublicSwitchProps) => {
+  const { userProfileVisibility } = useAppsStore();
+  const [enabled, setEnabled] = useState(
+    userProfileVisibility?.private_account
+  );
 
   const handleChange = (checked: boolean) => {
+    console.log(checked);
     setEnabled(checked);
     setValue('switch', checked);
   };

@@ -107,3 +107,7 @@
 .custom-checkbox:hover {
   border-color: #555;
 }
+
+.fixed-modal {
+  position: fixed !important;
+}

@@ -25,20 +25,21 @@ const UrlWebEdit = ({
   setValue,
   watch,
 }: UrlWebInterface) => {
-  const { updateValuesExtraInfoUser, userPublicData } = useAppsStore();
-  const refUrl = watch('url');
+  const { updateValuesUserSettingsEditProfile, userSettingsEditProfile } =
+    useAppsStore();
+  const refUrl = watch('website');
 
   useEffect(() => {
-    if (userPublicData?.website) {
-      setValue('url', userPublicData?.website);
+    if (userSettingsEditProfile?.website) {
+      setValue('website', userSettingsEditProfile?.website);
     }
-  }, [userPublicData?.website]);
+  }, [userSettingsEditProfile?.website]);
 
   useEffect(() => {
-    const currentValueUrl = getValue('url');
+    const currentValueUrl = getValue('website');
 
-    if (userPublicData?.website !== currentValueUrl) {
-      updateValuesExtraInfoUser(currentValueUrl, 'website');
+    if (userSettingsEditProfile?.website !== currentValueUrl) {
+      updateValuesUserSettingsEditProfile(currentValueUrl, 'website');
     }
   }, [refUrl]);
 
@@ -46,10 +47,10 @@ const UrlWebEdit = ({
     <div>
       <InputLabelStyled
         type='text'
-        infoName='url'
+        infoName='website'
         textLabel='Sitio web'
         register={register}
-        errors={errors.url}
+        errors={errors.website}
       />
       <p className='text-[10px] px-2 mt-2 text-gray-500'>
         Agrega tu web o sitio de contacto para que las personas puedan conocerte

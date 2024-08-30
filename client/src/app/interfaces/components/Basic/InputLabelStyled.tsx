@@ -38,7 +38,7 @@ const InputLabelStyled = ({
     <div className='w-full '>
       <label
         className='text-black text-[12px] px-2 dark:text-white'
-        htmlFor={type}
+        htmlFor={id}
       >
         {textLabel}
       </label>
@@ -51,7 +51,7 @@ const InputLabelStyled = ({
         type={type}
         infoName={infoName}
         placeHolder={textLabel}
-        classProps={`w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px] text-sm ${className}`}
+        classProps={`w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px]  text-sm ${className}`}
       />
 
       {errors?.message && (

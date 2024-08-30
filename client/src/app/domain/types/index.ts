@@ -24,17 +24,14 @@ export interface ArrayLanguages {
 }
 
 export interface UserPublicData {
-  account_type?: string;
   avatar_letter?: string;
   avatar_letter_color?: string;
   avatar_background?: string;
   email_address?: string;
   username?: string;
-  avatar?: string;
   name?: string;
   surname?: string;
-  about?: string;
-  website?: string;
+  avatar: File | null | any;
 }
 
 export interface AvatarData {
@@ -77,10 +74,36 @@ export interface UserDataAccountEdit {
   account_type: string;
 }
 
-export interface UserPublicDataExtraInfo {
+export interface UserPutAccountManagement {
+  emailAddress: string;
+  gender: string;
+  country: string;
+  language: string;
+  birthdate: string;
+}
+
+export interface UserSettingsEditProfile {
+  avatar_letter?: string;
+  avatar_letter_color?: string;
+  avatar_background?: string;
   username?: string;
   name?: string;
   surname?: string;
-  about?: string;
+  about_you?: string;
   website?: string;
+  avatar?: File;
+}
+
+export interface UserProfileVisibility {
+  account_type?: string;
+  private_account?: boolean;
+}
+
+export interface UserPatchPasswordAccountManagement {
+  prevPassword: string;
+  newPassword: string;
+}
+
+export interface UserPatchAvatar {
+  avatar: File;
 }

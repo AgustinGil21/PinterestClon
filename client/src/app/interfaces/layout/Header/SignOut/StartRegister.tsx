@@ -17,7 +17,9 @@ const StartRegister = () => {
   return (
     <div>
       <ButtonStyled
-        className={'bg-redPinterestBg text-white  hover:bg-red-700'}
+        className={
+          'bg-redPinterestBg text-white font-semibold  hover:bg-red-700'
+        }
         disabled={true}
         handleClick={openRegisterModal}
       >

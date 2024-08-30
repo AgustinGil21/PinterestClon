@@ -1,6 +1,6 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
-import ModalDeleteAccount from './ModalDeleteAccount';
+import ModalDeleteAccount from './modalDeleteProfile/ModalDeleteAccount';
 
 const DeleteAccount = () => {
   const { isDeleteUserAccountModalOpen, openDeleteUserAccountModal } =
@@ -27,7 +27,7 @@ const DeleteAccount = () => {
       </div>
       <ButtonStyled
         handleClick={handleClick}
-        className='py-3 bg-redPinterestBg text-white font-semibold hover:bg-red-700 '
+        className='py-2.5 bg-redPinterestBg text-white font-semibold hover:bg-red-700 '
         disabled={false}
       >
         Eliminar cuenta

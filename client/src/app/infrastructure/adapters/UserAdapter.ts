@@ -15,14 +15,25 @@ import {
   UserEmail,
   UserLogin,
   UserPublicData,
-  UserPublicDataExtraInfo,
   UserDataAccountEdit,
+  UserPutAccountManagement,
+  UserSettingsEditProfile,
+  UserProfileVisibility,
+  UserPatchPasswordAccountManagement,
+  UserPatchAvatar,
 } from '../../domain/types';
 import {
   serviceDeleteAccountUser,
-  serviceGetDataAccountManagment,
-  serviceGetUserPublicData,
-  servicePutUserPublicData,
+  serviceDeleteAvatar,
+  ServiceGetProfileVisibility,
+  serviceGetUserAccountManagment,
+  serviceGetUserSettingsEditProfile,
+  servicePatchAccountManagementPassword,
+  servicePatchAvatar,
+  servicePatchProfileVisibilityPrivateAccount,
+  servicePatchProfileVisibilityTypeAccount,
+  servicePutAccountManagementPersonalInfo,
+  servicePutUserSettingsEditProfile,
 } from '../services/service-user-edit';
 
 export const fetchGendersAdapter = async (): Promise<Gender[]> => {
@@ -59,7 +70,7 @@ export const fetchUserLoggedAdapter =
   async (): Promise<UserPublicData | null> => {
     try {
       const response = await serviceGetDataUserLogged();
-      console.log(response);
+
       if (response) {
         return {
           avatar_background: response.avatar_background,
@@ -67,12 +78,9 @@ export const fetchUserLoggedAdapter =
           avatar_letter_color: response.avatar_letter_color,
           email_address: response.email_address,
           username: response.username,
-          account_type: response.account_type,
-          avatar: response.avatar,
           name: response.name,
           surname: response.surname,
-          about: response.about,
-          website: response.website,
+          avatar: response.avatar ?? null,
         };
       }
 
@@ -83,10 +91,11 @@ export const fetchUserLoggedAdapter =
     }
   };
 
-export const fetchUserEditDataAdapter =
+export const fetchUserAccountManagementAdapter =
   async (): Promise<UserDataAccountEdit | null> => {
     try {
-      const response = await serviceGetDataAccountManagment();
+      const response = await serviceGetUserAccountManagment();
+
       if (response) {
         return {
           email_address: response.email_address,
@@ -104,37 +113,147 @@ export const fetchUserEditDataAdapter =
     }
   };
 
-export const putUserPublicDataAdapter = async (
-  data: UserPublicDataExtraInfo
+export const fetchUserSettingsEditProfileAdapter =
+  async (): Promise<UserSettingsEditProfile | null> => {
+    try {
+      const response = await serviceGetUserSettingsEditProfile();
+
+      if (response) {
+        return {
+          avatar_background: response.avatar_background,
+          avatar_letter: response.avatar_letter,
+          avatar_letter_color: response.avatar_letter_color,
+          name: response.name,
+          surname: response.surname,
+          username: response.username,
+          about_you: response.about_you,
+          website: response.website,
+        };
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+export const putUserSettingsEditProfileAdapter = async (
+  data: UserSettingsEditProfile
 ) => {
-  console.log(data);
+  const newData = {
+    username: data?.username,
+    name: data?.name,
+    surname: data?.surname,
+    about: data?.about_you,
+    website: data?.website,
+  };
   try {
-    await servicePutUserPublicData(data);
+    await servicePutUserSettingsEditProfile(newData);
   } catch (error) {
     console.log(error);
     return null;
   }
 };
 
-export const fetchGetUserPublicDataAdapter = async () => {
+export const putUserAccountManagementAdapter = async (
+  data: UserPutAccountManagement
+) => {
+  const newData = {
+    gender: data?.gender,
+    country: data?.country,
+    language: data?.language,
+    emailAddress: data?.emailAddress,
+    birthdate: data.birthdate,
+  };
   try {
-    const response = await serviceGetUserPublicData();
-    console.log(response);
-    if (response) {
-      return {
-        avatar_background: response.avatar_background,
-        avatar_letter: response.avatar_letter,
-        avatar_letter_color: response.avatar_letter_color,
-        email_address: response.email_address,
-        username: response.username,
-        account_type: response.account_type,
-        avatar: response.avatar,
-        name: response.name,
-        surname: response.surname,
-        about: response.about,
-        website: response.website,
-      };
+    await servicePutAccountManagementPersonalInfo(newData);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const fetchProfileVisibilityAdapter =
+  async (): Promise<UserProfileVisibility | null> => {
+    try {
+      const response = await ServiceGetProfileVisibility();
+      if (response) {
+        return {
+          account_type: response.account_type,
+          private_account: response.private_account,
+        };
+      }
+
+      return null;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
+  };
+
+export const patchProfileVisibilityTypeAdapter = async (
+  data: UserProfileVisibility
+) => {
+  const newData = {
+    account_type: data.account_type,
+    private_account: data.private_account,
+  };
+
+  try {
+    await servicePatchProfileVisibilityTypeAccount(newData);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const patchProfileVisibilityPrivateAdapter = async (
+  data: UserProfileVisibility
+) => {
+  const newData = {
+    account_type: data.account_type,
+    private_account: data.private_account,
+  };
+
+  try {
+    await servicePatchProfileVisibilityPrivateAccount(newData);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const patchAccountManagementPasswordAdapter = async (
+  data: UserPatchPasswordAccountManagement
+) => {
+  const newData = {
+    prevPassword: data.prevPassword,
+    newPassword: data.newPassword,
+  };
+
+  try {
+    await servicePatchAccountManagementPassword(newData);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const patchAvatarAdapter = async (data: UserPatchAvatar) => {
+  const newData = {
+    avatar: data.avatar,
+  };
+  try {
+    await servicePatchAvatar(newData);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteAvatarAdapter = async () => {
+  try {
+    await serviceDeleteAvatar();
   } catch (error) {
     console.log(error);
     return null;

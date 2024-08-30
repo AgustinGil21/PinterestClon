@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { ZodSchema } from 'zod';
 
 interface UseFormHookInterface {
-  schema: ZodSchema<any>;
+  schema?: ZodSchema<any> | any;
   event?: 'onChange' | 'onBlur' | 'onSubmit' | 'all';
 }
 

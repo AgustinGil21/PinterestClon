@@ -171,7 +171,7 @@ export const RecoverPasswordSchema = z.object({
 
 //Schema de edicion Nombre y Apellido
 
-export const fullNameSchema = z.object({
+export const UserSettingsEditProfileValidationSchema = z.object({
   name: z
     .string()
     .max(30, { message: 'El nombre no puede tener más de 30 caracteres' })
@@ -181,7 +181,7 @@ export const fullNameSchema = z.object({
     })
     .optional(),
 
-  lastname: z
+  surname: z
     .string()
     .max(30, { message: 'El apellido no puede tener más de 30 caracteres' })
     .regex(nameAndLastnameRegex, {
@@ -189,13 +189,13 @@ export const fullNameSchema = z.object({
         'El apellido debe contener solo letras y, opcionalmente, un espacio seguido de más letras.',
     })
     .optional(),
-  content: z
+  about: z
     .string()
     .max(500, {
       message: 'El contenido no puede tener más de 500 caracteres',
     })
     .optional(),
-  url: z
+  website: z
     .string()
     .url({ message: 'Ingresa una url valida' })
 
@@ -236,6 +236,43 @@ export const EditAdminAccountSchema = z.object({
     .regex(emailRegex, {
       message:
         'Por favor, introduce una dirección de correo electrónico válida.',
+    })
+    .trim(),
+});
+
+//Schema Change Password
+
+export const ChangePasswordSchema = z.object({
+  oldPassword: z
+    .string({
+      required_error: 'Se requiere una contraseña.',
+      message: 'La contraseña debe ser una cadena.',
+    })
+    .min(8, {
+      message: 'La contraseña debe contener al menos 8 caracteres.',
+    })
+    .max(128, {
+      message: 'La contraseña puede contener hasta 128 caracteres.',
+    })
+    .regex(passwordRegex, {
+      message:
+        'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial.',
+    })
+    .trim(),
+  newPassword: z
+    .string({
+      required_error: 'Se requiere una contraseña.',
+      message: 'La contraseña debe ser una cadena.',
+    })
+    .min(8, {
+      message: 'La contraseña debe contener al menos 8 caracteres.',
+    })
+    .max(128, {
+      message: 'La contraseña puede contener hasta 128 caracteres.',
+    })
+    .regex(passwordRegex, {
+      message:
+        'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial.',
     })
     .trim(),
 });
