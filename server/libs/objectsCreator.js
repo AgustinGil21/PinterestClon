@@ -1,3 +1,6 @@
+// La función se encarga de que el objeto no
+// tenga valores undefined o null.
+
 export const objectsCreator = (dataObject, objectSkeleton) => {
   let newObject = {};
 
