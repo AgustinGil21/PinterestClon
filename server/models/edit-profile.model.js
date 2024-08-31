@@ -38,7 +38,9 @@ export default class EditProfileModel {
         [newUsername]
       );
 
-      if (checkIfUsernameAlreadyExists) {
+      const [user] = checkIfUsernameAlreadyExists.rows;
+
+      if (user) {
         throw new Error('Username already exists, please try to another one!');
       }
     }

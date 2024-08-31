@@ -1,4 +1,5 @@
 import { deleteCloudinaryFile } from '../libs/cloudinary-files.js';
+import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 import AccountManagementModel from '../models/account-management.model.js';
@@ -46,14 +47,18 @@ export default class AccountManagementController {
       language: '',
     };
 
-    const bodyFiltered = filterFalsyValues(req.body);
-
     try {
       const data = await AccountManagementModel.getInfoData({ id });
 
       if (data.ok) {
         const { response: userData } = data;
-        userDataObject = objectsCompare(userData, bodyFiltered, objectSkeleton);
+
+        const anyChanges = detectObjectChanges(userData, req.body);
+
+        if (!anyChanges)
+          return res.status(400).json({ message: 'No changes detected' });
+
+        userDataObject = objectsCompare(userData, req.body, objectSkeleton);
       }
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get user data!' });

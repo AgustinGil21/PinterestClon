@@ -3,6 +3,7 @@ import { objectsCompare } from '../libs/objectsCompare.js';
 import EditProfileModel from '../models/edit-profile.model.js';
 import { dateNow } from '../libs/date.js';
 import { editProfileSchema } from '../schemas/edit-profile.schema.js';
+import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 
 export default class EditProfileController {
   static async getPublicData(req, res) {
@@ -49,6 +50,12 @@ export default class EditProfileController {
 
       if (data.ok) {
         const { response: userData } = data;
+
+        const anyChanges = detectObjectChanges(userData, req.body);
+
+        if (!anyChanges)
+          return res.status(400).json({ message: 'No changes detected' });
+
         userDataObject = objectsCompare(userData, req.body, objectSkeleton);
       }
     } catch (err) {
