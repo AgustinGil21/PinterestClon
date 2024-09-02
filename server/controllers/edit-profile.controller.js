@@ -40,7 +40,7 @@ export default class EditProfileController {
       username: '',
       name: '',
       surname: '',
-      about: '',
+      about_you: '',
       website: '',
       birthdate: dateNow,
     };
@@ -63,7 +63,7 @@ export default class EditProfileController {
     }
 
     try {
-      const { username, name, surname, about, website, birthdate } =
+      const { username, name, surname, about_you, website, birthdate } =
         userDataObject;
 
       const data = await EditProfileModel.editData({
@@ -71,7 +71,7 @@ export default class EditProfileController {
         username,
         name,
         surname,
-        about,
+        about_you,
         website,
         birthdate,
       });

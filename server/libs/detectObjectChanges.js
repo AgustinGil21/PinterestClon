@@ -29,6 +29,8 @@ export const detectObjectChanges = (prevObject, newObject) => {
         return true;
       }
     }
+
+    if (!prevValue && newValue) return true;
   }
 
   return false;
