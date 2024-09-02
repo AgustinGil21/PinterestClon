@@ -20,7 +20,7 @@ export default class EditProfileModel {
     username: newUsername,
     name,
     surname,
-    about,
+    about_you,
     website,
     birthdate,
   }) {
@@ -47,7 +47,7 @@ export default class EditProfileModel {
 
     const response = await pool.query(
       'UPDATE users SET name = $1, surname = $2, about_you = $3, website = $4, username = $5, birthdate = $6 WHERE id = $7;',
-      [name, surname, about, website, newUsername, birthdate, id]
+      [name, surname, about_you, website, newUsername, birthdate, id]
     );
 
     const [data] = response.rows;
