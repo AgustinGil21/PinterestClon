@@ -1,4 +1,5 @@
 import { deleteCloudinaryFile } from '../libs/cloudinary-files.js';
+import { normalizeDate } from '../libs/date.js';
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
@@ -18,7 +19,8 @@ export default class AccountManagementController {
 
       if (data.ok) {
         const userData = data.response;
-        res.status(200).json({ userData });
+        const filteredData = filterFalsyValues(userData);
+        res.status(200).json({ userData: filteredData });
       }
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get user data!' });
@@ -52,6 +54,16 @@ export default class AccountManagementController {
 
       if (data.ok) {
         const { response: userData } = data;
+        const normalizedDate = normalizeDate(userData.birthdate);
+
+        // La fecha que viene de la base de datos
+        // contiene marca de tiempo, lo que genera
+        // que la función detecte como un cambio
+        // cada vez que el cliente mandaba una
+        // fecha sin importar si era igual o no.
+        // Gracias a este cambio, eso ya no sucederá.
+
+        userData.birthdate = normalizedDate;
 
         const anyChanges = detectObjectChanges(userData, req.body);
 
@@ -83,7 +95,6 @@ export default class AccountManagementController {
           .json({ message: 'User data successfully updated!' });
       }
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ message: 'Cannot change user data!' });
     }
   }
