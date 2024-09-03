@@ -1,10 +1,10 @@
 import { z } from 'zod';
 import {
-  usernameRegex,
-  passwordRegex,
-  emailRegex,
-} from '../regex/auth.regex.js';
-import { dateRegex } from '../regex/globals.regex.js';
+  usernameRegexp,
+  passwordRegexp,
+  emailRegexp,
+} from '../regexp/auth.regexp.js';
+import { dateRegexp } from '../regexp/globals.regexp.js';
 
 export const checkEmailAddressSchema = z.object({
   emailAddress: z
@@ -21,7 +21,7 @@ export const checkEmailAddressSchema = z.object({
     .max(320, {
       message: 'Email address can contain up to 320 characters long.',
     })
-    .regex(emailRegex, {
+    .regex(emailRegexp, {
       message: 'Please enter a valid email address.',
     })
     .trim(),
@@ -39,7 +39,7 @@ export const registerSchema = z.object({
     .max(24, {
       message: 'Username can contain up to 24 characters long.',
     })
-    .regex(usernameRegex, {
+    .regex(usernameRegexp, {
       message:
         'The username must contain alphanumeric characters and can also include special characters such as . (dot) or _ (underscore).',
     })
@@ -56,9 +56,9 @@ export const registerSchema = z.object({
       message: 'Email address must contain at least 12 characters long',
     })
     .max(320, {
-      message: 'Email address can contain up to 320 characters long.',
+      message: "Email address can't be more than 320 characters",
     })
-    .regex(emailRegex, {
+    .regex(emailRegexp, {
       message: 'Please enter a valid email address.',
     })
     .trim(),
@@ -71,9 +71,9 @@ export const registerSchema = z.object({
       message: 'Password must contain at least 8 characters long',
     })
     .max(128, {
-      message: 'Password can contain up to 320 characters long.',
+      message: "Password can't be more than 128 characters.",
     })
-    .regex(passwordRegex, {
+    .regex(passwordRegexp, {
       message:
         'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
     })
@@ -83,7 +83,7 @@ export const registerSchema = z.object({
       required_error: 'Birthdate is required.',
       message: 'Password must be a string.',
     })
-    .regex(dateRegex, {
+    .regex(dateRegexp, {
       message: 'Birthdate must be a valid date.',
     }),
   genderId: z
@@ -115,21 +115,27 @@ export const registerSchema = z.object({
       required_error: 'Avatar background is required.',
       message: 'Avatar background must be a string.',
     })
-    .length(7)
+    .length(7, {
+      message: '',
+    })
     .trim(),
   avatarLetterColor: z
     .string({
       required_error: 'Avatar letter color is required.',
       message: 'Avatar letter color must be a string.',
     })
-    .length(7)
+    .length(7, {
+      message: '',
+    })
     .trim(),
   avatarLetter: z
     .string({
       required_error: 'Avatar letter is required.',
       message: 'Avatar letter must be a string.',
     })
-    .length(1)
+    .length(1, {
+      message: '',
+    })
     .trim(),
 });
 
@@ -148,7 +154,7 @@ export const loginSchema = z.object({
     .max(320, {
       message: 'Email address can contain up to 320 characters long.',
     })
-    .regex(emailRegex, {
+    .regex(emailRegexp, {
       message: 'Please enter a valid email address.',
     })
     .trim(),
@@ -163,7 +169,7 @@ export const loginSchema = z.object({
     .max(128, {
       message: 'Password can contain up to 320 characters long.',
     })
-    .regex(passwordRegex, {
+    .regex(passwordRegexp, {
       message:
         'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
     })
@@ -193,7 +199,7 @@ export const recoverAccountSchema = z.object({
     .max(320, {
       message: 'Email address can contain up to 320 characters long.',
     })
-    .regex(emailRegex, {
+    .regex(emailRegexp, {
       message: 'Please enter a valid email address.',
     })
     .trim(),
@@ -214,7 +220,7 @@ export const resetPasswordSchema = z.object({
     .max(320, {
       message: 'Email address can contain up to 320 characters long.',
     })
-    .regex(emailRegex, {
+    .regex(emailRegexp, {
       message: 'Please enter a valid email address.',
     })
     .trim(),
@@ -229,7 +235,7 @@ export const resetPasswordSchema = z.object({
     .max(128, {
       message: 'Password can contain up to 320 characters long.',
     })
-    .regex(passwordRegex, {
+    .regex(passwordRegexp, {
       message:
         'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
     })

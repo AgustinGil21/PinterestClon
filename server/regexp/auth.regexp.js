@@ -1,4 +1,4 @@
-export const emailRegex =
+export const emailRegexp =
   /^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})+$/;
 
 /*
@@ -11,7 +11,7 @@ El dominio debe terminar con un punto seguido de al menos dos caracteres alfabé
 
 */
 
-export const usernameRegex =
+export const usernameRegexp =
   /^(?=.{8,24}$)(?!.*[_.]{2})[a-zA-Z0-9][a-zA-Z0-9._]*[a-zA-Z0-9]$/;
 
 /*
@@ -25,7 +25,7 @@ Inicio y fin: No puede comenzar ni terminar con un punto o guion bajo.
 
 */
 
-export const passwordRegex =
+export const passwordRegexp =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,128}$/;
 
 /*
