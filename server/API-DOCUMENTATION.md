@@ -539,6 +539,78 @@ el title y el alt_text
 
 Ya esta terminado pero todavía tengo que definir algunos detalles, pero la url esta activada, pero no la uses.
 
+## Categories
+
+### Search all
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/categories`
+
+[Response]
+
+```json
+{
+  "categories": [
+    {
+      "name": "Animals",
+      "id": "5b85db6e-3f72-464d-af57-776888d57919",
+      "poster": "https://image-url.com"
+    },
+    {
+      "name": "Anime",
+      "id": "4ce6fbe1-0862-4054-b0b1-17ab2aed2079",
+      "poster": "https://image-url.com"
+    },
+    ...
+  ]
+}
+```
+
+### Search by name
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/categories/search?value=an`
+
+_value_: Search input value
+
+[Response]
+
+```json
+{
+  "categories": [
+    {
+      "name": "Animals",
+      "id": "5b85db6e-3f72-464d-af57-776888d57919",
+      "poster": "R"
+    },
+    {
+      "name": "Anime",
+      "id": "4ce6fbe1-0862-4054-b0b1-17ab2aed2079",
+      "poster": "https://image-url.com"
+    }
+  ],
+  "results": 2
+}
+```
+
+### Search by ID
+
+_*GET*_ `hhttp://localhost:1234/pinterest-clon-api/categories/:id`
+
+_EJEMPLO:_ `http://localhost:1234/pinterest-clon-api/categories/d972c8f8-1cf3-431b-b3c5-4c4d1d77110d`
+
+_:id_: UUID
+
+[Response]
+
+```json
+{
+  "category": {
+    "name": "Sports",
+    "id": "d972c8f8-1cf3-431b-b3c5-4c4d1d77110d",
+    "poster": "https://image-url.com"
+  }
+}
+```
+
 ## Rooms (PRÓXIMAMENTE)
 
 ## User interactions (PRÓXIMAMENTE)

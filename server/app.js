@@ -15,6 +15,7 @@ import AccountManagementRoutes from './routes/account-management.routes.js';
 import ProfileVisibilityRoutes from './routes/profile-visibility.routes.js';
 import AccountSecurityRoutes from './routes/account-security.routes.js';
 import PinsRoutes from './routes/pins.routes.js';
+import CategoriesRoutes from './routes/categories.routes.js';
 
 export const app = express();
 
@@ -52,6 +53,8 @@ app.use(`${SETTINGS_BASE_URL}/account-management`, AccountManagementRoutes);
 app.use(`${SETTINGS_BASE_URL}/profile-visibility`, ProfileVisibilityRoutes);
 app.use(`${SETTINGS_BASE_URL}/account-security`, AccountSecurityRoutes);
 app.use(`${BASE_URL}/pins`, PinsRoutes);
+app.use(`${BASE_URL}/categories`, CategoriesRoutes);
+
 // app.use(`${BASE_URL}/:username`); ==> user page, boards, created pins, etc
 // app.use(`${BASE_URL}/boards`); ==> user boards
 // app.use(`${BASE_URL}/created-pins`); ==> user pins

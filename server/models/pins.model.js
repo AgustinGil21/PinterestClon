@@ -103,7 +103,7 @@ export default class PinsModel {
     const searchValue = `%${value}%`;
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title LIKE $1 OR alt_text LIKE $1 OR description LIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title ILIKE $1 OR alt_text ILIKE $1 OR description ILIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
       [searchValue, limit, offset]
     );
 
