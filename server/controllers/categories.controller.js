@@ -1,4 +1,8 @@
 import CategoriesModel from '../models/categories.model.js';
+import {
+  searchByIDSchema,
+  searchByNameSchema,
+} from '../schemas/categories.schema.js';
 
 export default class CategoriesController {
   static async getCategories(req, res) {
@@ -17,15 +21,15 @@ export default class CategoriesController {
   static async searchByID(req, res) {
     const { id } = req.params;
 
-    // try {
-    //   const result = countrySchema.safeParse({ id });
+    try {
+      const result = searchByIDSchema.safeParse({ id });
 
-    //   if (!result.success) {
-    //     return res.status(400).json({ issues: result.error.issues });
-    //   }
-    // } catch (err) {
-    //   return res.status(500).json({ message: 'Internal error!' });
-    // }
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     try {
       const data = await CategoriesModel.searchByID({ id });
@@ -41,6 +45,16 @@ export default class CategoriesController {
 
   static async searchByCategoryByName(req, res) {
     const { value } = req.query;
+
+    try {
+      const result = searchByNameSchema.safeParse({ value });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     try {
       const data = await CategoriesModel.searchCategoryByName({ value });
