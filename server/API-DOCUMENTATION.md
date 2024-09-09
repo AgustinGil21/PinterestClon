@@ -416,7 +416,7 @@ _page_: Página actual en la cual se encuentra el usuario (min 0)
 
 ### Create pin
 
-_*POST*_ `http://localhost:1234/pinterest-clon-api/pins?page=1&limit=10`
+_*POST*_ `http://localhost:1234/pinterest-clon-api/pins/create`
 
 [Body] (formData)
 

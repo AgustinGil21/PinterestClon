@@ -1,7 +1,6 @@
 import { deleteCloudinaryFile } from '../libs/cloudinary-files.js';
 import { normalizeDate } from '../libs/date.js';
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
-import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 import AccountManagementModel from '../models/account-management.model.js';
 import {
@@ -19,8 +18,7 @@ export default class AccountManagementController {
 
       if (data.ok) {
         const userData = data.response;
-        const filteredData = filterFalsyValues(userData);
-        res.status(200).json({ userData: filteredData });
+        res.status(200).json({ userData });
       }
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get user data!' });
