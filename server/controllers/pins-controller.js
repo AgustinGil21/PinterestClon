@@ -175,13 +175,13 @@ export default class PinsController {
 
     try {
       const data = await PinsModel.searchPins({ value, page, limit });
-      const { data: pins, results } = data.response;
 
       if (data.ok) {
+        const { data: pins, results } = data.response;
         return res.status(200).json({ pins, results });
       }
     } catch (err) {
-      return res.status(400).json({ message: 'Pins not found!' });
+      return res.status(404).json({ message: 'Pins not found!' });
     }
   }
 

@@ -1,26 +1,31 @@
 import { z } from 'zod';
-import { emailRegex, passwordRegex } from '../regex/auth.regex.js';
-import { dateRegex } from '../regex/globals.regex.js';
+import { emailRegexp, passwordRegexp } from '../regexp/auth.regexp.js';
+import { dateRegexp } from '../regexp/globals.regexp.js';
+import { checkRegexp } from '../libs/checkRegexp.js';
 
 export const editPersonalInfoSchema = z.object({
   emailAddress: z
     .string({
-      required_error: 'Email address is required.',
       message: 'Email address must be a string.',
     })
-    .email({
-      message: 'Please enter a valid email address',
-    })
+    .trim()
     .min(12, {
       message: 'Email address must contain at least 12 characters long',
     })
     .max(320, {
       message: 'Email address can contain up to 320 characters long.',
     })
-    .regex(emailRegex, {
-      message: 'Please enter a valid email address.',
-    })
-    .trim()
+    .refine(
+      (emailAddress) =>
+        checkRegexp({
+          value: emailAddress,
+          regexp: emailRegexp,
+          optional: true,
+        }),
+      {
+        message: 'Please enter a valid email address.',
+      }
+    )
     .optional(),
   gender: z
     .string({
@@ -56,10 +61,18 @@ export const editPersonalInfoSchema = z.object({
     .string({
       message: 'Birthdate must be a string',
     })
-    .regex(dateRegex, {
-      message: 'Invalid date',
-    })
     .trim()
+    .refine(
+      (birthdate) =>
+        checkRegexp({
+          value: birthdate,
+          regexp: dateRegexp,
+          optional: true,
+        }),
+      {
+        message: 'Invalid date',
+      }
+    )
     .optional(),
 });
 
@@ -69,17 +82,24 @@ export const changePasswordSchema = z.object({
       required_error: 'Password is required.',
       message: 'Password must be a string.',
     })
+    .trim()
     .min(8, {
       message: 'Password must contain at least 8 characters long',
     })
     .max(128, {
       message: 'Password can contain up to 320 characters long.',
     })
-    .regex(passwordRegex, {
-      message:
-        'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
-    })
-    .trim(),
+    .refine(
+      (prevPassword) =>
+        checkRegexp({
+          value: prevPassword,
+          regexp: passwordRegexp,
+        }),
+      {
+        message:
+          'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
+      }
+    ),
   newPassword: z
     .string({
       required_error: 'Password is required.',
@@ -91,11 +111,17 @@ export const changePasswordSchema = z.object({
     .max(128, {
       message: 'Password can contain up to 320 characters long.',
     })
-    .regex(passwordRegex, {
-      message:
-        'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
-    })
-    .trim(),
+    .refine(
+      (newPassword) =>
+        checkRegexp({
+          value: newPassword,
+          regexp: passwordRegexp,
+        }),
+      {
+        message:
+          'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
+      }
+    ),
 });
 
 export const newPasswordSchema = z.object({
@@ -104,15 +130,22 @@ export const newPasswordSchema = z.object({
       required_error: 'Password is required.',
       message: 'Password must be a string.',
     })
+    .trim()
     .min(8, {
       message: 'Password must contain at least 8 characters long',
     })
     .max(128, {
       message: 'Password can contain up to 320 characters long.',
     })
-    .regex(passwordRegex, {
-      message:
-        'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
-    })
-    .trim(),
+    .refine(
+      (password) =>
+        checkRegexp({
+          value: password,
+          regexp: passwordRegexp,
+        }),
+      {
+        message:
+          'The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.',
+      }
+    ),
 });

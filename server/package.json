@@ -1,7 +1,7 @@
 {
   "name": "server",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.5.1",
+  "description": "API for Pinterest clon project.",
   "main": "index.js",
   "type": "module",
   "scripts": {

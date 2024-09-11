@@ -1,6 +1,6 @@
 import { deleteCloudinaryFile } from '../libs/cloudinary-files.js';
+import { normalizeDate } from '../libs/date.js';
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
-import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 import AccountManagementModel from '../models/account-management.model.js';
 import {
@@ -29,15 +29,15 @@ export default class AccountManagementController {
     const { id } = req.user;
     let userDataObject = {};
 
-    // try {
-    //   const result = editPersonalInfoSchema.safeParse(req.body);
+    try {
+      const result = editPersonalInfoSchema.safeParse(req.body);
 
-    //   if (!result.success) {
-    //     return res.status(400).json({ issues: result.error.issues });
-    //   }
-    // } catch (err) {
-    //   return res.status(500).json({ message: 'Internal error!' });
-    // }
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     const objectSkeleton = {
       emailAddress: '',
@@ -52,6 +52,16 @@ export default class AccountManagementController {
 
       if (data.ok) {
         const { response: userData } = data;
+        const normalizedDate = normalizeDate(userData.birthdate);
+
+        // La fecha que viene de la base de datos
+        // contiene marca de tiempo, lo que genera
+        // que la función detecte como un cambio
+        // cada vez que el cliente mandaba una
+        // fecha sin importar si era igual o no.
+        // Gracias a este cambio, eso ya no sucederá.
+
+        userData.birthdate = normalizedDate;
 
         const anyChanges = detectObjectChanges(userData, req.body);
 
@@ -83,7 +93,6 @@ export default class AccountManagementController {
           .json({ message: 'User data successfully updated!' });
       }
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ message: 'Cannot change user data!' });
     }
   }

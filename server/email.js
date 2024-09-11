@@ -1,8 +1,10 @@
 import { EMAIL_ADDRESS } from './config.js';
 
-export const createEmail = async ({ to, subject, html }) => {
+export const createEmail = ({ to, subject, html }) => {
+  const fromEmailAddress = 'Pinterest Clon ' + '<' + `${EMAIL_ADDRESS}` + '>';
+
   const email = {
-    from: `Pinterest Clon <onboarding@resend.dev>`,
+    from: fromEmailAddress,
     to,
     subject,
     html,
@@ -35,7 +37,7 @@ export const recoverAccountEmail = async ({ emailAddress }) => {
   `;
 
   try {
-    const recoverAccountEmail = await createEmail({
+    const recoverAccountEmail = createEmail({
       to: [`${emailAddress}`],
       subject: 'Reset password on Pinterest Clon',
       html: recoverAccountEmailHTML,
@@ -49,7 +51,7 @@ export const recoverAccountEmail = async ({ emailAddress }) => {
 
 export const twoFactorAuthenticationEmail = async ({ emailAddress }) => {
   try {
-    const twoFactorAuthenticationEmail = await createEmail({
+    const twoFactorAuthenticationEmail = createEmail({
       to: [emailAddress],
       subject: '',
       html: '',

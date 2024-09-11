@@ -14,12 +14,12 @@ export const detectObjectChanges = (prevObject, newObject) => {
     const prevValue = prevObject[key];
     const newValue = newObject[key];
 
-    // Detecta cambios si los valores son diferentes.
-    // No considera como cambio si uno de los valores
-    // es null o undefined, esto es así ya que no queremos
-    // que detecte como cambio si un valor no se encuentra
-    // en uno de los objectos comparados.
     if (prevValue !== newValue) {
+      // Detecta cambios si los valores son diferentes.
+      // No considera como cambio si uno de los valores
+      // es null o undefined, esto es así ya que no queremos
+      // que detecte como cambio si un valor no se encuentra
+      // en uno de los objectos comparados.
       if (
         prevValue !== null &&
         prevValue !== undefined &&
