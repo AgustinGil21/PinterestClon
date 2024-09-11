@@ -1,6 +1,19 @@
 import { pool } from '../dbpool.js';
 
 export default class PinsModel {
+  static async getPreviousPins({ id }) {
+    const response = await pool.query(
+      'SELECT body, title, id FROM posts WHERE user_id = $1 GROUP BY id ORDER BY created_at ASC;',
+      [id]
+    );
+
+    const data = response.rows;
+    const results = response.rowCount;
+
+    if (data) return { response: { data, results }, ok: true };
+    return { response, ok: false };
+  }
+
   static async getCreatedPins({ username }) {
     const response = await pool.query(
       'SELECT body, title, url, adult_content, alt_text FROM posts WHERE username = $1 GROUP BY id ORDER BY created_at ASC;',
@@ -15,7 +28,7 @@ export default class PinsModel {
 
   static async pinPreviousValues({ id }) {
     const response = await pool.query(
-      'SELECT title, description, url, adult_content, alt_text FROM posts WHERE id = $1',
+      'SELECT title, description, url, adult_content, alt_text, topics FROM posts WHERE id = $1',
       [id]
     );
 
@@ -59,10 +72,18 @@ export default class PinsModel {
     return { response, ok: true };
   }
 
-  static async editPin({ id, title, description, adultContent, url }) {
+  static async editPin({
+    pinID,
+    title,
+    description,
+    adultContent,
+    url,
+    topics,
+    userID,
+  }) {
     const response = await pool.query(
-      'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4 WHERE id = $5;',
-      [title, description, adultContent, url, id]
+      'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4, topics = $5 WHERE id = $6 AND user_id = $7;',
+      [title, description, adultContent, url, topics, pinID, userID]
     );
 
     const success = response.rowCount;
@@ -120,7 +141,7 @@ export default class PinsModel {
     // category = UUID
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(categories) ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;',
       [category, limit, offset]
     );
 

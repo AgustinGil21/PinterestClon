@@ -1,10 +1,20 @@
 import PinsModel from '../models/pins.model.js';
-import { getSinglePinSchema, deletePinSchema } from '../schemas/pins.schema.js';
+import {
+  getSinglePinSchema,
+  deletePinSchema,
+  getCreatedPinsSchema,
+  createPinSchema,
+  editPinSchema,
+  getHomePinsSchema,
+  searchPinsSchema,
+  searchByCategorySchema,
+} from '../schemas/pins.schema.js';
 import { objectsCreator } from '../libs/objectsCreator.js';
 import {
   deleteCloudinaryFile,
   uploadFileToCloudinary,
 } from '../libs/cloudinary-files.js';
+import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 
 const createPinSkeleton = {
@@ -24,11 +34,37 @@ const editPinSkeleton = {
   url: '',
   adultContent: false,
   altText: '',
+  topics: [],
 };
 
 export default class PinsController {
+  static async getPreviousPins(req, res) {
+    const { id } = req.user;
+
+    try {
+      const data = await PinsModel.getPreviousPins({ id });
+
+      if (data.ok) {
+        const { response: pins } = data;
+        return res.status(200).json({ pins });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Cannot get pins' });
+    }
+  }
+
   static async getCreatedPins(req, res) {
     const { username } = req.params;
+
+    try {
+      const result = getCreatedPinsSchema.safeParse({ username });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     try {
       const data = await PinsModel.getCreatedPins({ username });
@@ -47,10 +83,15 @@ export default class PinsController {
     const { id } = req.user;
     let body;
 
-    // try {
-    // } catch (err) {
-    //   return res.status(500).json({ message: 'Internal error!' });
-    // }
+    try {
+      const result = createPinSchema.safeParse(req.body);
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     if (req.files?.body) {
       const result = await uploadFileToCloudinary(req.files.body.tempFilePath);
@@ -66,33 +107,60 @@ export default class PinsController {
         return res.status(200).json({ message: 'Pin successfully created!' });
       }
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ message: 'Cannot create pin!' });
     }
   }
 
   static async editPin(req, res) {
-    const { title, description, url, adultContent, altText } = req.body;
-    const { id } = req.params;
+    const { title, description, url, adultContent, altText, topics } = req.body;
+    const { id: pinID } = req.params;
+    const { id: userID } = req.user;
 
     let prevValues;
 
     try {
-      const data = await PinsModel.pinPreviousValues({ id });
+      const result = editPinSchema.safeParse({
+        id: pinID,
+        title,
+        description,
+        url,
+        adultContent,
+        altText,
+        topics,
+      });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
+
+    try {
+      const data = await PinsModel.pinPreviousValues({ id: pinID });
       const { response } = data;
       prevValues = response;
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get previous values!' });
     }
 
+    const changes = detectObjectChanges(prevValues, req.body);
+
+    if (!changes)
+      return res.status(400).json({ message: 'No changes detected' });
+
     try {
       const newValues = objectsCompare(
         prevValues,
-        { title, description, url, adultContent, altText },
+        { title, description, url, adultContent, altText, topics },
         editPinSkeleton
       );
 
-      const response = await PinsModel.editPin({ id, ...newValues });
+      const response = await PinsModel.editPin({
+        pinID,
+        ...newValues,
+        userID,
+      });
 
       if (response.ok) {
         return res.status(200).json({ message: 'Pin successfully edited!' });
@@ -155,7 +223,20 @@ export default class PinsController {
   }
 
   static async getHomePins(req, res) {
-    const { page, limit } = req.query;
+    const { page: strPage, limit: strLimit } = req.query;
+
+    const page = Number(strPage);
+    const limit = Number(strLimit);
+
+    try {
+      const result = getHomePinsSchema.safeParse({ page, limit });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     try {
       const data = await PinsModel.getHomePins({ page, limit });
@@ -171,7 +252,20 @@ export default class PinsController {
   }
 
   static async searchPins(req, res) {
-    const { value, page, limit } = req.query;
+    const { value, page: strPage, limit: strLimit } = req.query;
+
+    const page = Number(strPage);
+    const limit = Number(strLimit);
+
+    try {
+      const result = searchPinsSchema.safeParse({ page, limit, value });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     try {
       const data = await PinsModel.searchPins({ value, page, limit });
@@ -186,7 +280,24 @@ export default class PinsController {
   }
 
   static async searchByCategory(req, res) {
-    const { category, page, limit } = req.query;
+    const { category, page: strPage, limit: strLimit } = req.query;
+
+    const page = Number(strPage);
+    const limit = Number(strLimit);
+
+    try {
+      const result = searchByCategorySchema.safeParse({
+        page,
+        limit,
+        category,
+      });
+
+      if (!result.success) {
+        return res.status(400).json({ issues: result.error.issues });
+      }
+    } catch (err) {
+      return res.status(500).json({ message: 'Internal error!' });
+    }
 
     try {
       const data = await PinsModel.searchByCategory({ category, page, limit });
@@ -196,6 +307,7 @@ export default class PinsController {
         return res.status(200).json({ pins, results });
       }
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ message: 'Pins not found!' });
     }
   }

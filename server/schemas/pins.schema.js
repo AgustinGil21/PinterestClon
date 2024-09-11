@@ -26,7 +26,7 @@ export const deletePinSchema = z.object({
     }),
 });
 
-export const getCreatedPins = z.object({
+export const getCreatedPinsSchema = z.object({
   username: z
     .string({
       required_error: 'Username is required.',
@@ -73,7 +73,8 @@ export const createPinSchema = z.object({
       {
         message: 'Invalid alternative text.',
       }
-    ),
+    )
+    .optional(),
   description: z
     .string({
       message: 'Description must be a string.',
@@ -88,16 +89,9 @@ export const createPinSchema = z.object({
         .string({
           message: 'Topic must be a string.',
         })
-        .refine(
-          (topic) =>
-            checkRegexp({
-              value: topic,
-              regexp: validStringRegex,
-            }),
-          {
-            message: 'Invalid topic.',
-          }
-        )
+        .uuid({
+          message: 'Topics must be a valid UUID',
+        })
     )
     .optional(),
   url: z
@@ -114,7 +108,8 @@ export const createPinSchema = z.object({
       {
         message: 'Invalid URL.',
       }
-    ),
+    )
+    .optional(),
 });
 
 export const editPinSchema = z.object({
@@ -154,7 +149,8 @@ export const editPinSchema = z.object({
       {
         message: 'Invalid alternative text.',
       }
-    ),
+    )
+    .optional(),
   description: z
     .string({
       message: 'Description must be a string.',
@@ -178,18 +174,38 @@ export const editPinSchema = z.object({
       {
         message: 'Invalid URL.',
       }
-    ),
+    )
+    .optional(),
+  topics: z
+    .array(
+      z
+        .string({
+          message: 'Topic must be a string.',
+        })
+        .uuid({
+          message: 'Topics must be a valid UUID',
+        })
+    )
+    .optional(),
 });
 
 export const searchPinsSchema = z.object({
-  page: z.number({
-    required_error: 'Page is required.',
-    message: 'Page must be a number.',
-  }),
-  limit: z.number({
-    required_error: 'Limit is required.',
-    message: 'Limit must be a number.',
-  }),
+  page: z
+    .number({
+      required_error: 'Page is required.',
+      message: 'Page must be a number.',
+    })
+    .min(1, {
+      message: 'The minimum accepted value is 1.',
+    }),
+  limit: z
+    .number({
+      required_error: 'Limit is required.',
+      message: 'Limit must be a number.',
+    })
+    .min(1, {
+      message: 'The minimum accepted value is 1.',
+    }),
   value: z
     .string({
       required_error: 'Value is required.',
@@ -208,38 +224,47 @@ export const searchPinsSchema = z.object({
 });
 
 export const searchByCategorySchema = z.object({
-  page: z.number({
-    required_error: 'Page is required.',
-    message: 'Page must be a number.',
-  }),
-  limit: z.number({
-    required_error: 'Limit is required.',
-    message: 'Limit must be a number.',
-  }),
+  page: z
+    .number({
+      required_error: 'Page is required.',
+      message: 'Page must be a number.',
+    })
+    .min(1, {
+      message: 'The minimum accepted value is 1.',
+    }),
+  limit: z
+    .number({
+      required_error: 'Limit is required.',
+      message: 'Limit must be a number.',
+    })
+    .min(1, {
+      message: 'The minimum accepted value is 1.',
+    }),
   category: z
     .string({
       required_error: 'Category is required.',
       message: 'Category must be a string.',
     })
-    .refine(
-      (category) =>
-        checkRegexp({
-          value: category,
-          regexp: validStringRegex,
-        }),
-      {
-        message: 'Invalid category.',
-      }
-    ),
+    .uuid({
+      message: 'Category must be a valid UUID.',
+    }),
 });
 
 export const getHomePinsSchema = z.object({
-  page: z.number({
-    required_error: 'Page is required.',
-    message: 'Page must be a number.',
-  }),
-  limit: z.number({
-    required_error: 'Limit is required.',
-    message: 'Limit must be a number.',
-  }),
+  page: z
+    .number({
+      required_error: 'Page is required.',
+      message: 'Page must be a number.',
+    })
+    .min(1, {
+      message: 'The minimum accepted value is 1.',
+    }),
+  limit: z
+    .number({
+      required_error: 'Limit is required.',
+      message: 'Limit must be a number.',
+    })
+    .min(1, {
+      message: 'The minimum accepted value is 1.',
+    }),
 });
