@@ -543,7 +543,7 @@ Ya esta terminado pero todavía tengo que definir algunos detalles, pero la url 
 
 ### Search all
 
-_*GET*_ `http://localhost:1234/pinterest-clon-api/categories`
+_*GET*_ `http://localhost:1234/pinterest-clon-api/categories/`
 
 [Response]
 
@@ -593,7 +593,7 @@ _value_: Search input value
 
 ### Search by ID
 
-_*GET*_ `hhttp://localhost:1234/pinterest-clon-api/categories/:id`
+_*GET*_ `http://localhost:1234/pinterest-clon-api/categories/:id`
 
 _EJEMPLO:_ `http://localhost:1234/pinterest-clon-api/categories/d972c8f8-1cf3-431b-b3c5-4c4d1d77110d`
 
