@@ -5,7 +5,7 @@ import { getLanguagesCase } from '@/app/application/use-cases/register/getLangua
 import { registerUserCase } from '@/app/application/use-cases/register/registerUser';
 import { loginUserCase } from '@/app/application/use-cases/login/loginUser';
 import { updateUserEmailCase } from '@/app/application/use-cases/register/updateUserEmail';
-import { logoutUserCase } from '@/app/application/use-cases/user/logoutUser';
+import { logoutUserCase } from '@/app/application/use-cases/user-edit/logoutUser';
 
 import {
   Country,

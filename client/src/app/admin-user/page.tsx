@@ -1,11 +1,11 @@
 'use client';
-import FormAdminUser from './components/FormAdminUser';
+import FormAdminUser from './components/formAdminUser/FormAdminUser';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const AdminProfile = () => {
-  const { userPublicData, getUserAccountManagement, userAccountManagment } =
+  const { getDataUserLogged, getUserAccountManagement, userAccountManagment } =
     useAppsStore();
 
   const [loading, setLoading] = useState(true);

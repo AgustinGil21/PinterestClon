@@ -2,34 +2,43 @@ import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled
 import EyePasswordStyled from '@/app/interfaces/components/Basic/EyePasswordStyled';
 import { useState } from 'react';
 import { FieldValues, FieldErrors, UseFormRegister } from 'react-hook-form';
+import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
 
 interface OldPasswordInterface {
   errors: FieldErrors<FieldValues>;
   register: UseFormRegister<FieldValues>;
+  passwordError: string;
 }
 
-const OldPassword = ({ errors, register }: OldPasswordInterface) => {
+const OldPassword = ({
+  errors,
+  register,
+  passwordError,
+}: OldPasswordInterface) => {
   const [showOldPassword, setShowOldPassword] = useState(false);
   const toggleOldPasswordVisibility = () => {
     setShowOldPassword(!showOldPassword);
   };
   return (
-    <div className='relative w-full'>
-      <InputLabelStyled
-        textLabel='Vieja contraseña'
-        type={showOldPassword ? 'text' : 'password'}
-        infoName='oldPassword'
-        className='w-full'
-        errors={errors.oldPassword}
-        register={register}
-      />
+    <>
+      <div className='w-full relative'>
+        <InputLabelStyled
+          textLabel='Contraseña actual'
+          type={showOldPassword ? 'text' : 'password'}
+          infoName='oldPassword'
+          className='w-full'
+          errors={errors.oldPassword}
+          register={register}
+        />
 
-      <EyePasswordStyled
-        classname='left-[346px] top-[61px]'
-        togglePasswordVisibility={toggleOldPasswordVisibility}
-        showPassword={showOldPassword}
-      />
-    </div>
+        <EyePasswordStyled
+          classname='left-[346px] top-[55px]'
+          togglePasswordVisibility={toggleOldPasswordVisibility}
+          showPassword={showOldPassword}
+        />
+        {passwordError && <ErrorStyled>{passwordError}</ErrorStyled>}
+      </div>
+    </>
   );
 };
 

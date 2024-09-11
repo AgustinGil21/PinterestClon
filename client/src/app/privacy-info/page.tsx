@@ -1,53 +1,19 @@
 'use client';
-import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import PrivacyOrPublicSwitch from './Components/PrivacyOrPublicSwitch';
 import Loader from '../interfaces/components/Basic/Loader';
-import { useState, useEffect, use } from 'react';
 import BarButtons from '../interfaces/layout/settingsConfig/BarButtonsSettings';
-import useFormHook from '../interfaces/hooks/useFormHook';
-import { UserVisibilityAccountSchema } from '../infrastructure/schemas/validation-service-api';
+import usePagePrivacyInfo from './usePagePrivacyInfo';
 
 const PrivacyInfo = () => {
   const {
     userPublicData,
-    getProfileVisibility,
-    patchProfilePrivateVisibility,
-    updateCheckedPrivacyOrPublic,
-    userProfileVisibility,
-  } = useAppsStore();
-  const { watch, getValues, register, setValue } = useFormHook({
-    event: 'all',
-    schema: UserVisibilityAccountSchema,
-  });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadUserData = async () => {
-      await getProfileVisibility();
-      setValue('switch', userProfileVisibility?.private_account);
-      setLoading(false);
-    };
-
-    loadUserData();
-  }, [userProfileVisibility?.private_account]);
-
-  const handleClick = async () => {
-    const formValues = getValues();
-    const newPrivateAccountValue = formValues.switch;
-
-    if (userProfileVisibility?.private_account === newPrivateAccountValue)
-      return;
-
-    try {
-      await patchProfilePrivateVisibility({
-        private_account: newPrivateAccountValue,
-      });
-      updateCheckedPrivacyOrPublic(newPrivateAccountValue);
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    loading,
+    register,
+    setValue,
+    watch,
+    getValues,
+    handleClick,
+  } = usePagePrivacyInfo();
 
   if (!userPublicData?.email_address) {
     return null;

@@ -2,7 +2,7 @@ import ModalStyled from '../../../../components/Basic/ModalStyled';
 import TextLogo from '../BothModals/TextLogo';
 import CloseX from '../BothModals/CloseX';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import FormLogin from './FormLogin';
+import FormLogin from './formLogin/FormLogin';
 import ButtonInverse from '../BothModals/ButtonInverse';
 import InfoModalLogin from '../BothModals/InfoModal';
 import useCloseModalModalForLoginAndRegister from '@/app/interfaces/hooks/useCloseModalForLoginAndRegister';

@@ -1,12 +1,18 @@
+'use client';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useRouter } from 'next/navigation';
 
 const LogOutButton = () => {
+  const router = useRouter();
   const { postDataLogOut } = useAppsStore();
 
   const handleLogOut = async () => {
     try {
       await postDataLogOut();
-      window.location.replace('/');
+
+      router.replace('/');
+      window.history.pushState(null, '', '/');
+      window.location.reload();
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }

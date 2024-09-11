@@ -1,4 +1,4 @@
-import { getUserAccountManagementCase } from '@/app/application/use-cases/user/getUserAccountManagement';
+import { getUserAccountManagementCase } from '@/app/application/use-cases/user-edit/getUserAccountManagement';
 import {
   UserDataAccountEdit,
   UserPublicData,
@@ -9,17 +9,17 @@ import {
   UserPatchAvatar,
 } from '@/app/domain/types';
 import { StateCreator } from 'zustand';
-import { getUserLoggedCase } from '@/app/application/use-cases/user/getUserLogged';
-import { putUserSettingsEditProfileCase } from '@/app/application/use-cases/user/putUserPublicData';
-import { deleteUserAccountCase } from '@/app/application/use-cases/user/deleteUserAccount';
-import { getUserSettingsEditProfileCase } from '@/app/application/use-cases/user/getUserSettingsEditProfile';
-import { putUserAccountManagementCase } from '@/app/application/use-cases/user/putUserAccountManagement.';
-import { getProfileVisibilityCase } from '@/app/application/use-cases/user/getProfileVisibility';
-import { patchProfileVisibilityPrivateCase } from '@/app/application/use-cases/user/patchProfileVisibilityPrivate';
-import { patchProfileVisibilityTypeCase } from '@/app/application/use-cases/user/patchProfileVisibilityType';
-import { patchAccountManagementCase } from '@/app/application/use-cases/user/patchAccountManagementPassword';
-import { patchAvatarCase } from '@/app/application/use-cases/user/patchAvatar';
-import { deleteAvatarCase } from '@/app/application/use-cases/user/deleteAvatar';
+import { getUserLoggedCase } from '@/app/application/use-cases/user-edit/getUserLogged';
+import { putUserSettingsEditProfileCase } from '@/app/application/use-cases/user-edit/putUserSettingEditProfile';
+import { deleteUserAccountCase } from '@/app/application/use-cases/user-edit/deleteUserAccount';
+import { getUserSettingsEditProfileCase } from '@/app/application/use-cases/user-edit/getUserSettingsEditProfile';
+import { putUserAccountManagementCase } from '@/app/application/use-cases/user-edit/putUserAccountManagement.';
+import { getProfileVisibilityCase } from '@/app/application/use-cases/user-edit/getProfileVisibility';
+import { patchProfileVisibilityPrivateCase } from '@/app/application/use-cases/user-edit/patchProfileVisibilityPrivate';
+import { patchProfileVisibilityTypeCase } from '@/app/application/use-cases/user-edit/patchProfileVisibilityType';
+import { patchAccountManagementCase } from '@/app/application/use-cases/user-edit/patchAccountManagementPassword';
+import { patchAvatarCase } from '@/app/application/use-cases/user-edit/patchAvatar';
+import { deleteAvatarCase } from '@/app/application/use-cases/user-edit/deleteAvatar';
 
 export interface UserAccountInterface {
   getUserAccountManagement: () => Promise<void>;
@@ -76,7 +76,7 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
     name: '',
     surname: '',
     website: '',
-    about: '',
+    about_you: '',
     username: '',
   },
 

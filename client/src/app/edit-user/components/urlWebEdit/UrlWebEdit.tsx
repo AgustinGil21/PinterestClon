@@ -1,0 +1,47 @@
+import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
+import {
+  UseFormRegister,
+  FieldErrors,
+  FieldValues,
+  UseFormGetValues,
+  UseFormSetValue,
+  UseFormWatch,
+} from 'react-hook-form';
+import useUrlWebEdit from './useUrlWebEdit';
+
+interface UrlWebInterface {
+  errors: FieldErrors<FieldValues>;
+  register: UseFormRegister<FieldValues>;
+  getValue: UseFormGetValues<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
+}
+
+const UrlWebEdit = ({
+  register,
+  errors,
+  getValue,
+  setValue,
+  watch,
+}: UrlWebInterface) => {
+  useUrlWebEdit({ getValue, setValue, watch });
+
+  return (
+    <div>
+      <InputLabelStyled
+        type='text'
+        infoName='website'
+        textLabel='Sitio web'
+        register={register}
+        errors={errors.website}
+      />
+      <p className='text-[10px] px-2 mt-2 text-gray-500'>
+        Agrega tu web o sitio de contacto para que las personas puedan conocerte
+        mejor y seguir tus actualizaciones. Compartir tu presencia en línea
+        permitirá que otros aprendan más sobre ti
+      </p>
+    </div>
+  );
+};
+
+export default UrlWebEdit;

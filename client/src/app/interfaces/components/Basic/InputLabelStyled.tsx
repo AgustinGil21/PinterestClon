@@ -1,12 +1,12 @@
+import React from 'react';
 import InputStyled from '@/app/interfaces/components/Basic/InputStyled';
 import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
-
 import {
   UseFormRegister,
   FieldValues,
-  Merge,
   FieldError,
   FieldErrorsImpl,
+  Merge,
 } from 'react-hook-form';
 
 interface RegisterInterface {
@@ -20,6 +20,9 @@ interface RegisterInterface {
   value?: string;
   min?: string;
   max?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
+  imagePreview?: boolean;
 }
 
 const InputLabelStyled = ({
@@ -33,15 +36,21 @@ const InputLabelStyled = ({
   value,
   min,
   max,
+  disabled,
+  readOnly,
+  imagePreview,
 }: RegisterInterface) => {
   return (
-    <div className='w-full '>
+    <div className='w-full'>
       <label
-        className='text-black text-[12px] px-2 dark:text-white'
+        className={`text-black text-[12px] px-2 dark:text-white ${
+          readOnly ? 'text-gray-300' : ' text-black'
+        } `}
         htmlFor={id}
       >
         {textLabel}
       </label>
+
       <InputStyled
         min={min}
         max={max}
@@ -51,7 +60,11 @@ const InputLabelStyled = ({
         type={type}
         infoName={infoName}
         placeHolder={textLabel}
-        classProps={`w-full rounded-[13px] py-2 px-3  border-gray-300 border-[1px]  text-sm ${className}`}
+        disabled={disabled}
+        readOnly={readOnly}
+        classProps={`w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm ${className} ${
+          readOnly ? 'bg-gray-100' : ''
+        }`}
       />
 
       {errors?.message && (

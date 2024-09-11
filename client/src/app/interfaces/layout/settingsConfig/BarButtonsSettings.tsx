@@ -2,6 +2,8 @@
 import { useEffect, useState } from 'react';
 import ButtonStyled from '../../components/Basic/ButtonStyled';
 import { UseFormGetValues, UseFormWatch, FieldValues } from 'react-hook-form';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import useBarButtonsSettings from './barButtonsSettings/useBarButtonsSettings';
 
 interface InterfaceBarButtons {
   getValues: UseFormGetValues<FieldValues>;
@@ -10,37 +12,16 @@ interface InterfaceBarButtons {
 }
 
 const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
-  const [hasAnyValue, setHasAnyValue] = useState(true);
-
-  // useEffect(() => {
-  //   const checkValues = () => {
-  //     const currentValues = getValues();
-  //     const hasValue = Object.values(currentValues).some(
-  //       (value) => typeof value === 'string' && value.trim().length > 0
-  //     );
-  //     setHasAnyValue(hasValue);
-  //   };
-
-  //   checkValues();
-
-  //   const subscription = watch(() => {
-  //     checkValues();
-  //   });
-
-  //   return () => subscription.unsubscribe();
-  // }, [getValues, watch]);
-
-  const handleReload = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!hasAnyValue) return;
-    window.location.reload();
-  };
+  const { handleReload, hasAnyValue } = useBarButtonsSettings({
+    getValues,
+    watch,
+  });
 
   return (
     <div className='bottom-0 left-0 fixed w-full p-5 bg-white shadow-top font-semibold dark:bg-slate-800'>
       <div className='flex flex-row gap-2 max-w-[850px] justify-end'>
         <ButtonStyled
-          handleClick={() => handleReload}
+          handleClick={handleReload}
           disabled={!hasAnyValue}
           className={`bg-buttonGreyBg py-2 font-semibold dark:text-black ${
             !hasAnyValue

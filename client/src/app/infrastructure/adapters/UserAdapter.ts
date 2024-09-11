@@ -35,6 +35,7 @@ import {
   servicePutAccountManagementPersonalInfo,
   servicePutUserSettingsEditProfile,
 } from '../services/service-user-edit';
+import { getUserSettingsEditProfileCase } from '@/app/application/use-cases/user-edit/getUserSettingsEditProfile';
 
 export const fetchGendersAdapter = async (): Promise<Gender[]> => {
   return await serviceGetGender();
@@ -117,7 +118,7 @@ export const fetchUserSettingsEditProfileAdapter =
   async (): Promise<UserSettingsEditProfile | null> => {
     try {
       const response = await serviceGetUserSettingsEditProfile();
-
+      console.log(response);
       if (response) {
         return {
           avatar_background: response.avatar_background,
@@ -140,17 +141,43 @@ export const fetchUserSettingsEditProfileAdapter =
 export const putUserSettingsEditProfileAdapter = async (
   data: UserSettingsEditProfile
 ) => {
-  const newData = {
-    username: data?.username,
-    name: data?.name,
-    surname: data?.surname,
-    about: data?.about_you,
-    website: data?.website,
-  };
+  const response = await getUserSettingsEditProfileCase();
+  console.log(response);
+
+  if (!response) {
+    return null;
+  }
+
+  const newData: Partial<UserSettingsEditProfile> = {};
+
+  if (data.name && data.name !== response.name) {
+    newData.name = data.name;
+  }
+
+  if (data.username && data.username !== response.username) {
+    newData.username = data.username;
+  }
+
+  if (data.surname && data.surname !== response.surname) {
+    newData.surname = data.surname;
+  }
+
+  if (data.about_you && data.about_you !== response.about_you) {
+    newData.about_you = data.about_you;
+  }
+
+  if (data.website && data.website !== response.website) {
+    newData.website = data.website;
+  }
+
+  if (Object.keys(newData).length === 0) {
+    return;
+  }
+
   try {
     await servicePutUserSettingsEditProfile(newData);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 };
@@ -234,8 +261,7 @@ export const patchAccountManagementPasswordAdapter = async (
   try {
     await servicePatchAccountManagementPassword(newData);
   } catch (error) {
-    console.log(error);
-    return null;
+    throw error;
   }
 };
 

@@ -16,6 +16,8 @@ interface InputStyledInterface {
   checked?: boolean;
   defaultValue?: string;
   accept?: string;
+  disabled?: boolean;
+  readOnly?: boolean;
 }
 
 const InputStyled = ({
@@ -31,9 +33,12 @@ const InputStyled = ({
   max,
   checked,
   defaultValue,
+  disabled,
+  readOnly,
 }: InputStyledInterface) => {
   return (
     <input
+      readOnly={readOnly}
       accept={accept}
       checked={checked}
       min={min}
@@ -43,6 +48,7 @@ const InputStyled = ({
       defaultChecked
       value={value}
       type={type}
+      disabled={disabled}
       className={` w-full p-1 text-black outline-outline-search  ${classProps}`}
       placeholder={placeHolder}
       {...(register ? register(infoName) : {})}

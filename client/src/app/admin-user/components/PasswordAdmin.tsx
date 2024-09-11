@@ -1,6 +1,6 @@
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import ModalChangePassword from './modalPassword/ModalChangePassword';
+import ModalChangePassword from './modalPassword/modalChangePassword/ModalChangePassword';
 
 const PasswordAdmin = () => {
   const { isChangePasswordModalOpen, openChangePasswordModalOpen } =

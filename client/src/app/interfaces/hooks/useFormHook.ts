@@ -15,6 +15,8 @@ const useFormHook = ({ schema, event }: UseFormHookInterface) => {
     trigger,
     getValues,
     setValue,
+    control,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(schema),
@@ -30,6 +32,8 @@ const useFormHook = ({ schema, event }: UseFormHookInterface) => {
     isValid,
     getValues,
     setValue,
+    control,
+    clearErrors,
   };
 };
 

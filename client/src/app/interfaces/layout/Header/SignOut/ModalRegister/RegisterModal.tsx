@@ -3,7 +3,7 @@ import TextLogo from '../BothModals/TextLogo';
 import CloseX from '../BothModals/CloseX';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import FormRegister from './FormRegister';
+import FormRegister from './formRegister/FormRegister';
 import InfoModalLogin from '../BothModals/InfoModal';
 import ButtonInverse from '../BothModals/ButtonInverse';
 import useCloseModalModalForLoginAndRegister from '@/app/interfaces/hooks/useCloseModalForLoginAndRegister';

@@ -43,6 +43,17 @@ Caracteres permitidos: Solo puede contener letras, dígitos y los caracteres esp
 
 export const nameAndLastnameRegex = /^[a-zA-Z]+(\s[a-zA-Z]+)?$/;
 
+const validateUrl = (value: any) => {
+  // Si el valor es undefined o una cadena vacía, es válido
+  if (value === undefined || value === '') return true;
+
+  // De lo contrario, verifica que sea una URL válida
+  return z
+    .string()
+    .url({ message: 'El enlace debe ser una URL válida.' })
+    .safeParse(value).success;
+};
+
 export const registerSchema = z.object({
   email: z
     .string({
@@ -195,11 +206,10 @@ export const UserSettingsEditProfileValidationSchema = z.object({
       message: 'El contenido no puede tener más de 500 caracteres',
     })
     .optional(),
-  website: z
-    .string()
-    .url({ message: 'Ingresa una url valida' })
+  url: z.string().optional().refine(validateUrl, {
+    message: 'El enlace debe ser una URL válida.',
+  }),
 
-    .optional(),
   username: z
     .string()
     .max(24, {
@@ -275,4 +285,32 @@ export const ChangePasswordSchema = z.object({
         'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial.',
     })
     .trim(),
+});
+
+export const CreatePinFormSchema = z.object({
+  title: z.string().max(100, {
+    message:
+      'El título es demasiado largo. Solo se mostrarán los primeros 100 caracteres.',
+  }),
+
+  description: z
+    .string()
+    .max(700, {
+      message: 'La descripción no puede exceder los 700 caracteres.',
+    })
+    .optional(),
+  url: z.string().optional().refine(validateUrl, {
+    message: 'El enlace debe ser una URL válida.',
+  }),
+
+  altText: z
+    .string()
+    .min(1, { message: 'El texto alternativo es obligatorio.' })
+    .max(100, {
+      message:
+        'El texto alternativo es demasiado largo. Solo se mostrarán los primeros 100 caracteres.',
+    })
+    .regex(/^[\w\s.,!?'"()\-]+$/, {
+      message: 'El texto alternativo contiene caracteres no permitidos.',
+    }),
 });

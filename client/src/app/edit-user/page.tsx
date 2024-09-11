@@ -1,16 +1,12 @@
 'use client';
-import FormEditUser from './components/FormEditUser';
+import FormEditUser from './components/formEditUser/FormEditUser';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const EditUser = () => {
-  const {
-    userPublicData,
-    getDataUserLogged,
-    getUserSettingsEditProfile,
-    userSettingsEditProfile,
-  } = useAppsStore();
+  const { userPublicData, getDataUserLogged, getUserSettingsEditProfile } =
+    useAppsStore();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

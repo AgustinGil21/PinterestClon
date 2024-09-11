@@ -164,8 +164,7 @@ export const servicePatchAccountManagementPassword = async (
 
     console.log(response);
   } catch (error) {
-    console.log(error);
-    return null;
+    throw error;
   }
 };
 

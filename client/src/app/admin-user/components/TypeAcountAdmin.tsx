@@ -23,7 +23,6 @@ const TypeAcountAdmin = () => {
       patchProfileTypeVisibility({
         account_type: newAccountType,
       });
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }

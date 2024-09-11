@@ -6,7 +6,9 @@ import React from 'react';
 const DeleteAvatar = () => {
   const { deleteAvatar } = useAppsStore();
 
-  const handleClick = (e: any) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault;
     deleteAvatar();
     window.location.reload();

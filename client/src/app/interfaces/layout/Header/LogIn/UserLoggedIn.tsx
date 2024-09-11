@@ -13,7 +13,7 @@ export const UserLoggedIn = () => {
   const { userPublicData } = useAppsStore();
 
   return (
-    <div className='flex gap-2.5'>
+    <div className='flex gap-2'>
       <Tooltip tooltipText='Mensajes'>
         <MessageIcon />
       </Tooltip>

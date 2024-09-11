@@ -1,5 +1,5 @@
 import ModalStyled from '@/app/interfaces/components/Basic/ModalStyled';
-import FormAvatar from './FormAvatar';
+import FormAvatar from './formAvatar/FormAvatar';
 
 const AvatarModal = () => {
   return (

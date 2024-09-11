@@ -18,7 +18,7 @@ const NewPassword = ({ errors, register }: NewPasswordInterface) => {
   return (
     <div className='relative w-full'>
       <InputLabelStyled
-        textLabel='Nueva contraseña'
+        textLabel='Contraseña nueva'
         type={showNewPassword ? 'text' : 'password'}
         infoName='newPassword'
         className='w-full'
@@ -26,7 +26,7 @@ const NewPassword = ({ errors, register }: NewPasswordInterface) => {
         register={register}
       />
       <EyePasswordStyled
-        classname='left-[346px] top-[61px]'
+        classname='left-[346px] top-[55px]'
         togglePasswordVisibility={toggleNewPasswordVisibility}
         showPassword={showNewPassword}
       />

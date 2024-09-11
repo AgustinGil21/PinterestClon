@@ -8,7 +8,7 @@ interface AvatarImageInterface {
 const AvatarImageLogIn = ({ user }: AvatarImageInterface) => {
   return (
     user.avatar && (
-      <div className=' rounded-full w-[22px] h-[22px]  '>
+      <div className=' rounded-full w-[20px] h-[20px]  '>
         <Image
           src={user?.avatar}
           alt='avatar'

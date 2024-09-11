@@ -4,9 +4,9 @@ const TrashIcon = () => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      className='icon icon-tabler icon-tabler-trash'
-      width='25'
-      height='25'
+      className='icon icon-tabler icon-tabler-trash '
+      width='23'
+      height='23'
       viewBox='0 0 24 24'
       stroke='#111'
       fill='none'
