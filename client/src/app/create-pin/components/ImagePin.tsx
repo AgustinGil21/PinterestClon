@@ -20,7 +20,7 @@ const ImagePin = ({
   clearErrors,
 }: ImagePinInterface) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { updateStateCreatePin } = useAppsStore();
+  const { updateStateCreatePin, updateStateTopicPin } = useAppsStore();
 
   const handleDivClick = (
     e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
@@ -39,6 +39,7 @@ const ImagePin = ({
     updateStateCreatePin('title', '');
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
+    updateStateCreatePin('topicValue', '');
 
     clearErrors();
   };

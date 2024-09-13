@@ -90,3 +90,15 @@ export const UserVisibilityAccountSchema = z.object({
   account_type: z.enum(['Personal', 'Business']),
   private_account: z.boolean(),
 });
+
+//Category pins schema
+
+export const categorySchema = z.object({
+  name: z.string().min(1, 'El nombre es requerido'),
+  id: z.string().uuid('ID inválido'),
+  poster: z.string(),
+});
+
+export const categoriesSchema = z.object({
+  categories: z.array(categorySchema),
+});

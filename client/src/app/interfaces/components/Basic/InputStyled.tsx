@@ -18,6 +18,9 @@ interface InputStyledInterface {
   accept?: string;
   disabled?: boolean;
   readOnly?: boolean;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
 }
 
 const InputStyled = ({
@@ -35,9 +38,14 @@ const InputStyled = ({
   defaultValue,
   disabled,
   readOnly,
+  onBlur,
+  onFocus,
+  onClick,
 }: InputStyledInterface) => {
   return (
     <input
+      onClick={onClick}
+      onFocus={onFocus}
       readOnly={readOnly}
       accept={accept}
       checked={checked}

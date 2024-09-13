@@ -22,6 +22,7 @@ const FormCreatePin = () => {
     isValid,
     watch,
     getValues,
+    setValue,
   } = useFormHook({
     event: 'onSubmit',
     schema: CreatePinFormSchema,
@@ -36,7 +37,7 @@ const FormCreatePin = () => {
           adultContent: dataCreatePin.adultContent,
           altText: dataCreatePin.altText,
           description: dataCreatePin.description,
-          topics: [],
+          topics: dataCreatePin.topics,
           url: dataCreatePin.url,
           body: dataCreatePin.body,
         });
@@ -107,6 +108,8 @@ const FormCreatePin = () => {
                 register={register}
                 errors={errors}
                 watch={watch}
+                getValues={getValues}
+                setValue={setValue}
               />
 
               <PlusOptions imagePreview={imagePreview} register={register} />

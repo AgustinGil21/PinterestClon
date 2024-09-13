@@ -6,15 +6,12 @@ import AsideCreateOpen from './components/AsideCreateClose';
 import FormCreatePin from './components/FormCreatePin';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
-import { serviceGetCategoriesPin } from '../infrastructure/services/service-pins';
 
 const CreatePin = () => {
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
   const { isAuth, getDataUserLogged } = useAppsStore();
   const router = useRouter();
-
-  serviceGetCategoriesPin();
 
   useEffect(() => {
     const loadUserData = async () => {

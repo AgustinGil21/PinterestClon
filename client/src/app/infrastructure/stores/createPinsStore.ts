@@ -1,5 +1,6 @@
+import { getCategoriesPinsCase } from '@/app/application/use-cases/create-pins/getCategoriesPins';
 import { postCreatePinsCase } from '@/app/application/use-cases/create-pins/postCreatePins';
-import { PinCreate } from '@/app/domain/types/pins-structure';
+import { CategoriesPin, PinCreate } from '@/app/domain/types/pins-structure';
 import { StateCreator } from 'zustand';
 
 export interface CreatePinsStoreInterface {
@@ -9,6 +10,9 @@ export interface CreatePinsStoreInterface {
     key: keyof PinCreate,
     value: string | boolean | undefined | File
   ) => void;
+  categoriesPin: CategoriesPin[];
+  getCategoriesPin: () => Promise<void>;
+  updateStateTopicPin: (value: string[]) => void;
 }
 
 export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
@@ -23,7 +27,16 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
     topics: [],
     url: '',
     body: undefined,
+    topicValue: '',
   },
+
+  categoriesPin: [
+    {
+      name: '',
+      id: '',
+      poster: '',
+    },
+  ],
 
   postDataCreatePin: async (data: PinCreate) => {
     await postCreatePinsCase(data);
@@ -36,5 +49,23 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
       },
     }));
     console.log(get().dataCreatePin);
+  },
+
+  updateStateTopicPin: (updatedTopics: string[]) => {
+    set((state) => ({
+      dataCreatePin: {
+        ...state.dataCreatePin,
+        topics: updatedTopics,
+      },
+    }));
+    console.log(get().dataCreatePin);
+  },
+
+  getCategoriesPin: async () => {
+    const response = await getCategoriesPinsCase();
+    console.log(response);
+    set({
+      categoriesPin: response,
+    });
   },
 });

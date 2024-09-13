@@ -23,6 +23,9 @@ interface RegisterInterface {
   disabled?: boolean;
   readOnly?: boolean;
   imagePreview?: boolean;
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
 }
 
 const InputLabelStyled = ({
@@ -39,6 +42,9 @@ const InputLabelStyled = ({
   disabled,
   readOnly,
   imagePreview,
+  onFocus,
+  onBlur,
+  onClick,
 }: RegisterInterface) => {
   return (
     <div className='w-full'>
@@ -52,6 +58,9 @@ const InputLabelStyled = ({
       </label>
 
       <InputStyled
+        onClick={onClick}
+        onBlur={onBlur}
+        onFocus={onFocus}
         min={min}
         max={max}
         id={id}

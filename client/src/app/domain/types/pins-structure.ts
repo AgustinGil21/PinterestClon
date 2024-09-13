@@ -6,4 +6,11 @@ export interface PinCreate {
   topics: string[];
   url: string;
   body: File | undefined;
+  topicValue?: string;
+}
+
+export interface CategoriesPin {
+  name: string;
+  id: string;
+  poster: string;
 }
