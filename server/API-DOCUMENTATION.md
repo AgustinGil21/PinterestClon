@@ -370,7 +370,7 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/pins?page=1&limit=10`
 
 _limit_: Máximo de pins a mostrar por carga ejecutada.
 
-_page_: Página actual en la cual se encuentra el usuario (min 0)
+_page_: Página actual en la cual se encuentra el usuario (min 1)
 
 [Response]
 
@@ -426,7 +426,7 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/pins/create`
   "adultContent": "Boolean",
   "altText": "String",
   "description": "String",
-  "topics": "String []",
+  "topics": "UUID []",
   "url": "String",
   "body": "File"
 }
@@ -493,7 +493,8 @@ _:id_ => UUID Pin
   "altText": "String",
   "description": "String",
   "url": "String",
-  "body": "File"
+  "body": "File",
+  "topics": "UUID[]"
 }
 ```
 
@@ -505,7 +506,7 @@ _value_: Search input value
 
 _limit_: Máximo de pins a mostrar por carga ejecutada.
 
-_page_: Página actual en la cual se encuentra el usuario (min 0)
+_page_: Página actual en la cual se encuentra el usuario (min 1)
 
 [Response]
 
@@ -537,7 +538,79 @@ el title y el alt_text
 
 ### Search by Category
 
-Ya esta terminado pero todavía tengo que definir algunos detalles, pero la url esta activada, pero no la uses.
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/search-by-category?category=d972c8f8-1cf3-431b-b3c5-4c4d1d77110d&page=1&limit=10`
+
+_category_: UUID de la categoría.
+
+_limit_: Máximo de pins a mostrar por carga ejecutada.
+
+_page_: Página actual en la cual se encuentra el usuario (min 1)
+
+[RESPONSE]
+
+```json
+{
+  "pins": [
+    {
+      "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082911/pinterest-clon/ugl2i4m7cigsejtygcki.png",
+      "title": "",
+      "url": "",
+      "adult_content": false,
+      "pin_id": "1af19dd3-02d4-4cd8-9128-8ef729dcb320",
+      "alt_text": "foto",
+      "name": "Pablo123",
+      "surname": "",
+      "username": "PintereestCldadon789",
+      "avatar": null,
+      "avatar_background": "#f05227",
+      "avatar_letter_color": "#ffffff",
+      "avatar_letter": "N"
+    },
+    {
+      "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874315/pinterest-clon/hupwbbc6o2lgtrh80wnz.png",
+      "title": "Me encanta",
+      "url": "",
+      "adult_content": false,
+      "pin_id": "c0898a7c-83be-4db2-864a-daa1c0f74ad7",
+      "alt_text": "Pajaros cantan",
+      "name": "Pablito",
+      "surname": "",
+      "username": "Hola1223",
+      "avatar": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874164/pinterest-clon/k62w54pol1dkdxhh8tsj.png",
+      "avatar_background": "#f05227",
+      "avatar_letter_color": "#ffffff",
+      "avatar_letter": "N"
+    }
+  ],
+  "results": 2
+}
+```
+
+### Get previous pins
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/previous-pins`
+
+[RESPONSE]
+
+```json
+{
+  "pins": {
+    "data": [
+      {
+        "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082911/pinterest-clon/ugl2i4m7cigsejtygcki.png",
+        "title": "",
+        "id": "1af19dd3-02d4-4cd8-9128-8ef729dcb320"
+      },
+      {
+        "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082854/pinterest-clon/yjvryjowaymha8j47dak.png",
+        "title": "Me encanta",
+        "id": "dbce9de5-8e83-4f17-a026-4bb8258b06b3"
+      }
+    ],
+    "results": 2
+  }
+}
+```
 
 ## Categories
 
