@@ -50,7 +50,7 @@ const useFormEditUser = () => {
 
     if (currentValues.avatar[0]) {
       try {
-        patchAvatar({
+        await patchAvatar({
           avatar: currentValues.avatar[0],
         });
       } catch (error) {

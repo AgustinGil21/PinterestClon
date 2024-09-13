@@ -35,7 +35,7 @@ const NameLastnameEdit = ({
   return (
     <div className='flex flex-row gap-3 mt-3'>
       <InputLabelStyled
-        textLabel='Nombre(s)'
+        textLabel={`Nombre(s) ${errors.name ? '*' : ''}`}
         infoName='name'
         type='text'
         register={register}

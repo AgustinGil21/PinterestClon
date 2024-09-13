@@ -93,12 +93,24 @@ export const UserVisibilityAccountSchema = z.object({
 
 //Category pins schema
 
-export const categorySchema = z.object({
+export const CategorySchema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   id: z.string().uuid('ID inválido'),
   poster: z.string(),
 });
 
-export const categoriesSchema = z.object({
-  categories: z.array(categorySchema),
+export const CategoriesSchema = z.object({
+  categories: z.array(CategorySchema),
+});
+
+//Previous pin schema
+
+const PreviousPinSchema = z.object({
+  id: z.string().uuid(),
+  body: z.string().url(),
+  title: z.string().optional(),
+});
+
+export const ArrayPreviousPinSchema = z.object({
+  Array: z.array(PreviousPinSchema),
 });

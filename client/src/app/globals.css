@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow: auto !important;
+}
+
 .active {
   outline: 10px solid black;
   background-color: black;

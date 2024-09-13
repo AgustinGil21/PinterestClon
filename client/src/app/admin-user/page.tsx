@@ -32,7 +32,7 @@ const AdminProfile = () => {
   }
 
   return (
-    <section className='p-5 py-8 flex flex-col min-h-[110vh]'>
+    <section className='p-5 py-8 flex flex-col min-h-[105vh]'>
       <div className='max-w-[420px] w-full lg:ml-[240px] flex flex-col gap-5 dark:text-white'>
         <div>
           <h2 className='text-[23px] font-semibold'>

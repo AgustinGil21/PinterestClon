@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
-import { CategoriesPin, PinCreate } from '@/app/domain/types/pins-structure';
-import { categoriesSchema } from '../schemas/validation-service-api';
+import {
+  CategoriesPin,
+  PinCreate,
+  PreviousPin,
+} from '@/app/domain/types/pins-structure';
+import {
+  ArrayPreviousPinSchema,
+  CategoriesSchema,
+} from '../schemas/validation-service-api';
 
 export const servicePostCreatePin = async (data: PinCreate): Promise<void> => {
   console.log(data);
@@ -24,10 +31,23 @@ export const serviceGetCategoriesPin = async (): Promise<CategoriesPin[]> => {
     const response = await axios.get(`${URLDOMAIN}/categories`, {
       withCredentials: true,
     });
-    const result = categoriesSchema.safeParse(response.data);
+    const result = CategoriesSchema.safeParse(response.data);
     return result.success ? result.data.categories : [];
   } catch (error) {
     console.log(error);
     return [];
   }
 };
+
+// export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
+//   try {
+//     const response = await axios.get(`${URLDOMAIN}/previous-pins`, {
+//       withCredentials: true,
+//     });
+//     const result = ArrayPreviousPinSchema.safeParse(response.data);
+//     return result.success ? result.data.Array : [];
+//   } catch (error) {
+//     console.log(error);
+//     return [];
+//   }
+// };

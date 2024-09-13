@@ -27,10 +27,13 @@ const DescriptionPin = ({
   const descriptionRef = watch('description');
 
   useEffect(() => {
-    if (descriptionRef && dataCreatePin.description !== descriptionRef) {
+    if (
+      descriptionRef !== undefined &&
+      dataCreatePin.description !== descriptionRef
+    ) {
       updateStateCreatePin('description', descriptionRef);
     }
-  }, [descriptionRef, updateStateCreatePin]);
+  }, [descriptionRef, dataCreatePin.description, updateStateCreatePin]);
 
   return (
     <div>

@@ -29,7 +29,7 @@ const AltTextPin = ({
   const altTextRef = watch('altText');
 
   useEffect(() => {
-    if (altTextRef && dataCreatePin?.altText !== altTextRef) {
+    if (altTextRef !== undefined && dataCreatePin?.altText !== altTextRef) {
       updateStateCreatePin('altText', altTextRef);
     }
   }, [altTextRef, getValues, updateStateCreatePin]);

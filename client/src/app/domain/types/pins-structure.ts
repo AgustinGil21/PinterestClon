@@ -14,3 +14,9 @@ export interface CategoriesPin {
   id: string;
   poster: string;
 }
+
+export interface PreviousPin {
+  body: string;
+  title: string;
+  id: string;
+}

@@ -26,7 +26,7 @@ const UrlPin = ({
   const urlRef = watch('url');
 
   useEffect(() => {
-    if (urlRef && dataCreatePin.url !== urlRef) {
+    if (urlRef !== undefined && dataCreatePin.url !== urlRef) {
       updateStateCreatePin('url', urlRef);
     }
   }, [urlRef, updateStateCreatePin]);

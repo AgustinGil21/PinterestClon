@@ -26,7 +26,7 @@ const TitlePin = ({
   const titleRef = watch('title');
 
   useEffect(() => {
-    if (titleRef && dataCreatePin.title !== titleRef) {
+    if (titleRef !== undefined && dataCreatePin.title !== titleRef) {
       updateStateCreatePin('title', titleRef);
     }
   }, [titleRef, updateStateCreatePin]);
