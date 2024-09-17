@@ -99,12 +99,15 @@ export default class PinsController {
   static async createPin(req, res) {
     const { id } = req.user;
     const { title, adultContent, altText, description, url } = req.body;
+    let topics;
+    let body;
     // Hay que parsearlo, ya que los Arrays
     // son tomados como Strings dentro del
     // formData
     const { topics: strArr } = req.body;
-    const topics = JSON.parse(strArr);
-    let body;
+
+    if (strArr) topics = JSON.parse(strArr);
+    else topics = null;
 
     // try {
     //   const result = createPinSchema.safeParse(req.body);
