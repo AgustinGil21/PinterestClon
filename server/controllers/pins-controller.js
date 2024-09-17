@@ -98,6 +98,12 @@ export default class PinsController {
 
   static async createPin(req, res) {
     const { id } = req.user;
+    const { title, adultContent, altText, description, url } = req.body;
+    // Hay que parsearlo, ya que los Arrays
+    // son tomados como Strings dentro del
+    // formData
+    const { topics: strArr } = req.body;
+    const topics = JSON.parse(strArr);
     let body;
 
     // try {
@@ -117,13 +123,17 @@ export default class PinsController {
     }
 
     try {
-      const data = objectsCreator({ ...req.body, body }, createPinSkeleton);
+      const data = objectsCreator(
+        { title, adultContent, altText, description, url, body, topics },
+        createPinSkeleton
+      );
       const response = await PinsModel.createPin({ ...data, id });
 
       if (response.ok) {
         return res.status(200).json({ message: 'Pin successfully created!' });
       }
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ message: 'Cannot create pin!' });
     }
   }
@@ -206,7 +216,8 @@ export default class PinsController {
 
       if (data.ok) {
         const { response: pin } = data;
-        return res.status(200).json({ pin });
+        const filteredData = filterFalsyValues(pin);
+        return res.status(200).json({ pin: filteredData });
       }
       return res.status(404).json({ message: 'Pin not found!' });
     } catch (err) {
