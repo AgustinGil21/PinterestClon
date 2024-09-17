@@ -16,6 +16,7 @@ import {
 } from '../libs/cloudinary-files.js';
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
+import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 
 const createPinSkeleton = {
   body: '',
@@ -47,6 +48,22 @@ export default class PinsController {
       if (data.ok) {
         const { response: pins } = data;
         return res.status(200).json({ pins });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Cannot get pins' });
+    }
+  }
+
+  static async getPreviousPinsFullData(req, res) {
+    const { id } = req.params;
+
+    try {
+      const data = await PinsModel.getPreviousPinsFullData({ id });
+
+      if (data.ok) {
+        const { response: pin } = data;
+        const filteredData = filterFalsyValues(pin);
+        return res.status(200).json({ pin: filteredData });
       }
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get pins' });

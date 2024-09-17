@@ -14,6 +14,18 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
+  static async getPreviousPinsFullData({ id }) {
+    const response = await pool.query(
+      'SELECT id, alt_text, title, body, topics, description, url, adult_content FROM posts WHERE id = $1;',
+      [id]
+    );
+
+    const [data] = response.rows;
+
+    if (data) return { response: data, ok: true };
+    return { response, ok: false };
+  }
+
   static async getCreatedPins({ username }) {
     const response = await pool.query(
       'SELECT body, title, url, adult_content, alt_text FROM posts WHERE username = $1 GROUP BY id ORDER BY created_at ASC;',
