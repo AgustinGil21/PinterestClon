@@ -21,6 +21,9 @@ export interface ModalStateInterface {
   isChangePasswordModalOpen: boolean;
   openChangePasswordModalOpen: () => void;
   closeChangePasswordModal: () => void;
+  isDeletePinModal: boolean;
+  openDeletePinModal: () => void;
+  closeDeletePinModal: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
@@ -31,6 +34,8 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
   isAvatarModalOpen: false,
   isDeleteUserAccountModalOpen: false,
   isChangePasswordModalOpen: false,
+  isDeletePinModal: false,
+
   openLoginModal: () =>
     set({
       isLoginModalOpen: true,
@@ -96,6 +101,16 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
   closeChangePasswordModal: () => {
     set({
       isChangePasswordModalOpen: false,
+    });
+  },
+  openDeletePinModal: () => {
+    set({
+      isDeletePinModal: true,
+    });
+  },
+  closeDeletePinModal: () => {
+    set({
+      isDeletePinModal: false,
     });
   },
 });

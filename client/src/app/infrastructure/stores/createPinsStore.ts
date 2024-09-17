@@ -1,9 +1,18 @@
+import { deletePreviousPinCase } from '@/app/application/use-cases/create-pins/deletePreviousPin';
 import { getCategoriesPinsCase } from '@/app/application/use-cases/create-pins/getCategoriesPins';
+import { getPinEditIdCase } from '@/app/application/use-cases/create-pins/getPinEditId';
+import { getPreviousPinsCase } from '@/app/application/use-cases/create-pins/getPreviousPins';
 import { postCreatePinsCase } from '@/app/application/use-cases/create-pins/postCreatePins';
-import { CategoriesPin, PinCreate } from '@/app/domain/types/pins-structure';
+import {
+  CategoriesPin,
+  PinCreate,
+  PreviousPin,
+} from '@/app/domain/types/pins-structure';
 import { StateCreator } from 'zustand';
 
 export interface CreatePinsStoreInterface {
+  imagePreview: string | null;
+  setImagePreview: (image: string | null) => void;
   postDataCreatePin: (data: PinCreate) => Promise<void>;
   dataCreatePin: PinCreate;
   updateStateCreatePin: (
@@ -13,6 +22,10 @@ export interface CreatePinsStoreInterface {
   categoriesPin: CategoriesPin[];
   getCategoriesPin: () => Promise<void>;
   updateStateTopicPin: (value: string[]) => void;
+  previousPin: PreviousPin[];
+  getPreviousPins: () => Promise<void>;
+  deletePreviousPin: (id: string) => Promise<void>;
+  getPinEditId: (id: string) => Promise<void>;
 }
 
 export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
@@ -37,6 +50,17 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
       poster: '',
     },
   ],
+
+  previousPin: [
+    {
+      title: '',
+      id: '',
+      body: '',
+    },
+  ],
+  imagePreview: null,
+
+  setImagePreview: (image: string | null) => set({ imagePreview: image }),
 
   postDataCreatePin: async (data: PinCreate) => {
     await postCreatePinsCase(data);
@@ -63,9 +87,28 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
 
   getCategoriesPin: async () => {
     const response = await getCategoriesPinsCase();
-    console.log(response);
+
     set({
       categoriesPin: response,
     });
+  },
+  getPreviousPins: async () => {
+    const response = await getPreviousPinsCase();
+    console.log(response);
+    set({
+      previousPin: response,
+    });
+  },
+  deletePreviousPin: async (id: string) => {
+    console.log(id);
+    await deletePreviousPinCase(id);
+  },
+  getPinEditId: async (id: string) => {
+    const response = await getPinEditIdCase(id);
+    if (response) {
+      set({
+        dataCreatePin: response,
+      });
+    }
   },
 });

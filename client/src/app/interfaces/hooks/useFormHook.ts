@@ -16,6 +16,7 @@ const useFormHook = ({ schema, event }: UseFormHookInterface) => {
     getValues,
     setValue,
     control,
+    reset,
     clearErrors,
     formState: { errors, isValid },
   } = useForm({
@@ -34,6 +35,7 @@ const useFormHook = ({ schema, event }: UseFormHookInterface) => {
     setValue,
     control,
     clearErrors,
+    reset,
   };
 };
 

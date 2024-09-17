@@ -7,20 +7,18 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRef } from 'react';
 
 interface ImagePinInterface {
-  imagePreview: string | null;
   register: UseFormRegister<FieldValues>;
-  setImagePreview: React.Dispatch<React.SetStateAction<string | null>>;
   clearErrors: () => void;
 }
 
 const ImagePin = ({
-  imagePreview,
   register,
-  setImagePreview,
+
   clearErrors,
 }: ImagePinInterface) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { updateStateCreatePin, updateStateTopicPin } = useAppsStore();
+  const { updateStateCreatePin, setImagePreview, imagePreview, dataCreatePin } =
+    useAppsStore();
 
   const handleDivClick = (
     e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
@@ -30,7 +28,10 @@ const ImagePin = ({
     }
   };
 
-  const handleClickDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickDelete = (
+    e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
     e.stopPropagation();
     setImagePreview(null);
     updateStateCreatePin('body', undefined);
@@ -102,6 +103,7 @@ const ImagePin = ({
       </div>
       <hr className='border-0 h-[1px] bg-gray-300' />
       <ButtonStyled
+        handleClick={handleClickDelete}
         disabled={false}
         className='bg-buttonGreyBg font-semibold w-full hover:bg-gray-300'
       >

@@ -7,22 +7,19 @@ import {
 import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect } from 'react';
-import { watch } from 'fs';
 
 interface DescriptionPinInterface {
-  imagePreview: string | null;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
 }
 
 const DescriptionPin = ({
-  imagePreview,
   register,
   errors,
   watch,
 }: DescriptionPinInterface) => {
-  const { updateStateCreatePin, dataCreatePin } = useAppsStore();
+  const { updateStateCreatePin, dataCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
   const descriptionRef = watch('description');
 
@@ -33,7 +30,7 @@ const DescriptionPin = ({
     ) {
       updateStateCreatePin('description', descriptionRef);
     }
-  }, [descriptionRef, dataCreatePin.description, updateStateCreatePin]);
+  }, [descriptionRef, updateStateCreatePin]);
 
   return (
     <div>

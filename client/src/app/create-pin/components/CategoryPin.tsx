@@ -15,7 +15,6 @@ import CategoryLabels from './CategoryLabels';
 import ModalSearcherCategories from './ModalSearcherCategories';
 
 interface CategoryPinInterface {
-  imagePreview: string | null;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
@@ -24,7 +23,6 @@ interface CategoryPinInterface {
 }
 
 const CategoryPin = ({
-  imagePreview,
   register,
   watch,
   getValues,
@@ -34,7 +32,7 @@ const CategoryPin = ({
     getCategoriesPin,
     categoriesPin,
     updateStateTopicPin,
-    updateStateCreatePin,
+    imagePreview,
     dataCreatePin,
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);

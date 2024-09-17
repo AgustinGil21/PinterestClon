@@ -106,11 +106,21 @@ export const CategoriesSchema = z.object({
 //Previous pin schema
 
 const PreviousPinSchema = z.object({
-  id: z.string().uuid(),
-  body: z.string().url(),
+  id: z.string(),
+  body: z.string(),
   title: z.string().optional(),
 });
 
-export const ArrayPreviousPinSchema = z.object({
-  Array: z.array(PreviousPinSchema),
+export const ArrayPreviousPinSchema = z.array(PreviousPinSchema);
+
+// Get pin id
+
+export const PinEditIdSchema = z.object({
+  title: z.string().optional(),
+  adultContent: z.boolean().optional(),
+  altText: z.string(),
+  description: z.string().optional(),
+  url: z.string().url('Invalid URL format'),
+  body: z.string(),
+  topics: z.array(z.string()),
 });

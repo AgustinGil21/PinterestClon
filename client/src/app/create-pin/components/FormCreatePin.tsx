@@ -1,36 +1,63 @@
-import { useState } from 'react';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import ImagePin from './ImagePin';
 import TitlePin from './TitlePin';
 import DescriptionPin from './DescriptionPin';
 import UrlPin from './UrlPin';
-import useFormHook from '@/app/interfaces/hooks/useFormHook';
-import { CreatePinFormSchema } from '@/app/infrastructure/schemas/validation-form';
 import PlusOptions from './PlusOptions';
 import CategoryPin from './CategoryPin';
 import AltTextPin from './AltTextPin';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { SubmitHandler, FieldValues } from 'react-hook-form';
+import {
+  SubmitHandler,
+  FieldValues,
+  UseFormGetValues,
+  UseFormHandleSubmit,
+  UseFormClearErrors,
+  UseFormWatch,
+  FieldErrors,
+  UseFormSetValue,
+  UseFormRegister,
+  UseFormReset,
+} from 'react-hook-form';
+import { useState } from 'react';
 
-const FormCreatePin = () => {
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+interface FormCreatePinInterface {
+  register: UseFormRegister<FieldValues>;
+  isValid: boolean;
+  getValues: UseFormGetValues<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
+  errors: FieldErrors<FieldValues>;
+  watch: UseFormWatch<FieldValues>;
+  clearErrors: UseFormClearErrors<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  reset: UseFormReset<FieldValues>;
+}
+
+const FormCreatePin = ({
+  register,
+  isValid,
+  getValues,
+  setValue,
+  errors,
+  watch,
+  clearErrors,
+  handleSubmit,
+  reset,
+}: FormCreatePinInterface) => {
   const {
-    register,
-    errors,
-    handleSubmit,
-    clearErrors,
-    isValid,
-    watch,
-    getValues,
-    setValue,
-  } = useFormHook({
-    event: 'onSubmit',
-    schema: CreatePinFormSchema,
-  });
-  const { postDataCreatePin, dataCreatePin } = useAppsStore();
+    postDataCreatePin,
+    dataCreatePin,
+    imagePreview,
+    setImagePreview,
+    updateStateCreatePin,
+  } = useAppsStore();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const [savePin, setSavePin] = useState(false);
+
+  const onSubmit: SubmitHandler<FieldValues> = async () => {
+    console.log(dataCreatePin.altText);
     if (isValid) {
+      setSavePin(true);
       try {
         await postDataCreatePin({
           title: dataCreatePin.title,
@@ -41,70 +68,67 @@ const FormCreatePin = () => {
           url: dataCreatePin.url,
           body: dataCreatePin.body,
         });
+
+        reset();
       } catch (error) {
         console.log(error);
       }
     }
+    setSavePin(false);
+    setImagePreview(null);
+    updateStateCreatePin('title', '');
+    updateStateCreatePin('altText', '');
+    updateStateCreatePin('description', '');
+    updateStateCreatePin('url', '');
+    updateStateCreatePin('adultContent', false);
+    updateStateCreatePin('topics', '');
+    clearErrors();
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='border-b-[1px] w-full border-b-gray-300 p-4 flex justify-between items-center'>
+        <div className='border-b-[1px] w-full border-b-gray-300 py-4 px-4 flex justify-between items-center'>
           <h3 className='font-semibold text-[16px] dark:text-white'>
             Crear Pin
           </h3>
           {imagePreview && (
-            <ButtonStyled
-              disabled={!imagePreview}
-              className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white'
-              type='submit'
-            >
-              Guardar
-            </ButtonStyled>
+            <div className='flex flex-row items-center gap-3'>
+              {savePin && <p className='text-sm'>Creando pin...</p>}
+
+              <ButtonStyled
+                disabled={!imagePreview}
+                className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white'
+                type='submit'
+              >
+                Publicar
+              </ButtonStyled>
+            </div>
           )}
         </div>
-        <div className='flex w-full justify-center p-4 h-full'>
+        <div className='flex w-full justify-center p-4 '>
           <div className='flex flex-row max-h-[500px] justify-start w-[50%] p-1 gap-8'>
-            <ImagePin
-              imagePreview={imagePreview}
-              register={register}
-              setImagePreview={setImagePreview}
-              clearErrors={clearErrors}
-            />
+            <ImagePin register={register} clearErrors={clearErrors} />
 
             <div className='w-full p-2 flex gap-3 flex-col max-w-[480px]'>
               <AltTextPin
                 getValues={getValues}
-                imagePreview={imagePreview}
                 register={register}
                 errors={errors}
                 watch={watch}
               />
 
-              <TitlePin
-                imagePreview={imagePreview}
-                register={register}
-                errors={errors}
-                watch={watch}
-              />
+              <TitlePin register={register} errors={errors} watch={watch} />
 
               <DescriptionPin
-                imagePreview={imagePreview}
                 register={register}
                 errors={errors}
                 watch={watch}
               />
 
-              <UrlPin
-                imagePreview={imagePreview}
-                register={register}
-                errors={errors}
-                watch={watch}
-              />
+              <UrlPin register={register} errors={errors} watch={watch} />
 
               <CategoryPin
-                imagePreview={imagePreview}
                 register={register}
                 errors={errors}
                 watch={watch}

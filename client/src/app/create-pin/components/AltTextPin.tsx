@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface AltTextPinInterface {
-  imagePreview: string | null;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
@@ -18,14 +17,14 @@ interface AltTextPinInterface {
 }
 
 const AltTextPin = ({
-  imagePreview,
   errors,
   register,
   watch,
   getValues,
 }: AltTextPinInterface) => {
+  const { dataCreatePin, updateStateCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
-  const { dataCreatePin, updateStateCreatePin } = useAppsStore();
+
   const altTextRef = watch('altText');
 
   useEffect(() => {

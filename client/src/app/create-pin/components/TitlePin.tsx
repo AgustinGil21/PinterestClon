@@ -9,19 +9,13 @@ import {
 } from 'react-hook-form';
 
 interface TitlePinInterface {
-  imagePreview: string | null;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
 }
 
-const TitlePin = ({
-  imagePreview,
-  register,
-  errors,
-  watch,
-}: TitlePinInterface) => {
-  const { dataCreatePin, updateStateCreatePin } = useAppsStore();
+const TitlePin = ({ register, errors, watch }: TitlePinInterface) => {
+  const { dataCreatePin, updateStateCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
   const titleRef = watch('title');
 

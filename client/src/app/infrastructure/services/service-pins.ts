@@ -3,11 +3,13 @@ import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   CategoriesPin,
   PinCreate,
+  PinId,
   PreviousPin,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
   CategoriesSchema,
+  PinEditIdSchema,
 } from '../schemas/validation-service-api';
 
 export const servicePostCreatePin = async (data: PinCreate): Promise<void> => {
@@ -19,6 +21,7 @@ export const servicePostCreatePin = async (data: PinCreate): Promise<void> => {
         'Content-Type': 'multipart/form-data',
       },
     });
+    console.log(response);
 
     return response.status ? response.data : null;
   } catch (error) {
@@ -39,15 +42,47 @@ export const serviceGetCategoriesPin = async (): Promise<CategoriesPin[]> => {
   }
 };
 
-// export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
-//   try {
-//     const response = await axios.get(`${URLDOMAIN}/previous-pins`, {
-//       withCredentials: true,
-//     });
-//     const result = ArrayPreviousPinSchema.safeParse(response.data);
-//     return result.success ? result.data.Array : [];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
+  try {
+    const response = await axios.get(`${URLDOMAIN}/pins/previous-pins`, {
+      withCredentials: true,
+    });
+    console.log(response);
+
+    const result = ArrayPreviousPinSchema.safeParse(response.data.pins.data);
+    return result.success ? result.data : [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const serviceDeletePreviousPin = async (id: string) => {
+  try {
+    const response = await axios.delete(`${URLDOMAIN}/pins/${id}`, {
+      withCredentials: true,
+    });
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const serviceGetEditPinId = async (
+  id: string
+): Promise<PinCreate | null> => {
+  try {
+    const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
+      withCredentials: true,
+    });
+    console.log(response);
+    const result = PinEditIdSchema.safeParse(response.data);
+    console.log(result);
+
+    return result.success ? result.data : null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

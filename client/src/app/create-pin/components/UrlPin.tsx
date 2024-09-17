@@ -9,20 +9,15 @@ import {
 } from 'react-hook-form';
 
 interface ImagePreviewInterface {
-  imagePreview: string | null;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
 }
 
-const UrlPin = ({
-  imagePreview,
-  register,
-  errors,
-  watch,
-}: ImagePreviewInterface) => {
+const UrlPin = ({ register, errors, watch }: ImagePreviewInterface) => {
+  const { updateStateCreatePin, dataCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
-  const { updateStateCreatePin, dataCreatePin } = useAppsStore();
+
   const urlRef = watch('url');
 
   useEffect(() => {

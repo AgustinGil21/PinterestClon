@@ -35,6 +35,8 @@ export default function RootLayout({
     '/security-profile',
   ];
 
+  const routeCreatePin = ['/create-pin'];
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,7 +52,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${roboto.className} ${inter.className} dark:bg-gray-900 p-0`}
+        className={`${roboto.className} ${
+          inter.className
+        } dark:bg-gray-900 p-0 ${
+          !routeCreatePin.includes(pathname) ? 'overflowBody' : ''
+        }`}
         style={{ padding: '0' }}
       >
         {!routesWithoutHeader.includes(pathname) && <Header />}
