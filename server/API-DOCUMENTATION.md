@@ -612,6 +612,29 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/pins/previous-pins`
 }
 ```
 
+### Get previous pins full data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/previous-pins/:id`
+
+_id_: UUID
+
+[RESPONSE]
+
+```json
+{
+  "pin": {
+    "id": "1af19dd3-02d4-4cd8-9128-8ef729dcb320",
+    "alt_text": "foto",
+    "title": "Estrenando celular",
+    "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082911/pinterest-clon/ugl2i4m7cigsejtygcki.png",
+    "topics": ["d972c8f8-1cf3-431b-b3c5-4c4d1d77110d"],
+    "description": "foto celular",
+    "url": "https://imagen.com",
+    "adult_content": false
+  }
+}
+```
+
 ## Categories
 
 ### Search all

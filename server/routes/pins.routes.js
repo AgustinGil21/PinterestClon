@@ -5,6 +5,11 @@ import PinsController from '../controllers/pins-controller.js';
 const router = Router();
 
 router.get('/previous-pins', authRequired, PinsController.getPreviousPins);
+router.get(
+  '/previous-pins/:id',
+  authRequired,
+  PinsController.getPreviousPinsFullData
+);
 router.get('/created/:username', PinsController.getCreatedPins);
 router.get('/search', PinsController.searchPins);
 router.get('/search-by-category', PinsController.searchByCategory);

@@ -16,6 +16,7 @@ import {
 } from '../libs/cloudinary-files.js';
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
+import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 
 const createPinSkeleton = {
   body: '',
@@ -53,18 +54,34 @@ export default class PinsController {
     }
   }
 
+  static async getPreviousPinsFullData(req, res) {
+    const { id } = req.params;
+
+    try {
+      const data = await PinsModel.getPreviousPinsFullData({ id });
+
+      if (data.ok) {
+        const { response: pin } = data;
+        const filteredData = filterFalsyValues(pin);
+        return res.status(200).json({ pin: filteredData });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Cannot get pins' });
+    }
+  }
+
   static async getCreatedPins(req, res) {
     const { username } = req.params;
 
-    try {
-      const result = getCreatedPinsSchema.safeParse({ username });
+    // try {
+    //   const result = getCreatedPinsSchema.safeParse({ username });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.getCreatedPins({ username });
@@ -83,15 +100,15 @@ export default class PinsController {
     const { id } = req.user;
     let body;
 
-    try {
-      const result = createPinSchema.safeParse(req.body);
+    // try {
+    //   const result = createPinSchema.safeParse(req.body);
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     if (req.files?.body) {
       const result = await uploadFileToCloudinary(req.files.body.tempFilePath);
@@ -118,23 +135,23 @@ export default class PinsController {
 
     let prevValues;
 
-    try {
-      const result = editPinSchema.safeParse({
-        id: pinID,
-        title,
-        description,
-        url,
-        adultContent,
-        altText,
-        topics,
-      });
+    // try {
+    //   const result = editPinSchema.safeParse({
+    //     id: pinID,
+    //     title,
+    //     description,
+    //     url,
+    //     adultContent,
+    //     altText,
+    //     topics,
+    //   });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.pinPreviousValues({ id: pinID });
@@ -174,15 +191,15 @@ export default class PinsController {
   static async getSinglePin(req, res) {
     const { id } = req.params;
 
-    try {
-      const result = getSinglePinSchema.safeParse({ id });
+    // try {
+    //   const result = getSinglePinSchema.safeParse({ id });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.getSinglePin({ id });
@@ -201,15 +218,15 @@ export default class PinsController {
     const { id: userID } = req.user;
     const { id: pinID } = req.params;
 
-    try {
-      const result = deletePinSchema.safeParse({ pinID });
+    // try {
+    //   const result = deletePinSchema.safeParse({ pinID });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.deletePin({ pinID, userID });
@@ -228,15 +245,15 @@ export default class PinsController {
     const page = Number(strPage);
     const limit = Number(strLimit);
 
-    try {
-      const result = getHomePinsSchema.safeParse({ page, limit });
+    // try {
+    //   const result = getHomePinsSchema.safeParse({ page, limit });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.getHomePins({ page, limit });
@@ -257,15 +274,15 @@ export default class PinsController {
     const page = Number(strPage);
     const limit = Number(strLimit);
 
-    try {
-      const result = searchPinsSchema.safeParse({ page, limit, value });
+    // try {
+    //   const result = searchPinsSchema.safeParse({ page, limit, value });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.searchPins({ value, page, limit });
@@ -285,19 +302,19 @@ export default class PinsController {
     const page = Number(strPage);
     const limit = Number(strLimit);
 
-    try {
-      const result = searchByCategorySchema.safeParse({
-        page,
-        limit,
-        category,
-      });
+    // try {
+    //   const result = searchByCategorySchema.safeParse({
+    //     page,
+    //     limit,
+    //     category,
+    //   });
 
-      if (!result.success) {
-        return res.status(400).json({ issues: result.error.issues });
-      }
-    } catch (err) {
-      return res.status(500).json({ message: 'Internal error!' });
-    }
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
 
     try {
       const data = await PinsModel.searchByCategory({ category, page, limit });
