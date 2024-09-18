@@ -133,10 +133,23 @@ export default class PinsModel {
 
   static async searchPins({ value, page, limit }) {
     const offset = (page - 1) * limit;
-    const searchValue = `%${value}%`;
+    // const searchValue = `%${value}%`;
+    /*'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title ILIKE $1 OR alt_text ILIKE $1 OR description ILIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;'*/
+
+    // Esto es para que to_tsquery pueda manejarlo correctamente
+    const searchValue = value
+      .split(' ')
+      .map((term) => `${term}:*`)
+      .join(' & ');
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title ILIKE $1 OR alt_text ILIKE $1 OR description ILIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      `SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter
+       FROM posts
+       INNER JOIN users ON users.id = posts.user_id
+       WHERE to_tsvector('simple', coalesce(title, '') || ' ' || coalesce(alt_text, '') || ' ' || coalesce(description, ''))
+             @@ to_tsquery($1)
+       ORDER BY posts.id
+       LIMIT $2 OFFSET $3;`,
       [searchValue, limit, offset]
     );
 
@@ -153,7 +166,7 @@ export default class PinsModel {
     // category = UUID
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1::UUID = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;',
       [category, limit, offset]
     );
 
