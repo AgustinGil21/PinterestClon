@@ -92,10 +92,11 @@ export default class PinsModel {
     url,
     topics,
     userID,
+    altText,
   }) {
     const response = await pool.query(
-      'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4, topics = $5 WHERE id = $6 AND user_id = $7;',
-      [title, description, adultContent, url, topics, pinID, userID]
+      'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4, topics = $5, alt_text = $6 WHERE id = $7 AND user_id = $8;',
+      [title, description, adultContent, url, topics, altText, pinID, userID]
     );
 
     const success = response.rowCount;
@@ -133,10 +134,23 @@ export default class PinsModel {
 
   static async searchPins({ value, page, limit }) {
     const offset = (page - 1) * limit;
-    const searchValue = `%${value}%`;
+    // const searchValue = `%${value}%`;
+    /*'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title ILIKE $1 OR alt_text ILIKE $1 OR description ILIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;'*/
+
+    // Esto es para que to_tsquery pueda manejarlo correctamente
+    const searchValue = value
+      .split(' ')
+      .map((term) => `${term}:*`)
+      .join(' & ');
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE title ILIKE $1 OR alt_text ILIKE $1 OR description ILIKE $1 ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      `SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter
+       FROM posts
+       INNER JOIN users ON users.id = posts.user_id
+       WHERE to_tsvector('simple', coalesce(title, '') || ' ' || coalesce(alt_text, '') || ' ' || coalesce(description, ''))
+             @@ to_tsquery($1)
+       ORDER BY posts.id
+       LIMIT $2 OFFSET $3;`,
       [searchValue, limit, offset]
     );
 
@@ -153,7 +167,7 @@ export default class PinsModel {
     // category = UUID
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1 = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;',
+      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1::UUID = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;',
       [category, limit, offset]
     );
 

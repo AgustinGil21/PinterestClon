@@ -111,6 +111,7 @@ export default class AuthController {
           .json({ message: 'User successfully created!' });
       }
     } catch (err) {
+      console.log(err);
       return res.status(401).json({ message: 'User already exists!' });
     }
   }

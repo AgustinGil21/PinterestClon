@@ -136,7 +136,6 @@ export default class PinsController {
         return res.status(200).json({ message: 'Pin successfully created!' });
       }
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ message: 'Cannot create pin!' });
     }
   }
@@ -337,9 +336,9 @@ export default class PinsController {
       if (data.ok) {
         return res.status(200).json({ pins, results });
       }
+      return res.status(400).json({ message: 'Cannot get pins!' });
     } catch (err) {
-      console.log(err);
-      return res.status(400).json({ message: 'Pins not found!' });
+      return res.status(400).json({ message: 'Cannot get pins!' });
     }
   }
 }
