@@ -92,10 +92,11 @@ export default class PinsModel {
     url,
     topics,
     userID,
+    altText,
   }) {
     const response = await pool.query(
-      'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4, topics = $5 WHERE id = $6 AND user_id = $7;',
-      [title, description, adultContent, url, topics, pinID, userID]
+      'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4, topics = $5, alt_text = $6 WHERE id = $7 AND user_id = $8;',
+      [title, description, adultContent, url, topics, altText, pinID, userID]
     );
 
     const success = response.rowCount;
