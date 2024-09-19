@@ -96,7 +96,6 @@ export const detectObjectChanges = (prevObject, newObject) => {
 //   return false;
 // };
 
-// Compara si dos valores son diferentes
 // Convierte una cadena de snake_case a camelCase
 const snakeToCamel = (str) => {
   return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
@@ -121,7 +120,14 @@ const objectToCamelCase = (obj) => {
 const areValuesDifferent = (val1, val2) => {
   if (val1 === val2) return false; // Misma referencia o valor primitivo
 
-  if (val1 == null || val2 == null) return false;
+  if (
+    (val1 === undefined || val1 === null) &&
+    (typeof val2 === 'string' ||
+      Array.isArray(val2) ||
+      (typeof val2 === 'object' && val2 !== null))
+  ) {
+    return true; // val1 es undefined o null y val2 es un string, array u objeto
+  }
 
   if (typeof val1 !== typeof val2) return true; // Diferentes tipos de datos
 
@@ -150,7 +156,11 @@ const areValuesDifferent = (val1, val2) => {
   return true; // Valores primitivos diferentes
 };
 
+// Detecta cambios entre dos objetos
 export const detectObjectChanges = (prevObject, newObject) => {
+  console.log({ prevObject });
+  console.log({ newObject });
+
   // Convertir ambos objetos a camelCase
   const prevObjectCamelCase = objectToCamelCase(prevObject);
   const newObjectCamelCase = objectToCamelCase(newObject);
@@ -165,8 +175,8 @@ export const detectObjectChanges = (prevObject, newObject) => {
     const prevValue = prevObjectCamelCase[key];
     const newValue = newObjectCamelCase[key];
 
-    if (areValuesDifferent(prevValue, newValue)) return true;
+    if (areValuesDifferent(prevValue, newValue)) return true; // Si hay diferencias, devuelve true
   }
 
-  return false;
+  return false; // No hay cambios significativos
 };

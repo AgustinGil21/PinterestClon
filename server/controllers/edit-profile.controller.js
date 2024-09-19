@@ -51,11 +51,6 @@ export default class EditProfileController {
       if (data.ok) {
         const { response: userData } = data;
 
-        const anyChanges = detectObjectChanges(userData, req.body);
-
-        if (!anyChanges)
-          return res.status(400).json({ message: 'No changes detected' });
-
         userDataObject = objectsCompare(userData, req.body, objectSkeleton);
       }
     } catch (err) {

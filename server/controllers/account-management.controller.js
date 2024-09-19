@@ -63,11 +63,6 @@ export default class AccountManagementController {
 
         userData.birthdate = normalizedDate;
 
-        const anyChanges = detectObjectChanges(userData, req.body);
-
-        if (!anyChanges)
-          return res.status(400).json({ message: 'No changes detected' });
-
         userDataObject = objectsCompare(userData, req.body, objectSkeleton);
       }
     } catch (err) {

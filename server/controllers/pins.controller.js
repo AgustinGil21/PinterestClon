@@ -173,11 +173,6 @@ export default class PinsController {
       return res.status(400).json({ message: 'Cannot get previous values!' });
     }
 
-    const changes = detectObjectChanges(prevValues, req.body);
-
-    if (!changes)
-      return res.status(400).json({ message: 'No changes detected' });
-
     try {
       const newValues = objectsCompare(
         prevValues,
