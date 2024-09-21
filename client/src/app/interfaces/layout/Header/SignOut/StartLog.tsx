@@ -10,7 +10,6 @@ const StartLog = () => {
       <ButtonStyled
         handleClick={openLoginModal}
         className={'bg-buttonGreyBg text-black font-semibold hover:bg-gray-300'}
-        disabled={true}
       >
         Iniciar sesion
       </ButtonStyled>

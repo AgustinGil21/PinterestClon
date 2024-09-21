@@ -2,16 +2,23 @@ import { PreviousPin } from '@/app/domain/types/pins-structure';
 import ThreePointsMenuCreat from '@/app/interfaces/components/icons/ThreePointsMenuCreat';
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-
+import { UseFormReset, FieldValues, UseFormClearErrors } from 'react-hook-form';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import ModalDeletePin from './ModalEditPin';
+import ModalEditPin from './ModalEditPin';
 
 interface PreviousPinInterface {
   elem: PreviousPin;
+  reset: UseFormReset<FieldValues>;
+  clearErrors: UseFormClearErrors<FieldValues>;
 }
 
-const PreviousPins = ({ elem }: PreviousPinInterface) => {
-  const { closeDeletePinModal } = useAppsStore();
+const PreviousPins = ({ elem, reset, clearErrors }: PreviousPinInterface) => {
+  const {
+    closeDeletePinModal,
+    getPinEditId,
+    updateStateCreatePin,
+    dataCreatePin,
+  } = useAppsStore();
   const [openModalId, setOpenModalId] = useState<string | null>(null);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
@@ -38,7 +45,8 @@ const PreviousPins = ({ elem }: PreviousPinInterface) => {
     };
   }, [closeDeletePinModal]);
 
-  const handleClickOpenMenu = (id: string) => {
+  const handleClickOpenMenu = (id: string, e: any) => {
+    e.stopPropagation();
     setOpenModalId(openModalId === id ? null : id);
   };
 
@@ -50,10 +58,24 @@ const PreviousPins = ({ elem }: PreviousPinInterface) => {
     setImageLoaded(true);
   };
 
+  const handleClickContainer = async (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
+    if (
+      !Object.values(buttonRefs.current).some(
+        (ref) => ref && ref.contains(e.target as Node)
+      )
+    )
+      await getPinEditId(elem.id);
+
+    clearErrors();
+  };
+
   return (
     <div
+      onClick={handleClickContainer}
       key={elem.id}
-      className={`hover:bg-gray-300 border-black p-2 px-3 rounded-lg flex flex-row items-center justify-between  dark:bg-slate-800 focus:bg-gray-300 focus:border-[1px] ${
+      className={`hover:bg-gray-300 border-black p-2 px-3 rounded-lg flex flex-row items-center justify-between dark:bg-slate-800 focus:bg-gray-300 focus:border-[1px] ${
         openModalId === elem.id ? 'border-[1px] bg-gray-300' : ''
       }`}
       tabIndex={0}
@@ -72,9 +94,6 @@ const PreviousPins = ({ elem }: PreviousPinInterface) => {
           style={{ visibility: imageLoaded ? 'visible' : 'hidden' }}
         />
       </div>
-      {/* <div className='flex justify-start w-full items-start'>
-        <p className='text-[12px] text-gray-600 text-start  '>{elem.title}</p>
-      </div> */}
 
       <div className='relative'>
         <button
@@ -82,16 +101,17 @@ const PreviousPins = ({ elem }: PreviousPinInterface) => {
             buttonRefs.current[elem.id] = el;
           }}
           className='hover:bg-gray-300 rounded-full p-1 cursor-pointer'
-          onClick={() => handleClickOpenMenu(elem.id)}
+          onClick={(e) => handleClickOpenMenu(elem.id, e)}
         >
           <ThreePointsMenuCreat />
         </button>
 
         {openModalId === elem.id && (
-          <ModalDeletePin
+          <ModalEditPin
             elem={elem}
             modalRef={modalRef}
             setOpenModalId={setOpenModalId}
+            reset={reset}
           />
         )}
       </div>

@@ -4,21 +4,31 @@ import NotImagePin from './NotImagePin';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import TrashCreateIcon from '@/app/interfaces/components/icons/TrashCreateIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
 interface ImagePinInterface {
   register: UseFormRegister<FieldValues>;
   clearErrors: () => void;
 }
 
-const ImagePin = ({
-  register,
-
-  clearErrors,
-}: ImagePinInterface) => {
+const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { updateStateCreatePin, setImagePreview, imagePreview, dataCreatePin } =
-    useAppsStore();
+  const {
+    updateStateCreatePin,
+    setImagePreview,
+    imagePreview,
+    dataCreatePin,
+    closeDeletePinModal,
+  } = useAppsStore();
+
+  useEffect(() => {
+    if (dataCreatePin.body instanceof File) {
+      const fileUrl = URL.createObjectURL(dataCreatePin.body);
+      setImagePreview(fileUrl);
+    } else if (typeof dataCreatePin.body === 'string') {
+      setImagePreview(dataCreatePin.body);
+    }
+  }, [dataCreatePin.body, setImagePreview]);
 
   const handleDivClick = (
     e: React.MouseEvent<HTMLDivElement> | React.MouseEvent<HTMLButtonElement>
@@ -33,14 +43,15 @@ const ImagePin = ({
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    setImagePreview(null);
     updateStateCreatePin('body', undefined);
-    updateStateCreatePin('adultContent', false);
-    updateStateCreatePin('altText', '');
+    updateStateCreatePin('adult_content', false);
+    updateStateCreatePin('alt_text', '');
     updateStateCreatePin('title', '');
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
     updateStateCreatePin('topicValue', '');
+
+    setImagePreview(null);
 
     clearErrors();
   };
@@ -54,6 +65,15 @@ const ImagePin = ({
       };
       reader.readAsDataURL(file);
     }
+
+    setImagePreview(null);
+    updateStateCreatePin('body', undefined);
+    updateStateCreatePin('adult_content', false);
+    updateStateCreatePin('alt_text', '');
+    updateStateCreatePin('title', '');
+    updateStateCreatePin('description', '');
+    updateStateCreatePin('url', '');
+    updateStateCreatePin('topicValue', '');
 
     clearErrors();
   };
@@ -87,8 +107,8 @@ const ImagePin = ({
               src={imagePreview}
               alt='Vista previa'
               className='absolute top-0 left-0 w-full h-full object-cover rounded-3xl'
-              width={100}
-              height={100}
+              layout='fill'
+              quality={100}
             />
             <button
               className='text-black absolute right-4 top-5 p-2 bg-white rounded-full shadow-xl'

@@ -9,7 +9,6 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import XCategoryCreateClose from '@/app/interfaces/components/icons/XCategoryCreateClose';
 import { serviceGetColors } from '@/app/infrastructure/services/service-register';
 import CategoryLabels from './CategoryLabels';
 import ModalSearcherCategories from './ModalSearcherCategories';
@@ -37,13 +36,13 @@ const CategoryPin = ({
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
   const [filterCategories, setFilterCategories] = useState(categoriesPin);
-
   const [categoriesSelect, setCategoriesSelect] = useState<
     { name: string; color: string }[]
   >([]);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Fetch categories and update the state
     getCategoriesPin();
     if (!imagePreview) {
       setCategoriesSelect([]);
@@ -52,7 +51,15 @@ const CategoryPin = ({
     }
   }, [getCategoriesPin, imagePreview]);
 
-  const categoryRef = watch('category');
+  useEffect(() => {
+    const selectedCategories = categoriesPin
+      .filter((category) => dataCreatePin.topics.includes(category.id))
+      .map((category) => ({
+        name: category.name,
+        color: '#000',
+      }));
+    setCategoriesSelect(selectedCategories);
+  }, [dataCreatePin.topics, categoriesPin]);
 
   useEffect(() => {
     const currentValues = getValues('category') || '';
@@ -60,7 +67,7 @@ const CategoryPin = ({
       elem.name.toLowerCase().includes(currentValues.toLowerCase())
     );
     setFilterCategories(response);
-  }, [categoryRef, categoriesPin, getValues]);
+  }, [watch('category'), categoriesPin, getValues]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,6 +80,9 @@ const CategoryPin = ({
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleFocus = () => {
@@ -91,11 +101,11 @@ const CategoryPin = ({
 
     updateStateTopicPin(newArrCategoryState);
 
-    const colorBgCategory = await serviceGetColors();
+    // const colorBgCategory = await serviceGetColors();
 
     const newCategory = {
       name: value,
-      color: colorBgCategory.hex,
+      color: '#000',
     };
 
     const arrValues = [...categoriesSelect, newCategory];
@@ -120,7 +130,7 @@ const CategoryPin = ({
     );
 
     const deleteCategory = dataCreatePin.topics.filter(
-      (elem) => elem !== categoryDeleteState[0].id
+      (elem: string) => elem !== categoryDeleteState[0].id
     );
 
     updateStateTopicPin(deleteCategory);

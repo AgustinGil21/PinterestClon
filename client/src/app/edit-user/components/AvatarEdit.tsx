@@ -52,7 +52,6 @@ const AvatarEdit = ({ register, watch }: AvatarInterface) => {
       </div>
       <div className='mt-5 flex flex-row gap-2 '>
         <ButtonStyled
-          disabled={false}
           className='bg-buttonGreyBg hover:bg-gray-200 items-center font-semibold w-fit relative cursor-pointer dark:text-black'
           aria-label='Cambiar Avatar'
         >

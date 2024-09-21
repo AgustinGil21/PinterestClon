@@ -3,8 +3,9 @@ import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   CategoriesPin,
   PinCreate,
-  PinId,
+  PinEdit,
   PreviousPin,
+  PinCreateServerAdapter,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
@@ -12,7 +13,9 @@ import {
   PinEditIdSchema,
 } from '../schemas/validation-service-api';
 
-export const servicePostCreatePin = async (data: PinCreate): Promise<void> => {
+export const servicePostCreatePin = async (
+  data: PinCreateServerAdapter
+): Promise<void> => {
   console.log(data);
   try {
     const response = await axios.post(`${URLDOMAIN}/pins/create`, data, {
@@ -71,16 +74,29 @@ export const serviceDeletePreviousPin = async (id: string) => {
 
 export const serviceGetEditPinId = async (
   id: string
-): Promise<PinCreate | null> => {
+): Promise<PinEdit | null> => {
   try {
-    const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
+    const response = await axios.get(`${URLDOMAIN}/pins/previous-pins/${id}`, {
       withCredentials: true,
     });
     console.log(response);
-    const result = PinEditIdSchema.safeParse(response.data);
+
+    const result = PinEditIdSchema.safeParse(response.data.pin);
     console.log(result);
 
     return result.success ? result.data : null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const servicePutEditPinId = async (id: string, data: PinEdit) => {
+  try {
+    const response = await axios.put(`${URLDOMAIN}/pins/${id}`, data, {
+      withCredentials: true,
+    });
+    console.log(response);
   } catch (error) {
     console.log(error);
     return null;

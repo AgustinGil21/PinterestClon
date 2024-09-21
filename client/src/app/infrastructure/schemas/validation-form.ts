@@ -303,7 +303,7 @@ export const CreatePinFormSchema = z.object({
     message: 'El enlace debe ser una URL válida.',
   }),
 
-  altText: z
+  alt_text: z
     .string()
     .min(1, { message: 'El texto alternativo es obligatorio.' })
     .max(100, {

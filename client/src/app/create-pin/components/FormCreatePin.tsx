@@ -7,6 +7,7 @@ import PlusOptions from './PlusOptions';
 import CategoryPin from './CategoryPin';
 import AltTextPin from './AltTextPin';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useState, useEffect } from 'react';
 import {
   SubmitHandler,
   FieldValues,
@@ -19,7 +20,32 @@ import {
   UseFormRegister,
   UseFormReset,
 } from 'react-hook-form';
-import { useState } from 'react';
+
+const deepEqual = (obj1: any, obj2: any): boolean => {
+  if (obj1 === obj2) return true;
+
+  if (
+    typeof obj1 !== 'object' ||
+    typeof obj2 !== 'object' ||
+    obj1 === null ||
+    obj2 === null
+  ) {
+    return false;
+  }
+
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+
+  if (keys1.length !== keys2.length) return false;
+
+  for (const key of keys1) {
+    if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+      return false;
+    }
+  }
+
+  return true;
+};
 
 interface FormCreatePinInterface {
   register: UseFormRegister<FieldValues>;
@@ -50,21 +76,42 @@ const FormCreatePin = ({
     imagePreview,
     setImagePreview,
     updateStateCreatePin,
+    putPinEditId,
   } = useAppsStore();
 
   const [savePin, setSavePin] = useState(false);
+  const [initialValues, setInitialValues] = useState<FieldValues>({});
+
+  useEffect(() => {
+    if (dataCreatePin) {
+      setInitialValues({
+        title: dataCreatePin.title,
+        adult_content: dataCreatePin.adult_content,
+        alt_text: dataCreatePin.alt_text,
+        description: dataCreatePin.description,
+        topics: dataCreatePin.topics,
+        url: dataCreatePin.url,
+        body: dataCreatePin.body,
+      });
+    }
+    reset();
+  }, [dataCreatePin]);
+
+  const currentValues = watch();
+
+  const isValuesEqual = deepEqual(currentValues, initialValues);
 
   const onSubmit: SubmitHandler<FieldValues> = async () => {
-    console.log(dataCreatePin.altText);
     if (isValid) {
       setSavePin(true);
+
       try {
         await postDataCreatePin({
           title: dataCreatePin.title,
-          adultContent: dataCreatePin.adultContent,
-          altText: dataCreatePin.altText,
+          adult_content: dataCreatePin.adult_content,
+          alt_text: dataCreatePin.alt_text,
           description: dataCreatePin.description,
-          topics: dataCreatePin.topics,
+          topics: JSON.stringify(dataCreatePin.topics),
           url: dataCreatePin.url,
           body: dataCreatePin.body,
         });
@@ -72,76 +119,113 @@ const FormCreatePin = ({
         reset();
       } catch (error) {
         console.log(error);
+      } finally {
+        setSavePin(false);
+        setImagePreview(null);
+        clearErrors();
+        resetFormState();
       }
     }
-    setSavePin(false);
-    setImagePreview(null);
+  };
+  const handleClickEdit = async () => {
+    const data: any = {
+      altText: dataCreatePin.alt_text,
+      title: dataCreatePin.title,
+      adultContent: dataCreatePin.adult_content,
+      description: dataCreatePin.description,
+      topics: dataCreatePin.topics,
+      url: dataCreatePin.url,
+      body: dataCreatePin.body,
+    };
+
+    const hasChanges = !isValuesEqual;
+
+    if (hasChanges && isValid && dataCreatePin.id) {
+      setSavePin(true);
+      try {
+        await putPinEditId(dataCreatePin.id, data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setTimeout(() => {
+          setSavePin(false);
+          setInitialValues(currentValues);
+        }, 700);
+      }
+    }
+  };
+
+  const resetFormState = () => {
     updateStateCreatePin('title', '');
-    updateStateCreatePin('altText', '');
+    updateStateCreatePin('alt_text', '');
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
-    updateStateCreatePin('adultContent', false);
+    updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
-    clearErrors();
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='border-b-[1px] w-full border-b-gray-300 py-4 px-4 flex justify-between items-center'>
-          <h3 className='font-semibold text-[16px] dark:text-white'>
-            Crear Pin
-          </h3>
-          {imagePreview && (
-            <div className='flex flex-row items-center gap-3'>
-              {savePin && <p className='text-sm'>Creando pin...</p>}
-
-              <ButtonStyled
-                disabled={!imagePreview}
-                className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white'
-                type='submit'
-              >
-                Publicar
-              </ButtonStyled>
-            </div>
-          )}
-        </div>
-        <div className='flex w-full justify-center p-4 '>
-          <div className='flex flex-row max-h-[500px] justify-start w-[50%] p-1 gap-8'>
-            <ImagePin register={register} clearErrors={clearErrors} />
-
-            <div className='w-full p-2 flex gap-3 flex-col max-w-[480px]'>
-              <AltTextPin
-                getValues={getValues}
-                register={register}
-                errors={errors}
-                watch={watch}
-              />
-
-              <TitlePin register={register} errors={errors} watch={watch} />
-
-              <DescriptionPin
-                register={register}
-                errors={errors}
-                watch={watch}
-              />
-
-              <UrlPin register={register} errors={errors} watch={watch} />
-
-              <CategoryPin
-                register={register}
-                errors={errors}
-                watch={watch}
-                getValues={getValues}
-                setValue={setValue}
-              />
-
-              <PlusOptions imagePreview={imagePreview} register={register} />
-            </div>
+    <form>
+      <div className='border-b-[1px] w-full border-b-gray-300 py-4 px-4 flex justify-between items-center'>
+        <h3 className='font-semibold text-[16px] dark:text-white'>Crear Pin</h3>
+        {imagePreview && dataCreatePin.body instanceof File && (
+          <div className='flex flex-row items-center gap-3'>
+            {savePin && <p className='text-sm'>Creando pin...</p>}
+            <ButtonStyled
+              handleClick={handleSubmit(onSubmit)}
+              disabled={dataCreatePin.alt_text === ''}
+              className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white  disabled:bg-gray-500'
+              type='submit'
+            >
+              Publicar
+            </ButtonStyled>
+          </div>
+        )}
+        {imagePreview && typeof dataCreatePin.body === 'string' && (
+          <div className='flex flex-row items-center gap-3'>
+            {savePin && <p className='text-sm'>Guardando cambios...</p>}
+            <ButtonStyled
+              className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white disabled:bg-gray-500'
+              type='button'
+              handleClick={handleSubmit(handleClickEdit)}
+              disabled={isValuesEqual || !isValid}
+            >
+              Guardar
+            </ButtonStyled>
+          </div>
+        )}
+      </div>
+      <div className='flex w-full justify-center p-4'>
+        <div className='flex flex-row max-h-[500px] justify-start w-[50%] p-1 gap-8'>
+          <ImagePin register={register} clearErrors={clearErrors} />
+          <div className='w-full p-2 flex gap-3 flex-col max-w-[480px]'>
+            <AltTextPin
+              getValues={getValues}
+              register={register}
+              errors={errors}
+              watch={watch}
+              setValue={setValue}
+            />
+            <TitlePin register={register} errors={errors} watch={watch} />
+            <DescriptionPin register={register} errors={errors} watch={watch} />
+            <UrlPin
+              register={register}
+              errors={errors}
+              watch={watch}
+              setValue={setValue}
+            />
+            <CategoryPin
+              register={register}
+              errors={errors}
+              watch={watch}
+              getValues={getValues}
+              setValue={setValue}
+            />
+            <PlusOptions imagePreview={imagePreview} register={register} />
           </div>
         </div>
-      </form>
-    </>
+      </div>
+    </form>
   );
 };
 

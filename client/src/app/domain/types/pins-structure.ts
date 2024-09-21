@@ -1,12 +1,35 @@
 export interface PinCreate {
-  title: string;
-  adultContent: boolean;
-  altText: string;
+  title?: string;
+  adult_content?: boolean;
+  alt_text: string | undefined;
   description?: string;
-  topics: string[];
-  url: string;
-  body: File | undefined;
+  topics?: string | string[] | any;
+  url?: string;
+  body?: File | string;
   topicValue?: string;
+  id?: string;
+}
+
+export interface PinEdit {
+  title?: string;
+  adult_content?: boolean;
+  alt_text?: string | undefined;
+  description?: string;
+  topics?: string[];
+  url?: string;
+  body: string;
+  topicValue?: string;
+  id: string;
+}
+
+export interface PinCreateServerAdapter {
+  title?: string;
+  altText?: string;
+  adultContent?: boolean;
+  description?: string;
+  url?: string;
+  body: string | File | undefined;
+  topics?: string[] | string;
 }
 
 export interface CategoriesPin {

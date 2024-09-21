@@ -4,26 +4,44 @@ import { PreviousPin } from '@/app/domain/types/pins-structure';
 import { MutableRefObject } from 'react';
 import ModalFinnalyDelete from './ModalFinnalyDelete';
 import { Dispatch, SetStateAction } from 'react';
+import { UseFormReset, FieldValues } from 'react-hook-form';
 
 interface ModalDeletePinInterface {
   elem: PreviousPin;
   modalRef: MutableRefObject<HTMLDivElement | null>;
   setOpenModalId: Dispatch<SetStateAction<string | null>>;
+  reset: UseFormReset<FieldValues>;
 }
 
 const ModalEditPin = ({
   elem,
   modalRef,
+  reset,
   setOpenModalId,
 }: ModalDeletePinInterface) => {
-  const { isDeletePinModal, openDeletePinModal, getPinEditId } = useAppsStore();
+  const {
+    isDeletePinModal,
+    openDeletePinModal,
+    getPinEditId,
+    closeDeletePinModal,
+    updateStateCreatePin,
+  } = useAppsStore();
 
   const handleClickDeletePin = () => {
     openDeletePinModal();
   };
 
   const handleClickEditPin = () => {
+    closeDeletePinModal();
+    updateStateCreatePin('title', '');
+    updateStateCreatePin('alt_text', '');
+    updateStateCreatePin('description', '');
+    updateStateCreatePin('url', '');
+    updateStateCreatePin('adult_content', false);
+    updateStateCreatePin('topics', '');
     getPinEditId(elem.id);
+    reset();
+    setOpenModalId(null);
   };
 
   return (

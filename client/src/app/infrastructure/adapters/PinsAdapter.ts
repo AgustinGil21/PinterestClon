@@ -1,7 +1,9 @@
 import {
   CategoriesPin,
   PinCreate,
+  PinEdit,
   PreviousPin,
+  PinCreateServerAdapter,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
@@ -9,10 +11,21 @@ import {
   serviceGetEditPinId,
   serviceGetPreviousPins,
   servicePostCreatePin,
+  servicePutEditPinId,
 } from '../services/service-pins';
 
 export const postCreatePinAdapter = async (data: PinCreate): Promise<void> => {
-  await servicePostCreatePin(data);
+  const newData: PinCreateServerAdapter = {
+    title: data.title,
+    altText: data.alt_text,
+    adultContent: data.adult_content,
+    description: data.description,
+    url: data.url,
+    body: data.body,
+    topics: data.topics,
+  };
+
+  return await servicePostCreatePin(newData);
 };
 
 export const getCategoriesPinAdapter = async (): Promise<CategoriesPin[]> => {
@@ -29,24 +42,35 @@ export const deletePreviousPinAdapter = async (id: string) => {
 
 export const getPinEditIdAdapter = async (
   id: string
-): Promise<PinCreate | null> => {
+): Promise<PinEdit | null> => {
   try {
     const response = await serviceGetEditPinId(id);
+
     if (response) {
       return {
-        altText: response.altText,
-        description: response.description,
-        title: response.title,
+        alt_text: response.alt_text,
+        description: response.description || '',
+        title: response.title || '',
         body: response.body,
-        adultContent: response.adultContent,
-        url: response.url,
-
-        topics: response.topics,
+        adult_content: response.adult_content,
+        url: response.url || '',
+        id: response.id,
+        topics: response.topics || [],
       };
     }
+
     return null;
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const putPinEditIdAdapter = async (id: string, data: PinEdit) => {
+  console.log(data);
+  try {
+    await servicePutEditPinId(id, data);
+  } catch (error) {
+    console.log(error);
   }
 };

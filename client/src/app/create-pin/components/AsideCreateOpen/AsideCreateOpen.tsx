@@ -3,16 +3,18 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import PreviousPins from './PreviousPins';
 import ArrowCreatRightIcon from '@/app/interfaces/components/icons/ArrowCreatRightIcon';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
-import { FieldValues, UseFormClearErrors } from 'react-hook-form';
+import { FieldValues, UseFormClearErrors, UseFormReset } from 'react-hook-form';
 
 interface AsideCreateOpenInterface {
   handleClick: () => void;
   clearErrors: UseFormClearErrors<FieldValues>;
+  reset: UseFormReset<FieldValues>;
 }
 
 const AsideCreateOpen = ({
   handleClick,
   clearErrors,
+  reset,
 }: AsideCreateOpenInterface) => {
   const {
     getPreviousPins,
@@ -27,11 +29,12 @@ const AsideCreateOpen = ({
 
   const handleClickNewPin = () => {
     setImagePreview(null);
+    updateStateCreatePin('body', undefined);
     updateStateCreatePin('title', '');
-    updateStateCreatePin('altText', '');
+    updateStateCreatePin('alt_text', '');
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
-    updateStateCreatePin('adultContent', false);
+    updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
 
     clearErrors();
@@ -53,7 +56,6 @@ const AsideCreateOpen = ({
             </button>
           </div>
           <ButtonStyled
-            disabled={false}
             className='bg-buttonGreyBg font-semibold w-full text-sm hover:bg-gray-300 py-1.5'
             handleClick={handleClickNewPin}
           >
@@ -64,7 +66,12 @@ const AsideCreateOpen = ({
 
       <div className='w-full p-2 py-1  h-[calc(100vh-13%)] flex flex-col gap-3 overflow-y-scroll '>
         {previousPin.map((elem) => (
-          <PreviousPins elem={elem} key={elem.id} />
+          <PreviousPins
+            elem={elem}
+            key={elem.id}
+            reset={reset}
+            clearErrors={clearErrors}
+          />
         ))}
       </div>
     </div>

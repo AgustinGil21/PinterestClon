@@ -15,22 +15,22 @@ const SwitchPinAdultContent = ({
   useEffect(() => {});
 
   const handleChange = (checked: boolean) => {
-    updateStateCreatePin('adultContent', checked);
+    updateStateCreatePin('adult_content', checked);
   };
 
   return (
     <div className='flex gap-2 flex-row px-2 items-start mt-2'>
       <div>
         <Switch
-          checked={dataCreatePin.adultContent}
+          checked={dataCreatePin.adult_content}
           onChange={handleChange}
           className={`${
-            dataCreatePin.adultContent ? 'bg-black' : 'bg-gray-200'
+            dataCreatePin.adult_content ? 'bg-black' : 'bg-gray-200'
           } group inline-flex h-5 w-11 items-center rounded-full transition`}
         >
           <span
             className={`size-4 transform ${
-              dataCreatePin.adultContent ? 'translate-x-6' : 'translate-x-1'
+              dataCreatePin.adult_content ? 'translate-x-6' : 'translate-x-1'
             } rounded-full bg-white transition`}
           />
         </Switch>

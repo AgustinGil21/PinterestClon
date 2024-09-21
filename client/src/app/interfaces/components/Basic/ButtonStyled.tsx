@@ -7,7 +7,7 @@ interface ButtonProps {
   className: string;
   children: React.ReactNode;
   type?: 'button' | 'submit';
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 const ButtonStyled = ({
@@ -15,9 +15,11 @@ const ButtonStyled = ({
   className,
   handleClick,
   type,
+  disabled,
 }: ButtonProps) => {
   return (
     <button
+      disabled={disabled}
       onClick={handleClick}
       type={type}
       className={`py-2 px-3 text-sm text-nowrap rounded-3xl  ${className}`}

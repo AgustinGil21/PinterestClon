@@ -6,15 +6,22 @@ import {
   UseFormRegister,
   FieldErrors,
   UseFormWatch,
+  UseFormSetValue,
 } from 'react-hook-form';
 
 interface ImagePreviewInterface {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
 }
 
-const UrlPin = ({ register, errors, watch }: ImagePreviewInterface) => {
+const UrlPin = ({
+  register,
+  errors,
+  watch,
+  setValue,
+}: ImagePreviewInterface) => {
   const { updateStateCreatePin, dataCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
 

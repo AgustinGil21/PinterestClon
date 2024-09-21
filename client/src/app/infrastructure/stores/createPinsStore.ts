@@ -3,9 +3,11 @@ import { getCategoriesPinsCase } from '@/app/application/use-cases/create-pins/g
 import { getPinEditIdCase } from '@/app/application/use-cases/create-pins/getPinEditId';
 import { getPreviousPinsCase } from '@/app/application/use-cases/create-pins/getPreviousPins';
 import { postCreatePinsCase } from '@/app/application/use-cases/create-pins/postCreatePins';
+import { putPinEditIdCase } from '@/app/application/use-cases/create-pins/putEditPinId';
 import {
   CategoriesPin,
   PinCreate,
+  PinEdit,
   PreviousPin,
 } from '@/app/domain/types/pins-structure';
 import { StateCreator } from 'zustand';
@@ -14,7 +16,7 @@ export interface CreatePinsStoreInterface {
   imagePreview: string | null;
   setImagePreview: (image: string | null) => void;
   postDataCreatePin: (data: PinCreate) => Promise<void>;
-  dataCreatePin: PinCreate;
+  dataCreatePin: PinCreate | PinEdit;
   updateStateCreatePin: (
     key: keyof PinCreate,
     value: string | boolean | undefined | File
@@ -26,6 +28,7 @@ export interface CreatePinsStoreInterface {
   getPreviousPins: () => Promise<void>;
   deletePreviousPin: (id: string) => Promise<void>;
   getPinEditId: (id: string) => Promise<void>;
+  putPinEditId: (id: string, data: PinEdit) => Promise<void>;
 }
 
 export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
@@ -34,13 +37,14 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
 ) => ({
   dataCreatePin: {
     title: '',
-    adultContent: false,
-    altText: '',
+    adult_content: false,
+    alt_text: '',
     description: '',
     topics: [],
     url: '',
     body: undefined,
     topicValue: '',
+    id: '',
   },
 
   categoriesPin: [
@@ -72,7 +76,6 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
         [key]: value,
       },
     }));
-    console.log(get().dataCreatePin);
   },
 
   updateStateTopicPin: (updatedTopics: string[]) => {
@@ -105,10 +108,14 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
   },
   getPinEditId: async (id: string) => {
     const response = await getPinEditIdCase(id);
+    console.log(response);
     if (response) {
       set({
         dataCreatePin: response,
       });
     }
+  },
+  putPinEditId: async (id: string, data: PinEdit) => {
+    await putPinEditIdCase(id, data);
   },
 });

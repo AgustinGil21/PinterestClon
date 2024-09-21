@@ -117,10 +117,11 @@ export const ArrayPreviousPinSchema = z.array(PreviousPinSchema);
 
 export const PinEditIdSchema = z.object({
   title: z.string().optional(),
-  adultContent: z.boolean().optional(),
-  altText: z.string(),
+  adult_content: z.boolean().optional(),
+  alt_text: z.string().optional(),
   description: z.string().optional(),
-  url: z.string().url('Invalid URL format'),
+  url: z.string().url('Invalid URL format').optional(),
   body: z.string(),
-  topics: z.array(z.string()),
+  topics: z.array(z.string()).optional(),
+  id: z.string(),
 });

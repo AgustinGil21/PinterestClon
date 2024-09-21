@@ -65,7 +65,11 @@ const CreatePin = () => {
   return (
     <section className='w-full border-t-gray-300 border-t-[1px] flex flex-row min-h-[100vh] prueba'>
       {isOpen ? (
-        <AsideCreateClose handleClick={handleClick} clearErrors={clearErrors} />
+        <AsideCreateClose
+          handleClick={handleClick}
+          clearErrors={clearErrors}
+          reset={reset}
+        />
       ) : (
         <AsideCreateOpen handleClick={handleClick} clearErrors={clearErrors} />
       )}

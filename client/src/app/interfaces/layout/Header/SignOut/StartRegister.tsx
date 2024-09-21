@@ -20,7 +20,6 @@ const StartRegister = () => {
         className={
           'bg-redPinterestBg text-white font-semibold  hover:bg-red-700'
         }
-        disabled={true}
         handleClick={openRegisterModal}
       >
         Registrate

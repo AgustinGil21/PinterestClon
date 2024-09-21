@@ -5,6 +5,7 @@ import {
   FieldErrors,
   UseFormWatch,
   UseFormGetValues,
+  UseFormSetValue,
 } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
@@ -14,6 +15,7 @@ interface AltTextPinInterface {
   errors: FieldErrors<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   getValues: UseFormGetValues<FieldValues>;
+  setValue: UseFormSetValue<FieldValues>;
 }
 
 const AltTextPin = ({
@@ -21,27 +23,34 @@ const AltTextPin = ({
   register,
   watch,
   getValues,
+  setValue,
 }: AltTextPinInterface) => {
   const { dataCreatePin, updateStateCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
 
-  const altTextRef = watch('altText');
+  const altTextRef = watch('alt_text');
 
   useEffect(() => {
-    if (altTextRef !== undefined && dataCreatePin?.altText !== altTextRef) {
-      updateStateCreatePin('altText', altTextRef);
+    if (dataCreatePin?.alt_text) {
+      setValue('alt_text', dataCreatePin.alt_text);
+    }
+  }, [dataCreatePin, setValue]);
+
+  useEffect(() => {
+    if (altTextRef !== undefined && dataCreatePin?.alt_text !== altTextRef) {
+      updateStateCreatePin('alt_text', altTextRef);
     }
   }, [altTextRef, getValues, updateStateCreatePin]);
 
   return (
     <InputLabelStyled
-      value={dataCreatePin.altText}
-      infoName='altText'
+      value={dataCreatePin.alt_text}
+      infoName='alt_text'
       textLabel='Texto Alt'
       type='text'
       readOnly={isReadOnly}
       register={register}
-      errors={errors.altText}
+      errors={errors.alt_text}
       className={`${
         isReadOnly
           ? 'opacity-75 bg-transparent border-gray-300  outline-none outline-transparent cursor-default'

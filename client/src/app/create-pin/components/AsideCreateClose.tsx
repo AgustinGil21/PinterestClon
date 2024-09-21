@@ -16,10 +16,10 @@ const AsideCreateClose = ({
   const handleClickPlusPín = () => {
     setImagePreview(null);
     updateStateCreatePin('title', '');
-    updateStateCreatePin('altText', '');
+    updateStateCreatePin('alt_text', '');
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
-    updateStateCreatePin('adultContent', false);
+    updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
 
     clearErrors();
