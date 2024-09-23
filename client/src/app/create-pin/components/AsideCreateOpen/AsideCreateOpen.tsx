@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import PreviousPins from './PreviousPins';
 import ArrowCreatRightIcon from '@/app/interfaces/components/icons/ArrowCreatRightIcon';
@@ -16,6 +16,7 @@ const AsideCreateOpen = ({
   clearErrors,
   reset,
 }: AsideCreateOpenInterface) => {
+  const [shouldReload, setShouldReload] = useState(false);
   const {
     getPreviousPins,
     previousPin,
@@ -25,7 +26,7 @@ const AsideCreateOpen = ({
 
   useEffect(() => {
     getPreviousPins();
-  }, []);
+  }, [shouldReload]);
 
   const handleClickNewPin = () => {
     setImagePreview(null);
@@ -38,6 +39,7 @@ const AsideCreateOpen = ({
     updateStateCreatePin('topics', '');
 
     clearErrors();
+    setShouldReload((prev) => !prev);
   };
 
   return (

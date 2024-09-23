@@ -63,3 +63,24 @@ export interface PinId {
   user_id: string;
   followers: string;
 }
+
+export interface PinInterface {
+  body: string;
+  title?: string;
+  url?: string;
+  adult_content: boolean;
+  pin_id: string;
+  alt_text: string;
+  name?: string | null;
+  surname?: string | null;
+  username: string;
+  avatar?: string;
+  avatar_background: string;
+  avatar_letter_color: string;
+  avatar_letter: string;
+}
+
+export interface GetPinsInterface {
+  pins: PinInterface[];
+  results: number;
+}

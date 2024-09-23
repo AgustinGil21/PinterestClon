@@ -29,6 +29,8 @@ export interface CreatePinsStoreInterface {
   deletePreviousPin: (id: string) => Promise<void>;
   getPinEditId: (id: string) => Promise<void>;
   putPinEditId: (id: string, data: PinEdit) => Promise<void>;
+  shouldReload: boolean;
+  setShouldReload: () => void;
 }
 
 export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
@@ -117,5 +119,12 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
   },
   putPinEditId: async (id: string, data: PinEdit) => {
     await putPinEditIdCase(id, data);
+  },
+
+  shouldReload: false,
+  setShouldReload: () => {
+    set((prev) => {
+      shouldReload: !prev.shouldReload;
+    });
   },
 });

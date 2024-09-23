@@ -10,7 +10,7 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
 
   return (
     <nav>
-      <ul className='text-black dark:text-white font-medium flex gap-6 text-[13.5px] mr-2'>
+      <ul className='text-black dark:text-white font-medium flex items-center gap-6 text-[13.5px] mr-2'>
         {loginAuth ? (
           <>
             <LinkNavigate

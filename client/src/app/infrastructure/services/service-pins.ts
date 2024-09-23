@@ -6,10 +6,12 @@ import {
   PinEdit,
   PreviousPin,
   PinCreateServerAdapter,
+  GetPinsInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
   CategoriesSchema,
+  getPinsSchema,
   PinEditIdSchema,
 } from '../schemas/validation-service-api';
 
@@ -100,5 +102,26 @@ export const servicePutEditPinId = async (id: string, data: PinEdit) => {
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const serviceGetHomePins = async (
+  page: number,
+  limit: number
+): Promise<GetPinsInterface | []> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/pins?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    const result = getPinsSchema.safeParse(response.data);
+
+    return response.status === 200 ? response.data.pins : [];
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };

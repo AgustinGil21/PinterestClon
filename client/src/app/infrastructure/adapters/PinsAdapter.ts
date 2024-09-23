@@ -4,11 +4,13 @@ import {
   PinEdit,
   PreviousPin,
   PinCreateServerAdapter,
+  GetPinsInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
   serviceGetCategoriesPin,
   serviceGetEditPinId,
+  serviceGetHomePins,
   serviceGetPreviousPins,
   servicePostCreatePin,
   servicePutEditPinId,
@@ -73,4 +75,11 @@ export const putPinEditIdAdapter = async (id: string, data: PinEdit) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const getHomePins = async (
+  page: number,
+  limit: number
+): Promise<GetPinsInterface | []> => {
+  return await serviceGetHomePins(page, limit);
 };
