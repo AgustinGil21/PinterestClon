@@ -20,6 +20,7 @@ import {
   UseFormRegister,
   UseFormReset,
 } from 'react-hook-form';
+import ButtonsRender from './ButtonsRender';
 
 const deepEqual = (obj1: any, obj2: any): boolean => {
   if (obj1 === obj2) return true;
@@ -77,6 +78,7 @@ const FormCreatePin = ({
     setImagePreview,
     updateStateCreatePin,
     putPinEditId,
+    setShouldReload,
   } = useAppsStore();
 
   const [savePin, setSavePin] = useState(false);
@@ -116,6 +118,7 @@ const FormCreatePin = ({
           body: dataCreatePin.body,
         });
 
+        setShouldReload();
         reset();
       } catch (error) {
         console.log(error);
@@ -162,39 +165,19 @@ const FormCreatePin = ({
     updateStateCreatePin('url', '');
     updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
+    updateStateCreatePin('id', '');
   };
 
   return (
     <form>
-      <div className='border-b-[1px] w-full border-b-gray-300 py-4 px-4 flex justify-between items-center'>
-        <h3 className='font-semibold text-[16px] dark:text-white'>Crear Pin</h3>
-        {imagePreview && dataCreatePin.body instanceof File && (
-          <div className='flex flex-row items-center gap-3'>
-            {savePin && <p className='text-sm'>Creando pin...</p>}
-            <ButtonStyled
-              handleClick={handleSubmit(onSubmit)}
-              disabled={dataCreatePin.alt_text === ''}
-              className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white  disabled:bg-gray-500'
-              type='submit'
-            >
-              Publicar
-            </ButtonStyled>
-          </div>
-        )}
-        {imagePreview && typeof dataCreatePin.body === 'string' && (
-          <div className='flex flex-row items-center gap-3'>
-            {savePin && <p className='text-sm'>Guardando cambios...</p>}
-            <ButtonStyled
-              className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white disabled:bg-gray-500'
-              type='button'
-              handleClick={handleSubmit(handleClickEdit)}
-              disabled={isValuesEqual || !isValid}
-            >
-              Guardar
-            </ButtonStyled>
-          </div>
-        )}
-      </div>
+      <ButtonsRender
+        handleClickEdit={handleClickEdit}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        isValid={isValid}
+        isValuesEqual={isValuesEqual}
+        savePin={savePin}
+      />
       <div className='flex w-full justify-center p-4'>
         <div className='flex flex-row max-h-[500px] justify-start w-[50%] p-1 gap-8'>
           <ImagePin register={register} clearErrors={clearErrors} />

@@ -50,6 +50,7 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
     updateStateCreatePin('topicValue', '');
+    updateStateCreatePin('id', '');
 
     setImagePreview(null);
 
@@ -74,6 +75,7 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
     updateStateCreatePin('description', '');
     updateStateCreatePin('url', '');
     updateStateCreatePin('topicValue', '');
+    updateStateCreatePin('id', '');
 
     clearErrors();
   };

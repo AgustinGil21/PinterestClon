@@ -16,7 +16,8 @@ const ModalFinnalyDelete = ({
   elem,
   setOpenModalId,
 }: ModalFinnalyDeleteInterface) => {
-  const { deletePreviousPin, closeDeletePinModal } = useAppsStore();
+  const { deletePreviousPin, closeDeletePinModal, setShouldReload } =
+    useAppsStore();
   const handleClick = () => {
     setOpenModalId(null);
     closeDeletePinModal();
@@ -24,6 +25,7 @@ const ModalFinnalyDelete = ({
 
   const handleClickDelete = async (id: string) => {
     await deletePreviousPin(id);
+    setShouldReload();
     closeDeletePinModal();
   };
 

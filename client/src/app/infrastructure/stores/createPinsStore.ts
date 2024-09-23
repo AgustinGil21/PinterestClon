@@ -65,9 +65,15 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
     },
   ],
   imagePreview: null,
+  shouldReload: false,
 
   setImagePreview: (image: string | null) => set({ imagePreview: image }),
 
+  setShouldReload: () => {
+    set((state) => ({
+      shouldReload: !state.shouldReload,
+    }));
+  },
   postDataCreatePin: async (data: PinCreate) => {
     await postCreatePinsCase(data);
   },
@@ -119,12 +125,5 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
   },
   putPinEditId: async (id: string, data: PinEdit) => {
     await putPinEditIdCase(id, data);
-  },
-
-  shouldReload: false,
-  setShouldReload: () => {
-    set((prev) => {
-      shouldReload: !prev.shouldReload;
-    });
   },
 });

@@ -39,6 +39,7 @@ const ModalEditPin = ({
     updateStateCreatePin('url', '');
     updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
+
     getPinEditId(elem.id);
     reset();
     setOpenModalId(null);

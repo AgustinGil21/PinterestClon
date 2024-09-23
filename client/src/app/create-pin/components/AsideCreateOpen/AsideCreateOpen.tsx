@@ -16,12 +16,12 @@ const AsideCreateOpen = ({
   clearErrors,
   reset,
 }: AsideCreateOpenInterface) => {
-  const [shouldReload, setShouldReload] = useState(false);
   const {
     getPreviousPins,
     previousPin,
     updateStateCreatePin,
     setImagePreview,
+    shouldReload,
   } = useAppsStore();
 
   useEffect(() => {
@@ -37,9 +37,9 @@ const AsideCreateOpen = ({
     updateStateCreatePin('url', '');
     updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
+    updateStateCreatePin('id', '');
 
     clearErrors();
-    setShouldReload((prev) => !prev);
   };
 
   return (
@@ -66,7 +66,7 @@ const AsideCreateOpen = ({
         </div>
       </div>
 
-      <div className='w-full p-2 py-1  h-[calc(100vh-13%)] flex flex-col gap-3 overflow-y-scroll '>
+      <div className='w-full p-2 py-1 h-[calc(100vh-22%)] flex flex-col gap-3 overflow-y-scroll '>
         {previousPin.map((elem) => (
           <PreviousPins
             elem={elem}
