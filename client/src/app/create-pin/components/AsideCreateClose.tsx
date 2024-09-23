@@ -21,6 +21,7 @@ const AsideCreateClose = ({
     updateStateCreatePin('url', '');
     updateStateCreatePin('adult_content', false);
     updateStateCreatePin('topics', '');
+    updateStateCreatePin('id', '');
 
     clearErrors();
   };
