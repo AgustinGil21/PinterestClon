@@ -1,3 +1,5 @@
+import { UserPreview } from './UserPreview';
+
 interface PinFooterInterface {
   title?: string;
   avatar?: string;
@@ -7,7 +9,7 @@ interface PinFooterInterface {
   avatar_letter: string;
   name?: string | null;
   surname?: string | null;
-  url?: string;
+  footerClassProps?: string;
 }
 
 export const PinFooter = ({
@@ -19,34 +21,20 @@ export const PinFooter = ({
   avatar_letter,
   name,
   surname,
-  url,
+  footerClassProps,
 }: PinFooterInterface) => {
-  const userURL = `${username}`;
-
   return (
-    <footer className='card-bottom'>
+    <footer className={`card-bottom ${footerClassProps}`}>
       {title && <strong>{title}</strong>}
-      <a href={url} className='user-data'>
-        {avatar ? (
-          <img
-            src={avatar}
-            alt={`@${username} avatar`}
-            className='user-avatar'
-          />
-        ) : (
-          <div
-            className='user-avatar'
-            style={{
-              backgroundColor: avatar_background,
-              color: avatar_letter_color,
-            }}
-          >
-            {avatar_letter}
-          </div>
-        )}
-
-        {name ? <span>{`${name} ${surname}`}</span> : <span>{username}</span>}
-      </a>
+      <UserPreview
+        avatar={avatar}
+        username={username}
+        avatar_background={avatar_background}
+        avatar_letter_color={avatar_letter_color}
+        avatar_letter={avatar_letter}
+        name={name}
+        surname={surname}
+      />
     </footer>
   );
 };

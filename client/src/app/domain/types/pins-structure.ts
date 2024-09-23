@@ -82,5 +82,5 @@ export interface PinInterface {
 
 export interface GetPinsInterface {
   pins: PinInterface[];
-  results: number;
+  results?: number;
 }

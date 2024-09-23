@@ -1,5 +1,6 @@
 import { PinInterface } from '../domain/types/pins-structure';
 import { PinFooter } from './PinFooter';
+import { PinTop } from './PinTop';
 
 export const Pin = ({
   body,
@@ -17,10 +18,8 @@ export const Pin = ({
   avatar_letter,
 }: PinInterface) => {
   return (
-    <section className='card' key={pin_id}>
-      <article className='card-top'>
-        <img src={body} className='card-body' alt={alt_text} />
-      </article>
+    <section className='card' id={pin_id}>
+      <PinTop body={body} url={url} alt_text={alt_text} />
 
       <PinFooter
         name={name}
@@ -31,7 +30,6 @@ export const Pin = ({
         avatar_letter_color={avatar_letter_color}
         avatar={avatar}
         title={title}
-        url={url}
       />
     </section>
   );
