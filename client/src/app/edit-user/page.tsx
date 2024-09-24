@@ -33,7 +33,7 @@ const EditUser = () => {
   }
 
   return (
-    <section className='p-5 py-8 flex flex-col'>
+    <section className='p-5 py-8 flex flex-col min-h-[100vh]'>
       <div className='max-w-[420px] w-full lg:ml-[240px] flex flex-col gap-5 dark:text-white'>
         <div>
           <h2 className='text-[23px] font-semibold'>Editar Perfil</h2>

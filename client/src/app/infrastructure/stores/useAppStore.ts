@@ -10,12 +10,15 @@ import {
   UserAccountInterface,
 } from './userAccountStore';
 import { createPinsStore, CreatePinsStoreInterface } from './createPinsStore';
+import { homePinsStoreInterface } from './getPins';
+import { homePinsStore } from './getPins';
 
 type AppState = ThemeSliceInterface &
   ModalStateInterface &
   UserRegisterStoreInterface &
   UserAccountInterface &
-  CreatePinsStoreInterface;
+  CreatePinsStoreInterface &
+  homePinsStoreInterface;
 
 export const useAppsStore = create<AppState>()(
   devtools((...a) => ({
@@ -24,5 +27,6 @@ export const useAppsStore = create<AppState>()(
     ...createUserRegisterStore(...a),
     ...createUserAccountStore(...a),
     ...createPinsStore(...a),
+    ...homePinsStore(...a),
   }))
 );

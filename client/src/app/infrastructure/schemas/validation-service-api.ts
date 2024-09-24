@@ -125,3 +125,24 @@ export const PinEditIdSchema = z.object({
   topics: z.array(z.string()).optional(),
   id: z.string(),
 });
+
+export const PinSchema = z.object({
+  body: z.string().url(),
+  title: z.string().optional(),
+  url: z.string().url().optional(),
+  adult_content: z.boolean(),
+  pin_id: z.string().uuid(),
+  alt_text: z.string(),
+  name: z.string().optional(),
+  surname: z.string().optional(),
+  username: z.string(),
+  avatar: z.string().optional(),
+  avatar_background: z.string(),
+  avatar_letter_color: z.string(),
+  avatar_letter: z.string(),
+});
+
+export const getPinsSchema = z.object({
+  pins: z.array(PinSchema),
+  results: z.number(),
+});
