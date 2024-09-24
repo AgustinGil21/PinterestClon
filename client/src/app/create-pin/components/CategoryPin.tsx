@@ -139,7 +139,7 @@ const CategoryPin = ({
   return (
     <div ref={modalRef} className='flex flex-col gap-2 relative'>
       <InputLabelStyled
-        value={watch('category')}
+        value={dataCreatePin.topicValue}
         register={register}
         textLabel='Etiqueta de categoria'
         infoName='category'

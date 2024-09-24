@@ -67,7 +67,25 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
   imagePreview: null,
   shouldReload: false,
 
-  setImagePreview: (image: string | null) => set({ imagePreview: image }),
+  setImagePreview: (image: string | null) => {
+    set({ imagePreview: image });
+
+    if (image === null) {
+      set((state) => ({
+        dataCreatePin: {
+          ...state.dataCreatePin,
+          title: '',
+          alt_text: '',
+          description: '',
+          url: '',
+          adult_content: false,
+          topics: '',
+          topicValue: '',
+          body: undefined,
+        },
+      }));
+    }
+  },
 
   setShouldReload: () => {
     set((state) => ({

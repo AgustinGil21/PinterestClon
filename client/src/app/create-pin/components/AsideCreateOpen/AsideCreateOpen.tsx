@@ -30,14 +30,6 @@ const AsideCreateOpen = ({
 
   const handleClickNewPin = () => {
     setImagePreview(null);
-    updateStateCreatePin('body', undefined);
-    updateStateCreatePin('title', '');
-    updateStateCreatePin('alt_text', '');
-    updateStateCreatePin('description', '');
-    updateStateCreatePin('url', '');
-    updateStateCreatePin('adult_content', false);
-    updateStateCreatePin('topics', '');
-    updateStateCreatePin('id', '');
 
     clearErrors();
   };

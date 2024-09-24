@@ -43,14 +43,6 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
   ) => {
     e.preventDefault();
     e.stopPropagation();
-    updateStateCreatePin('body', undefined);
-    updateStateCreatePin('adult_content', false);
-    updateStateCreatePin('alt_text', '');
-    updateStateCreatePin('title', '');
-    updateStateCreatePin('description', '');
-    updateStateCreatePin('url', '');
-    updateStateCreatePin('topicValue', '');
-    updateStateCreatePin('id', '');
 
     setImagePreview(null);
 
@@ -68,14 +60,6 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
     }
 
     setImagePreview(null);
-    updateStateCreatePin('body', undefined);
-    updateStateCreatePin('adult_content', false);
-    updateStateCreatePin('alt_text', '');
-    updateStateCreatePin('title', '');
-    updateStateCreatePin('description', '');
-    updateStateCreatePin('url', '');
-    updateStateCreatePin('topicValue', '');
-    updateStateCreatePin('id', '');
 
     clearErrors();
   };

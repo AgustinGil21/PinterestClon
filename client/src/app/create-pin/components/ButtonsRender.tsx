@@ -24,9 +24,10 @@ const ButtonsRender = ({
   handleClickEdit,
 }: ButtonsRender) => {
   const { dataCreatePin, imagePreview } = useAppsStore();
+  console.log(dataCreatePin);
 
   return (
-    <div className='border-b-[1px] w-full border-b-gray-300 py-4 px-4 flex justify-between items-center'>
+    <div className='border-b-[1px] w-full h-[7.5%] border-b-gray-300  py-4 px-4 flex justify-between items-center'>
       <h3 className='font-semibold text-[16px] dark:text-white'>
         {dataCreatePin.id ? 'Editar Pin' : 'Crear Pin'}
       </h3>

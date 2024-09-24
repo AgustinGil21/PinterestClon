@@ -126,7 +126,6 @@ const FormCreatePin = ({
         setSavePin(false);
         setImagePreview(null);
         clearErrors();
-        resetFormState();
       }
     }
   };
@@ -156,16 +155,6 @@ const FormCreatePin = ({
         }, 700);
       }
     }
-  };
-
-  const resetFormState = () => {
-    updateStateCreatePin('title', '');
-    updateStateCreatePin('alt_text', '');
-    updateStateCreatePin('description', '');
-    updateStateCreatePin('url', '');
-    updateStateCreatePin('adult_content', false);
-    updateStateCreatePin('topics', '');
-    updateStateCreatePin('id', '');
   };
 
   return (

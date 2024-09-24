@@ -25,22 +25,18 @@ const ModalEditPin = ({
     getPinEditId,
     closeDeletePinModal,
     updateStateCreatePin,
+    setImagePreview,
   } = useAppsStore();
 
   const handleClickDeletePin = () => {
     openDeletePinModal();
   };
 
-  const handleClickEditPin = () => {
+  const handleClickEditPin = async () => {
+    setImagePreview(null);
     closeDeletePinModal();
-    updateStateCreatePin('title', '');
-    updateStateCreatePin('alt_text', '');
-    updateStateCreatePin('description', '');
-    updateStateCreatePin('url', '');
-    updateStateCreatePin('adult_content', false);
-    updateStateCreatePin('topics', '');
 
-    getPinEditId(elem.id);
+    await getPinEditId(elem.id);
     reset();
     setOpenModalId(null);
   };
