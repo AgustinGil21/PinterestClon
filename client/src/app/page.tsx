@@ -40,7 +40,7 @@ export default function Home() {
       {isLoading ? (
         <Loader />
       ) : (
-        <section className='flex flex-wrap gap-4 p-4'>
+        <section className='masonry'>
           {homePins.map(
             ({
               name,
