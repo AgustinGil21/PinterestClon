@@ -18,7 +18,10 @@ export const Pin = ({
   avatar_letter,
 }: PinInterface) => {
   return (
-    <section className='card' id={pin_id}>
+    <section
+      className='flex flex-col p-0 m-0 w-[236px] break-before-avoid cursor-zoom-in'
+      id={pin_id}
+    >
       <PinTop body={body} url={url} alt_text={alt_text} />
 
       <PinFooter

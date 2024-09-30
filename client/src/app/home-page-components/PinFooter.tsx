@@ -24,8 +24,14 @@ export const PinFooter = ({
   footerClassProps,
 }: PinFooterInterface) => {
   return (
-    <footer className={`card-bottom ${footerClassProps}`}>
-      {title && <strong>{title}</strong>}
+    <footer
+      className={`cursor-default flex flex-col gap-[4px] pt-[8px] pl-[6px] pb-[16px] pr-[6px]  ${footerClassProps}`}
+    >
+      {title && (
+        <strong className='whitespace-nowrap hidden text-ellipsis'>
+          {title}
+        </strong>
+      )}
       <UserPreview
         avatar={avatar}
         username={username}

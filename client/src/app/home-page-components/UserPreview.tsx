@@ -22,12 +22,16 @@ export const UserPreview = ({
   const userURL = `/${username}`;
 
   return (
-    <Link href={userURL} className='user-data'>
+    <Link href={userURL} className='flex items-center gap-[8px] cursor-pointer'>
       {avatar ? (
-        <img src={avatar} alt={`@${username} avatar`} className='user-avatar' />
+        <img
+          src={avatar}
+          alt={`@${username} avatar`}
+          className='min-w-[32px] min-h-[32px] w-[32px] h-[32px] rounded-full flex items-center justify-center font-bold'
+        />
       ) : (
         <div
-          className='user-avatar'
+          className='min-w-[32px] min-h-[32px] w-[32px] h-[32px] rounded-full flex items-center justify-center font-bold'
           style={{
             backgroundColor: avatar_background,
             color: avatar_letter_color,

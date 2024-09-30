@@ -6,9 +6,9 @@ interface PinGoToURLInterface {
 
 export const PinGoToURL = ({ url }: PinGoToURLInterface) => {
   return (
-    <a href={url} className=''>
+    <a href={url} className='no-underline'>
       <ArrowUpRightIcon classProps='size-6' />
-      <span>{url}</span>
+      <span className='hover:underline'>{url}</span>
     </a>
   );
 };
