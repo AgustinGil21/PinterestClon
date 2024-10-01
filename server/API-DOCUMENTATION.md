@@ -749,7 +749,6 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
 ```json
 {
   "user": {
-    "id": "String",
     "username": "String",
     "name": "String?",
     "surname": "String?",
