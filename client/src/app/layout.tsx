@@ -37,6 +37,15 @@ export default function RootLayout({
 
   const routeCreatePin = ['/create-pin'];
 
+  const marginTopHeader = [
+    '/',
+    '/edit-user',
+    '/privacy-info',
+    '/admin-user',
+    '/security-profile',
+    'create-pin',
+  ];
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -62,7 +71,7 @@ export default function RootLayout({
         {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
 
-        <main className='flex '>
+        <main className={`flex pt-16 `}>
           {routesWithoutAside.includes(pathname) && <AsideConfig />}
           {children}
         </main>

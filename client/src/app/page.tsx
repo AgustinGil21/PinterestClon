@@ -38,7 +38,9 @@ export default function Home() {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <section className='w-full flex justify-center'>
+          <Loader />
+        </section>
       ) : (
         <section className='masonry'>
           {homePins.map(

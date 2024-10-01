@@ -33,7 +33,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
         )
     );
 
-    // Combina ambos grupos de pins en el estado
+    // Combina amos grupos de pins en el estadob
     set({
       homePins: [...prevHomePins, ...uniqueHomePins],
     });

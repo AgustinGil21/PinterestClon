@@ -138,7 +138,7 @@
 }
 
 .masonry {
-  columns: 6 236px;
+  columns: 12 236px;
   column-gap: 1rem;
   padding: 1rem;
   overflow: hidden;
