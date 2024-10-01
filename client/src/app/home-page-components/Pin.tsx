@@ -18,7 +18,16 @@ export const Pin = ({
   avatar_letter_color,
   avatar_letter,
 }: PinInterface) => {
-  const gotoButtonURL = url?.split('//')[1]?.split('/' || '?')[0];
+  const goToButtonURLDomain = url
+    ?.split('//')[1]
+    ?.split('.')[1]
+    ?.split('/' || '?')[0];
+
+  // .com, .ar, .org, ...
+  const goToButtonTLD = url?.split('.')[2]?.split('/' || '?')[0];
+
+  const buttonURL = `${goToButtonURLDomain}.${goToButtonTLD}`;
+
   const userProfile = `/${username}`;
 
   return (
@@ -92,7 +101,7 @@ export const Pin = ({
           </div>
 
           {url && (
-            <a href={url} className='go-to' title={gotoButtonURL}>
+            <a href={url} className='go-to' title={buttonURL}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 viewBox='0 0 20 20'
@@ -105,7 +114,7 @@ export const Pin = ({
                   clipRule='evenodd'
                 />
               </svg>
-              <span>{gotoButtonURL}</span>
+              <span>{buttonURL}</span>
             </a>
           )}
         </article>

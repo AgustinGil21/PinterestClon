@@ -1,26 +1,20 @@
-import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
-import ImagePin from './ImagePin';
-import TitlePin from './TitlePin';
-import DescriptionPin from './DescriptionPin';
-import UrlPin from './UrlPin';
-import PlusOptions from './PlusOptions';
-import CategoryPin from './CategoryPin';
-import AltTextPin from './AltTextPin';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import {
-  SubmitHandler,
   FieldValues,
-  UseFormGetValues,
-  UseFormHandleSubmit,
-  UseFormClearErrors,
+  SubmitHandler,
   UseFormWatch,
-  FieldErrors,
-  UseFormSetValue,
-  UseFormRegister,
   UseFormReset,
+  UseFormClearErrors,
 } from 'react-hook-form';
-import ButtonsRender from './ButtonsRender';
+
+interface UseFormCreatePinInterface {
+  watch: UseFormWatch<FieldValues>;
+  isValid: boolean;
+  reset: UseFormReset<FieldValues>;
+  clearErrors: UseFormClearErrors<FieldValues>;
+}
 
 const deepEqual = (obj1: any, obj2: any): boolean => {
   if (obj1 === obj2) return true;
@@ -48,29 +42,12 @@ const deepEqual = (obj1: any, obj2: any): boolean => {
   return true;
 };
 
-interface FormCreatePinInterface {
-  register: UseFormRegister<FieldValues>;
-  isValid: boolean;
-  getValues: UseFormGetValues<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
-  errors: FieldErrors<FieldValues>;
-  watch: UseFormWatch<FieldValues>;
-  clearErrors: UseFormClearErrors<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  reset: UseFormReset<FieldValues>;
-}
-
-const FormCreatePin = ({
-  register,
-  isValid,
-  getValues,
-  setValue,
-  errors,
+const useFormCreatePin = ({
   watch,
-  clearErrors,
-  handleSubmit,
+  isValid,
   reset,
-}: FormCreatePinInterface) => {
+  clearErrors,
+}: UseFormCreatePinInterface) => {
   const {
     postDataCreatePin,
     dataCreatePin,
@@ -156,49 +133,13 @@ const FormCreatePin = ({
       }
     }
   };
-
-  return (
-    <form>
-      <ButtonsRender
-        handleClickEdit={handleClickEdit}
-        handleSubmit={handleSubmit}
-        onSubmit={onSubmit}
-        isValid={isValid}
-        isValuesEqual={isValuesEqual}
-        savePin={savePin}
-      />
-      <div className='flex w-full justify-center p-4'>
-        <div className='flex flex-row max-h-[500px] justify-start w-[50%] p-1 gap-8'>
-          <ImagePin register={register} clearErrors={clearErrors} />
-          <div className='w-full p-2 flex gap-3 flex-col max-w-[480px]'>
-            <AltTextPin
-              getValues={getValues}
-              register={register}
-              errors={errors}
-              watch={watch}
-              setValue={setValue}
-            />
-            <TitlePin register={register} errors={errors} watch={watch} />
-            <DescriptionPin register={register} errors={errors} watch={watch} />
-            <UrlPin
-              register={register}
-              errors={errors}
-              watch={watch}
-              setValue={setValue}
-            />
-            <CategoryPin
-              register={register}
-              errors={errors}
-              watch={watch}
-              getValues={getValues}
-              setValue={setValue}
-            />
-            <PlusOptions imagePreview={imagePreview} register={register} />
-          </div>
-        </div>
-      </div>
-    </form>
-  );
+  return {
+    handleClickEdit,
+    onSubmit,
+    isValuesEqual,
+    savePin,
+    imagePreview,
+  };
 };
 
-export default FormCreatePin;
+export default useFormCreatePin;

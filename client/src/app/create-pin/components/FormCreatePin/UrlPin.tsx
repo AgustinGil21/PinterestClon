@@ -16,12 +16,7 @@ interface ImagePreviewInterface {
   setValue: UseFormSetValue<FieldValues>;
 }
 
-const UrlPin = ({
-  register,
-  errors,
-  watch,
-  setValue,
-}: ImagePreviewInterface) => {
+const UrlPin = ({ register, errors, watch }: ImagePreviewInterface) => {
   const { updateStateCreatePin, dataCreatePin, imagePreview } = useAppsStore();
   const isReadOnly = !imagePreview;
 

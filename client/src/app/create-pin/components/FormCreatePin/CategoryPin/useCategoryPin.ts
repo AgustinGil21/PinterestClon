@@ -1,32 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
-import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useEffect, useRef, useState } from 'react';
 import {
-  UseFormRegister,
-  FieldValues,
-  FieldErrors,
   UseFormWatch,
   UseFormGetValues,
   UseFormSetValue,
+  FieldValues,
 } from 'react-hook-form';
-import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { serviceGetColors } from '@/app/infrastructure/services/service-register';
-import CategoryLabels from './CategoryLabels';
-import ModalSearcherCategories from './ModalSearcherCategories';
 
-interface CategoryPinInterface {
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors<FieldValues>;
+interface UseCategoryPinInterface {
   watch: UseFormWatch<FieldValues>;
   getValues: UseFormGetValues<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
 }
 
-const CategoryPin = ({
-  register,
-  watch,
-  getValues,
+const useCategoryPin = ({
   setValue,
-}: CategoryPinInterface) => {
+  getValues,
+  watch,
+}: UseCategoryPinInterface) => {
   const {
     getCategoriesPin,
     categoriesPin,
@@ -42,7 +33,6 @@ const CategoryPin = ({
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Fetch categories and update the state
     getCategoriesPin();
     if (!imagePreview) {
       setCategoriesSelect([]);
@@ -101,8 +91,6 @@ const CategoryPin = ({
 
     updateStateTopicPin(newArrCategoryState);
 
-    // const colorBgCategory = await serviceGetColors();
-
     const newCategory = {
       name: value,
       color: '#000',
@@ -136,41 +124,16 @@ const CategoryPin = ({
     updateStateTopicPin(deleteCategory);
   };
 
-  return (
-    <div ref={modalRef} className='flex flex-col gap-2 relative'>
-      <InputLabelStyled
-        value={dataCreatePin.topicValue}
-        register={register}
-        textLabel='Etiqueta de categoria'
-        infoName='category'
-        type='text'
-        onFocus={handleFocus}
-        readOnly={!imagePreview}
-        className={`${
-          !imagePreview &&
-          'opacity-75 bg-transparent border-gray-300 outline-none outline-transparent cursor-default'
-        }`}
-      />
-      <span
-        className={`text-[10px] text-gray-600 px-2 dark:text-white ${
-          !imagePreview && 'hidden'
-        }`}
-      >
-        No te preocupes. Los demás usuarios no verán tus etiquetas.
-      </span>
-      <ModalSearcherCategories
-        handleClick={handleClick}
-        imagePreview={imagePreview}
-        isFocused={isFocused}
-        filterCategories={filterCategories}
-      />
-
-      <CategoryLabels
-        handleClickDeleteCategory={handleClickDeleteCategory}
-        categoriesSelect={categoriesSelect}
-      />
-    </div>
-  );
+  return {
+    handleClickDeleteCategory,
+    handleClick,
+    handleFocus,
+    filterCategories,
+    isFocused,
+    modalRef,
+    imagePreview,
+    categoriesSelect,
+  };
 };
 
-export default CategoryPin;
+export default useCategoryPin;

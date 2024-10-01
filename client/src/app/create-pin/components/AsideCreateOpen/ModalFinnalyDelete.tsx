@@ -36,7 +36,7 @@ const ModalFinnalyDelete = ({
   };
 
   return (
-    <div className='fixed inset-0 z-40 flex items-center justify-center'>
+    <div className='fixed inset-0 z-[200] flex items-center justify-center'>
       <div className='absolute inset-0 bg-black opacity-50'></div>
       <ModalStyled
         classProps='relative z-50 max-w-[395px] px-6 bg-white py-6 bottom-5 shadow-lg rounded-[24px] flex flex-col items-center gap-6'

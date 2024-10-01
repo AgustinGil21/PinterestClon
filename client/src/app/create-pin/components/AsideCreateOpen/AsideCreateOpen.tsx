@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import PreviousPins from './PreviousPins';
+import PreviousPins from './PreviousPins/PreviousPins';
 import ArrowCreatRightIcon from '@/app/interfaces/components/icons/ArrowCreatRightIcon';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { FieldValues, UseFormClearErrors, UseFormReset } from 'react-hook-form';
@@ -16,13 +16,8 @@ const AsideCreateOpen = ({
   clearErrors,
   reset,
 }: AsideCreateOpenInterface) => {
-  const {
-    getPreviousPins,
-    previousPin,
-    updateStateCreatePin,
-    setImagePreview,
-    shouldReload,
-  } = useAppsStore();
+  const { getPreviousPins, previousPin, setImagePreview, shouldReload } =
+    useAppsStore();
 
   useEffect(() => {
     getPreviousPins();

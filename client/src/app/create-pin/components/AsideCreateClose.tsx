@@ -15,13 +15,6 @@ const AsideCreateClose = ({
   const { setImagePreview, updateStateCreatePin } = useAppsStore();
   const handleClickPlusPín = () => {
     setImagePreview(null);
-    updateStateCreatePin('title', '');
-    updateStateCreatePin('alt_text', '');
-    updateStateCreatePin('description', '');
-    updateStateCreatePin('url', '');
-    updateStateCreatePin('adult_content', false);
-    updateStateCreatePin('topics', '');
-    updateStateCreatePin('id', '');
 
     clearErrors();
   };

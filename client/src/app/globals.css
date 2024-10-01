@@ -210,15 +210,14 @@
 }
 
 .user-avatar {
-  min-width: 32px;
-  min-height: 32px;
-  height: 32px;
-  width: 32px;
+  height: 27px;
+  width: 27px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  font-size: 0.75rem;
 }
 
 .user-data {
@@ -227,6 +226,9 @@
   gap: 0.5rem;
   cursor: pointer;
   text-decoration: none;
+}
+.user-data span {
+  font-size: 0.8rem;
 }
 
 .user-data:hover span {

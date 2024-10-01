@@ -3,7 +3,7 @@ import Loader from '../interfaces/components/Basic/Loader';
 import { useState, useEffect } from 'react';
 import AsideCreateClose from './components/AsideCreateOpen/AsideCreateOpen';
 import AsideCreateOpen from './components/AsideCreateClose';
-import FormCreatePin from './components/FormCreatePin';
+import FormCreatePin from './components/FormCreatePin/FormCreatePin';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import useFormHook from '../interfaces/hooks/useFormHook';

@@ -24,7 +24,6 @@ const ModalEditPin = ({
     openDeletePinModal,
     getPinEditId,
     closeDeletePinModal,
-    updateStateCreatePin,
     setImagePreview,
   } = useAppsStore();
 
