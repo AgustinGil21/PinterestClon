@@ -709,4 +709,86 @@ _:id_: UUID
 
 ## Rooms (PRÓXIMAMENTE)
 
-## User interactions (PRÓXIMAMENTE)
+## User
+
+### Get user data by username and ID (logged / other account)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
+
+[RESPONSE]
+
+```json
+{
+  "user": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "about": "String?",
+    "website": "String?",
+    "private_account": "Boolean",
+    "followers": "Number",
+    "following": "Number",
+    "follows_you": "Boolean",
+    "following": "Boolean"
+  }
+}
+```
+
+### Get user data by ID (logged / account owner only)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
+
+[RESPONSE]
+
+```json
+{
+  "user": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "about": "String?",
+    "website": "String?",
+    "private_account": "Boolean",
+    "followers": "Number",
+    "following": "Number"
+  }
+}
+```
+
+### Get user data by username (not-logged)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/not-logged/:username`
+
+[RESPONSE]
+
+```json
+{
+  "user": {
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "about": "String?",
+    "website": "String?",
+    "private_account": "Boolean",
+    "followers": "Number",
+    "following": "Number"
+  }
+}
+```
