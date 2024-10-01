@@ -72,7 +72,6 @@ export default class UsersModel {
   static async getUserByUsername({ username }) {
     const response = await pool.query(
       `SELECT
-      id,
       username, 
       about_you AS about,
       website,
