@@ -586,6 +586,31 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
 }
 ```
 
+### Autocomplete suggestions
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/search/suggestions`
+
+[RESPONSE]
+
+```json
+{
+  "suggestions": [
+    {
+      "title": "String?",
+      "alt_text": "String"
+    },
+    {
+      "title": "String?",
+      "alt_text": "String"
+    },
+    {
+      "title": "String?",
+      "alt_text": "String"
+    }
+  ]
+}
+```
+
 ### Get previous pins
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/pins/previous-pins`

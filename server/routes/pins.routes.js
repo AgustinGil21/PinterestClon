@@ -13,6 +13,7 @@ router.get(
 router.get('/created/:username', PinsController.getCreatedPins);
 router.get('/search', PinsController.searchPins);
 router.get('/search-by-category', PinsController.searchByCategory);
+router.get('/search/suggestions', PinsController.searchAutocompleteSuggestions);
 router.get('/:id', PinsController.getSinglePin);
 router.get('/', PinsController.getHomePins);
 router.post('/create', authRequired, PinsController.createPin);

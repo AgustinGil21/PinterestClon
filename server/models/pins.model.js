@@ -177,4 +177,15 @@ export default class PinsModel {
     if (data) return { response: { data, results }, ok: true };
     return { response, ok: false };
   }
+
+  static async searchAutocompleteSuggestions() {
+    const response = await pool.query(
+      'SELECT title, alt_text FROM pins LIMIT 10000;'
+    );
+
+    const data = response.rows;
+
+    if (data) return { response: data, ok: true };
+    return { response, ok: false };
+  }
 }
