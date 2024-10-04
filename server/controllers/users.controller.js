@@ -28,9 +28,9 @@ export default class UsersController {
       const data = await UsersModel.getUserById({ id });
 
       if (data.ok) {
-        const { response: user } = data;
+        const [user] = data.response;
         const filteredData = filterFalsyValues(user);
-        return res.status(200).json({ pin: filteredData });
+        return res.status(200).json({ profile: filteredData });
       }
     } catch (err) {
       return res.status(400).json({ message: 'Cannot get user data!' });
@@ -48,9 +48,9 @@ export default class UsersController {
       });
 
       if (data.ok) {
-        const { response: user } = data;
+        const [user] = data.response;
         const filteredData = filterFalsyValues(user);
-        return res.status(200).json({ pin: filteredData });
+        return res.status(200).json({ profile: filteredData });
       }
     } catch (err) {
       return res.status(404).json({ message: 'User not found!' });
@@ -66,9 +66,9 @@ export default class UsersController {
       });
 
       if (data.ok) {
-        const { response: user } = data;
+        const [user] = data.response;
         const filteredData = filterFalsyValues(user);
-        return res.status(200).json({ pin: filteredData });
+        return res.status(200).json({ profile: filteredData });
       }
     } catch (err) {
       return res.status(404).json({ message: 'User not found!' });
