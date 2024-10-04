@@ -179,8 +179,12 @@ export default class PinsModel {
   }
 
   static async searchAutocompleteSuggestions() {
+    // const response = await pool.query(
+    //   'SELECT title, alt_text FROM posts LIMIT 10000;'
+    // );
+
     const response = await pool.query(
-      'SELECT title, alt_text FROM posts LIMIT 10000;'
+      '(SELECT title AS pin_title, alt_text AS pin_alt_text, NULL AS user_name, NULL AS user_surname, NULL AS user_username, NULL AS user_avatar, NULL AS user_verified, NULL AS user_avatar_background, NULL AS user_avatar_letter, NULL AS user_avatar_letter_color, NULL AS board_name FROM posts) UNION ALL (SELECT NULL AS pin_title, NULL AS pin_alt_text, name AS user_name, surname AS user_surname, username AS user_username, avatar AS user_avatar, verified AS user_verified, avatar_background AS user_avatar_background, avatar_letter AS user_avatar_letter, avatar_letter_color AS user_avatar_letter_color, NULL AS board_name FROM users);'
     );
 
     const data = response.rows;
