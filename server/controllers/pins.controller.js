@@ -346,6 +346,7 @@ export default class PinsController {
         return res.status(200).json({ suggestions });
       }
     } catch (err) {
+      console.log(err);
       return res
         .status(400)
         .json({ message: 'Cannot get autocomplete suggestions!' });
