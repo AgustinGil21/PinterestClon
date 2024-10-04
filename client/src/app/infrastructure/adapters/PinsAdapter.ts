@@ -5,6 +5,8 @@ import {
   PreviousPin,
   PinCreateServerAdapter,
   GetPinsInterface,
+  SuggestionsInterface,
+  PinInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
@@ -12,6 +14,8 @@ import {
   serviceGetEditPinId,
   serviceGetHomePins,
   serviceGetPreviousPins,
+  serviceGetSearchPin,
+  serviceGetSuggestions,
   servicePostCreatePin,
   servicePutEditPinId,
 } from '../services/service-pins';
@@ -77,9 +81,23 @@ export const putPinEditIdAdapter = async (id: string, data: PinEdit) => {
   }
 };
 
-export const getHomePins = async (
+export const getHomePinsAdapter = async (
   page: number,
   limit: number
 ): Promise<GetPinsInterface | []> => {
   return await serviceGetHomePins(page, limit);
+};
+
+export const getSearchPinsAdapter = async (
+  value: string,
+  page: number,
+  limit: number
+): Promise<PinInterface[] | []> => {
+  return await serviceGetSearchPin(value, page, limit);
+};
+
+export const getSuggestionsAdapter = async (): Promise<
+  SuggestionsInterface[] | []
+> => {
+  return await serviceGetSuggestions();
 };

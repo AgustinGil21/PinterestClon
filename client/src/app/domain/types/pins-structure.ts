@@ -84,3 +84,8 @@ export interface GetPinsInterface {
   pins: PinInterface[];
   results?: number;
 }
+
+export interface SuggestionsInterface {
+  title?: string;
+  alt_text: string;
+}

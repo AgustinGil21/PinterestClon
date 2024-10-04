@@ -10,10 +10,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const limit = 25;
 
-  const [homePins, getHomePins] = useAppsStore((state) => [
-    state.homePins,
-    state.getHomePins,
-  ]);
+  const { homePins, getHomePins } = useAppsStore();
 
   useEffect(() => {
     getHomePins(page, limit);

@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { PinInterface } from '../domain/types/pins-structure';
-import { PinFooter } from './PinFooter';
-import { PinTop } from './PinTop';
 
 export const Pin = ({
   body,

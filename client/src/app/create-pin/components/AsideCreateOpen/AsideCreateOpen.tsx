@@ -53,7 +53,7 @@ const AsideCreateOpen = ({
         </div>
       </div>
 
-      <div className='w-full p-2 py-1 h-[calc(100vh-14%)] flex flex-col gap-3 overflow-y-scroll '>
+      <div className='w-full p-2 py-1 h-[calc(100vh-25%)] flex flex-col gap-3 overflow-y-scroll '>
         {previousPin.map((elem) => (
           <PreviousPins
             elem={elem}

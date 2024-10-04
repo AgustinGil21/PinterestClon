@@ -146,3 +146,12 @@ export const getPinsSchema = z.object({
   pins: z.array(PinSchema),
   results: z.number(),
 });
+
+const suggestionSchema = z.object({
+  title: z.string().optional(),
+  alt_text: z.string(),
+});
+
+export const ArraySuggestionSchema = z.object({
+  suggestions: z.array(suggestionSchema),
+});

@@ -10,8 +10,8 @@ import {
   UserAccountInterface,
 } from './userAccountStore';
 import { createPinsStore, CreatePinsStoreInterface } from './createPinsStore';
-import { homePinsStoreInterface } from './getPins';
-import { homePinsStore } from './getPins';
+import { homePinsStoreInterface } from './getPinsStore';
+import { homePinsStore } from './getPinsStore';
 
 type AppState = ThemeSliceInterface &
   ModalStateInterface &

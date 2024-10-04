@@ -7,9 +7,12 @@ import {
   PreviousPin,
   PinCreateServerAdapter,
   GetPinsInterface,
+  PinInterface,
+  SuggestionsInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
+  ArraySuggestionSchema,
   CategoriesSchema,
   getPinsSchema,
   PinEditIdSchema,
@@ -120,6 +123,52 @@ export const serviceGetHomePins = async (
     const result = getPinsSchema.safeParse(response.data);
 
     return response.status === 200 ? response.data.pins : [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const serviceGetSearchPin = async (
+  value: string,
+  page: number,
+  limit: number
+): Promise<PinInterface[] | []> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/pins/search?value=${value}&page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+
+    const result = getPinsSchema.safeParse(response.data);
+
+    console.log(result);
+
+    return result.success ? result.data.pins : [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const serviceGetSuggestions = async (): Promise<
+  SuggestionsInterface[] | []
+> => {
+  try {
+    const response = await axios.get(
+      `http://localhost:1234/pinterest-clon-api/pins/search/suggestions`
+    );
+
+    console.log(response.data);
+
+    const result = ArraySuggestionSchema.safeParse(response.data.suggestions);
+
+    console.log(result);
+
+    return result.success ? result.data.suggestions : [];
   } catch (error) {
     console.log(error);
     return [];
