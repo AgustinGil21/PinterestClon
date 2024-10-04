@@ -180,7 +180,7 @@ export default class PinsModel {
 
   static async searchAutocompleteSuggestions() {
     const response = await pool.query(
-      'SELECT title, alt_text FROM pins LIMIT 10000;'
+      'SELECT title, alt_text FROM posts LIMIT 10000;'
     );
 
     const data = response.rows;
