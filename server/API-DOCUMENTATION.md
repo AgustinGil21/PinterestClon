@@ -600,12 +600,14 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/pins/search/suggestions`
       "alt_text": "String"
     },
     {
-      "title": "String?",
-      "alt_text": "String"
-    },
-    {
-      "title": "String?",
-      "alt_text": "String"
+      "name": "String?",
+      "surname": "String?",
+      "username": "String",
+      "avatar": "String?",
+      "verified": "Boolean",
+      "avatar_background": "String",
+      "avatar_letter": "String",
+      "avatar_letter_color": "String"
     }
   ]
 }

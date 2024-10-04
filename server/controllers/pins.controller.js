@@ -16,7 +16,10 @@ import {
 } from '../libs/cloudinary-files.js';
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
-import { filterFalsyValues } from '../libs/filterFalsyValues.js';
+import {
+  filterArrFalsyValues,
+  filterFalsyValues,
+} from '../libs/filterFalsyValues.js';
 
 const createPinSkeleton = {
   body: '',
@@ -343,10 +346,11 @@ export default class PinsController {
 
       if (data.ok) {
         const { response: suggestions } = data;
-        return res.status(200).json({ suggestions });
+        const filteredSuggestions = filterArrFalsyValues(suggestions);
+
+        return res.status(200).json({ suggestions: filteredSuggestions });
       }
     } catch (err) {
-      console.log(err);
       return res
         .status(400)
         .json({ message: 'Cannot get autocomplete suggestions!' });
