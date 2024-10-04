@@ -7,8 +7,7 @@ import { UserLoggedIn } from './LogIn/UserLoggedIn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const Header = () => {
-  const { isAuth, getDataUserLogged, userPublicData, getSuggestions } =
-    useAppsStore();
+  const { isAuth, getDataUserLogged, getSuggestions } = useAppsStore();
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
 

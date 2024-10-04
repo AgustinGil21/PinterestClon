@@ -12,10 +12,18 @@ export interface homePinsStoreInterface {
   getHomePins: (page: number, limit: number) => Promise<void>;
   getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
   value: string;
+  valuesSearch: string[];
   updateValueInputSearch: (value: string) => void;
   suggestions: SuggestionsInterface[];
   getSuggestions: () => Promise<void>;
+  updateValuesSearch: (value: string) => void;
+  removeValueFromSearch: (value: string) => void;
 }
+
+const loadValuesFromLocalStorage = () => {
+  const storedValues = localStorage.getItem('valuesSearch');
+  return storedValues ? JSON.parse(storedValues) : [];
+};
 
 export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   set,
@@ -24,6 +32,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   value: '',
   homePins: [],
   suggestions: [],
+  valuesSearch: loadValuesFromLocalStorage(),
   getHomePins: async (page: number, limit: number) => {
     const response = await getHomePinsCase(page, limit);
 
@@ -83,5 +92,34 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       value: value,
     }));
     console.log(get().value);
+  },
+
+  updateValuesSearch: (value: string) => {
+    set((state) => {
+      if (state.valuesSearch.includes(value)) {
+        return state;
+      }
+
+      const updatedValues = [...state.valuesSearch, value];
+      localStorage.setItem('valuesSearch', JSON.stringify(updatedValues));
+      return {
+        ...state,
+        valuesSearch: updatedValues,
+      };
+    });
+  },
+
+  removeValueFromSearch: (value: string) => {
+    set((state) => {
+      const updatedValues = state.valuesSearch.filter((val) => val !== value);
+
+      if (updatedValues.length !== state.valuesSearch.length) {
+        localStorage.setItem('valuesSearch', JSON.stringify(updatedValues));
+      }
+      return {
+        ...state,
+        valuesSearch: updatedValues,
+      };
+    });
   },
 });

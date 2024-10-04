@@ -158,9 +158,7 @@ export const serviceGetSuggestions = async (): Promise<
   SuggestionsInterface[] | []
 > => {
   try {
-    const response = await axios.get(
-      `http://localhost:1234/pinterest-clon-api/pins/search/suggestions`
-    );
+    const response = await axios.get(`${URLDOMAIN}/pins/search/suggestions`);
 
     console.log(response.data);
 
