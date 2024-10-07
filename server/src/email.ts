@@ -1,6 +1,8 @@
 import { EMAIL_ADDRESS } from './config.js';
+import { EmailAddressObject } from './interfaces/auth/auth-interface.js';
+import { CreateEmail } from './interfaces/email/email-interface.js';
 
-export const createEmail = ({ to, subject, html }) => {
+export const createEmail = ({ to, subject, html }: CreateEmail) => {
   const fromEmailAddress = 'Pinterest Clon ' + '<' + `${EMAIL_ADDRESS}` + '>';
 
   const email = {
@@ -13,7 +15,9 @@ export const createEmail = ({ to, subject, html }) => {
   return email;
 };
 
-export const recoverAccountEmail = async ({ emailAddress }) => {
+export const recoverAccountEmail = async ({
+  emailAddress,
+}: EmailAddressObject) => {
   const recoverAccountEmailHTML = `
   <main>
   <section>
@@ -38,7 +42,7 @@ export const recoverAccountEmail = async ({ emailAddress }) => {
 
   try {
     const recoverAccountEmail = createEmail({
-      to: [`${emailAddress}`],
+      to: `${[emailAddress]}`,
       subject: 'Reset password on Pinterest Clon',
       html: recoverAccountEmailHTML,
     });
@@ -49,10 +53,12 @@ export const recoverAccountEmail = async ({ emailAddress }) => {
   }
 };
 
-export const twoFactorAuthenticationEmail = async ({ emailAddress }) => {
+export const twoFactorAuthenticationEmail = async ({
+  emailAddress,
+}: EmailAddressObject) => {
   try {
     const twoFactorAuthenticationEmail = createEmail({
-      to: [emailAddress],
+      to: `${[emailAddress]}`,
       subject: '',
       html: '',
     });

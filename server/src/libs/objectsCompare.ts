@@ -6,8 +6,18 @@ This function receives 3 objects, the first will have the user's previous data, 
 The purpose is to detect changes with respect to previous data. The third parameter is required to avoid null or undefined data.
 */
 
-export const objectsCompare = (prevObject, currentObject, objectSkeleton) => {
-  const newObject = {
+import { GenericObject } from '../interfaces/basic/basics-interface.js';
+
+type PrevObject<T> = GenericObject<T>;
+type CurrentObject<T> = GenericObject<T>;
+type ObjectSkeleton<T> = GenericObject<T>;
+
+export const objectsCompare = <T>(
+  prevObject: PrevObject<T>,
+  currentObject: CurrentObject<T>,
+  objectSkeleton: ObjectSkeleton<T>
+): ObjectSkeleton<T> => {
+  const newObject: ObjectSkeleton<T> = {
     ...objectSkeleton,
   };
 

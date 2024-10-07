@@ -1,9 +1,11 @@
 export const filterFalsyValues = (obj) => {
-    const filteredObject = {};
     for (let key in obj) {
-        if (obj[key] || typeof obj[key] === 'boolean') {
-            filteredObject[key] = obj[key];
+        if (!obj[key] && typeof obj[key] !== 'boolean') {
+            delete obj[key];
         }
     }
-    return filteredObject;
+    return obj;
+};
+export const filterArrFalsyValues = (arr) => {
+    return arr.map((obj) => filterFalsyValues(obj));
 };

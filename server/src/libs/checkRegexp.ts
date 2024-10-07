@@ -1,9 +1,11 @@
+import { ICheckRegex } from '../interfaces/libs/libs-interface.js';
+
 export const checkRegexp = ({
   regexp,
   value,
   emptyStr = false,
   optional = false,
-}) => {
+}: ICheckRegex): boolean => {
   let result;
 
   // Puede que el usuario haya cargado un valor válido

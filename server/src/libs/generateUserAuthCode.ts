@@ -1,4 +1,6 @@
-export default async function generateUserAuthCode(codeSize = 6) {
+export default async function generateUserAuthCode(
+  codeSize = 6
+): Promise<string> {
   let code = '';
   const randomNumber = Math.round(Math.random() * codeSize);
 
