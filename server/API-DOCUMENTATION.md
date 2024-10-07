@@ -316,8 +316,8 @@ Todos son valores opcionales:
   "gender": "UUID",
   "country": "UUID",
   "language": "UUID",
-  "emailAddress": "miemail23@gmail.com",
-  "birthdate": "2006-02-20"
+  "emailAddress": "String",
+  "birthdate": "Date"
 }
 ```
 

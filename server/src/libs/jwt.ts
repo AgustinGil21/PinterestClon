@@ -7,7 +7,7 @@ interface ICreateJWT {
 }
 
 export const createJWT = async (payload: ICreateJWT) => {
-  const secretKey: string = SECRETKEY as string;
+  const secretKey = SECRETKEY as string;
 
   return new Promise((resolve, reject) => {
     jwt.sign(
