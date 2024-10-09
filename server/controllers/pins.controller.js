@@ -300,7 +300,8 @@ export default class PinsController {
 
       if (data.ok) {
         const { data: pins, results } = data.response;
-        return res.status(200).json({ pins, results });
+        const filteredPins = filterArrFalsyValues(pins);
+        return res.status(200).json({ pins: filteredPins, results });
       }
     } catch (err) {
       return res.status(404).json({ message: 'Pins not found!' });
