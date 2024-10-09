@@ -1,8 +1,10 @@
 import { pool } from '../dbpool.js';
+import { IdParams } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
+import { IEditData } from '../interfaces/classes/models/edit-profile-model-interface.js';
 import { filterFalsyValues } from '../libs/filterFalsyValues.js';
 
 export default class EditProfileModel {
-  static async getPublicData({ id }) {
+  static async getPublicData({ id }: IdParams) {
     const response = await pool.query(
       'SELECT username, avatar_background, avatar_letter_color, avatar_letter, name, surname, about_you, website, avatar, birthdate FROM users WHERE id = $1;',
       [id]
@@ -23,7 +25,7 @@ export default class EditProfileModel {
     about_you,
     website,
     birthdate,
-  }) {
+  }: IEditData) {
     const getPreviousUsername = await pool.query(
       'SELECT username FROM users WHERE id = $1;',
       [id]

@@ -1,10 +1,11 @@
 import cors from 'cors';
-import { ACCEPTED_ORIGINS } from '../config.js';
+// import { ACCEPTED_ORIGINS } from '../config.js';
+import { AcceptedOrigins } from '../interfaces/config/config-interface.d.js';
 
 export const corsMiddleware = () => {
   return cors({
-    origin: (origin, callback) => {
-      if (ACCEPTED_ORIGINS.includes(origin)) {
+    origin: (origin: string | undefined, callback) => {
+      if (AcceptedOrigins.includes(origin || '')) {
         return callback(null, true);
       }
 

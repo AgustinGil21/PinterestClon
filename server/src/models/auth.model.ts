@@ -1,9 +1,16 @@
 import { Crypt, CryptCompare } from '../libs/crypt.js';
 import { dateNow as createdAt } from '../libs/date.js';
 import { pool } from '../dbpool.js';
+import {
+  IEmailAddressAndPasswordParams,
+  IEmailAddressParams,
+  IRegisterParams,
+} from '../interfaces/classes/models/auth-model-interface.js';
 
 export default class AuthModel {
-  static async checkIfEmailAlreadyExists({ emailAddress }) {
+  static async checkIfEmailAlreadyExists({
+    emailAddress,
+  }: IEmailAddressParams) {
     const response = await pool.query(
       'SELECT id FROM users WHERE email_address = $1;',
       [emailAddress]
@@ -25,7 +32,7 @@ export default class AuthModel {
     avatarLetterColor,
     avatarLetter,
     avatar,
-  }) {
+  }: IRegisterParams) {
     const alreadyExists = await pool.query(
       'SELECT id FROM users WHERE username = $1;',
       [username]
@@ -60,7 +67,10 @@ export default class AuthModel {
     return { response, ok: false };
   }
 
-  static async logIn({ emailAddress, password }) {
+  static async logIn({
+    emailAddress,
+    password,
+  }: IEmailAddressAndPasswordParams) {
     const getUserPassword = await pool.query(
       'SELECT password FROM users WHERE email_address = $1;',
       [emailAddress]
@@ -86,7 +96,7 @@ export default class AuthModel {
     return { response, ok: false };
   }
 
-  static async recoverAccount({ emailAddress }) {
+  static async recoverAccount({ emailAddress }: IEmailAddressParams) {
     const response = await pool.query(
       'SELECT id FROM users WHERE email_address = $1;',
       [emailAddress]
@@ -99,7 +109,10 @@ export default class AuthModel {
     return { response, ok: false };
   }
 
-  static async resetPassword({ password, emailAddress }) {
+  static async resetPassword({
+    password,
+    emailAddress,
+  }: IEmailAddressAndPasswordParams) {
     const encryptedPassword = await Crypt(password);
 
     const response = await pool.query(

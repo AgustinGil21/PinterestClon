@@ -1,7 +1,8 @@
 import { pool } from '../dbpool.js';
+import { IdParams } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
 
 export default class AccountSecurityModel {
-  static async getData({ id }) {
+  static async getData({ id }: IdParams) {
     const response = await pool.query(
       'SELECT two_factor_authentication FROM users WHERE users.id = $1;',
       [id]
@@ -14,7 +15,7 @@ export default class AccountSecurityModel {
     return { response, ok: false };
   }
 
-  static async toggleTwoFactorAuthenticationMode({ id }) {
+  static async toggleTwoFactorAuthenticationMode({ id }: IdParams) {
     let twoFactorAuthentication;
 
     const previousValue = await pool.query(

@@ -6,7 +6,7 @@ This function receives 3 objects, the first will have the user's previous data, 
 The purpose is to detect changes with respect to previous data. The third parameter is required to avoid null or undefined data.
 */
 
-import { GenericObject } from '../interfaces/basic/basics-interface.js';
+import { GenericObject } from '../interfaces/basic/basics-interface.d.js';
 
 type PrevObject<T> = GenericObject<T>;
 type CurrentObject<T> = GenericObject<T>;

@@ -1,7 +1,8 @@
 import { pool } from '../dbpool.js';
+import { ISearchWithValue } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
 
 export default class BoardsModel {
-  static async searchBoards({ value, page, limit }) {
+  static async searchBoards({ value, page, limit }: ISearchWithValue) {
     const offset = (page - 1) * limit;
     const searchValue = value
       .split(' ')

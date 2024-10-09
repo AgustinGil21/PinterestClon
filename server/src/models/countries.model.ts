@@ -1,9 +1,10 @@
 import { pool } from '../dbpool.js';
+import { IdParams } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
 
-export default class LanguagesModel {
-  static async getLanguages() {
+export default class CountriesModel {
+  static async getCountries() {
     const response = await pool.query(
-      'SELECT id, name, abbreviation FROM languages ORDER BY name ASC;'
+      'SELECT id, prefix, name FROM countries ORDER BY name ASC;'
     );
 
     const data = response.rows;
@@ -12,9 +13,9 @@ export default class LanguagesModel {
     return { response, ok: false };
   }
 
-  static async getLanguageByID({ id }) {
+  static async getCountryByID({ id }: IdParams) {
     const response = await pool.query(
-      'SELECT id, name, abbreviation FROM languages WHERE id = $1;',
+      'SELECT id, prefix, name FROM countries WHERE id = $1;',
       [id]
     );
 

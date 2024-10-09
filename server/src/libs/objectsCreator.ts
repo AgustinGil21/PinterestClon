@@ -1,7 +1,7 @@
 // La función se encarga de que el objeto no
 // tenga valores undefined o null.
 
-import { GenericObject } from '../interfaces/basic/basics-interface.js';
+import { GenericObject } from '../interfaces/basic/basics-interface.d.js';
 
 type DataObject<T> = GenericObject<T>;
 type ObjectSkeleton<T> = GenericObject<T>;

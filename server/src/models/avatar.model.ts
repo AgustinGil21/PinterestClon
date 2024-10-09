@@ -1,7 +1,9 @@
 import { pool } from '../dbpool.js';
+import { IdParams } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
+import { INewAvatar } from '../interfaces/classes/models/avatar-model-interface.js';
 
 export default class AvatarModel {
-  static async newAvatar({ id, avatarUrl }) {
+  static async newAvatar({ id, avatarUrl }: INewAvatar) {
     const response = await pool.query(
       'UPDATE users SET avatar = $1 WHERE id = $2;',
       [avatarUrl, id]
@@ -12,7 +14,7 @@ export default class AvatarModel {
     return { response, ok: false };
   }
 
-  static async getAvatar({ id }) {
+  static async getAvatar({ id }: IdParams) {
     const response = await pool.query(
       'SELECT avatar FROM users WHERE id = $1;',
       [id]
@@ -25,7 +27,7 @@ export default class AvatarModel {
     return { response, ok: false };
   }
 
-  static async deleteAvatar({ id }) {
+  static async deleteAvatar({ id }: IdParams) {
     const response = await pool.query(
       'UPDATE users SET avatar = $1 WHERE id = $2 RETURNING avatar;',
       ['', id]

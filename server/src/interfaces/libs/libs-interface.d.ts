@@ -1,6 +1,6 @@
 export interface ICheckRegex {
   regexp: RegExp;
   value: string;
-  emptyStr: boolean;
-  optional: boolean;
+  emptyStr?: boolean;
+  optional?: boolean;
 }

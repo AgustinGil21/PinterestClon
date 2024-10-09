@@ -1,4 +1,4 @@
-import { DateStrOrNumber } from '../interfaces/basic/basics-interface.js';
+import { DateStrOrNumber } from '../interfaces/basic/basics-interface.d.js';
 
 export const dateNow = new Date();
 

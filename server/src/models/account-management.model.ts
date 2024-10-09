@@ -1,8 +1,14 @@
 import { pool } from '../dbpool.js';
+import { IdParams } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
+import {
+  ComparePasswordsParams,
+  EditDataParams,
+  SetPasswordParams,
+} from '../interfaces/classes/models/account-management-model-interface.js';
 import { Crypt, CryptCompare } from '../libs/crypt.js';
 
 export default class AccountManagementModel {
-  static async getData({ id }) {
+  static async getData({ id }: IdParams) {
     const response = await pool.query(
       'SELECT email_address, birthdate, genders.name AS gender, countries.name AS country, languages.name AS language, account_types.name AS account_type  FROM users INNER JOIN genders ON genders.id = gender_id INNER JOIN countries ON countries.id = country_id INNER JOIN languages ON languages.id = lang_id INNER JOIN account_types ON account_types.id = account_type_id WHERE users.id = $1; ',
       [id]
@@ -15,7 +21,7 @@ export default class AccountManagementModel {
     return { response, ok: false };
   }
 
-  static async getInfoData({ id }) {
+  static async getInfoData({ id }: IdParams) {
     const response = await pool.query(
       'SELECT email_address, birthdate, gender_id AS gender, country_id AS country, lang_id AS language FROM users WHERE id = $1; ',
       [id]
@@ -44,7 +50,7 @@ export default class AccountManagementModel {
     gender,
     country,
     language,
-  }) {
+  }: EditDataParams) {
     const getPreviousEmailAddress = await pool.query(
       'SELECT email_address FROM users WHERE id = $1;',
       [id]
@@ -78,7 +84,7 @@ export default class AccountManagementModel {
     return { response, ok: false };
   }
 
-  static async convertAccount({ id }) {
+  static async convertAccount({ id }: IdParams) {
     let accountType;
 
     const previousType = await pool.query(
@@ -105,7 +111,7 @@ export default class AccountManagementModel {
     return { response, ok: false };
   }
 
-  static async comparePassword({ id, prevPassword }) {
+  static async comparePassword({ id, prevPassword }: ComparePasswordsParams) {
     const response = await pool.query(
       'SELECT password FROM users WHERE id = $1;',
       [id]
@@ -120,7 +126,7 @@ export default class AccountManagementModel {
     return { response, ok: false };
   }
 
-  static async setPassword({ id, password }) {
+  static async setPassword({ id, password }: SetPasswordParams) {
     const encryptedPassword = await Crypt(password);
 
     const response = await pool.query(
@@ -132,7 +138,7 @@ export default class AccountManagementModel {
     return { response, ok: false };
   }
 
-  static async getPassword({ id }) {
+  static async getPassword({ id }: IdParams) {
     const response = await pool.query(
       'SELECT password FROM users WHERE id = $1;',
       [id]
@@ -142,7 +148,7 @@ export default class AccountManagementModel {
     return { response, ok: false };
   }
 
-  static async deleteAccount({ id }) {
+  static async deleteAccount({ id }: IdParams) {
     const response = await pool.query(
       'DELETE FROM users WHERE id = $1 RETURNING avatar;',
       [id]

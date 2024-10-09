@@ -1,18 +1,17 @@
 import jwt from 'jsonwebtoken';
-import { SECRETKEY } from '../config.js';
-import { UUIDType } from '../interfaces/basic/basics-interface.js';
+// import { SECRETKEY } from '../config.js';
+import { SecretKey } from '../interfaces/config/config-interface.d.js';
+import { UUIDType } from '../interfaces/basic/basics-interface.d.js';
 
 interface ICreateJWT {
   id: UUIDType;
 }
 
 export const createJWT = async (payload: ICreateJWT) => {
-  const secretKey = SECRETKEY as string;
-
   return new Promise((resolve, reject) => {
     jwt.sign(
       payload,
-      secretKey,
+      SecretKey,
       {
         expiresIn: '30d',
       },

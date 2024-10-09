@@ -1,4 +1,4 @@
-import { ICheckRegex } from '../interfaces/libs/libs-interface.js';
+import { ICheckRegex } from '../interfaces/libs/libs-interface.d.js';
 
 export const checkRegexp = ({
   regexp,

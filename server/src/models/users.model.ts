@@ -1,7 +1,15 @@
 import { pool } from '../dbpool.js';
+import {
+  IdParams,
+  ISearchWithValue,
+} from '../interfaces/classes/basics/basic-models&controllers-interface.js';
+import {
+  IGetUserByUsername,
+  IGetUserByUsernameAndId,
+} from '../interfaces/classes/models/users-model-interface.js';
 
 export default class UsersModel {
-  static async searchUsers({ value, page, limit }) {
+  static async searchUsers({ value, page, limit }: ISearchWithValue) {
     const offset = (page - 1) * limit;
 
     const searchValue = value
@@ -26,7 +34,7 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
-  static async getUserById({ id }) {
+  static async getUserById({ id }: IdParams) {
     const response = await pool.query(
       'SELECT username, about_you AS about, website, users.name, surname, verified, avatar, avatar_background, avatar_letter_color, avatar_letter, (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = $1) AS followers, (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = $1) AS following FROM users WHERE id = $1;',
       [id]
@@ -38,7 +46,10 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
-  static async getUserByUsernameAndId({ username, id }) {
+  static async getUserByUsernameAndId({
+    username,
+    id,
+  }: IGetUserByUsernameAndId) {
     const response = await pool.query(
       `SELECT
       id,
@@ -69,7 +80,7 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
-  static async getUserByUsername({ username }) {
+  static async getUserByUsername({ username }: IGetUserByUsername) {
     const response = await pool.query(
       `SELECT
       username, 

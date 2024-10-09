@@ -1,6 +1,6 @@
 import { EMAIL_ADDRESS } from './config.js';
-import { EmailAddressObject } from './interfaces/auth/auth-interface.js';
-import { CreateEmail } from './interfaces/email/email-interface.js';
+import { EmailAddressObject } from './interfaces/auth/auth-interface.d.js';
+import { CreateEmail } from './interfaces/email/email-interface.d.js';
 
 export const createEmail = ({ to, subject, html }: CreateEmail) => {
   const fromEmailAddress = 'Pinterest Clon ' + '<' + `${EMAIL_ADDRESS}` + '>';

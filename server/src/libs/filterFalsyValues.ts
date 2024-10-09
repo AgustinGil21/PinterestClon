@@ -1,4 +1,4 @@
-import { GenericObject } from '../interfaces/basic/basics-interface.js';
+import { GenericObject } from '../interfaces/basic/basics-interface.d.js';
 
 type Obj<T> = GenericObject<T>;
 type Arr<T> = Obj<T>[];

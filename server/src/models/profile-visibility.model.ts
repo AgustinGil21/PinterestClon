@@ -1,7 +1,8 @@
 import { pool } from '../dbpool.js';
+import { IdParams } from '../interfaces/classes/basics/basic-models&controllers-interface.js';
 
 export default class ProfileVisibilityModel {
-  static async convertAccount({ id }) {
+  static async convertAccount({ id }: IdParams) {
     let accountType;
 
     const previousType = await pool.query(
@@ -28,7 +29,7 @@ export default class ProfileVisibilityModel {
     return { response, ok: false };
   }
 
-  static async privateAccount({ id }) {
+  static async privateAccount({ id }: IdParams) {
     let privateAccount;
 
     const previousValue = await pool.query(
@@ -55,7 +56,7 @@ export default class ProfileVisibilityModel {
     return { response, ok: false };
   }
 
-  static async getData({ id }) {
+  static async getData({ id }: IdParams) {
     const response = await pool.query(
       'SELECT account_types.name AS account_type, private_account FROM users INNER JOIN account_types ON account_types.id = account_type_id WHERE users.id = $1;',
       [id]

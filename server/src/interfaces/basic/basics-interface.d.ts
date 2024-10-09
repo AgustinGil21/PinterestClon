@@ -7,3 +7,7 @@ export type Prettify<T> = {
 export type GenericObject<T> = Record<string, T>;
 
 export type UUIDType = `${string}-${string}-${string}-${string}-${string}`;
+
+export type Hexadecimal = `#${string}`;
+
+export type UrlType = `${'http' | 'https'}://${string}`;

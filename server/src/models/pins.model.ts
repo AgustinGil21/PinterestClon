@@ -1,7 +1,19 @@
 import { pool } from '../dbpool.js';
+import {
+  IdParams,
+  IGetWithPaging,
+  ISearchWithValue,
+} from '../interfaces/classes/basics/basic-models&controllers-interface.js';
+import {
+  ICreatePin,
+  IDeletePin,
+  IEditPin,
+  IGetCreatedPins,
+  ISearchByCategory,
+} from '../interfaces/classes/models/pins-model-interface.js';
 
 export default class PinsModel {
-  static async getPreviousPins({ id }) {
+  static async getPreviousPins({ id }: IdParams) {
     const response = await pool.query(
       'SELECT body, title, id FROM posts WHERE user_id = $1 GROUP BY id ORDER BY created_at ASC;',
       [id]
@@ -14,7 +26,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async getPreviousPinsFullData({ id }) {
+  static async getPreviousPinsFullData({ id }: IdParams) {
     const response = await pool.query(
       'SELECT id, alt_text, title, body, topics, description, url, adult_content FROM posts WHERE id = $1;',
       [id]
@@ -26,7 +38,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async getCreatedPins({ username }) {
+  static async getCreatedPins({ username }: IGetCreatedPins) {
     const response = await pool.query(
       'SELECT body, title, url, adult_content, alt_text FROM posts WHERE username = $1 GROUP BY id ORDER BY created_at ASC;',
       [username]
@@ -38,7 +50,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async pinPreviousValues({ id }) {
+  static async pinPreviousValues({ id }: IdParams) {
     const response = await pool.query(
       'SELECT title, description, url, adult_content, alt_text, topics FROM posts WHERE id = $1',
       [id]
@@ -51,7 +63,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async deletePin({ pinID, userID }) {
+  static async deletePin({ pinID, userID }: IDeletePin) {
     const response = await pool.query(
       'DELETE FROM posts WHERE id = $1 AND user_id = $2 RETURNING body;',
       [pinID, userID]
@@ -73,7 +85,7 @@ export default class PinsModel {
     topics,
     adultContent,
     url,
-  }) {
+  }: ICreatePin) {
     const response = await pool.query(
       'INSERT INTO posts(user_id, title, description, body, type_id, topics, url, alt_text, adult_content) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);',
       [id, title, description, body, type, topics, url, altText, adultContent]
@@ -93,7 +105,7 @@ export default class PinsModel {
     topics,
     userID,
     altText,
-  }) {
+  }: IEditPin) {
     const response = await pool.query(
       'UPDATE posts SET title = $1, description = $2, adult_content = $3, url = $4, topics = $5, alt_text = $6 WHERE id = $7 AND user_id = $8;',
       [title, description, adultContent, url, topics, altText, pinID, userID]
@@ -105,7 +117,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async getSinglePin({ id }) {
+  static async getSinglePin({ id }: IdParams) {
     const response = await pool.query(
       'SELECT posts.id AS pin_id , body, title, description, url, posts.created_at, alt_text, COUNT(likes.post_id) AS likes, users.name, users.surname, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter, users.id AS user_id, COUNT(following_accounts.following_id) AS followers FROM posts LEFT JOIN likes ON posts.id = post_id INNER JOIN users ON users.id = posts.user_id LEFT JOIN following_accounts ON following_accounts.following_id = users.id WHERE posts.id = $1 GROUP BY posts.id, users.id;',
       [id]
@@ -117,7 +129,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async getHomePins({ page, limit }) {
+  static async getHomePins({ page, limit }: IGetWithPaging) {
     const offset = (page - 1) * limit;
 
     const response = await pool.query(
@@ -132,7 +144,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async searchPins({ value, page, limit }) {
+  static async searchPins({ value, page, limit }: ISearchWithValue) {
     const offset = (page - 1) * limit;
 
     const response = await pool.query(
@@ -175,7 +187,7 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async searchByCategory({ category, page, limit }) {
+  static async searchByCategory({ category, page, limit }: ISearchByCategory) {
     const offset = (page - 1) * limit;
 
     // category = UUID
