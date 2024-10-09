@@ -47,7 +47,7 @@ const FormAvatar = () => {
       {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
       <ButtonStyled
         disabled={!isValid}
-        className='w-full text-white bg-redPinterestBg mt-3 hover:bg-red-700'
+        className='w-full text-white bg-redPinterestBg mt-3 hover:bg-red-700 cursor-pointer'
         handleClick={handleSubmit(handleClick)}
       >
         Finalizar

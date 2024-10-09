@@ -1,3 +1,4 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import LinkNavigate from './LinkNavigate';
 import { usePathname } from 'next/navigation';
 
@@ -6,12 +7,13 @@ interface NavUserProps {
 }
 
 const NavUser = ({ loginAuth }: NavUserProps) => {
+  const { userPublicData } = useAppsStore();
   const pathname = usePathname();
 
   return (
     <nav>
       <ul className='text-black dark:text-white font-medium flex items-center gap-6 text-[13.5px] mr-2'>
-        {loginAuth ? (
+        {userPublicData?.username ? (
           <>
             <LinkNavigate
               classProps={`${pathname === '/' ? 'active' : ''}`}

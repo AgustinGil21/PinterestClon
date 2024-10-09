@@ -395,3 +395,25 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color de la pista */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #888; /* Color del pulgar (thumb) */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color del pulgar al pasar el mouse */
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin; /* Ancho de la barra */
+  scrollbar-color: #888 #f1f1f1; /* Color del pulgar y color de la pista */
+}

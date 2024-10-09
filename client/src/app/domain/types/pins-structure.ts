@@ -33,9 +33,9 @@ export interface PinCreateServerAdapter {
 }
 
 export interface CategoriesPin {
-  name: string;
-  id: string;
-  poster: string;
+  name?: string;
+  id?: string;
+  poster?: string;
 }
 
 export interface PreviousPin {
@@ -86,6 +86,14 @@ export interface GetPinsInterface {
 }
 
 export interface SuggestionsInterface {
-  title?: string;
-  alt_text: string;
+  pin_title?: string;
+  pin_alt_text?: string;
+  user_name?: string;
+  user_surname?: string;
+  user_username?: string;
+  user_avatar?: string;
+  user_verified?: boolean;
+  user_avatar_background?: string;
+  user_avatar_letter?: string;
+  user_avatar_letter_color?: string;
 }

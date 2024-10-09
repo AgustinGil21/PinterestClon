@@ -3,7 +3,7 @@ import { useEffect, useRef, Dispatch, SetStateAction } from 'react';
 interface UseCloseModalType {
   setModal?: Dispatch<SetStateAction<boolean>>;
   closeBothModal?: () => void;
-  inputRef?: React.RefObject<HTMLInputElement>; // Agregado
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 const useCloseModal = ({

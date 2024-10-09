@@ -147,11 +147,30 @@ export const getPinsSchema = z.object({
   results: z.number(),
 });
 
-const suggestionSchema = z.object({
-  title: z.string().optional(),
-  alt_text: z.string(),
+const suggestionSchema1 = z.object({
+  pin_title: z.string().optional(),
+  pin_alt_text: z.string(),
 });
 
-export const ArraySuggestionSchema = z.object({
-  suggestions: z.array(suggestionSchema),
+const suggestionSchema2 = z.object({
+  user_name: z.string().optional(),
+  user_surname: z.string().optional(),
+  user_username: z.string().optional(),
+  user_avatar: z.string().optional(),
+  user_verified: z.boolean().optional(),
+  user_avatar_background: z.string().optional(),
+  user_avatar_letter: z.string().optional(),
+  user_avatar_letter_color: z.string().optional(),
 });
+
+const suggestionSchema = z.union([suggestionSchema1, suggestionSchema2]);
+
+export const ArraySuggestionSchema = z.array(suggestionSchema);
+
+const categoriesPinsSchema = z.object({
+  name: z.string().optional(),
+  id: z.string().optional(),
+  poster: z.string().optional(),
+});
+
+export const ArrayCategoriesPinsSchema = z.array(categoriesPinsSchema);

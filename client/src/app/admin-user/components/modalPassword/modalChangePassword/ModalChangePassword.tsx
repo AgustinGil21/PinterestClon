@@ -16,7 +16,7 @@ const ModalChangePassword = () => {
   } = useModalChangePassword();
 
   return (
-    <div className='fixed inset-0 z-40 flex items-center justify-center'>
+    <div className='fixed inset-0  flex items-center justify-center  z-[90]'>
       <div className='absolute inset-0 bg-black opacity-50'></div>
       <ModalStyled
         modalRef={modalRef}

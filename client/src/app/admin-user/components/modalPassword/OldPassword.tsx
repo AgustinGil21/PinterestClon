@@ -32,7 +32,7 @@ const OldPassword = ({
         />
 
         <EyePasswordStyled
-          classname='left-[346px] top-[55px]'
+          classname='left-[346px] top-[60px]'
           togglePasswordVisibility={toggleOldPasswordVisibility}
           showPassword={showOldPassword}
         />

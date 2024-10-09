@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## PinterestClon
 
 Flujo de Datos:
@@ -15,3 +16,6 @@ Service: El servicio realiza la llamada a la API, recibe los datos, y los devuel
 Adapter: El adapter transforma los datos si es necesario y los devuelve al controller.
 Controller: El controller actualiza el estado del store con los datos obtenidos.
 Store: El estado se actualiza y la UI se vuelve a renderizar con la nueva información.
+=======
+Ayuda 😢😖
+>>>>>>> 47d5704bb54b5e7564e89e70b39cc0ef57f79bb4

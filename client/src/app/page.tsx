@@ -10,12 +10,17 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const limit = 25;
 
-  const { homePins, getHomePins } = useAppsStore();
+  const { homePins, getHomePins, previousPin } = useAppsStore();
 
   useEffect(() => {
-    getHomePins(page, limit);
-    setIsLoading(false);
-  }, [page]);
+    const fetchPins = async () => {
+      setIsLoading(true);
+      await getHomePins(page, limit);
+      setIsLoading(false);
+    };
+
+    fetchPins();
+  }, [page, previousPin]);
 
   const handleScroll = () => {
     if (
@@ -28,7 +33,6 @@ export default function Home() {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 

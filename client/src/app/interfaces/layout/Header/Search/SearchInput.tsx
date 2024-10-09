@@ -1,5 +1,4 @@
-'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SearchIcon from '../../../components/icons/SearchIcon';
 import ModalSearch from './ModalSearch';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
@@ -7,26 +6,35 @@ import CloseSearchIcon from '@/app/interfaces/components/icons/CloseSearchIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { useRef } from 'react';
 
 const SearchInput = () => {
   const {
     value,
     updateValueInputSearch,
     getSearchPins,
-    homePins,
+    suggestions,
     updateValuesSearch,
+    getSuggestions,
+    previousPin,
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
   const [modalState, setModal] = useState(false);
-  const [pinsSuggestions, setPinsSuggestions] = useState(homePins);
+  const [pinsSuggestions, setPinsSuggestions] = useState(suggestions);
   const [page, setPage] = useState(1);
   const limit = 25;
   const router = useRouter();
   const pathname = usePathname();
-
   const inputRef = useRef<HTMLInputElement>(null);
+
   const { modalRef } = useCloseModal({ setModal, inputRef });
+
+  useEffect(() => {
+    getSuggestions();
+  }, [previousPin]);
+
+  const handleChange = async (e: any) => {
+    updateValueInputSearch(e.target.value);
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,10 +46,21 @@ const SearchInput = () => {
     setModal(false);
   };
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (value) {
+        handleSubmit(
+          new Event('submit') as unknown as React.FormEvent<HTMLFormElement>
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     if (page === 1) return;
     getSearchPins(value, page, limit);
-  }, [page, value]);
+  }, [page]);
 
   const handleScroll = () => {
     if (
@@ -52,21 +71,26 @@ const SearchInput = () => {
     }
   };
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateValueInputSearch(event.target.value);
-  };
-
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    const filteredPins = homePins.filter((elem) =>
-      elem.alt_text.toLowerCase().includes(value.toLowerCase())
-    );
+    const filteredPins = suggestions.filter((elem) => {
+      const searchTerm = value.toLowerCase();
+      return (
+        elem.pin_alt_text?.toLowerCase().includes(searchTerm) ||
+        (elem.pin_title && elem.pin_title.toLowerCase().includes(searchTerm)) ||
+        (elem.user_name && elem.user_name.toLowerCase().includes(searchTerm)) ||
+        (elem.user_surname &&
+          elem.user_surname.toLowerCase().includes(searchTerm)) ||
+        elem.user_username?.toLowerCase().includes(searchTerm)
+      );
+    });
+
     setPinsSuggestions(filteredPins);
-  }, [value, homePins]);
+  }, [value, suggestions]);
 
   useEffect(() => {
     if (!pathname.startsWith('/search')) {
@@ -79,16 +103,17 @@ const SearchInput = () => {
       <div className='w-full relative text-black'>
         <input
           ref={inputRef}
-          onChange={handleOnChange}
+          onChange={(e) => handleChange(e)}
           value={value}
           type='text'
-          className={`w-full p-2 py-[8px] hover:bg-gray-200 ${
+          className={`w-full p-2 py-[10px] hover:bg-gray-200 ${
             isFocused ? 'px-4' : 'px-8'
           } text-sm rounded-3xl bg-searchBg focus:outline-search focus:ring-[3px] focus:outline-none font-sans`}
           placeholder='Buscar'
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onClick={() => setModal(true)}
+          onKeyDown={handleKeyDown}
         />
         {!isFocused && (
           <div className='absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500'>
@@ -110,7 +135,9 @@ const SearchInput = () => {
           <ModalSearch
             modalRef={modalRef}
             pinsSuggestions={pinsSuggestions}
-            handleSubmit={handleSubmit}
+            setModal={setModal}
+            page={page}
+            limit={limit}
           />
         )}
       </div>

@@ -54,9 +54,9 @@ export default function RootLayout({
     }
   }, [userPublicData]);
 
-  if (isLoading) {
-    return null;
-  }
+  // if (isLoading) {
+  //   return null;
+  // }
 
   return (
     <html lang='en'>
@@ -75,7 +75,7 @@ export default function RootLayout({
           {routesWithoutAside.includes(pathname) && <AsideConfig />}
           {children}
         </main>
-      </body>
+      </body>{' '}
     </html>
   );
 }

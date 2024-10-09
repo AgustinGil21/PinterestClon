@@ -26,7 +26,7 @@ const NewPassword = ({ errors, register }: NewPasswordInterface) => {
         register={register}
       />
       <EyePasswordStyled
-        classname='left-[346px] top-[55px]'
+        classname='left-[346px] top-[60px]'
         togglePasswordVisibility={toggleNewPasswordVisibility}
         showPassword={showNewPassword}
       />

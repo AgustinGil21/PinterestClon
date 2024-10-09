@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
+  SuggestionsInterface,
   CategoriesPin,
   PinCreate,
   PinEdit,
@@ -8,9 +9,9 @@ import {
   PinCreateServerAdapter,
   GetPinsInterface,
   PinInterface,
-  SuggestionsInterface,
 } from '@/app/domain/types/pins-structure';
 import {
+  ArrayCategoriesPinsSchema,
   ArrayPreviousPinSchema,
   ArraySuggestionSchema,
   CategoriesSchema,
@@ -166,7 +167,7 @@ export const serviceGetSuggestions = async (): Promise<
 
     console.log(result);
 
-    return result.success ? result.data.suggestions : [];
+    return result.success ? result.data : [];
   } catch (error) {
     console.log(error);
     return [];
