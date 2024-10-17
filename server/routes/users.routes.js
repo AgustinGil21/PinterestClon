@@ -1,36 +1,28 @@
 import { Router } from 'express';
 import UsersController from '../controllers/users.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
+import { isAuthenticated } from '../middlewares/isAuthenticated.js';
 
 const router = Router();
 
 router.get('/search', UsersController.searchUsers);
-router.get('/profile/', authRequired, UsersController.getUserById);
+router.get('/profile/', authRequired, UsersController.getUserOwnerProfile);
 router.get(
   '/profile/:username',
-  authRequired,
-  UsersController.getUserByUsernameAndId
+  isAuthenticated,
+  UsersController.getUserProfile
 );
-router.get('/profile/not-logged/:username', UsersController.getUserByUsername);
 router.post('/follow', authRequired, UsersController.toggleFollowUser);
 router.get(
   '/followers-list/:username',
-  authRequired,
+  isAuthenticated,
   UsersController.userFollowers
 );
-router.get(
-  '/followers-list/not-logged/:username',
-  UsersController.userFollowersNotLogged
-);
+
 router.get(
   '/following-accounts-list/:username',
-  authRequired,
+  isAuthenticated,
   UsersController.userFollowingAccounts
-);
-router.get(
-  '/following-accounts-list/not-logged/:username',
-  authRequired,
-  UsersController.userFollowingAccountsNotLogged
 );
 
 export default router;

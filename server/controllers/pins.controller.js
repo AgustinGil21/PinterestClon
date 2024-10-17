@@ -198,21 +198,12 @@ export default class PinsController {
     }
   }
 
-  static async getSinglePin(req, res) {
-    const { id } = req.params;
-
-    // try {
-    //   const result = getSinglePinSchema.safeParse({ id });
-
-    //   if (!result.success) {
-    //     return res.status(400).json({ issues: result.error.issues });
-    //   }
-    // } catch (err) {
-    //   return res.status(500).json({ message: 'Internal error!' });
-    // }
+  static async getUserOwnerSinglePin(req, res) {
+    const { id: pinID } = req.params;
+    const { id: userID } = req.user;
 
     try {
-      const data = await PinsModel.getSinglePin({ id });
+      const data = await PinsModel.getSinglePin({ pinID, userID });
 
       if (data.ok) {
         const { response: pin } = data;
@@ -223,6 +214,17 @@ export default class PinsController {
     } catch (err) {
       return res.status(404).json({ message: 'Pin not found!' });
     }
+  }
+
+  static async getSinglePin(req, res) {
+    // try {
+    //   const result = getSinglePinSchema.safeParse({ id });
+    //   if (!result.success) {
+    //     return res.status(400).json({ issues: result.error.issues });
+    //   }
+    // } catch (err) {
+    //   return res.status(500).json({ message: 'Internal error!' });
+    // }
   }
 
   static async deletePin(req, res) {

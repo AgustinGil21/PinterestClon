@@ -650,14 +650,14 @@ _id_: UUID
 ```json
 {
   "pin": {
-    "id": "1af19dd3-02d4-4cd8-9128-8ef729dcb320",
-    "alt_text": "foto",
-    "title": "Estrenando celular",
-    "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082911/pinterest-clon/ugl2i4m7cigsejtygcki.png",
-    "topics": ["d972c8f8-1cf3-431b-b3c5-4c4d1d77110d"],
-    "description": "foto celular",
-    "url": "https://imagen.com",
-    "adult_content": false
+    "id": "String",
+    "alt_text": "String",
+    "title": "String?",
+    "body": "String",
+    "topics": "String<UUID>[]?",
+    "description": "String?",
+    "url": "String",
+    "adult_content": "Boolean"
   }
 }
 ```
@@ -674,16 +674,15 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/categories/`
 {
   "categories": [
     {
-      "name": "Animals",
-      "id": "5b85db6e-3f72-464d-af57-776888d57919",
-      "poster": "https://image-url.com"
+      "name": "String",
+      "id": "String",
+      "poster": "String"
     },
     {
-      "name": "Anime",
-      "id": "4ce6fbe1-0862-4054-b0b1-17ab2aed2079",
-      "poster": "https://image-url.com"
-    },
-    ...
+      "name": "String",
+      "id": "String",
+      "poster": "String"
+    }
   ]
 }
 ```
@@ -700,17 +699,17 @@ _value_: Search input value
 {
   "categories": [
     {
-      "name": "Animals",
-      "id": "5b85db6e-3f72-464d-af57-776888d57919",
-      "poster": "R"
+      "name": "String",
+      "id": "String",
+      "poster": "String"
     },
     {
-      "name": "Anime",
-      "id": "4ce6fbe1-0862-4054-b0b1-17ab2aed2079",
-      "poster": "https://image-url.com"
+      "name": "String",
+      "id": "String",
+      "poster": "String"
     }
   ],
-  "results": 2
+  "results": "Number"
 }
 ```
 
@@ -727,9 +726,9 @@ _:id_: UUID
 ```json
 {
   "category": {
-    "name": "Sports",
-    "id": "d972c8f8-1cf3-431b-b3c5-4c4d1d77110d",
-    "poster": "https://image-url.com"
+    "name": "String",
+    "id": "String",
+    "poster": "String"
   }
 }
 ```
@@ -738,11 +737,11 @@ _:id_: UUID
 
 ## User
 
-### Get user data by username and ID (logged / other account)
+### Get user profile
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
 
-[RESPONSE]
+[RESPONSE (logged)]
 
 ```json
 {
@@ -767,11 +766,7 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
 }
 ```
 
-### Get user data by ID (logged / account owner only)
-
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
-
-[RESPONSE]
+[RESPONSE (not logged)]
 
 ```json
 {
@@ -793,9 +788,9 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
 }
 ```
 
-### Get user data by username (not-logged)
+### Get user owner profile
 
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/not-logged/:username`
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
 
 [RESPONSE]
 
@@ -831,11 +826,11 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/users/follow`
 }
 ```
 
-### Followers list (logged)
+### Followers list
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username`
 
-[RESPONSE]
+[RESPONSE (logged)]
 
 ```json
 {
@@ -857,16 +852,11 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username
 }
 ```
 
-### Followers list (not logged)
-
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/not-logged/:username`
-
-[RESPONSE]
+[RESPONSE (not logged)]
 
 ```json
 {
   "followers": {
-    "id": "String",
     "username": "String",
     "name": "String?",
     "surname": "String?",
@@ -880,11 +870,11 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/not-logge
 }
 ```
 
-### Following list (logged)
+### Following account list
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/:username`
 
-[RESPONSE]
+[RESPONSE (logged)]
 
 ```json
 {
@@ -906,16 +896,11 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/
 }
 ```
 
-### Following list (not logged)
-
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/not-logged/:username`
-
-[RESPONSE]
+[RESPONSE (not logged)]
 
 ```json
 {
   "following": {
-    "id": "String",
     "username": "String",
     "name": "String?",
     "surname": "String?",

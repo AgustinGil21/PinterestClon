@@ -145,7 +145,6 @@ ORDER BY
   static async userFollowersNotLogged({ username }) {
     const response = await pool.query(
       `SELECT
-    u.id, 
     u.username, 
     u.avatar, 
     u.name, 
@@ -228,7 +227,6 @@ ORDER BY
   static async userFollowingAccountsNotLogged({ username }) {
     const response = await pool.query(
       `SELECT
-    u.id, 
     u.username, 
     u.avatar, 
     u.name, 
