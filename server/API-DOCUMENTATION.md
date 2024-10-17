@@ -818,3 +818,113 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/not-logged/:user
   }
 }
 ```
+
+### Follow/Unfollow user
+
+_*POST*_ `http://localhost:1234/pinterest-clon-api/users/follow`
+
+[BODY]
+
+```json
+{
+  "username": "String"
+}
+```
+
+### Followers list (logged)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username`
+
+[RESPONSE]
+
+```json
+{
+  "followers": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "its_you": "Boolean",
+    "follows_you": "Boolean",
+    "following": "Boolean"
+  },
+  "followersCount": "Number"
+}
+```
+
+### Followers list (not logged)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/not-logged/:username`
+
+[RESPONSE]
+
+```json
+{
+  "followers": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String"
+  },
+  "followersCount": "Number"
+}
+```
+
+### Following list (logged)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/:username`
+
+[RESPONSE]
+
+```json
+{
+  "following": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "its_you": "Boolean",
+    "follows_you": "Boolean",
+    "following": "Boolean"
+  },
+  "followingCount": "Number"
+}
+```
+
+### Following list (not logged)
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/not-logged/:username`
+
+[RESPONSE]
+
+```json
+{
+  "following": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String"
+  },
+  "followingCount": "Number"
+}
+```
