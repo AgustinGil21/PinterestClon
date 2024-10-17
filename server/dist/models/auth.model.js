@@ -2,7 +2,7 @@ import { Crypt, CryptCompare } from '../libs/crypt.js';
 import { dateNow as createdAt } from '../libs/date.js';
 import { pool } from '../dbpool.js';
 export default class AuthModel {
-    static async checkIfEmailAlreadyExists({ emailAddress }) {
+    static async checkIfEmailAlreadyExists({ emailAddress, }) {
         const response = await pool.query('SELECT id FROM users WHERE email_address = $1;', [emailAddress]);
         if (!response.rowCount)
             return { response, ok: true };
@@ -32,7 +32,7 @@ export default class AuthModel {
             return { response: data, ok: true };
         return { response, ok: false };
     }
-    static async logIn({ emailAddress, password }) {
+    static async logIn({ emailAddress, password, }) {
         const getUserPassword = await pool.query('SELECT password FROM users WHERE email_address = $1;', [emailAddress]);
         if (!getUserPassword.rowCount)
             throw new Error('Invalid credentials');
@@ -54,7 +54,7 @@ export default class AuthModel {
             return { response: data, ok: true };
         return { response, ok: false };
     }
-    static async resetPassword({ password, emailAddress }) {
+    static async resetPassword({ password, emailAddress, }) {
         const encryptedPassword = await Crypt(password);
         const response = await pool.query('UPDATE users SET password = $1 WHERE email_address = $2;', [encryptedPassword, emailAddress]);
         if (!response)

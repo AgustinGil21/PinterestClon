@@ -25,7 +25,7 @@ export default class UsersModel {
             return { response: data, ok: true };
         return { response, ok: false };
     }
-    static async getUserByUsernameAndId({ username, id }) {
+    static async getUserByUsernameAndId({ username, id, }) {
         const response = await pool.query(`SELECT
       id,
       username, 

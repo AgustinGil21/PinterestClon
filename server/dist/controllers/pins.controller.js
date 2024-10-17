@@ -5,6 +5,7 @@ import { deleteCloudinaryFile, uploadFileToCloudinary, } from '../libs/cloudinar
 import { detectObjectChanges } from '../libs/detectObjectChanges.js';
 import { objectsCompare } from '../libs/objectsCompare.js';
 import { filterArrFalsyValues, filterFalsyValues, } from '../libs/filterFalsyValues.js';
+import FileMiddleware from '../middlewares/fileUpload.js';
 const createPinSkeleton = {
     body: '',
     title: '',
@@ -93,8 +94,10 @@ export default class PinsController {
         // } catch (err) {
         //   return res.status(500).json({ message: 'Internal error!' });
         // }
-        if (req.files?.body) {
-            const result = await uploadFileToCloudinary(req.files.body.tempFilePath);
+        console.log(req.file);
+        if (req.file) {
+            const result = await uploadFileToCloudinary(req.file.path);
+            await FileMiddleware.destroyTmpFile(req.file.path);
             body = result.secure_url;
         }
         try {
@@ -105,6 +108,7 @@ export default class PinsController {
             }
         }
         catch (err) {
+            console.log(err);
             return res.status(400).json({ message: 'Cannot create pin!' });
         }
     }
@@ -236,7 +240,8 @@ export default class PinsController {
             const data = await PinsModel.searchPins({ value, page, limit });
             if (data.ok) {
                 const { data: pins, results } = data.response;
-                return res.status(200).json({ pins, results });
+                const filteredPins = filterArrFalsyValues(pins);
+                return res.status(200).json({ pins: filteredPins, results });
             }
         }
         catch (err) {

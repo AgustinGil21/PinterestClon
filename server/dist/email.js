@@ -9,7 +9,7 @@ export const createEmail = ({ to, subject, html }) => {
     };
     return email;
 };
-export const recoverAccountEmail = async ({ emailAddress }) => {
+export const recoverAccountEmail = async ({ emailAddress, }) => {
     const recoverAccountEmailHTML = `
   <main>
   <section>
@@ -33,7 +33,7 @@ export const recoverAccountEmail = async ({ emailAddress }) => {
   `;
     try {
         const recoverAccountEmail = createEmail({
-            to: [`${emailAddress}`],
+            to: `${[emailAddress]}`,
             subject: 'Reset password on Pinterest Clon',
             html: recoverAccountEmailHTML,
         });
@@ -43,10 +43,10 @@ export const recoverAccountEmail = async ({ emailAddress }) => {
         throw new Error('Internal error!');
     }
 };
-export const twoFactorAuthenticationEmail = async ({ emailAddress }) => {
+export const twoFactorAuthenticationEmail = async ({ emailAddress, }) => {
     try {
         const twoFactorAuthenticationEmail = createEmail({
-            to: [emailAddress],
+            to: `${[emailAddress]}`,
             subject: '',
             html: '',
         });

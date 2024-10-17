@@ -20,6 +20,7 @@ import {
   filterArrFalsyValues,
   filterFalsyValues,
 } from '../libs/filterFalsyValues.js';
+import FileMiddleware from '../middlewares/fileUpload.js';
 
 const createPinSkeleton = {
   body: '',
@@ -122,8 +123,11 @@ export default class PinsController {
     //   return res.status(500).json({ message: 'Internal error!' });
     // }
 
-    if (req.files?.body) {
-      const result = await uploadFileToCloudinary(req.files.body.tempFilePath);
+    console.log(req.file);
+    if (req.file) {
+      const result = await uploadFileToCloudinary(req.file.path);
+
+      await FileMiddleware.destroyTmpFile(req.file.path);
 
       body = result.secure_url;
     }
@@ -139,6 +143,7 @@ export default class PinsController {
         return res.status(200).json({ message: 'Pin successfully created!' });
       }
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ message: 'Cannot create pin!' });
     }
   }

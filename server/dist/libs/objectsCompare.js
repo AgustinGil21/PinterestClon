@@ -1,9 +1,6 @@
 /*
 This function receives 3 objects, the first will have the user's previous data, the second the new values ​​and the third will be an object with empty values ​​but containing all the keys that need to be stored.
 */
-/*
-The purpose is to detect changes with respect to previous data. The third parameter is required to avoid null or undefined data.
-*/
 export const objectsCompare = (prevObject, currentObject, objectSkeleton) => {
     const newObject = {
         ...objectSkeleton,

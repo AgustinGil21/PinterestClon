@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { authRequired } from '../middlewares/validateToken.js';
 import PinsController from '../controllers/pins.controller.js';
+import FileMiddleware from '../middlewares/fileUpload.js';
 
 const router = Router();
 
@@ -16,7 +17,12 @@ router.get('/search-by-category', PinsController.searchByCategory);
 router.get('/search/suggestions', PinsController.searchAutocompleteSuggestions);
 router.get('/:id', PinsController.getSinglePin);
 router.get('/', PinsController.getHomePins);
-router.post('/create', authRequired, PinsController.createPin);
+router.post(
+  '/create',
+  authRequired,
+  FileMiddleware.diskLoader.single('file'),
+  PinsController.createPin
+);
 router.delete('/:id', authRequired, PinsController.deletePin);
 router.put('/:id', authRequired, PinsController.editPin);
 

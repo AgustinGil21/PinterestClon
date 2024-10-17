@@ -2,7 +2,6 @@ import express, { json } from 'express';
 import { BASE_URL, PORT } from './config.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import fileUpload from 'express-fileupload';
 import 'dotenv/config';
 import AuthRoutes from './routes/auth.routes.js';
 import CountriesRoutes from './routes/countries.routes.js';
@@ -18,21 +17,14 @@ import PinsRoutes from './routes/pins.routes.js';
 import CategoriesRoutes from './routes/categories.routes.js';
 import UsersRoutes from './routes/users.routes.js';
 import BoardsRoutes from './routes/boards.routes.js';
+import { logger } from './utils/logger.js';
 export const app = express();
-const safeFileNamesRegex = /^[a-zA-Z0-9_\-!@#\$%\^&\*\(\)]+(\.png|\.jpg)$/;
-const tempFileDirStr = './uploads';
 app.use(json({ limit: '50mb' }));
 app.use(cookieParser());
 app.disable('x-powered-by');
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true,
-}));
-app.use(fileUpload({
-    useTempFiles: true,
-    tempFileDir: tempFileDirStr,
-    safeFileNames: safeFileNamesRegex,
-    preserveExtension: true,
 }));
 const SETTINGS_BASE_URL = `${BASE_URL}/settings`;
 app.use(`${BASE_URL}`, UserHomeDataRoute);
@@ -50,5 +42,5 @@ app.use(`${BASE_URL}/categories`, CategoriesRoutes);
 app.use(`${BASE_URL}/users`, UsersRoutes);
 app.use(`${BASE_URL}/boards`, BoardsRoutes);
 app.listen(PORT, () => {
-    console.log(`server running on url: http://localhost:${PORT}`);
+    logger.info(`server running on url http://localhost:${PORT}`);
 });
