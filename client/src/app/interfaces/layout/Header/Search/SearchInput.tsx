@@ -10,17 +10,19 @@ import { usePathname } from 'next/navigation';
 const SearchInput = () => {
   const {
     value,
-    updateValueInputSearch,
+    updateDataSearch,
     getSearchPins,
     suggestions,
-    updateValuesSearch,
+    updateValueSearchInput,
     getSuggestions,
     previousPin,
+    setPage,
+    page,
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
   const [modalState, setModal] = useState(false);
   const [pinsSuggestions, setPinsSuggestions] = useState(suggestions);
-  const [page, setPage] = useState(1);
+
   const limit = 25;
   const router = useRouter();
   const pathname = usePathname();
@@ -33,15 +35,17 @@ const SearchInput = () => {
   }, [previousPin]);
 
   const handleChange = async (e: any) => {
-    updateValueInputSearch(e.target.value);
+    updateDataSearch('value', e.target.value);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (value === '') return;
 
-    updateValuesSearch(value);
-    await getSearchPins(value, page, limit);
+    updateDataSearch('categorySelect', '');
+
+    updateValueSearchInput(value);
+    await getSearchPins(value, 1, limit);
     router.push(`/search?query=${value}`);
     setModal(false);
   };
@@ -56,25 +60,6 @@ const SearchInput = () => {
       }
     }
   };
-
-  useEffect(() => {
-    if (page === 1) return;
-    getSearchPins(value, page, limit);
-  }, [page]);
-
-  const handleScroll = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-      document.documentElement.scrollHeight
-    ) {
-      setPage((prev) => prev + 1);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     const filteredPins = suggestions.filter((elem) => {
@@ -94,7 +79,7 @@ const SearchInput = () => {
 
   useEffect(() => {
     if (!pathname.startsWith('/search')) {
-      updateValueInputSearch('');
+      updateDataSearch('value', '');
     }
   }, [pathname]);
 

@@ -34,7 +34,7 @@ export interface PinCreateServerAdapter {
 
 export interface CategoriesPin {
   name?: string;
-  id?: string;
+  id: string;
   poster?: string;
 }
 
@@ -65,19 +65,19 @@ export interface PinId {
 }
 
 export interface PinInterface {
+  username: string;
   body: string;
-  title?: string;
-  url?: string;
-  adult_content: boolean;
   pin_id: string;
   alt_text: string;
-  name?: string | null;
-  surname?: string | null;
-  username: string;
-  avatar?: string;
+  adult_content: boolean;
   avatar_background: string;
   avatar_letter_color: string;
   avatar_letter: string;
+  title?: string;
+  name?: string | null;
+  surname?: string | null;
+  avatar?: string | null;
+  url?: string | null;
 }
 
 export interface GetPinsInterface {

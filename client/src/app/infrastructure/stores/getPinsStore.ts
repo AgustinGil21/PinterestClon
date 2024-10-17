@@ -6,6 +6,7 @@ import {
 import { getHomePinsCase } from '@/app/application/use-cases/home/getHomePins';
 import { getSearchPinsCase } from '@/app/application/use-cases/home/getSearchPins';
 import { getSuggestionsCase } from '@/app/application/use-cases/header/getSuggestions';
+import { getPinSearchCategoriesCase } from '@/app/application/use-cases/home/getSearchForCategoryPins';
 
 export interface homePinsStoreInterface {
   homePins: PinInterface[];
@@ -13,11 +14,20 @@ export interface homePinsStoreInterface {
   getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
   value: string;
   valuesSearch: string[];
-  updateValueInputSearch: (value: string) => void;
+  updateDataSearch: (store: string, value: string | number) => void;
   suggestions: SuggestionsInterface[];
   getSuggestions: () => Promise<void>;
-  updateValuesSearch: (value: string) => void;
+  updateValueSearchInput: (value: string) => void;
   removeValueFromSearch: (value: string) => void;
+  getSearchPinForCategory: (
+    category: string,
+    page: number,
+    limit: number
+  ) => Promise<void>;
+  page: number;
+  categorySelect: string;
+  setPage: (value: number) => void;
+  resetPage: () => void;
 }
 
 const loadValuesFromLocalStorage = () => {
@@ -29,7 +39,9 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   set,
   get
 ) => ({
+  page: 1,
   value: '',
+  categorySelect: '',
   homePins: [],
   suggestions: [],
   valuesSearch: loadValuesFromLocalStorage(),
@@ -39,7 +51,6 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     if (Array.isArray(response)) {
       const prevHomePins = get().homePins;
 
-      // Solo se queda con aquellos valores que son distintos a los anteriores, con el objetivo de evitar duplicidad.
       const uniqueHomePins = response.filter(
         (newPin: PinInterface) =>
           !prevHomePins.some(
@@ -47,34 +58,74 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
           )
       );
 
-      // Combina ambos grupos de pins en el estado
+      // Combina ambos grupos de pins sin duplicados
       set({
         homePins: [...prevHomePins, ...uniqueHomePins],
       });
     }
   },
 
+  // Función para buscar pins por valor
   getSearchPins: async (value: string, page: number, limit: number) => {
-    set({ homePins: [] });
+    console.log(page);
+    // Limpiar los pins si es una nueva búsqueda (página 1)
+    if (page === 1) {
+      set({ homePins: [] }); // Reinicia los pins solo en la primera página (nueva búsqueda)
+    }
 
     const response = await getSearchPinsCase(value, page, limit);
-    console.log(response);
 
     if (Array.isArray(response)) {
-      const prevSearchPins = get().homePins;
+      const prevHomePins = get().homePins;
 
       const uniqueSearchPins = response.filter(
         (newPin: PinInterface) =>
-          !prevSearchPins.some(
+          !prevHomePins.some(
             (existingPin: PinInterface) => existingPin.pin_id === newPin.pin_id
           )
       );
 
+      // Si es una nueva búsqueda (página 1), no concatenamos, solo asignamos los nuevos pins
       set({
-        homePins: [...prevSearchPins, ...uniqueSearchPins],
+        homePins:
+          page === 1
+            ? uniqueSearchPins
+            : [...prevHomePins, ...uniqueSearchPins],
       });
+
+      console.log(
+        'Estado de homePins después de la búsqueda: ',
+        get().homePins
+      );
     }
-    console.log(get().homePins);
+  },
+
+  getSearchPinForCategory: async (
+    category: string,
+    page: number,
+    limit: number
+  ) => {
+    set({ homePins: [] }); // Reinicia los pins al filtrar por categoría
+
+    const response = await getPinSearchCategoriesCase(category, page, limit);
+
+    if (Array.isArray(response)) {
+      const uniqueSearchPinsForCategory = response.filter(
+        (newPin: PinInterface) =>
+          !get().homePins.some(
+            (existingPin: PinInterface) => existingPin.pin_id === newPin.pin_id
+          )
+      );
+
+      // Almacena los resultados filtrados por categoría sin duplicados
+      set({
+        homePins: uniqueSearchPinsForCategory, // Sobrescribe en lugar de concatenar
+      });
+      console.log(
+        'Estado de homePins después de la búsqueda: ',
+        get().homePins
+      );
+    }
   },
 
   getSuggestions: async () => {
@@ -87,15 +138,25 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     });
   },
 
-  updateValueInputSearch: (value: string) => {
+  updateDataSearch: async (store: string, value: string | number) => {
     set((state) => ({
       ...state,
-      value: value,
+      [store]: value,
     }));
-    console.log(get().value);
+    console.log(get().page);
+  },
+  setPage: (increment: number) => {
+    set((state) => ({
+      ...state,
+      page: state.page + increment,
+    }));
   },
 
-  updateValuesSearch: (value: string) => {
+  resetPage: () => {
+    set({ page: 1 });
+  },
+
+  updateValueSearchInput: (value: string) => {
     set((state) => {
       if (state.valuesSearch.includes(value)) {
         return state;

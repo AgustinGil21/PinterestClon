@@ -1,13 +1,12 @@
 import { SuggestionsInterface } from '@/app/domain/types/pins-structure';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import XValueModalIcon from '@/app/interfaces/components/icons/XValueModalIcon';
 import { useRouter } from 'next/navigation';
 import React, { RefObject, useEffect } from 'react';
 import SearchTitle from './SearchTitle';
 import SearchUser from './SearchUser';
-import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
-import { useMemo } from 'react';
-import CardCategory from './CardCategory';
+import SavePinsButton from './SavePinsButton';
+import CategoryGroups from './CategoryGroups';
+import LabelsSearch from './LabelsSearch';
 
 interface ModalStateProps {
   modalRef: RefObject<HTMLDivElement>;
@@ -20,43 +19,37 @@ interface ModalStateProps {
 const ModalSearch = ({
   modalRef,
   pinsSuggestions,
-
-  page,
   limit,
   setModal,
 }: ModalStateProps) => {
   const {
     valuesSearch,
-    removeValueFromSearch,
-    updateValueInputSearch,
+    updateValueSearchInput,
     value,
+    page,
+    resetPage,
     getSearchPins,
     getCategoriesPin,
-    categoriesPin,
-    userPublicData,
+    updateDataSearch,
   } = useAppsStore();
 
   useEffect(() => {
     getCategoriesPin();
   }, []);
 
-  const categories = useMemo(
-    () => categoriesPin.sort(() => Math.random() - 0.5).slice(0, 8),
-    [categoriesPin]
-  );
-
-  const categories2 = useMemo(
-    () => categoriesPin.sort(() => Math.random() - 0.5).slice(9, 17),
-    [categoriesPin]
-  );
-
   const router = useRouter();
 
   const handleClick = async (elem: string) => {
-    updateValueInputSearch(elem);
+    console.log(elem);
+    console.log(value);
 
-    await getSearchPins(elem, page, limit);
+    await getSearchPins(elem, 1, limit);
+
+    updateDataSearch('value', elem);
+    console.log(page);
     router.push(`/search?query=${elem}`);
+
+    updateValueSearchInput(elem);
     setModal(false);
   };
 
@@ -70,60 +63,9 @@ const ModalSearch = ({
       >
         {valuesSearch.length > 0 && value.length <= 0 && (
           <div className='px-7'>
-            <span className='font-semibold text-sm my-4'>
-              Búsquedas recientes
-            </span>
-            <div className='flex gap-1 flex-row flex-wrap mt-2'>
-              {valuesSearch.map((elem, index) => (
-                <div
-                  onClick={() => handleClick(elem)}
-                  key={index}
-                  className='bg-gray-200 rounded-2xl p-1 px-3 flex flex-row items-center gap-3 hover:bg-gray-300 cursor-pointer'
-                >
-                  <span className='text-[14px]'>{elem}</span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeValueFromSearch(elem);
-                    }}
-                  >
-                    <XValueModalIcon />
-                  </button>
-                </div>
-              ))}
-            </div>
+            <LabelsSearch handleClick={handleClick} />
 
-            <div className=' mt-5'>
-              {userPublicData?.username && (
-                <>
-                  <h3 className='text-sm font-semibold my-2'>Ideas para ti</h3>
-                  <div className='flex  flex-wrap  gap-2 '>
-                    {categories.map((elem) => (
-                      <div
-                        key={elem.id}
-                        className='flex-wrap w-[calc(20%-0.5rem)] p-1'
-                      >
-                        <CardCategory elem={elem} />
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-
-              <h3 className='text-sm font-semibold my-3 mt-6'>
-                Populares en Pinterest
-              </h3>
-              <div className='flex flex-wrap gap-2'>
-                {categories2.map((elem) => (
-                  <div
-                    key={elem.id}
-                    className='flex-wrap w-[calc(20%-0.5rem)] p-1'
-                  >
-                    <CardCategory elem={elem} />
-                  </div>
-                ))}
-              </div>
-            </div>
+            <CategoryGroups />
           </div>
         )}
 
@@ -144,22 +86,7 @@ const ModalSearch = ({
             ))}
           </div>
         )}
-        {value.length > 0 && (
-          <div className='w-full px-6 4 mt-4'>
-            <hr className='w-full border-t-[1.5px] border-gray-300' />
-            <div className='w-full flex justify-between flex-row mt-4  items-center'>
-              <span className='text-sm font-semibold'>
-                ¿Estás buscando ideas que guardaste?
-              </span>
-              <ButtonStyled
-                type='button'
-                className='font-semibold bg-buttonGreyBg hover:bg-gray-300 text-[11px]'
-              >
-                Buscar tus Pines
-              </ButtonStyled>
-            </div>
-          </div>
-        )}
+        {value.length > 0 && <SavePinsButton />}
       </div>
     </>
   );

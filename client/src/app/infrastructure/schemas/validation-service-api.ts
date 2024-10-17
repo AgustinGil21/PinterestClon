@@ -129,14 +129,14 @@ export const PinEditIdSchema = z.object({
 export const PinSchema = z.object({
   body: z.string().url(),
   title: z.string().optional(),
-  url: z.string().url().optional(),
+  url: z.union([z.string().url(), z.literal(''), z.null()]).optional(),
   adult_content: z.boolean(),
   pin_id: z.string().uuid(),
   alt_text: z.string(),
-  name: z.string().optional(),
-  surname: z.string().optional(),
+  name: z.string().nullable().optional(),
+  surname: z.string().nullable().optional(),
   username: z.string(),
-  avatar: z.string().optional(),
+  avatar: z.string().nullable().optional(),
   avatar_background: z.string(),
   avatar_letter_color: z.string(),
   avatar_letter: z.string(),
@@ -144,7 +144,7 @@ export const PinSchema = z.object({
 
 export const getPinsSchema = z.object({
   pins: z.array(PinSchema),
-  results: z.number(),
+  results: z.number().optional(),
 });
 
 const suggestionSchema1 = z.object({

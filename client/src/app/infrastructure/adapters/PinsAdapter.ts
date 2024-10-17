@@ -13,6 +13,7 @@ import {
   serviceGetCategoriesPin,
   serviceGetEditPinId,
   serviceGetHomePins,
+  serviceGetPinSearchCategories,
   serviceGetPreviousPins,
   serviceGetSearchPin,
   serviceGetSuggestions,
@@ -100,4 +101,12 @@ export const getSuggestionsAdapter = async (): Promise<
   SuggestionsInterface[] | []
 > => {
   return await serviceGetSuggestions();
+};
+
+export const getPinSearchCategoriesAdapter = async (
+  category: string,
+  page: number,
+  limit: number
+): Promise<PinInterface[] | []> => {
+  return await serviceGetPinSearchCategories(category, page, limit);
 };

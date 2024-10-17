@@ -7,7 +7,8 @@ import { UserLoggedIn } from './LogIn/UserLoggedIn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const Header = () => {
-  const { isAuth, getDataUserLogged, getSuggestions } = useAppsStore();
+  const { isAuth, getDataUserLogged, getSuggestions, setIsHeaderLoaded } =
+    useAppsStore();
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
 
@@ -16,10 +17,11 @@ export const Header = () => {
       await getDataUserLogged();
 
       setLoading(false);
+      setIsHeaderLoaded(true);
     };
 
     fetchData();
-  }, [getDataUserLogged]);
+  }, [getDataUserLogged, setIsHeaderLoaded]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -48,9 +50,9 @@ export const Header = () => {
   //   );
   // }
 
-  // if (loading) {
-  //   return null;
-  // }
+  if (loading) {
+    return null;
+  }
 
   return (
     <header

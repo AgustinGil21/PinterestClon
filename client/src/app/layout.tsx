@@ -46,7 +46,11 @@ export default function RootLayout({
     'create-pin',
   ];
 
+  const [isHeaderLoaded, setIsHeaderLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const handleHeaderLoaded = () => {
+    setIsHeaderLoaded(true);
+  };
 
   useEffect(() => {
     if (userPublicData) {

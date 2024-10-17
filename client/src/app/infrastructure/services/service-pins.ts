@@ -173,3 +173,29 @@ export const serviceGetSuggestions = async (): Promise<
     return [];
   }
 };
+
+export const serviceGetPinSearchCategories = async (
+  category: string,
+  page: number,
+  limit: number
+): Promise<PinInterface[] | []> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/pins/search-by-category?category=${category}&page=${page}&limit=${limit} `,
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(response);
+
+    const result = getPinsSchema.safeParse(response.data);
+
+    console.log(result);
+
+    return result.success ? result.data.pins : [];
+  } catch (error) {
+    console.log('Error en la solicitud o en el parseo:', error);
+    return [];
+  }
+};
