@@ -119,11 +119,14 @@ export default class UsersController {
   }
 
   static async toggleFollowUser(req, res) {
-    const { id } = req.user;
-    const { username } = req.body;
+    const { id: ownerID } = req.user;
+    const { id: userID } = req.params;
 
     try {
-      const successfully = await UsersModel.toggleFollowUser({ username, id });
+      const successfully = await UsersModel.toggleFollowUser({
+        ownerID,
+        userID,
+      });
 
       if (successfully.ok) {
         return res

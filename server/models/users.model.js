@@ -26,6 +26,8 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
+  // Muestra la información del perfil de la
+  // persona que lo solicita (dueño de la cuenta).
   static async getUserById({ id }) {
     const response = await pool.query(
       'SELECT username, about_you AS about, website, users.name, surname, verified, avatar, avatar_background, avatar_letter_color, avatar_letter, (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = $1) AS followers, (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = $1) AS following FROM users WHERE id = $1;',
@@ -38,6 +40,8 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
+  // Muestra la información de un perfil cuando
+  // el usuario que lo solicita esta logueado.
   static async getUserByUsernameAndId({ username, id }) {
     const response = await pool.query(
       `SELECT
@@ -52,8 +56,8 @@ export default class UsersModel {
       avatar_background, 
       avatar_letter_color, 
       avatar_letter,
-      (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers,
-      (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following,
+      (SELECT COUNT(1) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers,
+      (SELECT COUNT(1) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following_accounts,
       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1) AND following_id = $2)) AS follows_you,
       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1) AND follower_id = $2)) AS following
    FROM 
@@ -69,6 +73,8 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
+  // Muestra la información de un perfil cuando
+  // el usuario que lo solicita no esta logueado.
   static async getUserByUsername({ username }) {
     const response = await pool.query(
       `SELECT
@@ -82,8 +88,8 @@ export default class UsersModel {
       avatar_background, 
       avatar_letter_color, 
       avatar_letter,
-      (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers,
-      (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following
+      (SELECT COUNT(1) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers,
+      (SELECT COUNT(1) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following
    FROM 
       users 
    WHERE 
@@ -265,31 +271,29 @@ ORDER BY
   // sigue a cierta persona, si lo hace, lo
   // deja de seguir, de lo contrario, lo
   // empezará a seguir
-  static async toggleFollowUser({ username, id }) {
+  static async toggleFollowUser({ userID, ownerID }) {
+    let response;
+
     const checkAlreadyFollowing = await pool.query(
-      'SELECT 1 FROM following_accounts WHERE follower_id = $1 AND following_id = (SELECT id FROM users WHERE username = $2);',
-      [id, username]
+      'SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = $1 AND following_id = $2) as is_following;',
+      [ownerID, userID]
     );
 
-    const alreadyFollowing = checkAlreadyFollowing.rowCount;
+    const isFollowing = checkAlreadyFollowing.rows[0].is_following;
 
-    if (alreadyFollowing) {
-      const response = await pool.query(
-        'DELETE FROM following_account WHERE follower_id = $1 AND following_id = (SELECT id FROM users WHERE username = $2) RETURNING 1;',
-        [id, username]
+    if (isFollowing) {
+      response = await pool.query(
+        'DELETE FROM following_accounts WHERE follower_id = $1 AND following_id = $2 RETURNING 1;',
+        [ownerID, userID]
       );
-
-      if (response.rowCount) return { response, ok: true };
-
-      return { response, ok: false };
     } else {
-      const response = await pool.query(
-        'INSERT INTO following_account(following_id, follower_id) VALUES((SELECT id FROM users WHERE username = $2), $1) RETURNING 1;',
-        [id, username]
+      response = await pool.query(
+        'INSERT INTO following_accounts(following_id, follower_id) VALUES($1, $2) RETURNING 1;',
+        [userID, ownerID]
       );
-
-      if (response.rowCount) return { response, ok: true };
-      return { response, ok: false };
     }
+
+    if (response.rowCount) return { response, ok: true };
+    return { response, ok: false };
   }
 }

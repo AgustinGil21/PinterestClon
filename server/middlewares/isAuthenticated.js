@@ -6,7 +6,7 @@ export const isAuthenticated = (req, res, next) => {
 
   if (!access_token) {
     req.isAuthenticated = false;
-    next();
+    return next();
   }
 
   jwt.verify(access_token, SECRETKEY, (err, decoded) => {
