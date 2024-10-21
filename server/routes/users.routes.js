@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get(
-  '/following-accounts-list/:username',
+  '/following-list/:username',
   isAuthenticated,
   UsersController.userFollowingAccounts
 );

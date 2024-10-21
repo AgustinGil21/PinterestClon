@@ -116,8 +116,17 @@ export default class UsersModel {
     u.avatar_letter_color, 
     u.avatar_letter, 
     u.avatar_background,
-    (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = u.id AND following_id = $1)) AS follows_you,
-    (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $1 AND follower_id = u.id)) AS following,
+
+    (CASE 
+      WHEN (u.id = $1) THEN NULL 
+      ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = u.id AND following_id = $1)) 
+    END) AS follows_you,
+    
+    (CASE 
+      WHEN (u.id = $1) THEN NULL 
+      ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $1 AND follower_id = u.id)) 
+    END) AS following,
+
     (u.id = $1) AS its_you
 FROM 
     users u
@@ -198,8 +207,21 @@ ORDER BY
     u.avatar_letter_color, 
     u.avatar_letter, 
     u.avatar_background,
-    (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = u.id AND following_id = $1)) AS follows_you,
-    (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $1 AND follower_id = u.id)) AS following,
+
+    (
+      CASE 
+        WHEN (u.id = $1) THEN NULL 
+        ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = u.id AND following_id = $1)) 
+      END
+    ) AS follows_you,
+
+    (
+      CASE 
+        WHEN (u.id = $1) THEN NULL 
+        ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $1 AND follower_id = u.id)) 
+      END
+    ) AS following,
+
     (u.id = $1) AS its_you
 FROM 
     users u

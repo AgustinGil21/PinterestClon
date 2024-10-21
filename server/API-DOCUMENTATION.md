@@ -947,7 +947,7 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username
 
 ### Following account list
 
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/:username`
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-list/:username`
 
 [RESPONSE (logged)]
 
