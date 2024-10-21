@@ -124,7 +124,7 @@ export default class UsersModel {
     
     (CASE 
       WHEN (u.id = $1) THEN NULL 
-      ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $1 AND follower_id = u.id)) 
+      ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = u.id AND follower_id = $1)) 
     END) AS following,
 
     (u.id = $1) AS its_you
@@ -218,7 +218,7 @@ ORDER BY
     (
       CASE 
         WHEN (u.id = $1) THEN NULL 
-        ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $1 AND follower_id = u.id)) 
+        ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = u.id AND follower_id = $1)) 
       END
     ) AS following,
 

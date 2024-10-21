@@ -117,24 +117,6 @@ export default class PinsModel {
   // logueado como deslogueado. Esto hará que la
   // información que devuelva sea diferente.
   static async getSinglePin({ pinID, userID }) {
-    // const response = await pool.query(
-    //   `
-    //     SELECT p.id, p.title, p.description, p.topics, p.body, p.url, p.alt_text,
-    //       (SELECT COUNT(1) FROM likes WHERE post_id = p.id) AS likes,
-    //       (SELECT COUNT(1) FROM comments WHERE post_id = p.id) AS comments,
-    //       u.username, u.name, u.surname, u.avatar, u.avatar_background,
-    //       u.avatar_letter_color, u.avatar_letter, u.verified,
-    //       (u.id = $2) AS its_you,
-    //       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = u.id AND following_id = $2)) AS follows_you,
-    //       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = $2 AND follower_id = u.id)) AS following,
-    //       (SELECT COUNT(1) FROM following_accounts WHERE following_id = u.id) AS followers
-    //     FROM posts AS p
-    //     JOIN users AS u ON p.user_id = u.id
-    //     WHERE p.id = $1;
-    //   `,
-    //   [pinID, userID]
-    // );
-
     const response = await pool.query(
       `
     SELECT p.id, p.title, p.description, p.topics, p.body, p.url, p.alt_text,
