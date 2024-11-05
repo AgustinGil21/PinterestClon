@@ -12,7 +12,7 @@ router.get(
   isAuthenticated,
   UsersController.getUserProfile
 );
-router.post('/follow', authRequired, UsersController.toggleFollowUser);
+router.post('/follow/:id', authRequired, UsersController.toggleFollowUser);
 router.get(
   '/followers-list/:username',
   isAuthenticated,
@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get(
-  '/following-accounts-list/:username',
+  '/following-list/:username',
   isAuthenticated,
   UsersController.userFollowingAccounts
 );
