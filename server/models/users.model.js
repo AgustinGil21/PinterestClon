@@ -52,8 +52,8 @@ export default class UsersModel {
       avatar_background, 
       avatar_letter_color, 
       avatar_letter,
-      (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers,
-      (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following,
+      (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers_count,
+      (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following_count,
       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1) AND following_id = $2)) AS follows_you,
       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1) AND follower_id = $2)) AS following
    FROM 

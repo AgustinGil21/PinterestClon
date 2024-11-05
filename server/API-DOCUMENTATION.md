@@ -758,8 +758,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
     "about": "String?",
     "website": "String?",
     "private_account": "Boolean",
-    "followers": "Number",
-    "following": "Number",
+    "followers_count": "Number",
+    "following_count": "Number",
     "follows_you": "Boolean",
     "following": "Boolean"
   }
@@ -834,20 +834,22 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username
 
 ```json
 {
-  "followers": {
-    "id": "String",
-    "username": "String",
-    "name": "String?",
-    "surname": "String?",
-    "verified": "Boolean",
-    "avatar": "String?",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String",
-    "its_you": "Boolean",
-    "follows_you": "Boolean",
-    "following": "Boolean"
-  },
+  "followers": [
+    {
+      "id": "String",
+      "username": "String",
+      "name": "String?",
+      "surname": "String?",
+      "verified": "Boolean",
+      "avatar": "String?",
+      "avatar_background": "String",
+      "avatar_letter_color": "String",
+      "avatar_letter": "String",
+      "its_you": "Boolean",
+      "follows_you": "Boolean",
+      "following": "Boolean"
+    }
+  ],
   "followersCount": "Number"
 }
 ```
@@ -856,16 +858,18 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username
 
 ```json
 {
-  "followers": {
-    "username": "String",
-    "name": "String?",
-    "surname": "String?",
-    "verified": "Boolean",
-    "avatar": "String?",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String"
-  },
+  "followers": [
+    {
+      "username": "String",
+      "name": "String?",
+      "surname": "String?",
+      "verified": "Boolean",
+      "avatar": "String?",
+      "avatar_background": "String",
+      "avatar_letter_color": "String",
+      "avatar_letter": "String"
+    }
+  ],
   "followersCount": "Number"
 }
 ```
@@ -878,20 +882,22 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/
 
 ```json
 {
-  "following": {
-    "id": "String",
-    "username": "String",
-    "name": "String?",
-    "surname": "String?",
-    "verified": "Boolean",
-    "avatar": "String?",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String",
-    "its_you": "Boolean",
-    "follows_you": "Boolean",
-    "following": "Boolean"
-  },
+  "following": [
+    {
+      "id": "String",
+      "username": "String",
+      "name": "String?",
+      "surname": "String?",
+      "verified": "Boolean",
+      "avatar": "String?",
+      "avatar_background": "String",
+      "avatar_letter_color": "String",
+      "avatar_letter": "String",
+      "its_you": "Boolean",
+      "follows_you": "Boolean",
+      "following": "Boolean"
+    }
+  ],
   "followingCount": "Number"
 }
 ```
@@ -900,16 +906,18 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-accounts-list/
 
 ```json
 {
-  "following": {
-    "username": "String",
-    "name": "String?",
-    "surname": "String?",
-    "verified": "Boolean",
-    "avatar": "String?",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String"
-  },
+  "following": [
+    {
+      "username": "String",
+      "name": "String?",
+      "surname": "String?",
+      "verified": "Boolean",
+      "avatar": "String?",
+      "avatar_background": "String",
+      "avatar_letter_color": "String",
+      "avatar_letter": "String"
+    }
+  ],
   "followingCount": "Number"
 }
 ```
