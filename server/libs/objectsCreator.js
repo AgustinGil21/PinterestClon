@@ -1,5 +1,5 @@
 // La función se encarga de que el objeto no
-// tenga valores undefined o null.
+// tenga valores undefined ni null.
 
 export const objectsCreator = (dataObject, objectSkeleton) => {
   let newObject = {};

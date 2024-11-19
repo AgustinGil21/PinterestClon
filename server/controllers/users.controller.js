@@ -24,21 +24,21 @@ export default class UsersController {
     }
   }
 
-  static async getUserOwnerProfile(req, res) {
-    const { id } = req.user;
+  // static async getUserOwnerProfile(req, res) {
+  //   const { id } = req.user;
 
-    try {
-      const data = await UsersModel.getUserById({ id });
+  //   try {
+  //     const data = await UsersModel.getUserById({ id });
 
-      if (data.ok) {
-        const [user] = data.response;
-        const filteredData = filterFalsyValues(user);
-        return res.status(200).json({ profile: filteredData });
-      }
-    } catch (err) {
-      return res.status(400).json({ message: 'Cannot get user data!' });
-    }
-  }
+  //     if (data.ok) {
+  //       const [user] = data.response;
+  //       const filteredData = filterFalsyValues(user);
+  //       return res.status(200).json({ profile: filteredData });
+  //     }
+  //   } catch (err) {
+  //     return res.status(400).json({ message: 'Cannot get user data!' });
+  //   }
+  // }
 
   static async getUserProfile(req, res) {
     const { username } = req.params;
@@ -66,6 +66,8 @@ export default class UsersController {
     }
   }
 
+  // Listado de personas que siguen al
+  // usuario solicitado
   static async userFollowers(req, res) {
     const { username } = req.params;
     let data;
@@ -86,11 +88,12 @@ export default class UsersController {
           .json({ followers: filteredFollowers, followersCount });
       }
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ message: 'Could not get user followers!' });
     }
   }
 
+  // Listado de personas a las que sigue
+  // el usuario solicitado
   static async userFollowingAccounts(req, res) {
     const { username } = req.params;
     let data;

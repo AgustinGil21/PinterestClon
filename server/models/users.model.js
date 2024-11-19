@@ -26,8 +26,7 @@ export default class UsersModel {
     return { response, ok: false };
   }
 
-  // Muestra la información del perfil de la
-  // persona que lo solicita (dueño de la cuenta).
+  //
   static async getUserById({ id }) {
     const response = await pool.query(
       'SELECT username, about_you AS about, website, users.name, surname, verified, avatar, avatar_background, avatar_letter_color, avatar_letter, (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = $1) AS followers, (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = $1) AS following FROM users WHERE id = $1;',
@@ -56,13 +55,15 @@ export default class UsersModel {
       avatar_background, 
       avatar_letter_color, 
       avatar_letter,
+      users.created_at
       (SELECT COUNT(follower_id) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers_count,
       (SELECT COUNT(following_id) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following_count,
       (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1) AND following_id = $2)) AS follows_you,
-      (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1) AND follower_id = $2)) AS following
+      (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1) AND follower_id = $2)) AS following,
+      (users.id = $2) AS its_you
    FROM 
-      users 
-   WHERE 
+      users
+   WHERE
       username = $1;`,
       [username, id]
     );
@@ -88,6 +89,7 @@ export default class UsersModel {
       avatar_background, 
       avatar_letter_color, 
       avatar_letter,
+      users.created_at
       (SELECT COUNT(1) FROM following_accounts WHERE following_id = (SELECT id FROM users WHERE username = $1)) AS followers,
       (SELECT COUNT(1) FROM following_accounts WHERE follower_id = (SELECT id FROM users WHERE username = $1)) AS following
    FROM 

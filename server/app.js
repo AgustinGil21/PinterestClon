@@ -18,6 +18,7 @@ import PinsRoutes from './routes/pins.routes.js';
 import CategoriesRoutes from './routes/categories.routes.js';
 import UsersRoutes from './routes/users.routes.js';
 import BoardsRoutes from './routes/boards.routes.js';
+import CommentsRoutes from './routes/comments.routes.js';
 
 export const app = express();
 
@@ -58,6 +59,7 @@ app.use(`${BASE_URL}/pins`, PinsRoutes);
 app.use(`${BASE_URL}/categories`, CategoriesRoutes);
 app.use(`${BASE_URL}/users`, UsersRoutes);
 app.use(`${BASE_URL}/boards`, BoardsRoutes);
+app.use(`${BASE_URL}/comments`, CommentsRoutes);
 
 app.listen(PORT, () => {
   console.log(`server running on url: http://localhost:${PORT}`);

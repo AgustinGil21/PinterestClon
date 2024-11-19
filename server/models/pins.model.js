@@ -17,6 +17,9 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
+  // Trae todos los datos de un pin para obtener
+  // los valores previos del mismo a la hora de
+  // editarlo
   static async getPreviousPinsFullData({ id }) {
     const response = await pool.query(
       'SELECT id, alt_text, title, body, topics, description, url, adult_content FROM posts WHERE id = $1;',
@@ -58,7 +61,7 @@ export default class PinsModel {
 
   static async deletePin({ pinID, userID }) {
     const response = await pool.query(
-      'DELETE FROM posts WHERE id = $1 AND user_id = $2 RETURNING body;',
+      'SELECT delete_post_and_update_boards($1) AS body;',
       [pinID, userID]
     );
 
