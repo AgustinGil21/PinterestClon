@@ -24,21 +24,21 @@ export default class UsersController {
     }
   }
 
-  // static async getUserOwnerProfile(req, res) {
-  //   const { id } = req.user;
+  static async getUserOwnerProfile(req, res) {
+    const { id } = req.user;
 
-  //   try {
-  //     const data = await UsersModel.getUserById({ id });
+    try {
+      const data = await UsersModel.getUserById({ id });
 
-  //     if (data.ok) {
-  //       const [user] = data.response;
-  //       const filteredData = filterFalsyValues(user);
-  //       return res.status(200).json({ profile: filteredData });
-  //     }
-  //   } catch (err) {
-  //     return res.status(400).json({ message: 'Cannot get user data!' });
-  //   }
-  // }
+      if (data.ok) {
+        const [user] = data.response;
+        const filteredData = filterFalsyValues(user);
+        return res.status(200).json({ profile: filteredData });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Cannot get user data!' });
+    }
+  }
 
   static async getUserProfile(req, res) {
     const { username } = req.params;
