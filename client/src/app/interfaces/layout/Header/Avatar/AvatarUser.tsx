@@ -11,7 +11,7 @@ const AvatarUser = ({ data, classProps, textSize }: AvatarUserInterface) => {
         <div className={`${classProps}`}>
           <img
             src={data.avatar}
-            className={`bg-gray-500  h-full w-full object-cover rounded-full object-cover  rounded-full`}
+            className={`bg-gray-500  h-full w-full object-cover rounded-full`}
           ></img>
         </div>
       ) : (
