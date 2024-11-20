@@ -199,20 +199,18 @@ export default class PinsController {
   }
 
   static async getSinglePin(req, res) {
-    const { id } = req.params;
+    const { id: pinID } = req.params;
 
-    // try {
-    //   const result = getSinglePinSchema.safeParse({ id });
-
-    //   if (!result.success) {
-    //     return res.status(400).json({ issues: result.error.issues });
-    //   }
-    // } catch (err) {
-    //   return res.status(500).json({ message: 'Internal error!' });
-    // }
+    let data;
 
     try {
-      const data = await PinsModel.getSinglePin({ id });
+      if (req.isAuthenticated) {
+        const { id: userID } = req.user;
+        data = await PinsModel.getSinglePin({
+          pinID,
+          userID,
+        });
+      } else data = await PinsModel.getSinglePinNotLogged({ pinID });
 
       if (data.ok) {
         const { response: pin } = data;
@@ -222,6 +220,23 @@ export default class PinsController {
       return res.status(404).json({ message: 'Pin not found!' });
     } catch (err) {
       return res.status(404).json({ message: 'Pin not found!' });
+    }
+  }
+
+  static async toggleLikePin(req, res) {
+    const { id: userID } = req.user;
+    const { id: pinID } = req.params;
+
+    try {
+      const successfully = await PinsModel.toggleLikePin({ userID, pinID });
+
+      if (successfully.ok) {
+        return res
+          .status(200)
+          .json({ message: 'Operation successfully completed!' });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Unexpected error!' });
     }
   }
 

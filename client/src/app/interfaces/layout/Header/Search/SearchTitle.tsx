@@ -18,9 +18,13 @@ const SearchTitle = ({ elem, index, handleClick }: SearchTitleInterface) => {
         }
       }}
       key={index}
-      className='p-2 text-sm flex flex-row items-center gap-4 hover:bg-gray-200 w-full px-7 cursor-pointer'
+      className='p-2 text-sm flex flex-row items-center gap-4 hover:bg-gray-200 dark:hover:bg-slate-800 w-full px-7 cursor-pointer'
     >
-      <SearchIcon classname='black' width={9.5} height={9.5} />
+      <SearchIcon
+        classname='text-black dark:text-white'
+        width={9.5}
+        height={9.5}
+      />
       {elem.pin_title ? (
         <span>{elem.pin_title}</span>
       ) : (

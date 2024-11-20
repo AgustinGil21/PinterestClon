@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ArrowBottomUser from '../../../components/icons/ArrowBottomUser';
 import MessageIcon from '../../../components/icons/MessageIcon';
 import MoreOptionsModal from './MoreOptionsModal';
 import Tooltip from '../../../components/Basic/ToolTip';
 import LinkNavigate from '../Nav/LinkNavigate';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import AvatarImageLogIn from './AvatarImageLogIn';
-import AvatarGenerateLogIn from './AvatarGenerateLogIn';
+import AvatarUser from '../Avatar/AvatarUser';
 
 export const UserLoggedIn = () => {
   const [modal, setModal] = useState(false);
-  const { userPublicData } = useAppsStore();
+  const { userPublicData, getDataUserLogged, avatarBackgroundColor } =
+    useAppsStore();
 
   return (
     <div className='flex gap-2'>
@@ -20,14 +20,20 @@ export const UserLoggedIn = () => {
 
       <div className='flex items-center gap-3 -m-2'>
         <LinkNavigate
-          href='#a'
+          href={'/user-profile'}
           classProps='hover:bg-slate-200 p-2 rounded-full cursor-pointer '
         >
-          {userPublicData?.avatar ? (
-            <AvatarImageLogIn user={userPublicData} />
-          ) : (
-            <AvatarGenerateLogIn />
-          )}
+          <Tooltip tooltipText='Tu perfil'>
+            <AvatarUser
+              data={userPublicData}
+              classProps={`${
+                userPublicData?.avatar
+                  ? 'w-[20px] h-[20px]'
+                  : 'w-[6px] h-[6px] p-3'
+              }  `}
+              textSize='text-[12px]'
+            />
+          </Tooltip>
         </LinkNavigate>
 
         <button

@@ -18,7 +18,7 @@ const StartRegister = () => {
     <div>
       <ButtonStyled
         className={
-          'bg-redPinterestBg text-white font-semibold  hover:bg-red-700'
+          'bg-redPinterestBg text-white font-semibold  hover:bg-red-700 py-[11px]'
         }
         handleClick={openRegisterModal}
       >

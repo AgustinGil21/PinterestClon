@@ -37,15 +37,6 @@ export default function RootLayout({
 
   const routeCreatePin = ['/create-pin'];
 
-  const marginTopHeader = [
-    '/',
-    '/edit-user',
-    '/privacy-info',
-    '/admin-user',
-    '/security-profile',
-    'create-pin',
-  ];
-
   const [isHeaderLoaded, setIsHeaderLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const handleHeaderLoaded = () => {

@@ -42,7 +42,7 @@ export const Pin = ({
 
   return (
     <section className=''>
-      {!isLoaded ? (
+      {!isLoaded && username ? (
         <div className='animate-pulse p-0.5'>
           <div
             className=' h-[320px] w-full mb-4 rounded-2xl my-3'
@@ -124,32 +124,37 @@ export const Pin = ({
               )}
             </article>
           </article>
-          <footer className='card-bottom mt-2'>
-            {title && <strong>{title}</strong>}
-            <Link href={userProfile} className='user-data flex items-center '>
-              {avatar ? (
-                <img
-                  src={avatar}
-                  alt={`${username} avatar`}
-                  className='user-avatar w-8 h-8 rounded-full mr-2'
-                />
-              ) : (
-                <div
-                  className='user-avatar w-8 h-8 rounded-full mr-2 flex items-center justify-center'
-                  style={{
-                    backgroundColor: avatar_background,
-                    color: avatar_letter_color,
-                  }}
-                  aria-label={`${username} avatar`}
-                >
-                  {avatar_letter}
-                </div>
-              )}
-              <span className='text-sm'>
-                {name ? `${name} ${surname}` : `${username}`}
-              </span>
-            </Link>
-          </footer>
+          {username && (
+            <footer className='card-bottom mt-2'>
+              {title && <strong className='dark:text-white'>{title}</strong>}
+              <Link
+                href={`/account-search?query=${username}`}
+                className='user-data flex items-center '
+              >
+                {avatar ? (
+                  <img
+                    src={avatar}
+                    alt={`${username} avatar`}
+                    className='user-avatar w-8 h-8 rounded-full mr-2 object-cover'
+                  />
+                ) : (
+                  <div
+                    className='user-avatar w-8 h-8 rounded-full mr-2 flex items-center justify-center'
+                    style={{
+                      backgroundColor: avatar_background,
+                      color: avatar_letter_color,
+                    }}
+                    aria-label={`${username} avatar`}
+                  >
+                    {avatar_letter}
+                  </div>
+                )}
+                <span className='text-sm dark:text-white'>
+                  {name ? `${name} ${surname}` : `${username}`}
+                </span>
+              </Link>
+            </footer>
+          )}
         </article>
       )}
     </section>

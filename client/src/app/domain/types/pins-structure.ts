@@ -65,14 +65,14 @@ export interface PinId {
 }
 
 export interface PinInterface {
-  username: string;
+  username?: string;
   body: string;
   pin_id: string;
-  alt_text: string;
-  adult_content: boolean;
-  avatar_background: string;
-  avatar_letter_color: string;
-  avatar_letter: string;
+  alt_text?: string;
+  adult_content?: boolean;
+  avatar_background?: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
   title?: string;
   name?: string | null;
   surname?: string | null;

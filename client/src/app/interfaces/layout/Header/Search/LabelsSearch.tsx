@@ -10,7 +10,9 @@ const LabelsSearch = ({ handleClick }: LabelsSearchInterface) => {
 
   return (
     <>
-      <span className='font-semibold text-sm my-4'>Búsquedas recientes</span>
+      <span className='font-semibold text-sm my-4 dark:text-white'>
+        Búsquedas recientes
+      </span>
       <div className='flex gap-1 flex-row flex-wrap mt-2'>
         {valuesSearch.map((elem, index) => (
           <div

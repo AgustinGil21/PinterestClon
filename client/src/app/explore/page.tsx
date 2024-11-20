@@ -14,7 +14,7 @@ export default function Explore() {
   const {
     categoriesPin,
     getCategoriesPin,
-    getSearchPinForCategory,
+
     page,
     updateDataSearch,
   } = useAppsStore();

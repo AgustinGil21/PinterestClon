@@ -40,6 +40,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   get
 ) => ({
   page: 1,
+  red: '',
   value: '',
   categorySelect: '',
   homePins: [],

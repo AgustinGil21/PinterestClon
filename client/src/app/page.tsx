@@ -44,31 +44,29 @@ export default function Home() {
   }, [page, previousPin, isHeaderLoaded]);
 
   const handleScroll = () => {
-    const currentScrollTop = window.scrollY; // Obtener la posición actual del scroll
+    const currentScrollTop = window.scrollY;
 
-    // Comprobar si el usuario ha hecho scroll hacia abajo
     if (currentScrollTop > lastScrollTop) {
       if (
         window.innerHeight + currentScrollTop + 1 >=
         document.documentElement.scrollHeight
       ) {
-        setPage(1); // Incrementar la página en 1
+        setPage(1);
       }
     }
 
-    // Actualizar la posición del scroll anterior
     setLastScrollTop(currentScrollTop);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]); // Agregar lastScrollTop como dependencia
+  }, [lastScrollTop]);
 
   if (isHeaderLoaded && isLoading) {
     return (
       <section className='w-full flex justify-center items-center flex-col my-[20px] '>
-        <div className=' max-w-[400px] flex justify-center flex-col items-center'>
+        <div className=' max-w-[400px] flex justify-center flex-col items-center dark:text-white'>
           <Loader />
           <p className='text-center font-bold text-2xl   mt-2'>
             ¡Estamos agregando nuevas ideas a tu feed de inicio!

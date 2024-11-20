@@ -24,6 +24,12 @@ export interface ModalStateInterface {
   isDeletePinModal: boolean;
   openDeletePinModal: () => void;
   closeDeletePinModal: () => void;
+  isShareAccountOpen: boolean;
+  openShareAccountModal: () => void;
+  isDownloadAccountOpen: boolean;
+  openDownloadAccountModal: () => void;
+  isThreePointsAccountOpen: boolean;
+  openThreePointsAcountModal: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
@@ -35,6 +41,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
   isDeleteUserAccountModalOpen: false,
   isChangePasswordModalOpen: false,
   isDeletePinModal: false,
+  isShareAccountOpen: false,
+  isDownloadAccountOpen: false,
+  isThreePointsAccountOpen: false,
 
   openLoginModal: () =>
     set({
@@ -112,5 +121,23 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
     set({
       isDeletePinModal: false,
     });
+  },
+  openShareAccountModal: () =>
+    set((state) => ({
+      isShareAccountOpen: !state.isShareAccountOpen,
+    })),
+
+  openDownloadAccountModal: () => {
+    set((state) => ({
+      isDownloadAccountOpen: !state.isDownloadAccountOpen,
+      isThreePointsAccountOpen: false,
+    }));
+  },
+
+  openThreePointsAcountModal: () => {
+    set((state) => ({
+      isThreePointsAccountOpen: !state.isThreePointsAccountOpen,
+      isDownloadAccountOpen: false,
+    }));
   },
 });

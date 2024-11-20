@@ -1,19 +1,26 @@
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
+import Link from 'next/link';
 
-const SavePinsButton = () => {
+interface SavePinsButtonInterface {
+  setModal: (value: boolean) => void;
+}
+
+const SavePinsButton = ({ setModal }: SavePinsButtonInterface) => {
   return (
-    <div className='w-full px-6 4 mt-4'>
+    <div className='w-full px-6 4 mt-4 dark:text-white'>
       <hr className='w-full border-t-[1.5px] border-gray-300' />
       <div className='w-full flex justify-between flex-row mt-4  items-center'>
         <span className='text-sm font-semibold'>
           ¿Estás buscando ideas que guardaste?
         </span>
-        <ButtonStyled
-          type='button'
-          className='font-semibold bg-buttonGreyBg hover:bg-gray-300 text-[11px]'
-        >
-          Buscar tus Pines
-        </ButtonStyled>
+        <Link href={'/user-profile'} onClick={() => setModal(false)}>
+          <ButtonStyled
+            type='button'
+            className='font-semibold bg-buttonGreyBg hover:bg-gray-300 text-[11px] dark:text-black'
+          >
+            Buscar tus Pines
+          </ButtonStyled>
+        </Link>
       </div>
     </div>
   );

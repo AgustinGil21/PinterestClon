@@ -43,7 +43,9 @@ export const serviceGetCategoriesPin = async (): Promise<CategoriesPin[]> => {
     const response = await axios.get(`${URLDOMAIN}/categories`, {
       withCredentials: true,
     });
+
     const result = CategoriesSchema.safeParse(response.data);
+
     return result.success ? result.data.categories : [];
   } catch (error) {
     console.log(error);

@@ -9,7 +9,9 @@ const StartLog = () => {
     <>
       <ButtonStyled
         handleClick={openLoginModal}
-        className={'bg-buttonGreyBg text-black font-semibold hover:bg-gray-300'}
+        className={
+          'bg-buttonGreyBg text-black font-semibold py-[11px] hover:bg-gray-300'
+        }
       >
         Iniciar sesion
       </ButtonStyled>

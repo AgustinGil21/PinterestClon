@@ -2,11 +2,10 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { FieldValues, UseFormRegister, UseFormWatch } from 'react-hook-form';
 import InputStyled from '@/app/interfaces/components/Basic/InputStyled';
-import AvatarImageEdit from './AvatarImageEdit';
-import AvatarGenerateEdit from './AvatarGenerateEdit';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import DeleteAvatar from './DeleteAvatar';
+import AvatarUser from '@/app/interfaces/layout/Header/Avatar/AvatarUser';
 
 interface AvatarInterface {
   register: UseFormRegister<FieldValues>;
@@ -44,10 +43,12 @@ const AvatarEdit = ({ register, watch }: AvatarInterface) => {
               className='rounded-full'
             />
           </div>
-        ) : userPublicData?.avatar ? (
-          <AvatarImageEdit user={userPublicData} />
         ) : (
-          <AvatarGenerateEdit />
+          <AvatarUser
+            classProps='w-[62px] h-[62px] text-[20px]'
+            data={userPublicData}
+            textSize=''
+          />
         )}
       </div>
       <div className='mt-5 flex flex-row gap-2 '>

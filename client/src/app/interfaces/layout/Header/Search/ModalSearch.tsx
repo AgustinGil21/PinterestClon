@@ -26,6 +26,7 @@ const ModalSearch = ({
     valuesSearch,
     updateValueSearchInput,
     value,
+    categoriesPin,
     page,
     resetPage,
     getSearchPins,
@@ -35,6 +36,7 @@ const ModalSearch = ({
 
   useEffect(() => {
     getCategoriesPin();
+    console.log(categoriesPin);
   }, []);
 
   const router = useRouter();
@@ -61,20 +63,22 @@ const ModalSearch = ({
         className='absolute bg-white dark:bg-gray-900 w-[100%] h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[100] py-4'
         style={{ top: '45px', left: '46%', transform: 'translateX(-46%)' }}
       >
-        {valuesSearch.length > 0 && value.length <= 0 && (
+        {value.length <= 0 && (
           <div className='px-7'>
-            <LabelsSearch handleClick={handleClick} />
+            {valuesSearch.length > 0 && (
+              <LabelsSearch handleClick={handleClick} />
+            )}
 
-            <CategoryGroups />
+            <CategoryGroups setModal={setModal} />
           </div>
         )}
 
         {value.length > 0 && (
-          <div className='mt-1.5'>
+          <div className='mt-1.5 dark:text-white'>
             {pinsSuggestions.map((elem, index) => (
               <>
                 {elem.user_username ? (
-                  <SearchUser elem={elem} index={index} />
+                  <SearchUser elem={elem} index={index} setModal={setModal} />
                 ) : (
                   <SearchTitle
                     elem={elem}
@@ -86,7 +90,7 @@ const ModalSearch = ({
             ))}
           </div>
         )}
-        {value.length > 0 && <SavePinsButton />}
+        {value.length > 0 && <SavePinsButton setModal={setModal} />}
       </div>
     </>
   );

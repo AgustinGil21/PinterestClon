@@ -432,37 +432,98 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/pins/create`
 }
 ```
 
+### Like/Unlike pin
+
+_*POST*_ `http://localhost:1234/pinterest-clon-api/pins/like/:id`
+
+[RESPONSE]
+
+```json
+{
+  "username": "String"
+}
+```
+
 ### Get pin
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/pins/:id`
 
 _:id_ => UUID Pin
 
-[Response]
+[RESPONSE (own pin)]
 
 ```json
 {
   "pin": {
-    "pin_id": "e1d7cff3-4c59-480c-94ba-29d39b2e1992",
-    "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874181/pinterest-clon/bvvjc3tltrd7oyaa2sjg.png",
-    "title": "Este es muy nuevo",
-    "description": "Buenas tardes señor",
-    "url": "",
-    "created_at": "2024-08-28T03:00:00.000Z",
-    "topics": [],
-    "alt_text": "Imagen anananananashe",
-    "likes": "0",
-    "name": null,
-    "surname": null,
-    "avatar": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1724874164/pinterest-clon/k62w54pol1dkdxhh8tsj.png",
-    "avatar_background": "#f05227",
-    "avatar_letter_color": "#ffffff",
-    "avatar_letter": "N",
-    "user_id": "6a719e16-5347-4e2e-8177-9399aa6858fd",
-    "followers": "0"
+    "id": "String",
+    "title": "String?",
+    "description": "String?",
+    "topics": "String[]?",
+    "body": "String",
+    "alt_text": "String",
+    "likes": "String(Number)",
+    "comments": "String(Number)",
+    "username": "String",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "verified": "Boolean",
+    "its_you": "Boolean",
+    "followers": "String(Number)"
   }
 }
 ```
+
+[RESPONSE (user pin)]
+
+```json
+{
+  "pin": {
+    "id": "String",
+    "title": "String?",
+    "description": "String?",
+    "topics": "String[]?",
+    "body": "String",
+    "alt_text": "String",
+    "likes": "String(Number)",
+    "comments": "String(Number)",
+    "username": "String",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "verified": "Boolean",
+    "its_you": "Boolean",
+    "follows_you": "Boolean",
+    "following": "Boolean",
+    "followers": "String(Number)"
+  }
+}
+```
+
+[RESPONSE (not logged)]
+
+```json
+{
+  "pin": {
+    "id": "String",
+    "title": "String?",
+    "description": "String?",
+    "topics": "String[]?",
+    "body": "String",
+    "alt_text": "String",
+    "likes": "String(Number)",
+    "comments": "String(Number)",
+    "username": "String",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "verified": "Boolean",
+    "followers": "String(Number)"
+  }
+}
+```
+
+NOTA: Los que aparecen como String(Number), son números pero que el JSON los trata como strings. Tener en cuenta que comments hace referencia a la cantidad de comentarios que tiene el pin.
 
 ### Delete pin
 
@@ -624,17 +685,19 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/pins/previous-pins`
   "pins": {
     "data": [
       {
-        "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082911/pinterest-clon/ugl2i4m7cigsejtygcki.png",
-        "title": "",
-        "id": "1af19dd3-02d4-4cd8-9128-8ef729dcb320"
+        "body": "String",
+        "title": "String?",
+        "id": "String",
+        "created_at": "String"
       },
       {
-        "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082854/pinterest-clon/yjvryjowaymha8j47dak.png",
-        "title": "Me encanta",
-        "id": "dbce9de5-8e83-4f17-a026-4bb8258b06b3"
+        "body": "String",
+        "title": "String?",
+        "id": "String",
+        "created_at": "String"
       }
     ],
-    "results": 2
+    "results": "Number"
   }
 }
 ```
@@ -650,14 +713,14 @@ _id_: UUID
 ```json
 {
   "pin": {
-    "id": "1af19dd3-02d4-4cd8-9128-8ef729dcb320",
-    "alt_text": "foto",
-    "title": "Estrenando celular",
-    "body": "https://res.cloudinary.com/dui9yfpp1/image/upload/v1726082911/pinterest-clon/ugl2i4m7cigsejtygcki.png",
-    "topics": ["d972c8f8-1cf3-431b-b3c5-4c4d1d77110d"],
-    "description": "foto celular",
-    "url": "https://imagen.com",
-    "adult_content": false
+    "id": "String",
+    "alt_text": "String",
+    "title": "String?",
+    "body": "String",
+    "topics": "String<UUID>[]?",
+    "description": "String?",
+    "url": "String",
+    "adult_content": "Boolean"
   }
 }
 ```
@@ -674,16 +737,15 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/categories/`
 {
   "categories": [
     {
-      "name": "Animals",
-      "id": "5b85db6e-3f72-464d-af57-776888d57919",
-      "poster": "https://image-url.com"
+      "name": "String",
+      "id": "String",
+      "poster": "String"
     },
     {
-      "name": "Anime",
-      "id": "4ce6fbe1-0862-4054-b0b1-17ab2aed2079",
-      "poster": "https://image-url.com"
-    },
-    ...
+      "name": "String",
+      "id": "String",
+      "poster": "String"
+    }
   ]
 }
 ```
@@ -700,17 +762,17 @@ _value_: Search input value
 {
   "categories": [
     {
-      "name": "Animals",
-      "id": "5b85db6e-3f72-464d-af57-776888d57919",
-      "poster": "R"
+      "name": "String",
+      "id": "String",
+      "poster": "String"
     },
     {
-      "name": "Anime",
-      "id": "4ce6fbe1-0862-4054-b0b1-17ab2aed2079",
-      "poster": "https://image-url.com"
+      "name": "String",
+      "id": "String",
+      "poster": "String"
     }
   ],
-  "results": 2
+  "results": "Number"
 }
 ```
 
@@ -727,9 +789,9 @@ _:id_: UUID
 ```json
 {
   "category": {
-    "name": "Sports",
-    "id": "d972c8f8-1cf3-431b-b3c5-4c4d1d77110d",
-    "poster": "https://image-url.com"
+    "name": "String",
+    "id": "String",
+    "poster": "String"
   }
 }
 ```
@@ -738,11 +800,23 @@ _:id_: UUID
 
 ## User
 
-### Get user data by username and ID (logged / other account)
+### Follow/Unfollow user
+
+_*POST*_ `http://localhost:1234/pinterest-clon-api/users/follow/:id`
+
+[RESPONSE]
+
+```json
+{
+  "message": "String"
+}
+```
+
+### Get user profile
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
 
-[RESPONSE]
+[RESPONSE (logged)]
 
 ```json
 {
@@ -767,7 +841,29 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
 }
 ```
 
-### Get user data by ID (logged / account owner only)
+[RESPONSE (not logged)]
+
+```json
+{
+  "user": {
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "about": "String?",
+    "website": "String?",
+    "private_account": "Boolean",
+    "followers": "Number",
+    "following": "Number"
+  }
+}
+```
+
+### Get user owner profile
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
 
@@ -793,15 +889,28 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
 }
 ```
 
-### Get user data by username (not-logged)
+### Follow/Unfollow user
 
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/not-logged/:username`
+_*POST*_ `http://localhost:1234/pinterest-clon-api/users/follow`
 
 [RESPONSE]
 
 ```json
 {
-  "user": {
+  "username": "String"
+}
+```
+
+### Followers list
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/followers-list/:username`
+
+[RESPONSE (logged)]
+
+```json
+{
+  "followers": {
+    "id": "String",
     "username": "String",
     "name": "String?",
     "surname": "String?",
@@ -810,11 +919,72 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/not-logged/:user
     "avatar_background": "String",
     "avatar_letter_color": "String",
     "avatar_letter": "String",
-    "about": "String?",
-    "website": "String?",
-    "private_account": "Boolean",
-    "followers": "Number",
-    "following": "Number"
-  }
+    "its_you": "Boolean",
+    "follows_you": "Boolean",
+    "following": "Boolean"
+  },
+  "followersCount": "Number"
+}
+```
+
+[RESPONSE (not logged)]
+
+```json
+{
+  "followers": {
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String"
+  },
+  "followersCount": "Number"
+}
+```
+
+### Following account list
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-list/:username`
+
+[RESPONSE (logged)]
+
+```json
+{
+  "following": {
+    "id": "String",
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String",
+    "its_you": "Boolean",
+    "follows_you": "Boolean",
+    "following": "Boolean"
+  },
+  "followingCount": "Number"
+}
+```
+
+[RESPONSE (not logged)]
+
+```json
+{
+  "following": {
+    "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "verified": "Boolean",
+    "avatar": "String?",
+    "avatar_background": "String",
+    "avatar_letter_color": "String",
+    "avatar_letter": "String"
+  },
+  "followingCount": "Number"
 }
 ```
