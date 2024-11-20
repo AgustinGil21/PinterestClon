@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
-import 'dotenv/config';
+import { SECRETKEY } from '../config.js';
 
 export const authRequired = (req, res, next) => {
-  const { token } = req.cookies;
+  const { access_token } = req.cookies;
 
-  if (!token) res.status(401).json({ message: 'User not logged!' });
+  if (!access_token) res.status(401).json({ message: 'User not logged!' });
 
-  jwt.verify(token, process.env.SECRETKEY, (err, decoded) => {
-    if (err) res.status(401).json({ message: 'Invalid token!' });
+  jwt.verify(access_token, SECRETKEY, (err, decoded) => {
+    if (err) res.status(401).json({ message: 'Invalid access token!' });
 
     req.user = decoded;
 

@@ -1,10 +1,10 @@
 import cors from 'cors';
-import 'dotenv/config';
+import { ACCEPTED_ORIGINS } from '../config.js';
 
 export const corsMiddleware = () => {
   return cors({
     origin: (origin, callback) => {
-      if (process.env.ACCEPTED_ORIGINS.includes(origin)) {
+      if (ACCEPTED_ORIGINS.includes(origin)) {
         return callback(null, true);
       }
 
@@ -14,5 +14,3 @@ export const corsMiddleware = () => {
     },
   });
 };
-
-export default corsMiddleware;

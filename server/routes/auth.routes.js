@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import { app } from '../app.js';
 import AuthController from '../controllers/auth.controller.js';
+import { authRequired } from '../middlewares/validateToken.js';
 
 const router = Router();
 
-app.post('/register', AuthController.register);
-app.post('/login', AuthController.logIn);
-app.post('/logout', AuthController.logOut);
-app.post('/recover-account', AuthController.recoverAccount);
+router.post('/email-address', AuthController.checkIfEmailAlreadyExists);
+router.post('/register', AuthController.register);
+router.post('/login', AuthController.logIn);
+router.post('/logout', authRequired, AuthController.logOut);
+router.post('/recover-account', AuthController.recoverAccount);
+router.patch('/reset-password/:emailAddress', AuthController.resetPassword);
 
 export default router;
