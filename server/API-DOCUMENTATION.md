@@ -815,7 +815,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
     "followers_count": "Number",
     "following_count": "Number",
     "follows_you": "Boolean",
-    "following": "Boolean"
+    "following": "Boolean",
+    "its_you": "Boolean"
   }
 }
 ```
@@ -1011,6 +1012,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/search?value=String&pa
 }
 ```
 
+_*Description*_: Permite buscar boards
+
 ### Home boards
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/boards?page=Number&limit=Number`
@@ -1044,6 +1047,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/boards?page=Number&limit=Numbe
 }
 ```
 
+_*Description*_: Trae todos los boards disponibles
+
 ### Get possible covers
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/covers/:id?page=Number&limit=Number`
@@ -1064,6 +1069,8 @@ _id_: ID del tablero
 }
 ```
 
+_*Description*_: Trae los pins que tiene guardado cierto board para poder usar su body como cover; Este se usa en la edición de boards cuando tocas el botón de cover.
+
 ### Get last board name
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/last-board`
@@ -1075,6 +1082,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/last-board`
   "board": "String"
 }
 ```
+
+_*Description*_: Trae el nombre del último board usado por el usuario, es decir, en el último que uso para añadir un pin; Esta función aparece al hacerle hover a un pin.
 
 ### Get single board
 
@@ -1116,6 +1125,8 @@ _id_: ID del tablero
 }
 ```
 
+_*Description*_: Trae los datos de un board en específico junto con los pins que contiene.
+
 ### Get user boards
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/:username?page=Number&limit=Number`
@@ -1138,6 +1149,8 @@ _username_: Username del usuario
 }
 ```
 
+_*Description*_: Trae los datos para hacer una preview de los boards que tiene creados un usuario especifico al entrar a su perfil.
+
 ### Boards list
 
 _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/boards-list`
@@ -1157,6 +1170,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/boards-list`
 }
 ```
 
+_*Description*_: Carga la lista de boards creados por el usuario dueño de la cuenta, lo sirve para que el mismo pueda agregar un pin a cierto board de su preferencia; Esta función aparece a la hora de tocar el botón de arriba a la izquierda de un pin cuando se le esta haciendo hover.
+
 ### Create board
 
 _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/create`
@@ -1169,6 +1184,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/create`
   "description": "String?"
 }
 ```
+
+_*Description*_: Permite crear un board.
 
 ### Edit board
 
@@ -1185,6 +1202,8 @@ _*PUT*_ `http://localhost:1234/pinterest-clon-api/boards/edit`
 }
 ```
 
+_*Description*_: Permite editar un board.
+
 ### Delete board
 
 _*DELETE*_ `http://localhost:1234/pinterest-clon-api/boards/:id`
@@ -1196,6 +1215,8 @@ _*DELETE*_ `http://localhost:1234/pinterest-clon-api/boards/:id`
   "message": "String"
 }
 ```
+
+_*Description*_: Permite eliminar un board.
 
 ### Add pin to board
 
@@ -1210,6 +1231,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/add-pin`
 }
 ```
 
+_*Description*_: Permite agregar un pin a un board deseado.
+
 ### Remove pin to board
 
 _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/remove-pin`
@@ -1222,6 +1245,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/remove-pin`
   "boardId": "String<UUID>"
 }
 ```
+
+_*Description*_: Elimina un pin de un board en especifico.
 
 ## Comments
 
@@ -1240,6 +1265,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/comments/create`
 
 _NOTA_: Donde dice "id", va el ID del pin.
 
+_*Description*_: Crea un comentario en cierto pin especificado.
+
 ### Delete comment
 
 _*DELETE*_ `http://localhost:1234/pinterest-clon-api/comments/:id`
@@ -1252,6 +1279,8 @@ _*DELETE*_ `http://localhost:1234/pinterest-clon-api/comments/:id`
 }
 ```
 
+_*Description*_: Elimina un comentario.
+
 ### Toggle like comment
 
 _*POST*_ `http://localhost:1234/pinterest-clon-api/comments/toggle-like`
@@ -1263,6 +1292,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/comments/toggle-like`
   "id": "String<UUID>"
 }
 ```
+
+_*Description*_: Permite darle like a un comentario ya también sacarlo.
 
 ### Get pin comments
 
@@ -1295,3 +1326,5 @@ _id_: Pin ID
   "results": "Number"
 }
 ```
+
+_*Description*_: Trae los comentarios de un pin en especifico.
