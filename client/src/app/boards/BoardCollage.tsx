@@ -1,16 +1,12 @@
-interface Props {
+interface BoardCollageProps {
   className?: string;
   collage?: string[];
 }
 
-interface BoardCollageProps {
-  props: Props;
-}
-
-const BoardCollage = ({ className, collage = [] }: Props) => {
+const BoardCollage = ({ className, collage = [] }: BoardCollageProps) => {
   return (
     <article
-      className={`w-full grid grid-cols-[164px_82px] grid-rows-[82px_82px] gap-[0.1rem] ${className}`}
+      className={`w-[247.6px] grid grid-cols-[164px_82px] grid-rows-[82px_82px] gap-[0.1rem] z-0 board-preview-collage hover:cursor-pointer ${className}`}
     >
       <div
         className={`w-full row-[span_2] col-[1] bg-[#e9e9e9] rounded-l-lg bg-[url(${collage[0]})] bg-center bg-cover bg-no-repeat`}
@@ -24,3 +20,5 @@ const BoardCollage = ({ className, collage = [] }: Props) => {
     </article>
   );
 };
+
+export default BoardCollage;

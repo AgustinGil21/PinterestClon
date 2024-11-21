@@ -417,3 +417,35 @@
   scrollbar-width: thin; /* Ancho de la barra */
   scrollbar-color: #888 #f1f1f1; /* Color del pulgar y color de la pista */
 }
+
+/* Boards */
+
+.board-preview-cover:hover::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.264);
+  border-radius: 0.5rem;
+  position: absolute;
+  z-index: 10;
+}
+
+.board-preview-cover:hover .board-preview-edit-btn {
+  opacity: 1;
+  visibility: visible;
+}
+
+.board-preview-collage:hover::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.264);
+  border-radius: 0.5rem;
+  position: absolute;
+  z-index: 10;
+}
+
+.board-preview-collage:hover .board-preview-edit-btn {
+  opacity: 1;
+  visibility: visible;
+}
