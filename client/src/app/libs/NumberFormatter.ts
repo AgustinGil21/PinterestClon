@@ -1,14 +1,8 @@
 interface Props {
-  className?: string;
   value: number;
 }
 
-interface NumberFormatterProps {
-  props: Props;
-}
-
-const NumberFormatter = ({ props }: NumberFormatterProps) => {
-  let { className, value } = props;
+export const numberFormatter = (value: number) => {
   const units = ['', 'k', 'M', 'B'];
   let unit: string;
 
@@ -49,7 +43,5 @@ const NumberFormatter = ({ props }: NumberFormatterProps) => {
     finalValue = integerPart;
   }
 
-  return <span className={className}>{`${finalValue}${unit}`}</span>;
+  return `${finalValue}${unit}`;
 };
-
-export default NumberFormatter;
