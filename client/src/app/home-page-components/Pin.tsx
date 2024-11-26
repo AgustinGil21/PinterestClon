@@ -52,7 +52,7 @@ export const Pin = ({
           ></div>
         </div>
       ) : (
-        <article className='card'>
+        <article className='card hover:cursor-pointer'>
           <article className='card-top'>
             <img
               src={body}
