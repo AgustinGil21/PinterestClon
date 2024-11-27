@@ -16,7 +16,7 @@ const AuthTwoFactors = () => {
           <InputStyled
             type='checkbox'
             infoName='auth'
-            classProps=' flex gap-8 w-[20px] custom-checkbox  '
+            classProps=' flex gap-8 w-[20px] custom-checkbox '
           />
           <label htmlFor='' className='text-[14px]'>
             Solicitar código al iniciar sesión

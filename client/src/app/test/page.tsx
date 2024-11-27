@@ -3,5 +3,9 @@ import ToastNotification from '../components/Basic/ToastNotification';
 import ToggleSwitch from '../components/Basic/ToggleSwitch';
 
 export default function Test() {
-  return <CreateBoardModal />;
+  return (
+    <div className='p-4'>
+      <ToggleSwitch />
+    </div>
+  );
 }

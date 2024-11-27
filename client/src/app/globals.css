@@ -42,7 +42,7 @@
 .custom-radio {
   width: 24px;
   height: 24px;
-  border: 1px solid black;
+  border: 2px solid #767676;
   border-radius: 50%;
   appearance: none;
   background-color: #fff;
@@ -50,8 +50,13 @@
   cursor: pointer;
 }
 
+.custom-radio:hover {
+  border-color: #a5a5a5;
+}
+
 .custom-radio:checked {
   background-color: #000000;
+  border-color: #000000;
 }
 
 .custom-radio:checked::after {
