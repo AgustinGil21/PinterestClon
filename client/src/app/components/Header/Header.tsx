@@ -67,9 +67,9 @@ export const Header = () => {
                       </span>
                       <LinkNavigate
                         href={'#'}
-                        classProps='hover:bg-gray-200 p-1 rounded-lg'
+                        classProps='hover:bg-gray-200 p-2 rounded-lg'
                       >
-                        Configuracion
+                        Configuración
                       </LinkNavigate>
                       <LinkNavigate
                         href={'#'}
@@ -103,13 +103,13 @@ export const Header = () => {
               className={'bg-buttonGreyBg text-black hover:bg-gray-300'}
               disabled={true}
             >
-              Iniciar sesion
+              Iniciar sesión
             </ButtonStyled>
             <ButtonStyled
               className={'bg-redPinterestBg text-white hover:bg-red-700'}
               disabled={true}
             >
-              Registrate
+              Regístrate
             </ButtonStyled>
           </div>
           <ArrowBottomUser />

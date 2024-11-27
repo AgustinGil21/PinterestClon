@@ -31,7 +31,9 @@ const LinkNavigate = ({
 }: LinkNavigateProps) => {
   return (
     <li className={`list-none ${classProps}`}>
-      <Link href={href}>{children}</Link>
+      <Link href={href} className='block'>
+        {children}
+      </Link>
     </li>
   );
 };

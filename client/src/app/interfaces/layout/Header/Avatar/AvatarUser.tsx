@@ -19,7 +19,9 @@ const AvatarUser = ({ data, classProps, textSize }: AvatarUserInterface) => {
           style={{ backgroundColor: `${data.avatar_background}` }}
           className={`bg-gray-500  ${classProps}  rounded-full flex justify-center items-center`}
         >
-          <span className={`text-black ${textSize}`}>{data.avatar_letter}</span>
+          <span className={`text-black font-bold ${textSize}`}>
+            {data.avatar_letter}
+          </span>
         </div>
       )}
     </>
