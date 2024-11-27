@@ -443,3 +443,27 @@
   position: absolute;
   z-index: 1;
 }
+
+.toast-notification {
+  animation: go-up 300ms ease-in, go-down 100ms ease-out 2.2s forwards;
+}
+
+@keyframes go-up {
+  from {
+    transform: translateX(-50%) translateY(100%);
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    display: block;
+  }
+}
+
+@keyframes go-down {
+  from {
+    transform: translateX(-50%) translateY(0);
+  }
+  to {
+    transform: translateX(-50%) translateY(100%);
+    display: none;
+  }
+}
