@@ -49,9 +49,9 @@ export default function RootLayout({
     }
   }, [userPublicData]);
 
-  // if (isLoading) {
-  //   return null;
-  // }
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <html lang='en'>
