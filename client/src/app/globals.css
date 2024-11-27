@@ -104,8 +104,8 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   background-color: #fff;
   border-radius: 7px;
   border: 1px solid #000;
@@ -123,14 +123,14 @@
 
 /* Estilo para el icono de checkmark cuando está marcado */
 .custom-checkbox:checked::before {
-  content: 'x';
+  content: '✔';
   color: white;
-  font-size: 18px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   position: relative;
-  bottom: 2px;
   justify-content: center;
+  border-color: #000;
 }
 
 /* Estilo al hacer hover */
