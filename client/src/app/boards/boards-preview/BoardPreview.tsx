@@ -2,7 +2,7 @@ import BoardPreviewBottom from './BoardPreviewBottom';
 import BoardPreviewTop from './BoardPreviewTop';
 
 interface Data {
-  id?: string;
+  id: string;
   name: string;
   created_at: Date | string;
   pins_count: number;
@@ -12,11 +12,19 @@ interface Data {
 }
 
 interface BoardsPreviewProps {
-  data: Data;
+  props: Data;
 }
 
-const BoardPreview = ({ data }: BoardsPreviewProps) => {
-  const { id, name, created_at, pins_count, cover, collage, its_yours } = data;
+const BoardPreview = ({ props }: BoardsPreviewProps) => {
+  const {
+    id,
+    name,
+    created_at,
+    pins_count,
+    cover,
+    collage,
+    its_yours = false,
+  } = props;
 
   return (
     <section className='w-[247.6px]'>
@@ -24,7 +32,7 @@ const BoardPreview = ({ data }: BoardsPreviewProps) => {
         cover={cover}
         collage={collage}
         itsYours={its_yours}
-        boardID='dadadak'
+        boardID={id}
       />
       <BoardPreviewBottom
         name={name}
