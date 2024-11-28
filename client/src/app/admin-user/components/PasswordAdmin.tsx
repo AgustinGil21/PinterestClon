@@ -30,7 +30,7 @@ const PasswordAdmin = () => {
           disabled={false}
           className='bg-buttonGreyBg font-semibold mt-6 hover:bg-gray-300 dark:text-black'
         >
-          Cambiar Contraseña
+          Cambiar contraseña
         </ButtonStyled>
       </div>
       {isChangePasswordModalOpen && <ModalChangePassword />}

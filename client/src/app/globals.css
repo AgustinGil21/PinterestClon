@@ -149,15 +149,6 @@
   overflow: hidden;
 }
 
-/* .masonry {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 236px);
-  gap: 1rem;
-  width: 100%;
-  padding: 1rem;
-  overflow: hidden;
-} */
-
 .card {
   display: flex;
   flex-direction: column;
@@ -475,4 +466,8 @@
 
 .modal-input-label:hover input {
   border-color: #cdcdcd;
+}
+
+.boards-list-shadow {
+  box-shadow: 0 -4px 0.5rem #00000019;
 }
