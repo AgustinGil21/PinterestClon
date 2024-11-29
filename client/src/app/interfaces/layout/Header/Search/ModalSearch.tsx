@@ -60,7 +60,7 @@ const ModalSearch = ({
       <div className='fixed inset-0 bg-black opacity-50 z-40 top-[62px]'></div>
       <div
         ref={modalRef}
-        className='absolute bg-white dark:bg-gray-900 w-[100%] h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[100] py-4'
+        className='absolute bg-white dark:bg-gray-900 w-[100%] h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[100] py-2'
         style={{ top: '45px', left: '46%', transform: 'translateX(-46%)' }}
       >
         {value.length <= 0 && (

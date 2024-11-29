@@ -512,7 +512,38 @@
   z-index: 80px;
 }
 
+.category-card {
+  width: clamp(11.125rem, 5.077rem + 10.751vw, 18.852rem);
+  font-size: clamp(0.75rem, 0.652rem + 0.174vw, 0.875rem);
+  line-height: clamp(1.125rem, 1.027rem + 0.174vw, 1.25rem);
+}
+
 /* Media queries */
+
+@media (max-width: 870px) {
+  .category-groups {
+    display: none;
+  }
+}
+
+@media (max-width: 1435px) {
+  .category-card p:first-child {
+    visibility: visible;
+  }
+
+  .category-card p:nth-child(2) {
+    display: none;
+  }
+
+  .category-card > div:first-child {
+    width: 100%;
+    min-height: 105px;
+  }
+
+  .category-card > div:nth-child(2) {
+    display: none;
+  }
+}
 
 @media (min-height: 1200px) {
   .settings-page {

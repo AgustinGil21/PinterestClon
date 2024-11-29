@@ -109,7 +109,7 @@ const SearchInput = () => {
         {modalState && (
           <button
             type='button'
-            className='absolute top-1/2 right-[3px] transform -translate-y-1/2 cursor-pointer hover:bg-gray-300 p-2 rounded-full'
+            className='absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer hover:bg-gray-300 px-3 py-[12.1px] rounded-full'
             onClick={() => setModal(false)}
           >
             <CloseSearchIcon />

@@ -20,17 +20,17 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
   );
 
   return (
-    <div className=' mt-5'>
+    <div className='mt-5 category-groups'>
       {userPublicData?.username && (
         <>
           <h3 className='text-sm font-semibold my-2 dark:text-white'>
             Ideas para ti
           </h3>
-          <div className='flex  flex-wrap  gap-2 '>
+          <div className='flex flex-wrap gap-2 min-w-[970px] '>
             {categories.map((elem) => (
               <div
                 key={elem.id}
-                className='flex-wrap w-[calc(20%-0.5rem)] p-1 cursor-pointer'
+                className='flex flex-wrap w-[calc(20%-0.5rem)] p-1 cursor-pointer'
               >
                 <CardCategoryModal elem={elem} setModal={setModal} />
               </div>
@@ -42,11 +42,11 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
       <h3 className='text-sm font-semibold my-3 mt-6 dark:text-white'>
         Populares en Pinterest
       </h3>
-      <div className='flex flex-wrap gap-2'>
+      <div className='flex flex-wrap gap-2 min-w-[970px] '>
         {categories2.map((elem) => (
           <div
             key={elem.id}
-            className='flex-wrap w-[calc(20%-0.5rem)] p-1 cursor-pointer'
+            className='flex flex-wrap w-[calc(20%-0.5rem)] p-1 cursor-pointer'
           >
             <CardCategoryModal elem={elem} setModal={setModal} />
           </div>
