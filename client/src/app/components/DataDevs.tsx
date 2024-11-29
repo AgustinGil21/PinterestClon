@@ -1,149 +1,92 @@
 // 'use client';
 // import React from 'react';
-// import AnswerIcon from './icons/AnswerIcon';
-// import Tooltip from './Header/ToolTip';
+// import AnswerIcon from '../components/icons/AnswerIcon';
+// import Tooltip from '../components/Basic/ToolTip';
 // import { useState } from 'react';
-// import ModalStyled from './Basic/ModalStyled';
-// import GitHubIcon from './icons/GitHubIcon';
-// import LinkedinIcon from './icons/LinkedinIcon';
+// import ModalStyled from '../components/Basic/ModalStyled';
+// import GitHubIcon from '../components/icons/GitHubIcon';
+// import LinkedinIcon from '../components/icons/LinkedinIcon';
 // import useCloseModal from '../hooks/useCloseModal';
+
+// const developers = [
+//   {
+//     name: 'Agustín Gil',
+//     github: 'https://github.com/AgustinGil21',
+//     linkedin: 'https://linkedin.com',
+//   },
+//   {
+//     name: 'Santino Steckler',
+//     github: 'https://github.com/SSantinoSteckler',
+//     linkedin: 'https://www.linkedin.com/in/lucas-santino-steckler-1821ab282/',
+//   },
+// ];
 
 // const DataDevs = () => {
 //   const [modal, setModal] = useState(false);
+
 //   const { modalRef } = useCloseModal({ setModal });
 
 //   return (
 //     <>
 //       <button
-//         className='relative bottom-6 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white'
+//         className='fixed bottom-5 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300 xl:w-16 xl:h-16 flex justify-center items-center'
 //         onClick={() => setModal(!modal)}
 //       >
-//         <Tooltip tooltipText='Más' isVisible={modal}>
-//           <AnswerIcon />
+//         <Tooltip tooltipText='Mas' isVisible={modal}>
+//           <AnswerIcon svgClassName='xl:w-6 xl:h-6' />
 //         </Tooltip>
-//         {modal && (
-//           <ModalStyled
-//             modalRef={modalRef}
-//             classProps={
-//               'absolute right-0 bottom-0 max-w-[180px] p-2 border-[0.5px]'
-//             }
-//           >
-//             <div className='flex flex-col text-sm gap-2'>
-//               <p className='px-2 pt-2'>Developed by</p>
-//               <hr />
-//               <div>
-//                 <span className='hover:bg-slate-100 px-1 py-1 rounded-lg cursor-cell flex justify-between items-center gap-1'>
-//                   Agustín Gil
-//                   <div className='flex'>
-//                     <a href='  https://github.com/AgustinGil21' target='_blank'>
-//                       <GitHubIcon />
-//                     </a>
-//                     <a href='linkedin.com' target='_blank'>
-//                       <LinkedinIcon />
-//                     </a>
-//                   </div>
-//                 </span>
-//               </div>
-//               <span className='hover:bg-slate-100 px-1 py-1 rounded-lg cursor-cell flex items-center gap-1 text-nowrap justify-between'>
-//                 Santino Steckler
-//                 <div className='flex'>
-//                   <a href='https://github.com/SSantinoSteckler' target='_blank'>
-//                     <GitHubIcon />
+//       </button>
+//       {modal && (
+//         <ModalStyled
+//           modalRef={modalRef}
+//           classProps={
+//             'fixed-modal right-14 bottom-20  p-2 border-[0.5px] rounded-xl xl:right-16 xl:bottom-24 w-[200px]'
+//           }
+//         >
+//           <div className='flex flex-col text-sm lg:text-md gap-2'>
+//             <p className='px-2 pt-2  dark:text-white'>Developed by</p>
+//             <hr />
+//             <div>
+//               <span className='hover:bg-slate-100 dark:hover:bg-gray-900 dark:text-white px-1 py-2 rounded-lg cursor-cell flex justify-between items-center gap-1'>
+//                 {developers[0].name}
+//                 <div className='flex gap-1'>
+//                   <a href={developers[0].github} target='_blank'>
+//                     <GitHubIcon
+//                       svgClassName='group'
+//                       pathClassName='stroke-gray-700 group-hover:stroke-[#e60023] stroke-2'
+//                     />
 //                   </a>
-//                   <a
-//                     href='https://www.linkedin.com/in/lucas-santino-steckler-1821ab282/'
-//                     target='_blank'
-//                   >
-//                     <LinkedinIcon />
+//                   <a href={developers[0].linkedin} target='_blank'>
+//                     <LinkedinIcon
+//                       svgClassName='group'
+//                       pathClassName='stroke-gray-700 group-hover:stroke-[#e60023]'
+//                     />
 //                   </a>
 //                 </div>
 //               </span>
 //             </div>
-//           </ModalStyled>
-//         )}
-//       </button>
+//             <span className='hover:bg-slate-100 dark:hover:bg-gray-900 dark:text-white px-1 py-2 rounded-lg cursor-cell flex items-center gap-1 text-nowrap justify-between'>
+//               {developers[1].name}
+//               <div className='flex gap-1'>
+//                 <a href={developers[1].github} target='_blank'>
+//                   <GitHubIcon
+//                     svgClassName='group'
+//                     pathClassName='stroke-gray-700 group-hover:stroke-[#e60023] stroke-2'
+//                   />
+//                 </a>
+//                 <a href={developers[1].linkedin} target='_blank'>
+//                   <LinkedinIcon
+//                     svgClassName='group'
+//                     pathClassName='stroke-gray-700 group-hover:stroke-[#e60023]'
+//                   />
+//                 </a>
+//               </div>
+//             </span>
+//           </div>
+//         </ModalStyled>
+//       )}
 //     </>
 //   );
 // };
 
 // export default DataDevs;
-
-'use client';
-import React, { useState } from 'react';
-import AnswerIcon from './icons/AnswerIcon';
-import Tooltip from './Header/ToolTip';
-import ModalStyled from './Basic/ModalStyled';
-import GitHubIcon from './icons/GitHubIcon';
-import LinkedinIcon from './icons/LinkedinIcon';
-import useCloseModal from '../hooks/useCloseModal';
-
-const developers = [
-  {
-    name: 'Agustín Gil',
-    github: 'https://github.com/AgustinGil21',
-    linkedin: 'https://linkedin.com',
-  },
-  {
-    name: 'Santino Steckler',
-    github: 'https://github.com/SSantinoSteckler',
-    linkedin: 'https://www.linkedin.com/in/lucas-santino-steckler-1821ab282/',
-  },
-];
-
-const DataDevs = () => {
-  const [modal, setModal] = useState(false);
-  const { modalRef } = useCloseModal({ setModal });
-
-  return (
-    <div className='relative'>
-      {/* Button to toggle modal */}
-      <button
-        className='p-2.5 rounded-full cursor-pointer shadow-uniform border bg-white z-50'
-        onClick={() => setModal((prev) => !prev)}
-      >
-        <Tooltip tooltipText='Más' isVisible={modal}>
-          <AnswerIcon />
-        </Tooltip>
-      </button>
-
-      {/* Modal */}
-      {modal && (
-        <ModalStyled
-          modalRef={modalRef}
-          classProps='absolute bottom-[calc(100%+8px)] right-0 w-[200px] bg-white border shadow-lg p-3 rounded-lg z-50'
-        >
-          <div className='flex flex-col gap-3'>
-            <p className='text-sm font-semibold'>Developed by</p>
-            <hr className='border-gray-300' />
-            {developers.map((dev, index) => (
-              <div
-                key={index}
-                className='flex justify-between items-center text-sm hover:bg-gray-100 p-2 rounded cursor-pointer'
-              >
-                <span>{dev.name}</span>
-                <div className='flex gap-2'>
-                  <a
-                    href={dev.github}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <GitHubIcon />
-                  </a>
-                  <a
-                    href={dev.linkedin}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <LinkedinIcon />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </ModalStyled>
-      )}
-    </div>
-  );
-};
-
-export default DataDevs;

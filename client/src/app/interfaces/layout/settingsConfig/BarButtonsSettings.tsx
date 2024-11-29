@@ -18,7 +18,7 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
   });
 
   return (
-    <div className='bottom-0 left-0 fixed w-full p-5 bg-white shadow-top font-semibold dark:bg-slate-800'>
+    <div className='bottom-0 left-0 fixed flex justify-center items-center w-full p-3 lg:p-5 bg-white shadow-top font-semibold dark:bg-slate-800 '>
       <div className='flex flex-row gap-2 max-w-[850px] justify-end'>
         <ButtonStyled
           handleClick={handleReload}
