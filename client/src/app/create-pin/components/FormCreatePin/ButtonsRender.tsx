@@ -27,8 +27,8 @@ const ButtonsRender = ({
   console.log(dataCreatePin);
 
   return (
-    <div className='border-b-[1px] w-full h-[70px]  border-b-gray-300  py-4 px-4 flex justify-between items-center'>
-      <h3 className='font-semibold text-[16px] dark:text-white'>
+    <div className='border-b-[1px] w-full h-[70px]  border-b-gray-300 py-4 px-8 flex justify-between items-center'>
+      <h3 className='font-semibold text-[1.3rem] dark:text-white'>
         {dataCreatePin.id ? 'Editar Pin' : 'Crear Pin'}
       </h3>
       {imagePreview && dataCreatePin.body instanceof File && (

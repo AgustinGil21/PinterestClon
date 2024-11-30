@@ -11,6 +11,7 @@ interface ModalDeletePinInterface {
   modalRef: MutableRefObject<HTMLDivElement | null>;
   setOpenModalId: Dispatch<SetStateAction<string | null>>;
   reset: UseFormReset<FieldValues>;
+  className?: string;
 }
 
 const ModalEditPin = ({
@@ -18,6 +19,7 @@ const ModalEditPin = ({
   modalRef,
   reset,
   setOpenModalId,
+  className,
 }: ModalDeletePinInterface) => {
   const {
     isDeletePinModal,
@@ -44,7 +46,7 @@ const ModalEditPin = ({
     <>
       <div
         ref={modalRef}
-        className='absolute top-full mt-2 right-0 bg-white rounded-2xl shadow-uniform  z-10'
+        className={`absolute right-0 bg-white rounded-2xl shadow-uniform z-10 ${className}`}
       >
         <div className='flex flex-col justify-start items-start gap-1 font-semibold p-1.5 rounded-xl'>
           <ButtonStyled

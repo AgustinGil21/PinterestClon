@@ -30,11 +30,11 @@ const AsideCreateOpen = ({
   };
 
   return (
-    <div className='border-r-gray-300 border-r-[1px] w-[18%] h-full flex flex-col items-center gap-6'>
-      <div className='border-b-[1px] border-b-gray-300 p-3 px-5 max-h-[13%] w-full'>
+    <div className='border-r-gray-300 border-r-[1px] w-[18%] min-w-[300px] h-full flex flex-col items-center gap-6'>
+      <div className='border-b-[1px] border-b-gray-300 p-3 px-5 h-[139px] w-full pt-6'>
         <div className='flex flex-col gap-5 justify-between h-full'>
           <div className='flex justify-between items-center'>
-            <h3 className='font-semibold dark:text-white'>
+            <h3 className='font-semibold dark:text-white text-xl'>
               Mis Publicaciones ({previousPin.length})
             </h3>
             <button
@@ -45,7 +45,7 @@ const AsideCreateOpen = ({
             </button>
           </div>
           <ButtonStyled
-            className='bg-buttonGreyBg font-semibold w-full text-sm hover:bg-gray-300 py-1.5'
+            className='bg-buttonGreyBg font-semibold w-full text-[1.1rem] hover:bg-gray-300 py-3.5'
             handleClick={handleClickNewPin}
           >
             Crear nuevo
@@ -53,13 +53,14 @@ const AsideCreateOpen = ({
         </div>
       </div>
 
-      <div className='w-full p-2 py-1 max-h-[80vh] flex flex-col gap-3 overflow-y-scroll '>
+      <div className='w-full p-2 py-1 h-full flex flex-col gap-3 overflow-y-auto '>
         {previousPin.map((elem) => (
           <PreviousPins
             elem={elem}
             key={elem.id}
             reset={reset}
             clearErrors={clearErrors}
+            lastPin={elem.id === previousPin[previousPin.length - 1].id}
           />
         ))}
       </div>

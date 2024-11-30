@@ -9,9 +9,15 @@ interface PreviousPinInterface {
   elem: PreviousPin;
   reset: UseFormReset<FieldValues>;
   clearErrors: UseFormClearErrors<FieldValues>;
+  lastPin?: boolean;
 }
 
-const PreviousPins = ({ elem, reset, clearErrors }: PreviousPinInterface) => {
+const PreviousPins = ({
+  elem,
+  reset,
+  clearErrors,
+  lastPin,
+}: PreviousPinInterface) => {
   const {
     handleClickContainer,
     handleImageError,
@@ -28,8 +34,8 @@ const PreviousPins = ({ elem, reset, clearErrors }: PreviousPinInterface) => {
     <div
       onClick={handleClickContainer}
       key={elem.id}
-      className={`hover:bg-gray-300 border-black p-2 px-3 rounded-lg flex flex-row items-center justify-between dark:bg-slate-800 focus:bg-gray-300 focus:border-[1px] ${
-        openModalId === elem.id ? 'border-[1px] bg-gray-300' : ''
+      className={`hover:bg-gray-300 border-[1.5px] border-[transparent] p-2 px-3 rounded-lg flex flex-row items-center justify-between dark:bg-slate-800 focus:bg-gray-300 focus:border-black transition-colors ${
+        openModalId === elem.id ? ' border-black bg-gray-300' : ''
       }`}
       tabIndex={0}
     >
@@ -45,7 +51,7 @@ const PreviousPins = ({ elem, reset, clearErrors }: PreviousPinInterface) => {
           ref={(el) => {
             buttonRefs.current[elem.id] = el;
           }}
-          className='hover:bg-gray-300 rounded-full p-1 cursor-pointer'
+          className='hover:bg-white rounded-full p-2 w-[40px] h-[40px] flex justify-center items-center cursor-pointer transition-colors'
           onClick={(e) => handleClickOpenMenu(elem.id, e)}
         >
           <ThreePointsMenuCreat />
@@ -57,6 +63,7 @@ const PreviousPins = ({ elem, reset, clearErrors }: PreviousPinInterface) => {
             modalRef={modalRef}
             setOpenModalId={setOpenModalId}
             reset={reset}
+            className={`${lastPin ? 'bottom-full mb-2' : 'top-full mt-2'}`}
           />
         )}
       </div>

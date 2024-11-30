@@ -55,10 +55,10 @@ const FormCreatePin = ({
         isValuesEqual={isValuesEqual}
         savePin={savePin}
       />
-      <div className='flex w-full justify-center p-4'>
-        <div className='flex flex-row max-h-[500px] justify-start w-[50%] p-1 gap-8'>
+      <div className='flex w-full justify-center p-4 min-w-[865px]'>
+        <div className='flex max-h-[500px] justify-center w-full p-1 gap-8'>
           <ImagePin register={register} clearErrors={clearErrors} />
-          <div className='w-full p-2 flex gap-3 flex-col max-w-[480px]'>
+          <div className='w-full p-2  flex gap-3 flex-col max-w-[480px]'>
             <AltTextPin
               getValues={getValues}
               register={register}

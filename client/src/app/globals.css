@@ -535,7 +535,7 @@
 
 /* Media queries */
 
-@media (max-width: 1273px) {
+@media (max-width: 1270px) {
   .category-groups {
     display: none;
   }

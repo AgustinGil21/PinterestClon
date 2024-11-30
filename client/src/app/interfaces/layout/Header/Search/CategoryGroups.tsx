@@ -26,11 +26,11 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
           <h3 className='text-sm font-semibold my-2 dark:text-white'>
             Ideas para ti
           </h3>
-          <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-2 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
+          <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-1 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
             {categories.map((elem) => (
               <div
                 key={elem.id}
-                className='flex flex-wrap w-[calc(20%-0.5rem)] p-1 cursor-pointer'
+                className='flex flex-wrap w-full p-1.5 cursor-pointer'
               >
                 <CardCategoryModal elem={elem} setModal={setModal} />
               </div>
@@ -42,11 +42,11 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
       <h3 className='text-sm font-semibold my-3 mt-6 dark:text-white'>
         Populares en Pinterest
       </h3>
-      <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-2 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
+      <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-1 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
         {categories2.map((elem) => (
           <div
             key={elem.id}
-            className='flex flex-wrap w-[calc(20%-0.5rem)] p-1 cursor-pointer'
+            className='flex flex-wrap w-full p-1.5 cursor-pointer'
           >
             <CardCategoryModal elem={elem} setModal={setModal} />
           </div>

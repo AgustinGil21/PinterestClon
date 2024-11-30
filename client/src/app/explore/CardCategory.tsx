@@ -8,15 +8,14 @@ interface CardCategoryInterface {
   limit: number;
 }
 
-const CardCategory = ({ elem, page, limit }: CardCategoryInterface) => {
+const CardCategory = ({ elem, page = 1, limit }: CardCategoryInterface) => {
   const { getSearchPinForCategory, updateDataSearch } = useAppsStore();
   const router = useRouter();
 
   const handleClick = async (elem: CategoriesPin) => {
-    console.log(elem);
     updateDataSearch('value', '');
     updateDataSearch('categorySelect', elem.id);
-    await getSearchPinForCategory(elem.id, 1, limit);
+    await getSearchPinForCategory(elem.id, page, limit);
     router.push(`/search?query=${elem.name}`);
   };
 
