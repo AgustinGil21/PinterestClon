@@ -518,6 +518,21 @@
   line-height: clamp(1.125rem, 1.027rem + 0.174vw, 1.25rem);
 }
 
+.category-big-card {
+  width: clamp(18.75rem, 8.333rem + 18.519vw, 25rem);
+  height: clamp(12.5rem, 2.083rem + 18.519vw, 18.75rem);
+}
+
+.category-big-card:hover {
+  transform: scale(1.03) !important;
+  filter: brightness(0.7) !important;
+}
+
+.text-border {
+  text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black,
+    -1px -1px 0 black;
+}
+
 /* Media queries */
 
 @media (max-width: 1273px) {
