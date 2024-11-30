@@ -38,6 +38,11 @@ const SearchInput = () => {
     updateDataSearch('value', e.target.value);
   };
 
+  const handleClick = () => {
+    setModal(false);
+    updateDataSearch('value', '');
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (value === '') return;
@@ -110,7 +115,7 @@ const SearchInput = () => {
           <button
             type='button'
             className='absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer hover:bg-gray-300 px-3 py-[12.1px] rounded-full'
-            onClick={() => setModal(false)}
+            onClick={handleClick}
           >
             <CloseSearchIcon />
           </button>

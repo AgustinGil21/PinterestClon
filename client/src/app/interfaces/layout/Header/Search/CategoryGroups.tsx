@@ -20,13 +20,13 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
   );
 
   return (
-    <div className='mt-5 category-groups'>
+    <div className='mt-5 category-groups overflow-hidden'>
       {userPublicData?.username && (
         <>
           <h3 className='text-sm font-semibold my-2 dark:text-white'>
             Ideas para ti
           </h3>
-          <div className='flex flex-wrap gap-2 min-w-[970px] '>
+          <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-2 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
             {categories.map((elem) => (
               <div
                 key={elem.id}
@@ -42,7 +42,7 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
       <h3 className='text-sm font-semibold my-3 mt-6 dark:text-white'>
         Populares en Pinterest
       </h3>
-      <div className='flex flex-wrap gap-2 min-w-[970px] '>
+      <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-2 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
         {categories2.map((elem) => (
           <div
             key={elem.id}
