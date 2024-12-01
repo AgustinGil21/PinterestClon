@@ -5,8 +5,6 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { Pin } from '../home-page-components/Pin';
 import DataUser from './DataUser';
 import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
-import useCloseModal from '../interfaces/hooks/useCloseModal';
-import ModalShareAccount from './ModalShareAccount';
 import ButtonsGroup from './ButtonsGroup';
 import CreatesOrSavesLink from './CreatesOrSavesLink';
 
@@ -51,6 +49,7 @@ export default function UserProfile() {
           data={dataOwnerProfile}
           classProps='h-[110px] w-[110px] '
           textSize='text-[40px]'
+          isClickable={false}
         />
 
         <DataUser data={dataOwnerProfile} />

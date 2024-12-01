@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useCloseModal from '../hooks/useCloseModal';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
@@ -9,17 +9,21 @@ import ModalShareAccount from './ModalShareAccount';
 
 interface ButtonGroupInterface {
   isShareAccountOpen: boolean;
-  openShareAccountModal: () => void;
+  // openShareAccountModal: () => void;
   username: string;
 }
 
 const ButtonsGroup = ({
-  isShareAccountOpen,
   username,
+  isShareAccountOpen,
 }: ButtonGroupInterface) => {
   const { openShareAccountModal } = useAppsStore();
+  const buttonRef = useRef(null);
 
-  const { modalRef } = useCloseModal({ setModal: openShareAccountModal });
+  const { modalRef } = useCloseModal({
+    setModal: openShareAccountModal,
+    buttonRef,
+  });
 
   return (
     <div className='mt-4 flex gap-2 flex-row'>
@@ -31,6 +35,7 @@ const ButtonsGroup = ({
             : 'bg-buttonGreyBg text-black hover:bg-gray-300'
         }`}
         handleClick={openShareAccountModal}
+        btnRef={buttonRef}
       >
         Compartir
         {isShareAccountOpen && (
