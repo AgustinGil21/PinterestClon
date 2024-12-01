@@ -20,21 +20,26 @@
   /* border-color: transparent; */
 }
 
-.active-focus {
+.link-settings-aside {
   position: relative;
 }
 
-.active-focus::before {
+.link-settings-aside::before {
   content: '';
   position: absolute;
   width: calc(100% - 1rem);
   left: 50%;
   transform: translateX(-50%);
-  height: 2.5px;
+  min-height: 2.5px;
+  max-height: 2.5px;
   bottom: -1.5px;
   border-radius: 16px;
-  background-color: #000;
+  background-color: transparent;
   padding: 0 0.5rem;
+}
+
+.link-settings-aside-active::before {
+  background-color: #000000;
 }
 
 .shadow-top {
@@ -645,6 +650,10 @@
   .masonry {
     columns: 24 180px;
   }
+}
+
+@media (max-width: 556px) {
+  /* Achicar botones de pin cards */
 }
 
 /* xs */
