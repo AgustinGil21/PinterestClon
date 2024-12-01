@@ -34,7 +34,7 @@ const PreviousPins = ({
     <div
       onClick={handleClickContainer}
       key={elem.id}
-      className={`hover:bg-gray-300 border-[1.5px] border-[transparent] p-2 px-3 rounded-lg flex flex-row items-center justify-between dark:bg-slate-800 focus:bg-gray-300 focus:border-black transition-colors ${
+      className={`hover:bg-gray-300 w-full border-[1.5px] border-[transparent] p-2 px-3 rounded-lg flex flex-row items-center justify-between dark:bg-slate-800 focus:bg-gray-300 focus:border-black previous-pins-card transition-colors max-w-[500px] ${
         openModalId === elem.id ? ' border-black bg-gray-300' : ''
       }`}
       tabIndex={0}

@@ -605,6 +605,26 @@
   .masonry {
     columns: 24 180px;
   }
+
+  .create-pin-aside-mobile {
+    display: block;
+  }
+
+  .create-pin-aside {
+    display: none;
+  }
+
+  .aside-is-open {
+    display: none;
+  }
+
+  .previous-pins-aside {
+    width: 100%;
+  }
+
+  .previous-pins-card {
+    min-height: 90px;
+  }
 }
 
 /* sm */
@@ -623,7 +643,7 @@
 }
 
 /* xs */
-@media (max-width: 420px) {
+@media (max-width: 426px) {
   .masonry {
     columns: 24 130px;
     column-gap: 0.5rem;

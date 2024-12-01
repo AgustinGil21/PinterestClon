@@ -29,6 +29,7 @@ interface FormCreatePinInterface {
   clearErrors: UseFormClearErrors<FieldValues>;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   reset: UseFormReset<FieldValues>;
+  onClick: () => void;
 }
 
 const FormCreatePin = ({
@@ -41,12 +42,13 @@ const FormCreatePin = ({
   clearErrors,
   handleSubmit,
   reset,
+  onClick,
 }: FormCreatePinInterface) => {
   const { handleClickEdit, onSubmit, isValuesEqual, savePin, imagePreview } =
     useFormCreatePin({ watch, isValid, reset, clearErrors });
 
   return (
-    <form>
+    <form className='w-full h-full'>
       <ButtonsRender
         handleClickEdit={handleClickEdit}
         handleSubmit={handleSubmit}
@@ -54,9 +56,10 @@ const FormCreatePin = ({
         isValid={isValid}
         isValuesEqual={isValuesEqual}
         savePin={savePin}
+        handleClickAside={onClick}
       />
-      <div className='flex w-full justify-center p-4 min-w-[865px]'>
-        <div className='flex max-h-[500px] justify-center w-full p-1 gap-8'>
+      <div className='flex w-full justify-center p-4 min-w-[350px] h-full'>
+        <div className='flex flex-wrap max-h-[500px] justify-center w-full p-1 gap-8 h-full'>
           <ImagePin register={register} clearErrors={clearErrors} />
           <div className='w-full p-2  flex gap-3 flex-col max-w-[480px]'>
             <AltTextPin

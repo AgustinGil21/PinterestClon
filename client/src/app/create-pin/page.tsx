@@ -8,10 +8,11 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import useFormHook from '../interfaces/hooks/useFormHook';
 import { CreatePinFormSchema } from '../infrastructure/schemas/validation-form';
+import ArrowCreatRightIcon from '../interfaces/components/icons/ArrowCreatRightIcon';
 
 const CreatePin = () => {
   const [loading, setLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { isAuth, getDataUserLogged } = useAppsStore();
   const router = useRouter();
 
@@ -63,7 +64,7 @@ const CreatePin = () => {
   }
 
   return (
-    <section className='w-full border-t-gray-300 border-t-[1px] flex flex-row min-h-[100vh] '>
+    <section className='w-full border-t-gray-300 border-t-[1px] flex flex-row min-h-[100vh] overflow-hidden '>
       {isOpen ? (
         <AsideCreateClose
           handleClick={handleClick}
@@ -74,7 +75,7 @@ const CreatePin = () => {
         <AsideCreateOpen handleClick={handleClick} clearErrors={clearErrors} />
       )}
 
-      <div className='w-full'>
+      <div className={`w-full ${isOpen ? 'aside-is-open' : ''}`}>
         <FormCreatePin
           register={register}
           errors={errors}
@@ -85,6 +86,7 @@ const CreatePin = () => {
           getValues={getValues}
           setValue={setValue}
           reset={reset}
+          onClick={handleClick}
         />
       </div>
     </section>
