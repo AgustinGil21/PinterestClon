@@ -4,20 +4,25 @@ import PreviousPins from './PreviousPins/PreviousPins';
 import ArrowCreatRightIcon from '@/app/interfaces/components/icons/ArrowCreatRightIcon';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { FieldValues, UseFormClearErrors, UseFormReset } from 'react-hook-form';
+import { numberFormatter } from '@/app/libs/NumberFormatter';
 
 interface AsideCreateOpenInterface {
   handleClick: () => void;
   clearErrors: UseFormClearErrors<FieldValues>;
   reset: UseFormReset<FieldValues>;
+  onClick: () => void;
 }
 
 const AsideCreateOpen = ({
   handleClick,
   clearErrors,
   reset,
+  onClick,
 }: AsideCreateOpenInterface) => {
   const { getPreviousPins, previousPin, setImagePreview, shouldReload } =
     useAppsStore();
+
+  const pinsCount = numberFormatter(previousPin.length);
 
   useEffect(() => {
     getPreviousPins();
@@ -34,8 +39,8 @@ const AsideCreateOpen = ({
       <div className='border-b-[1px] border-b-gray-300 p-3 px-5 h-[139px] w-full pt-6 max-w-[600px]'>
         <div className='flex flex-col gap-5 justify-between h-full'>
           <div className='flex justify-between items-center'>
-            <h3 className='font-semibold dark:text-white text-xl'>
-              Mis Publicaciones ({previousPin.length})
+            <h3 className='font-semibold dark:text-white text-md'>
+              Publicaciones ({pinsCount})
             </h3>
             <button
               className='hover:bg-slate-100 dark:hover:bg-black rounded-full p-2.5 cursor-pointer'
@@ -53,14 +58,15 @@ const AsideCreateOpen = ({
         </div>
       </div>
 
-      <div className='w-full p-2 py-1 h-full flex flex-col gap-3 overflow-y-auto max-w-[600px] items-center'>
+      <div className='w-full p-2 py-1 h-full flex flex-col-reverse justify-end gap-3 overflow-y-auto max-w-[600px] items-center'>
         {previousPin.map((elem) => (
           <PreviousPins
             elem={elem}
             key={elem.id}
             reset={reset}
             clearErrors={clearErrors}
-            lastPin={elem.id === previousPin[previousPin.length - 1].id}
+            lastPin={elem.id === previousPin[0].id}
+            editModalOnClick={onClick}
           />
         ))}
       </div>

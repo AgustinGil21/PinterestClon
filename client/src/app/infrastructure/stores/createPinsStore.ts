@@ -111,7 +111,6 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
         topics: updatedTopics,
       },
     }));
-    console.log(get().dataCreatePin);
   },
 
   getCategoriesPin: async () => {
@@ -123,7 +122,6 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
   },
   getPreviousPins: async () => {
     const response = await getPreviousPinsCase();
-    console.log(response);
     set({
       previousPin: response,
     });
@@ -134,7 +132,6 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
   },
   getPinEditId: async (id: string) => {
     const response = await getPinEditIdCase(id);
-    console.log(response);
     if (response) {
       set({
         dataCreatePin: response,

@@ -66,13 +66,13 @@ const ModalShareAccount = ({
   return (
     <ModalStyled
       modalRef={modalRef}
-      classProps={`fixed  sm:max-w-[390px] p-5 rounded-xl  ${classProps}`}
+      classProps={`fixed min-h-[230px] sm:max-w-[390px] py-5 px-4 rounded-xl  ${classProps}`}
     >
       <div>
-        <h4 className='text-center text-[13px] font-semibold dark:text-white'>
+        <h4 className='text-center text-black text-[16px] font-semibold dark:text-white'>
           Compartir
         </h4>
-        <div className='grid grid-cols-4 items-center mt-2 gap-2 max-w-[300px]'>
+        <div className='grid grid-cols-4 items-center mt-2 gap-1 max-w-[300px]'>
           <div
             onClick={() => copyToClipboard(urlToShare, setCopied)}
             className='flex justify-center flex-col items-center gap-1 cursor-pointer  dark:text-white'
@@ -91,7 +91,7 @@ const ModalShareAccount = ({
               onClick={() => openSocialMedia(social.url)}
               className='flex justify-center flex-col items-center gap-1 mt-1 cursor-pointer dark:text-white flex-wrap'
             >
-              <div className='w-[44px] h-[44px] flex justify-center items-center'>
+              <div className='w-[44px] h-[44px] flex justify-center items-center hover:brightness-75'>
                 {social.icon}
               </div>
               <span className='text-[11px]'>{social.name}</span>

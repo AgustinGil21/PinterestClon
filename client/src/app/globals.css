@@ -625,6 +625,11 @@
   .previous-pins-card {
     min-height: 90px;
   }
+
+  .create-pin-header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }
 
 /* sm */
@@ -647,5 +652,12 @@
   .masonry {
     columns: 24 130px;
     column-gap: 0.5rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .share-account-modal {
+    min-width: 300px;
+    left: -49px;
   }
 }

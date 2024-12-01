@@ -12,6 +12,7 @@ interface ModalDeletePinInterface {
   setOpenModalId: Dispatch<SetStateAction<string | null>>;
   reset: UseFormReset<FieldValues>;
   className?: string;
+  onEditClick: () => void;
 }
 
 const ModalEditPin = ({
@@ -20,6 +21,7 @@ const ModalEditPin = ({
   reset,
   setOpenModalId,
   className,
+  onEditClick,
 }: ModalDeletePinInterface) => {
   const {
     isDeletePinModal,
@@ -36,6 +38,7 @@ const ModalEditPin = ({
   const handleClickEditPin = async () => {
     setImagePreview(null);
     closeDeletePinModal();
+    onEditClick();
 
     await getPinEditId(elem.id);
     reset();

@@ -21,11 +21,7 @@ export default function UserProfile() {
     dataOwnerProfile,
     isShareAccountOpen,
     openShareAccountModal,
-    isHeaderLoaded,
-    setIsHeaderLoaded,
   } = useAppsStore();
-
-  const { modalRef } = useCloseModal({ setModal: openShareAccountModal });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,14 +58,9 @@ export default function UserProfile() {
         <ButtonsGroup
           isShareAccountOpen={isShareAccountOpen}
           openShareAccountModal={openShareAccountModal}
+          username={dataOwnerProfile.username}
         />
-        {isShareAccountOpen && (
-          <ModalShareAccount
-            classProps='bottom-[355px] max-w-[90%]'
-            modalRef={modalRef}
-            username={dataOwnerProfile.username}
-          />
-        )}
+
         <CreatesOrSavesLink
           savesOrCreates={savesOrCreates}
           setSavesOrCreates={setSavesOrCreates}

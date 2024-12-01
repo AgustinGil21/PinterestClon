@@ -10,6 +10,7 @@ interface PreviousPinInterface {
   reset: UseFormReset<FieldValues>;
   clearErrors: UseFormClearErrors<FieldValues>;
   lastPin?: boolean;
+  editModalOnClick: () => void;
 }
 
 const PreviousPins = ({
@@ -17,6 +18,7 @@ const PreviousPins = ({
   reset,
   clearErrors,
   lastPin,
+  editModalOnClick,
 }: PreviousPinInterface) => {
   const {
     handleClickContainer,
@@ -64,6 +66,7 @@ const PreviousPins = ({
             setOpenModalId={setOpenModalId}
             reset={reset}
             className={`${lastPin ? 'bottom-full mb-2' : 'top-full mt-2'}`}
+            onEditClick={editModalOnClick}
           />
         )}
       </div>

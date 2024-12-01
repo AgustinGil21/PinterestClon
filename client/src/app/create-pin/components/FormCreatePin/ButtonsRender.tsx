@@ -31,7 +31,7 @@ const ButtonsRender = ({
 
   return (
     <div
-      className={`border-b-[1px] w-full h-[70px]  border-b-gray-300 py-4 px-8 flex justify-between items-center `}
+      className={`border-b-[1px] w-full h-[70px]  border-b-gray-300 py-4 px-8 flex justify-between items-center create-pin-header`}
     >
       <h3 className='font-semibold text-[1.3rem] dark:text-white create-pin-aside'>
         {dataCreatePin.id ? 'Editar Pin' : 'Crear Pin'}

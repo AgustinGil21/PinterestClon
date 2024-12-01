@@ -1,4 +1,5 @@
 import express, { json } from 'express';
+import { existsSync, mkdirSync } from 'fs';
 import { BASE_URL, PORT } from './config.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -23,7 +24,10 @@ import CommentsRoutes from './routes/comments.routes.js';
 export const app = express();
 
 const safeFileNamesRegex = /^[a-zA-Z0-9_\-!@#\$%\^&\*\(\)]+(\.png|\.jpg)$/;
+
 const tempFileDirStr = './uploads';
+
+if (!existsSync(tempFileDirStr)) mkdirSync(tempFileDirStr);
 
 app.use(json({ limit: '50mb' }));
 app.use(cookieParser());

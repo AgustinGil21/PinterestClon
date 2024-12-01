@@ -70,6 +70,7 @@ const CreatePin = () => {
           handleClick={handleClick}
           clearErrors={clearErrors}
           reset={reset}
+          onClick={handleClick}
         />
       ) : (
         <AsideCreateOpen handleClick={handleClick} clearErrors={clearErrors} />
