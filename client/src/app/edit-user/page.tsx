@@ -13,11 +13,10 @@ const EditUser = () => {
     const loadUserData = async () => {
       await getDataUserLogged();
       await getUserSettingsEditProfile();
-
-      setLoading(false);
     };
 
     loadUserData();
+    setLoading(false);
   }, []);
 
   if (!userPublicData?.username) {

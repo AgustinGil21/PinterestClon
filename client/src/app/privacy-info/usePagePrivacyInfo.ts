@@ -21,10 +21,10 @@ const usePagePrivacyInfo = () => {
     const loadUserData = async () => {
       await getProfileVisibility();
       setValue('switch', userProfileVisibility?.private_account);
-      setLoading(false);
     };
 
     loadUserData();
+    setLoading(false);
   }, [userProfileVisibility?.private_account]);
 
   const handleClick = async () => {
