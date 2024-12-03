@@ -25,7 +25,7 @@ const AvatarUser = ({
       ) : (
         <div
           style={{ backgroundColor: `${data.avatar_background}` }}
-          className={`bg-gray-500  ${classProps}  rounded-full flex justify-center items-center hover:cursor-pointer ${
+          className={`bg-gray-500  ${classProps}  rounded-full flex justify-center items-center ${
             !isClickable ? 'hover:cursor-default' : 'hover:cursor-pointer'
           }`}
         >

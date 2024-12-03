@@ -34,6 +34,7 @@ const BoardCoverModal = ({ lang = 'en', setCover }: Props) => {
     ],
     results: 4,
   };
+
   return (
     <Modal
       props={{

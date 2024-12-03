@@ -68,7 +68,6 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
   // Función para buscar pins por valor
   getSearchPins: async (value: string, page: number, limit: number) => {
-    console.log(page);
     // Limpiar los pins si es una nueva búsqueda (página 1)
     if (page === 1) {
       set({ homePins: [] }); // Reinicia los pins solo en la primera página (nueva búsqueda)

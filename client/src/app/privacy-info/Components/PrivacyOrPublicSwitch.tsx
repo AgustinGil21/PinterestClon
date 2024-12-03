@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Switch } from '@headlessui/react';
 import { FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import ToggleSwitch from '@/app/components/Basic/ToggleSwitch';
 
 interface PrivacyOrPublicSwitchProps {
   register: UseFormRegister<FieldValues>;
@@ -20,7 +20,6 @@ const PrivacyOrPublicSwitch = ({ setValue }: PrivacyOrPublicSwitchProps) => {
   }, [userProfileVisibility, setValue]);
 
   const handleChange = (checked: boolean) => {
-    console.log(checked);
     setEnabled(checked);
     setValue('switch', checked);
   };
@@ -36,19 +35,11 @@ const PrivacyOrPublicSwitch = ({ setValue }: PrivacyOrPublicSwitchProps) => {
         </p>
       </div>
       <div>
-        <Switch
+        <ToggleSwitch
           checked={enabled}
-          onChange={handleChange}
-          className={`${
-            enabled ? 'bg-black' : 'bg-gray-200'
-          } group inline-flex h-5 w-11 items-center rounded-full transition`}
-        >
-          <span
-            className={`size-4 transform ${
-              enabled ? 'translate-x-6' : 'translate-x-1'
-            } rounded-full bg-white transition`}
-          />
-        </Switch>
+          onChangeWithArg={handleChange}
+          labelClassName='ml-10'
+        />
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import InteractionSummary from '../components/Basic/InteractionSummary';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import PinterestLogo from '../interfaces/components/icons/PinterestLogo';
 
@@ -35,27 +36,47 @@ const DataUser = ({ data }: { data: any }) => {
       </div>
 
       {!data.following_accounts ? (
-        <div className='flex flex-row gap-1 justify-center'>
+        <div className='flex flex-row gap-2 justify-center'>
           {data.followers !== '0' && (
             <p className='text-[15px] font-semibold cursor-pointer'>
-              {data.followers} seguidores ·
+              <InteractionSummary
+                type='followers'
+                value={data.followers}
+                lang='es'
+                className='flex gap-1'
+                numberFirst
+              />
             </p>
           )}
 
           <p className='text-[15px] font-semibold cursor-pointer'>
-            Siguiendo a {data.following}
+            <InteractionSummary
+              type='following'
+              value={data.following}
+              lang='es'
+              className='flex gap-1'
+            />
           </p>
         </div>
       ) : (
         <div className='flex flex-row gap-1 justify-center'>
           {data.followers !== '0' && (
             <p className='text-[15px] font-semibold cursor-pointer'>
-              {data.followers} seguidores ·
+              <InteractionSummary
+                type='followers'
+                value={data.followers}
+                lang='es'
+                numberFirst
+              />
             </p>
           )}
 
           <p className='text-[15px] font-semibold cursor-pointer'>
-            Siguiendo a {data.following_accounts}
+            <InteractionSummary
+              type='following'
+              value={data.following_accounts}
+              lang='es'
+            />
           </p>
         </div>
       )}

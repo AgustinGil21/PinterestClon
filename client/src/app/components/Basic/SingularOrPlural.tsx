@@ -1,13 +1,8 @@
+import { TInteraction } from '@/app/global-interfaces/global-interfaces';
+
 interface Props {
   value: number | string;
-  type:
-    | 'pins'
-    | 'messages'
-    | 'followers'
-    | 'following'
-    | 'likes'
-    | 'comments'
-    | 'notifications';
+  type: TInteraction;
   lang?: 'en' | 'es' | 'pt';
   className?: string;
 }
@@ -37,7 +32,7 @@ const SingularOrPlural = ({ props }: SingularOrPluralProps) => {
     },
     following: {
       en: 'following',
-      es: 'siguiendo',
+      es: 'siguiendo a',
       pt: 'seguindo',
     },
     likes: {

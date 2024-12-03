@@ -48,8 +48,7 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
         <hr />
         <div className='flex items-center justify-between mt-2'>
           <span className='text-black dark:text-white text-sm  px-2 font-semibold'>
-            {' '}
-            Light/Dark mode
+            Cambiar tema
           </span>
 
           <SwitchMode />
