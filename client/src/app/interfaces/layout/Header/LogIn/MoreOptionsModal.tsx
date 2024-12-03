@@ -12,6 +12,7 @@ interface MoreOptionsModalInterface {
 
 export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
   const { modalRef } = useCloseModal({ setModal });
+  const handleClick = () => setModal(false);
 
   return (
     <ModalStyled
@@ -22,7 +23,7 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
         <span className='text-[10px] text-black p-1 dark:text-white px-2'>
           Actualmente en
         </span>
-        <UserData />
+        <UserData onClick={handleClick} />
         <div className='text-black dark:text-white flex flex-col text-sm'>
           <span className='text-[10px]  text-black dark:text-white  p-1 px-2 '>
             Opciones
@@ -31,12 +32,14 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
           <LinkNavigate
             href={'/edit-user'}
             classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 rounded-lg cursor-pointer px-2 font-semibold'
+            onClick={handleClick}
           >
-            Configuracion
+            Configuración
           </LinkNavigate>
           <LinkNavigate
             href={'#'}
             classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 rounded-lg cursor-pointer px-2 font-semibold'
+            onClick={handleClick}
           >
             Información sobre el clon
           </LinkNavigate>
