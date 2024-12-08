@@ -16,6 +16,7 @@ router.get('/search', PinsController.searchPins);
 router.get('/search-by-category', PinsController.searchByCategory);
 router.get('/search/suggestions', PinsController.searchAutocompleteSuggestions);
 router.get('/:id', isAuthenticated, PinsController.getSinglePin);
+router.get('/similar-pins/:id', PinsController.youMightAlsoLike);
 router.get('/', PinsController.getHomePins);
 router.post('/like/:id', authRequired, PinsController.toggleLikePin);
 router.post('/create', authRequired, PinsController.createPin);

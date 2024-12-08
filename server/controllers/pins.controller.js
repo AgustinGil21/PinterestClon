@@ -223,6 +223,30 @@ export default class PinsController {
     }
   }
 
+  static async youMightAlsoLike(req, res) {
+    const { page, limit } = req.query;
+    const { id } = req.params;
+
+    try {
+      const data = await PinsModel.youMightAlsoLike({
+        page,
+        limit,
+        pinID: id,
+      });
+
+      if (data.ok) {
+        const { pins, results } = data.response;
+        const filteredPins = filterArrFalsyValues(pins);
+
+        return res
+          .status(200)
+          .json({ response: { pins: filteredPins, results } });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Could not get similar pins' });
+    }
+  }
+
   static async toggleLikePin(req, res) {
     const { id: userID } = req.user;
     const { id: pinID } = req.params;

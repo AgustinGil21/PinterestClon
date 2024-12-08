@@ -1,4 +1,5 @@
 import { pool } from '../dbpool.js';
+import { getOffset } from '../libs/getOffset.js';
 
 export default class PinsModel {
   // Trae los pines creados en anterioridad
@@ -165,6 +166,67 @@ export default class PinsModel {
     const [data] = response.rows;
 
     if (data) return { response: data, ok: true };
+    return { response, ok: false };
+  }
+
+  // Al entrar a la vista de un pin, debajo
+  // aparecerán pins similares a la publicación
+  // actual.
+  static async youMightAlsoLike({ pinID, page, limit }) {
+    const offset = getOffset({ limit, page });
+
+    const response = await pool.query(
+      `
+  WITH current_pin AS (
+        SELECT 
+            title AS search_title, 
+            description AS search_description, 
+            alt_text AS search_alt_text, 
+            topics AS search_topics
+        FROM posts
+        WHERE id = $1
+    )
+    SELECT 
+        posts.body, 
+        posts.title, 
+        posts.url, 
+        posts.adult_content, 
+        posts.id AS pin_id, 
+        posts.alt_text,
+        users.id AS user_id,
+        users.name, 
+        users.surname, 
+        users.username, 
+        users.avatar, 
+        users.avatar_background, 
+        users.avatar_letter_color, 
+        users.avatar_letter,
+        GREATEST(
+            CASE WHEN posts.topics && current_pin.search_topics THEN 1 ELSE 0 END, 
+            similarity(posts.title, current_pin.search_title),
+            similarity(posts.description, current_pin.search_description),
+            similarity(posts.alt_text, current_pin.search_alt_text)
+        ) AS similarity_score
+    FROM posts
+    INNER JOIN users ON users.id = posts.user_id
+    CROSS JOIN current_pin
+    WHERE posts.id != $1
+    AND (
+        posts.topics && current_pin.search_topics
+        OR similarity(posts.title, current_pin.search_title) > 0.3 
+        OR similarity(posts.description, current_pin.search_description) > 0.3
+        OR similarity(posts.alt_text, current_pin.search_alt_text) > 0.3
+    )
+    ORDER BY similarity_score DESC
+    LIMIT $2 OFFSET $3;
+      `,
+      [pinID, limit, offset]
+    );
+
+    const pins = response.rows;
+    const results = response.rowCount;
+
+    if (pins) return { response: { pins, results }, ok: true };
     return { response, ok: false };
   }
 

@@ -17,9 +17,9 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/auth/register`
   "genderId": "String<UUID>",
   "countryId": "String<UUID>",
   "langId": "String<UUID>",
-  "avatarBackground": "String",
-  "avatarLetterColor": "String",
-  "avatarLetter": "String",
+  "avatarBackground": "String<Hex>",
+  "avatarLetterColor": "String<Hex>",
+  "avatarLetter": "String<Char>",
   "avatar": "File?"
 }
 ```
@@ -155,9 +155,9 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/settings/edit-profile`
 {
   "userData": {
     "username": "String",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String",
+    "avatar_background": "String<Hex>",
+    "avatar_letter_color": "String<Hex>",
+    "avatar_letter": "String<Char>",
     "name": "String?",
     "surname": "String?"
   }
@@ -178,7 +178,7 @@ Todos son valores opcionales:
   "name": "String?",
   "surname": "String?",
   "about": "String?",
-  "website": "String?"
+  "website": "String<URL>?"
 }
 ```
 
@@ -192,9 +192,9 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/settings/edit-profile`
 {
   "userData": {
     "username": "String",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String",
+    "avatar_background": "String<Hex>",
+    "avatar_letter_color": "String<Hex>",
+    "avatar_letter": "String<Char>",
     "name": "String?",
     "surname": "String?"
   }
@@ -295,9 +295,9 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/settings/account-management/`
   "userData": {
     "email_address": "String",
     "birthdate": "String<Date>",
-    "gender": "String",
-    "country": "String",
-    "language": "String",
+    "gender": "String<UUID>",
+    "country": "String<UUID>",
+    "language": "String<UUID>",
     "account_type": "String"
   }
 }
@@ -381,22 +381,22 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
     {
       "body": "String",
       "title": "String?",
-      "url": "String?",
+      "url": "String<URL>?",
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
       "name": "String?",
       "surname": "String?",
       "username": "String",
-      "avatar": "String?",
-      "avatar_background": "String",
-      "avatar_letter_color": "String",
-      "avatar_letter": "String"
+      "avatar": "String<URL>?",
+      "avatar_background": "String<Hex>",
+      "avatar_letter_color": "String<Hex>",
+      "avatar_letter": "String<Char>"
     },
     {
       "body": "String",
       "title": "String?",
-      "url": "String?",
+      "url": "String<URL>?",
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
@@ -404,9 +404,9 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
       "surname": "String?",
       "username": "String",
       "avatar": "String?",
-      "avatar_background": "String",
-      "avatar_letter_color": "String",
-      "avatar_letter": "String"
+      "avatar_background": "String<Hex>",
+      "avatar_letter_color": "String<Hex>",
+      "avatar_letter": "String<Char>"
     }
   ],
   "results": "Number"
@@ -427,7 +427,7 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/pins/create`
   "altText": "String",
   "description": "String?",
   "topics": "String<UUID>[]?",
-  "url": "String?",
+  "url": "String<URL>?",
   "body": "File"
 }
 ```
@@ -464,9 +464,9 @@ _:id_ => UUID Pin
     "likes": "String<Number>",
     "comments": "String<Number>",
     "username": "String",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String",
+    "avatar_background": "String<URL>",
+    "avatar_letter_color": "String<URL>",
+    "avatar_letter": "String<Char>",
     "verified": "Boolean",
     "its_you": "Boolean",
     "followers": "String<Number>"
@@ -488,9 +488,9 @@ _:id_ => UUID Pin
     "likes": "String<Number>",
     "comments": "String<Number>",
     "username": "String",
-    "avatar_background": "String",
-    "avatar_letter_color": "String",
-    "avatar_letter": "String",
+    "avatar_background": "String<URL>",
+    "avatar_letter_color": "String<URL>",
+    "avatar_letter": "String<Char>",
     "verified": "Boolean",
     "its_you": "Boolean",
     "follows_you": "Boolean",
@@ -524,6 +524,35 @@ _:id_ => UUID Pin
 ```
 
 NOTA: Los que aparecen como String(Number), son números pero que el JSON los trata como strings. Tener en cuenta que comments hace referencia a la cantidad de comentarios que tiene el pin.
+
+### Get similar pins
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/similar-pins/:id?page=Number&limit=Number`
+
+```json
+{
+  "pins": [
+    {
+      "body": "String<UUID>",
+      "title": "String?",
+      "url": "String<URL>?",
+      "adult_content": "Boolean",
+      "pin_id": "String<UUID>",
+      "alt_text": "String",
+      "user_id": "String<UUID>",
+      "name": "String?",
+      "surname": "String?",
+      "username": "String",
+      "avatar": "String<URL>?",
+      "avatar_background": "String<Hex>",
+      "avatar_letter_color": "String<Hex>",
+      "avatar_letter": "String<Char>",
+      "similarity_score": "Number"
+    }
+  ],
+  "results": "Number"
+}
+```
 
 ### Delete pin
 
@@ -698,7 +727,7 @@ _id_: UUID
     "body": "String",
     "topics": "String<UUID>[]?",
     "description": "String?",
-    "url": "String?",
+    "url": "String<URL>?",
     "adult_content": "Boolean"
   }
 }
@@ -742,13 +771,13 @@ _value_: Search input value
   "categories": [
     {
       "name": "String",
-      "id": "String",
-      "poster": "String"
+      "id": "String<UUID>",
+      "poster": "String<URL>"
     },
     {
       "name": "String",
-      "id": "String",
-      "poster": "String"
+      "id": "String<UUID>",
+      "poster": "String<URL>"
     }
   ],
   "results": "Number"
@@ -1001,9 +1030,9 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/search?value=String&pa
         "username": "String",
         "id": "String<UUID>",
         "avatar": "String<URL>?",
-        "avatar_letter_color": "String<Hexa>",
+        "avatar_letter_color": "String<Hex>",
         "avatar_letter": "String<Char>",
-        "avatar_background": "String<Hexa>",
+        "avatar_background": "String<Hex>",
         "verified": "Boolean"
       }
     }
@@ -1036,9 +1065,9 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/boards?page=Number&limit=Numbe
         "username": "String",
         "id": "String<UUID>",
         "avatar": "String<URL>?",
-        "avatar_letter_color": "String<Hexa>",
+        "avatar_letter_color": "String<Hex>",
         "avatar_letter": "String<Char>",
-        "avatar_background": "String<Hexa>",
+        "avatar_background": "String<Hex>",
         "verified": "Boolean"
       }
     }
@@ -1102,8 +1131,8 @@ _id_: ID del tablero
   "following": "String<Number>?",
   "avatar": "String<URL>",
   "avatar_letter": "String<Char>",
-  "avatar_letter_color": "String<Hexa>",
-  "avatar_background": "String<Hexa>",
+  "avatar_letter_color": "String<Hex>",
+  "avatar_background": "String<Hex>",
   "pins_count": "String<Number>",
   "pins": [
     {
@@ -1117,8 +1146,8 @@ _id_: ID del tablero
       "surname": "String?",
       "username": "String",
       "avatar": "String<URL>",
-      "avatar_background": "String<Hexa>",
-      "avatar_letter_color": "String<Hexa>",
+      "avatar_background": "String<Hex>",
+      "avatar_letter_color": "String<Hex>",
       "avatar_letter": "String<Char>"
     }
   ]
@@ -1318,8 +1347,8 @@ _id_: Pin ID
         "username": "String",
         "avatar": "String<URL>?",
         "avatar_letter": "String<Char>",
-        "avatar_letter_color": "String<Hexa>",
-        "avatar_background": "String<Hexa>"
+        "avatar_letter_color": "String<Hex>",
+        "avatar_background": "String<Hex>"
       }
     }
   ],
