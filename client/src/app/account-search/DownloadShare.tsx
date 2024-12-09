@@ -1,7 +1,7 @@
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import DownloadIcon from '../interfaces/components/icons/DownloadIcon';
 import useCloseModal from '../interfaces/hooks/useCloseModal';
-import ModalShareAccount from '../[user-profile]/ModalShareAccount';
+import ModalShareAccount from '../user-profile/ModalShareAccount';
 
 const DownloadShare = () => {
   const {

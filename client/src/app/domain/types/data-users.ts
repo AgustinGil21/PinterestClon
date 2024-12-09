@@ -10,8 +10,8 @@ export interface OwnerProfileInterface {
   about?: string;
   website?: string;
   private_account?: boolean;
-  followers?: string;
-  following?: string;
+  followers_count?: string;
+  following_count?: string;
 }
 
 export interface SearchUserProfileInterface {
@@ -27,8 +27,8 @@ export interface SearchUserProfileInterface {
   about?: string;
   website?: string;
   private_account?: boolean;
-  followers?: string;
-  following_accounts?: string;
+  followers_count?: string;
+  following_count?: string;
   follows_you?: boolean;
   following?: boolean;
   its_you?: boolean;

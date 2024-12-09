@@ -866,8 +866,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile/:username`
     "about": "String?",
     "website": "String?",
     "private_account": "Boolean",
-    "followers": "Number",
-    "following": "Number"
+    "followers_count": "Number",
+    "following_count": "Number"
   }
 }
 ```
@@ -892,8 +892,8 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
     "about": "String?",
     "website": "String?",
     "private_account": "Boolean",
-    "followers": "Number",
-    "following": "Number"
+    "followers_count": "Number",
+    "following_count": "Number"
   }
 }
 ```

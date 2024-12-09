@@ -22,7 +22,7 @@ const SearchUser = ({ elem, index, setModal }: SearchUserInterface) => {
       return;
     }
     getSearchUserProfile(username);
-    router.push(`/account-search?query=${username}`);
+    router.push(`/${username}`);
     updateDataSearch('value', '');
     setModal(false);
   };

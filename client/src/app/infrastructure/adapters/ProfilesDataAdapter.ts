@@ -26,8 +26,8 @@ export const getUserOwnerProfileAdapter =
           about: response.about || '',
           website: response.website || '',
           private_account: response.private_account || false,
-          followers: response.followers || '',
-          following: response.following || '',
+          followers_count: response.followers_count || '',
+          following_count: response.following_count || '',
         };
       }
 
@@ -58,10 +58,11 @@ export const getSearchUserProfileAdapter = async (
         about: response.about || '',
         website: response.website || '',
         private_account: response.private_account,
-        followers: response.followers,
-        following_accounts: response.following_accounts,
+        followers_count: response.followers_count,
+        following_count: response.following_count,
         follows_you: response.follows_you,
         following: response.following,
+        its_you: response.its_you,
       };
     }
 

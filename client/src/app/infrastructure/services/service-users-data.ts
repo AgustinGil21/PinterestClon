@@ -40,8 +40,6 @@ export const serviceGetSearchUserProfile = async (
 
     const result = SearchUserProfileSchema.safeParse(response.data.profile);
 
-    console.log(result);
-
     return result.success ? result.data : null;
   } catch (error) {
     console.log(error);
