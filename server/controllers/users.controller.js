@@ -62,7 +62,7 @@ export default class UsersController {
         return res.status(200).json({ profile: filteredData });
       }
     } catch (err) {
-      return res.status(404).json({ message: 'User not found!' });
+      return res.status(404).json({ message: 'User not found' });
     }
   }
 
