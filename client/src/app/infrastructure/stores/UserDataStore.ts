@@ -79,7 +79,7 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
   postFollowUser: async (id: string) => {
     const response = await postFollowUserCase(id);
     set((state) => ({
-      isFollowing: !state.isFollowing, // Devolvemos el nuevo valor de `isFollowing`
+      isFollowing: !state.isFollowing,
     }));
   },
 });

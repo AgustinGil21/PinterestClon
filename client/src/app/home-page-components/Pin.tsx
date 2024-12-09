@@ -17,6 +17,7 @@ export const Pin = ({
   avatar_background,
   avatar_letter_color,
   avatar_letter,
+  className,
 }: PinInterface) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
@@ -41,7 +42,7 @@ export const Pin = ({
   }, [body]);
 
   return (
-    <section className=''>
+    <section className={`${className}`}>
       {!isLoaded && username ? (
         <div className='animate-pulse p-0.5'>
           <div

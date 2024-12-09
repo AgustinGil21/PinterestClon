@@ -8,6 +8,7 @@ import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
 import ButtonsGroup from './ButtonsGroup';
 import CreatesOrSavesLink from './CreatesOrSavesLink';
 import { useRouter } from 'next/router';
+import Masonry from '../interfaces/components/Basic/Masonry';
 
 export default function UserProfile() {
   const [loading, setLoading] = useState(true);
@@ -16,9 +17,7 @@ export default function UserProfile() {
   const {
     getPreviousPins,
     previousPin,
-
     getUserOwnerProfile,
-
     dataSearchUserProfile,
     isShareAccountOpen,
     openShareAccountModal,
@@ -75,11 +74,16 @@ export default function UserProfile() {
         />
       </div>
       {savesOrCreates ? (
-        <div className='masonry mt-5'>
+        <Masonry>
           {previousPin.map((elem) => (
-            <Pin pin_id={elem.id} key={elem.id} body={elem.body} />
+            <Pin
+              className='mb-4'
+              pin_id={elem.id}
+              key={elem.id}
+              body={elem.body}
+            />
           ))}
-        </div>
+        </Masonry>
       ) : (
         <p>Guardados</p>
       )}
