@@ -20,7 +20,7 @@ export const Header = () => {
   const { modalRef } = useCloseModal({ setModal });
 
   return (
-    <header className='w-full  text-white py-3 flex gap-3 px-5 items-center '>
+    <header className='w-full  text-white py-3 flex gap-3 px-5 items-center header-big-screen'>
       <div className='flex items-center gap-2'>
         <PinterestLogo />
         <NavUser loginAuth={loginAuth} />

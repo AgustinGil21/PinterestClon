@@ -530,7 +530,7 @@
 
 .category-big-card:hover {
   transform: scale(1.03) !important;
-  filter: brightness(0.7) !important;
+  filter: brightness(0.8) !important;
 }
 
 .text-border {
