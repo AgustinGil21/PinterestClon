@@ -31,4 +31,5 @@ export interface SearchUserProfileInterface {
   following_accounts?: string;
   follows_you?: boolean;
   following?: boolean;
+  its_you?: boolean;
 }

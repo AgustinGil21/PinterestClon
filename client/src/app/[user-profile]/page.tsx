@@ -7,6 +7,7 @@ import DataUser from './DataUser';
 import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
 import ButtonsGroup from './ButtonsGroup';
 import CreatesOrSavesLink from './CreatesOrSavesLink';
+import { useRouter } from 'next/router';
 
 export default function UserProfile() {
   const [loading, setLoading] = useState(true);
@@ -15,23 +16,31 @@ export default function UserProfile() {
   const {
     getPreviousPins,
     previousPin,
+
     getUserOwnerProfile,
-    dataOwnerProfile,
+
+    dataSearchUserProfile,
     isShareAccountOpen,
     openShareAccountModal,
+    getSearchUserProfile,
   } = useAppsStore();
 
+  const username: string | null = sessionStorage.getItem('username');
   useEffect(() => {
     const fetchData = async () => {
       await getPreviousPins();
-      await getUserOwnerProfile();
+      if (username) {
+        await getSearchUserProfile(username);
+      }
+
+      console.log(dataSearchUserProfile);
       setLoading(false);
     };
 
     fetchData();
   }, []);
 
-  if (!dataOwnerProfile.username) {
+  if (!dataSearchUserProfile.username) {
     return null;
   }
 
@@ -46,18 +55,18 @@ export default function UserProfile() {
     <section className='p-5 min-h-screen flex w-full flex-col'>
       <div className='flex items-center w-full flex-col '>
         <AvatarUser
-          data={dataOwnerProfile}
+          data={dataSearchUserProfile}
           classProps='h-[110px] w-[110px] '
           textSize='text-[40px]'
           isClickable={false}
         />
 
-        <DataUser data={dataOwnerProfile} />
+        <DataUser data={dataSearchUserProfile} />
 
         <ButtonsGroup
           isShareAccountOpen={isShareAccountOpen}
           openShareAccountModal={openShareAccountModal}
-          username={dataOwnerProfile.username}
+          username={dataSearchUserProfile.username}
         />
 
         <CreatesOrSavesLink

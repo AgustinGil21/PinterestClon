@@ -26,7 +26,7 @@ const CardCategoryModal = ({ elem, setModal }: CardCategoryInterface) => {
       onClick={() => handleClick(elem)}
     >
       <div
-        className='w-[40%] bg-gray-500 p-3 rounded-l-xl overflow-hidden break-words overflow-ellipsis whitespace-nowrap h-full bg-cover bg-no-repeat bg-center relative z-0 flex justify-center items-center'
+        className='w-[45%] bg-gray-500 p-3 rounded-l-xl overflow-hidden break-words overflow-ellipsis whitespace-nowrap h-full bg-cover bg-no-repeat bg-center relative z-0 flex justify-center items-center'
         style={{ backgroundImage: `url(${elem.poster})` }}
       >
         <p className='invisible absolute font-bold text-white text-lg z-20 text-border'>

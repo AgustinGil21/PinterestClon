@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
 import { usePathname, useSearchParams } from 'next/navigation';
 import DataUser from '../[user-profile]/DataUser';
-import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import DownloadShare from './DownloadShare';
 import ThreePointsBlok from './ThreePointsBlok';
 import Message from './Message';

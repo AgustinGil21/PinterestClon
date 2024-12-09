@@ -7,21 +7,35 @@ import { UserLoggedIn } from './LogIn/UserLoggedIn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const Header = () => {
-  const { isAuth, getDataUserLogged, getSuggestions, setIsHeaderLoaded } =
+  const { isAuth, userPublicData, getDataUserLogged, setIsHeaderLoaded } =
     useAppsStore();
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      await getDataUserLogged();
+      try {
+        await getDataUserLogged();
 
-      setLoading(false);
-      setIsHeaderLoaded(true);
+        if (userPublicData && userPublicData.username) {
+          const storedUsername = sessionStorage.getItem('username');
+          if (!storedUsername || storedUsername !== userPublicData.username) {
+            sessionStorage.setItem('username', userPublicData.username);
+          }
+        }
+      } catch (error) {
+        console.error(
+          'Error al obtener la información pública del usuario:',
+          error
+        );
+      } finally {
+        setLoading(false);
+        setIsHeaderLoaded(true);
+      }
     };
 
     fetchData();
-  }, [getDataUserLogged, setIsHeaderLoaded]);
+  }, [getDataUserLogged, setIsHeaderLoaded, userPublicData]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -34,21 +48,6 @@ export const Header = () => {
   const handleScroll = () => {
     setShadow(window.scrollY > 0);
   };
-
-  // if (loading) {
-  //   return (
-  //     <header className='w-full text-white py-3 flex gap-3 px-4 items-center bg-white dark:bg-gray-900 fixed'>
-  //       <div className='flex items-center gap-2.5'>
-  //         <div className='hover:bg-slate-200 p-2 rounded-full cursor-pointer mr-1.5'>
-  //           <PinterestLogo classProps='w-[21px] h-[21px]' />
-  //         </div>
-  //         <NavUser loginAuth={isAuth} />
-  //       </div>
-  //       <SearchInput />
-  //       <UserLoggedIn />
-  //     </header>
-  //   );
-  // }
 
   if (loading) {
     return null;
@@ -67,7 +66,7 @@ export const Header = () => {
         <NavUser loginAuth={isAuth} />
       </div>
       <SearchInput />
-      {loading ? <UserLoggedIn /> : isAuth ? <UserLoggedIn /> : <HeaderAuth />}
+      {isAuth ? <UserLoggedIn /> : <HeaderAuth />}
     </header>
   );
 };

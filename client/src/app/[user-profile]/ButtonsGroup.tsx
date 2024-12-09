@@ -9,7 +9,7 @@ import ModalShareAccount from './ModalShareAccount';
 
 interface ButtonGroupInterface {
   isShareAccountOpen: boolean;
-  // openShareAccountModal: () => void;
+  openShareAccountModal: () => void;
   username: string;
 }
 

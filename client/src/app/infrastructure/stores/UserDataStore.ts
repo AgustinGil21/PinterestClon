@@ -53,6 +53,7 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     following_count: 0,
     follows_you: false,
     following: false,
+    its_you: false,
   },
 
   isFollowing: false,

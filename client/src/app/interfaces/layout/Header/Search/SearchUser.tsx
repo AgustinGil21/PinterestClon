@@ -13,7 +13,14 @@ const SearchUser = ({ elem, index, setModal }: SearchUserInterface) => {
   const { getSearchUserProfile, updateDataSearch } = useAppsStore();
   const router = useRouter();
 
+  const usernameStorage = sessionStorage.getItem('username');
+
   const handleClick = (username: string = 'username') => {
+    if (username === usernameStorage) {
+      router.push('/user-profile');
+      setModal(false);
+      return;
+    }
     getSearchUserProfile(username);
     router.push(`/account-search?query=${username}`);
     updateDataSearch('value', '');

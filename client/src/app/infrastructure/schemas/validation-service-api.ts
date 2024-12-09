@@ -207,5 +207,6 @@ export const SearchUserProfileSchema = z.object({
   followers: z.string().optional(),
   following_accounts: z.string().optional(),
   follows_you: z.boolean().optional(),
+  its_you: z.boolean().optional(),
   following: z.boolean().optional(),
 });

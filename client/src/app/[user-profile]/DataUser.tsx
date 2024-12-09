@@ -28,7 +28,7 @@ const DataUser = ({ data }: { data: any }) => {
       >
         <PinterestLogo
           color='#5d5d5d  '
-          classProps='w-[15px] h-[15px] mb-[3px]  '
+          classProps='w-[15px] h-[15px] mb-[3px]'
         />
         <span className='text-gray-600 text-center  dark:text-white'>
           {data.username}

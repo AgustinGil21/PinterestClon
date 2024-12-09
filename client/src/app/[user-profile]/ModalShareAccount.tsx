@@ -80,7 +80,7 @@ const ModalShareAccount = ({
             <div className='bg-gray-200 rounded-full p-2 flex justify-center items-center w-[44px] h-[44px] hover:bg-gray-300 mt-1 '>
               <CopyUrl />
             </div>
-            <span className='text-[11px] text-center text-nowrap'>
+            <span className='text-[11px] text-black text-center text-nowrap'>
               {copied ? 'Enlace copiado' : 'Copiar enlace'}
             </span>
           </div>
@@ -94,7 +94,7 @@ const ModalShareAccount = ({
               <div className='w-[44px] h-[44px] flex justify-center items-center hover:brightness-75'>
                 {social.icon}
               </div>
-              <span className='text-[11px]'>{social.name}</span>
+              <span className='text-[11px] text-black'>{social.name}</span>
             </div>
           ))}
         </div>
