@@ -3,6 +3,13 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import PinterestLogo from '../interfaces/components/icons/PinterestLogo';
 
 const DataUser = ({ data }: { data: any }) => {
+  const { getFollowersList, followersList } = useAppsStore();
+
+  const handleClick = () => {
+    console.log(data.username);
+    getFollowersList(data.username);
+  };
+
   return (
     <div className='flex flex-col gap-2 justify-center text-center mt-3 dark:text-white'>
       <h3 className='text-3xl font-bold '>
@@ -38,7 +45,10 @@ const DataUser = ({ data }: { data: any }) => {
       {!data.following_accounts ? (
         <div className='flex flex-row gap-2 justify-center'>
           {data.followers !== '0' && (
-            <p className='text-[15px] font-semibold cursor-pointer'>
+            <button
+              className='text-[15px] font-semibold cursor-pointer'
+              onClick={handleClick}
+            >
               <InteractionSummary
                 type='followers'
                 value={data.followers}
@@ -46,17 +56,17 @@ const DataUser = ({ data }: { data: any }) => {
                 className='flex gap-1'
                 numberFirst
               />
-            </p>
+            </button>
           )}
 
-          <p className='text-[15px] font-semibold cursor-pointer'>
+          <button className='text-[15px] font-semibold cursor-pointer'>
             <InteractionSummary
               type='following'
               value={data.following}
               lang='es'
               className='flex gap-1'
             />
-          </p>
+          </button>
         </div>
       ) : (
         <div className='flex flex-row gap-1 justify-center'>

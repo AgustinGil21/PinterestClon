@@ -1,11 +1,14 @@
 import { getUserOwnerProfileCase } from '@/app/application/use-cases/profile-data/getUserOwnerProfile';
 import {
+  FollowersListInterface,
   OwnerProfileInterface,
   SearchUserProfileInterface,
 } from '@/app/domain/types/data-users';
 import { StateCreator } from 'zustand';
 import { getSearchUserProfileCase } from '@/app/application/use-cases/profile-data/getSearchUserProfile';
 import { postFollowUserCase } from '@/app/application/use-cases/profile-data/postFollowUser';
+import { getFollowersListCase } from '@/app/application/use-cases/profile-data/getFollowersList';
+import { promises } from 'dns';
 
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
@@ -14,6 +17,8 @@ export interface UserDataStoreInterface {
   getSearchUserProfile: (username: string) => Promise<void>;
   postFollowUser: (id: string) => Promise<void>;
   isFollowing: boolean;
+  followersList: FollowersListInterface;
+  getFollowersList: (username: string) => Promise<void>;
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -56,6 +61,11 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     its_you: false,
   },
 
+  followersList: {
+    followers: [],
+    followersCount: 0,
+  },
+
   isFollowing: false,
 
   getUserOwnerProfile: async () => {
@@ -81,5 +91,13 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     set((state) => ({
       isFollowing: !state.isFollowing, // Devolvemos el nuevo valor de `isFollowing`
     }));
+  },
+
+  getFollowersList: async (username: string) => {
+    const response = await getFollowersListCase(username);
+
+    set({
+      followersList: response,
+    });
   },
 });

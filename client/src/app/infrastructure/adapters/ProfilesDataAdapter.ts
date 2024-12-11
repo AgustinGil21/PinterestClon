@@ -1,8 +1,10 @@
 import {
+  FollowersListInterface,
   OwnerProfileInterface,
   SearchUserProfileInterface,
 } from '@/app/domain/types/data-users';
 import {
+  serviceGetFollowersList,
   serviceGetSearchUserProfile,
   serviceGetUserOwnerProfile,
   servicePostFollowUser,
@@ -76,4 +78,35 @@ export const postFollowUserAdapter = async (
   id: string
 ): Promise<boolean | null> => {
   return await servicePostFollowUser(id);
+};
+
+export const getFollowersListAdapter = async (
+  username: string
+): Promise<FollowersListInterface> => {
+  try {
+    const response = await serviceGetFollowersList(username);
+
+    const adaptedResponse = {
+      followers: response.followers.map((follower) => ({
+        id: follower.id,
+        username: follower.username,
+        name: follower.name || '',
+        surname: follower.surname || '',
+        verified: follower.verified,
+        avatar: follower.avatar || '',
+        avatar_background: follower.avatar_background,
+        avatar_letter_color: follower.avatar_letter_color,
+        avatar_letter: follower.avatar_letter,
+        its_you: follower.its_you,
+        follows_you: follower.follows_you,
+        following: follower.following,
+      })),
+      followersCount: response.followersCount || 0,
+    };
+
+    return adaptedResponse;
+  } catch (error) {
+    console.error('Error in getFollowersListAdapter:', error);
+    return { followers: [], followersCount: 0 };
+  }
 };

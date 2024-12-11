@@ -11,7 +11,6 @@ import {
   PinInterface,
 } from '@/app/domain/types/pins-structure';
 import {
-  ArrayCategoriesPinsSchema,
   ArrayPreviousPinSchema,
   ArraySuggestionSchema,
   CategoriesSchema,

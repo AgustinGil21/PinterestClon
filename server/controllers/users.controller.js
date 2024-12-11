@@ -88,7 +88,9 @@ export default class UsersController {
           .json({ followers: filteredFollowers, followersCount });
       }
     } catch (err) {
+      console.log(err)
       return res.status(400).json({ message: 'Could not get user followers!' });
+    
     }
   }
 

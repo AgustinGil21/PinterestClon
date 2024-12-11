@@ -1,8 +1,11 @@
 import { OwnerProfileInterface } from '@/app/domain/types/data-users';
 import { SearchUserProfileInterface } from '@/app/domain/types/data-users';
 import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
+import { FollowersListInterface } from '@/app/domain/types/data-users';
 import axios from 'axios';
 import {
+  FollowersListSchema,
+  FollowersSchema,
   OwnerProfileSchema,
   SearchUserProfileSchema,
 } from '../schemas/validation-service-api';
@@ -67,5 +70,27 @@ export const servicePostFollowUser = async (
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const serviceGetFollowersList = async (
+  username: string
+): Promise<FollowersListInterface> => {
+  console.log(username);
+  try {
+    const response = await axios.get(
+      `http://localhost:1234/pinterest-clon-api/users/followers-list/${username}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+
+    const result = FollowersListSchema.safeParse(response.data);
+
+    return result.success ? result.data : { followers: [], followersCount: 0 };
+  } catch (error) {
+    console.log(error);
+    return { followers: [], followersCount: 0 };
   }
 };

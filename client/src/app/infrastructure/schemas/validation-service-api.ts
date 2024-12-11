@@ -210,3 +210,23 @@ export const SearchUserProfileSchema = z.object({
   its_you: z.boolean().optional(),
   following: z.boolean().optional(),
 });
+
+export const FollowersSchema = z.object({
+  id: z.string(),
+  username: z.string(),
+  name: z.string().optional(),
+  surname: z.string().optional(),
+  verified: z.boolean(),
+  avatar: z.string().optional(),
+  avatar_background: z.string(),
+  avatar_letter_color: z.string(),
+  avatar_letter: z.string(),
+  its_you: z.boolean(),
+  follows_you: z.boolean(),
+  following: z.boolean(),
+});
+
+export const FollowersListSchema = z.object({
+  followers: z.array(FollowersSchema),
+  followersCount: z.number(),
+});
