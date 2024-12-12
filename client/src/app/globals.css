@@ -294,8 +294,10 @@
 /* Buttons */
 
 .circle-buttons {
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   background-color: #ffffff;
   border: none;
   border-radius: 50%;
@@ -528,7 +530,7 @@
   height: clamp(12.5rem, 2.083rem + 18.519vw, 18.75rem);
 }
 
-.category-big-card:hover {
+.custom-atropos:hover .category-big-card {
   transform: scale(1.03) !important;
   filter: brightness(0.8) !important;
 }

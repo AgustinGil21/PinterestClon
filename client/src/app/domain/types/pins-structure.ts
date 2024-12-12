@@ -78,6 +78,7 @@ export interface PinInterface {
   surname?: string | null;
   avatar?: string | null;
   url?: string | null;
+  className?: string;
 }
 
 export interface GetPinsInterface {

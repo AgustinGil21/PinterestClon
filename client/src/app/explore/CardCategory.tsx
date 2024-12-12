@@ -23,11 +23,11 @@ const CardCategory = ({ elem, page = 1, limit }: CardCategoryInterface) => {
 
   return (
     <Atropos
-      className='max-w-[400px] max-h-[300px]'
+      className='max-w-[400px] max-h-[300px] custom-atropos'
       activeOffset={40}
       shadow={true}
       highlight={true}
-      innerClassName='rounded-3xl'
+      innerClassName='rounded-3xl custom-atropos'
     >
       <div
         key={elem.id}

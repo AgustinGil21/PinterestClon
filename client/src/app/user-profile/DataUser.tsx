@@ -3,10 +3,9 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import PinterestLogo from '../interfaces/components/icons/PinterestLogo';
 
 const DataUser = ({ data }: { data: any }) => {
-  const { getFollowersList, followersList } = useAppsStore();
+  const { getFollowersList } = useAppsStore();
 
   const handleClick = () => {
-    console.log(data.username);
     getFollowersList(data.username);
   };
 
@@ -42,54 +41,34 @@ const DataUser = ({ data }: { data: any }) => {
         </span>
       </div>
 
-      {!data.following_accounts ? (
-        <div className='flex flex-row gap-2 justify-center'>
-          {data.followers !== '0' && (
+      <div className='flex flex-row gap-2 justify-center'>
+        {data.followers_count !== '0' && (
+          <>
             <button
               className='text-[15px] font-semibold cursor-pointer'
               onClick={handleClick}
             >
               <InteractionSummary
                 type='followers'
-                value={data.followers}
+                value={data.followers_count}
                 lang='es'
                 className='flex gap-1'
                 numberFirst
               />
             </button>
-          )}
+            <span> · </span>
+          </>
+        )}
 
-          <button className='text-[15px] font-semibold cursor-pointer'>
-            <InteractionSummary
-              type='following'
-              value={data.following}
-              lang='es'
-              className='flex gap-1'
-            />
-          </button>
-        </div>
-      ) : (
-        <div className='flex flex-row gap-1 justify-center'>
-          {data.followers !== '0' && (
-            <p className='text-[15px] font-semibold cursor-pointer'>
-              <InteractionSummary
-                type='followers'
-                value={data.followers}
-                lang='es'
-                numberFirst
-              />
-            </p>
-          )}
-
-          <p className='text-[15px] font-semibold cursor-pointer'>
-            <InteractionSummary
-              type='following'
-              value={data.following_accounts}
-              lang='es'
-            />
-          </p>
-        </div>
-      )}
+        <p className='text-[15px] font-semibold cursor-pointer'>
+          <InteractionSummary
+            type='following'
+            value={data.following_count}
+            lang='es'
+            className='flex gap-1'
+          />
+        </p>
+      </div>
     </div>
   );
 };

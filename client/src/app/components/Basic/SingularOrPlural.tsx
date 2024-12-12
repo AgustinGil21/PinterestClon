@@ -31,9 +31,9 @@ const SingularOrPlural = ({ props }: SingularOrPluralProps) => {
       pt: value == 1 ? 'seguidor' : 'seguidores',
     },
     following: {
-      en: 'following',
-      es: 'siguiendo a',
-      pt: 'seguindo',
+      en: 'Following',
+      es: 'Siguiendo a',
+      pt: 'Seguindo',
     },
     likes: {
       en: value == 1 ? 'like' : 'likes',

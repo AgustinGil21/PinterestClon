@@ -187,8 +187,8 @@ export const OwnerProfileSchema = z.object({
   about: z.string().optional(),
   website: z.string().optional(),
   private_account: z.boolean().optional(),
-  followers: z.string().optional(),
-  following: z.string().optional(),
+  followers_count: z.string().optional(),
+  following_count: z.string().optional(),
 });
 
 export const SearchUserProfileSchema = z.object({
@@ -204,8 +204,8 @@ export const SearchUserProfileSchema = z.object({
   about: z.string().optional(),
   website: z.string().optional(),
   private_account: z.boolean().optional(),
-  followers: z.string().optional(),
-  following_accounts: z.string().optional(),
+  followers_count: z.string().optional(),
+  following_count: z.string().optional(),
   follows_you: z.boolean().optional(),
   its_you: z.boolean().optional(),
   following: z.boolean().optional(),
