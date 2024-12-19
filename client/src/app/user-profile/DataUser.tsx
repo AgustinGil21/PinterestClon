@@ -1,12 +1,40 @@
 import InteractionSummary from '../components/Basic/InteractionSummary';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import PinterestLogo from '../interfaces/components/icons/PinterestLogo';
+import ModalFollowings from './ModalFollowings';
+import ModalFollowers from './ModalFollowers';
+import { useEffect } from 'react';
 
 const DataUser = ({ data }: { data: any }) => {
-  const { getFollowersList } = useAppsStore();
+  const {
+    getFollowersList,
+    openFollowersModal,
+    isFollowerModalOpen,
+    followersList,
+    getFollowingsList,
 
-  const handleClick = () => {
-    getFollowersList(data.username);
+    followingList,
+    openFollowingsModal,
+    isFollowingsModalOpen,
+  } = useAppsStore();
+
+  // useEffect(() => {
+  //   getFollowersList(data.username);
+  // }, [followersList]);
+
+  const handleClickFollowers = async () => {
+    await getFollowersList(data.username);
+    openFollowersModal();
+  };
+
+  const HandleClickFollowings = async () => {
+    await getFollowingsList(data.username);
+
+    const updatedFollowingList = useAppsStore.getState().followingList;
+
+    if (!updatedFollowingList || updatedFollowingList.followingCount === 0)
+      return;
+    openFollowingsModal();
   };
 
   return (
@@ -46,7 +74,7 @@ const DataUser = ({ data }: { data: any }) => {
           <>
             <button
               className='text-[15px] font-semibold cursor-pointer'
-              onClick={handleClick}
+              onClick={handleClickFollowers}
             >
               <InteractionSummary
                 type='followers'
@@ -57,17 +85,22 @@ const DataUser = ({ data }: { data: any }) => {
               />
             </button>
             <span> · </span>
+            {isFollowerModalOpen && <ModalFollowers />}
           </>
         )}
 
-        <p className='text-[15px] font-semibold cursor-pointer'>
+        <button
+          className='text-[15px] font-semibold cursor-pointer'
+          onClick={HandleClickFollowings}
+        >
           <InteractionSummary
             type='following'
             value={data.following_count}
             lang='es'
             className='flex gap-1'
           />
-        </p>
+        </button>
+        {isFollowingsModalOpen && <ModalFollowings />}
       </div>
     </div>
   );

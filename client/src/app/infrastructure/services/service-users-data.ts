@@ -1,11 +1,14 @@
-import { OwnerProfileInterface } from '@/app/domain/types/data-users';
+import {
+  FollowingsListInterface,
+  OwnerProfileInterface,
+} from '@/app/domain/types/data-users';
 import { SearchUserProfileInterface } from '@/app/domain/types/data-users';
 import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import { FollowersListInterface } from '@/app/domain/types/data-users';
 import axios from 'axios';
 import {
   FollowersListSchema,
-  FollowersSchema,
+  FollowingsListSchema,
   OwnerProfileSchema,
   SearchUserProfileSchema,
 } from '../schemas/validation-service-api';
@@ -86,9 +89,35 @@ export const serviceGetFollowersList = async (
 
     const result = FollowersListSchema.safeParse(response.data);
 
+    console.log(result);
+
     return result.success ? result.data : { followers: [], followersCount: 0 };
   } catch (error) {
     console.log(error);
     return { followers: [], followersCount: 0 };
+  }
+};
+
+export const serviceGetFollowingList = async (
+  username: string
+): Promise<FollowingsListInterface> => {
+  console.log(username);
+  try {
+    const response = await axios.get(
+      `http://localhost:1234/pinterest-clon-api/users/following-list/${username}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+
+    const result = FollowingsListSchema.safeParse(response.data);
+
+    console.log(result);
+
+    return result.success ? result.data : { following: [], followingCount: 0 };
+  } catch (error) {
+    console.log(error);
+    return { following: [], followingCount: 0 };
   }
 };

@@ -1,4 +1,8 @@
 import { StateCreator } from 'zustand';
+import {
+  activeScroll,
+  bloqScroll,
+} from '@/app/interfaces/helpers/BlockOrActiveScroll';
 
 export interface ModalStateInterface {
   isLoginModalOpen: boolean;
@@ -17,7 +21,7 @@ export interface ModalStateInterface {
   closeAvatarModal: () => void;
   isDeleteUserAccountModalOpen: boolean;
   openDeleteUserAccountModal: () => void;
-  closeDeleteUserAccountModal: () => void;
+  // closeDeleteUserAccountModal: () => void;
   isChangePasswordModalOpen: boolean;
   openChangePasswordModalOpen: () => void;
   closeChangePasswordModal: () => void;
@@ -30,9 +34,16 @@ export interface ModalStateInterface {
   openDownloadAccountModal: () => void;
   isThreePointsAccountOpen: boolean;
   openThreePointsAcountModal: () => void;
+  openFollowersModal: () => void;
+  isFollowerModalOpen: boolean;
+  isFollowingsModalOpen: boolean;
+  openFollowingsModal: () => void;
 }
 
-export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
+export const createModalStore: StateCreator<ModalStateInterface> = (
+  set,
+  get
+) => ({
   isLoginModalOpen: false,
   isRegisterModalOpen: false,
   isGenderModalOpen: false,
@@ -44,6 +55,8 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
   isShareAccountOpen: false,
   isDownloadAccountOpen: false,
   isThreePointsAccountOpen: false,
+  isFollowerModalOpen: false,
+  isFollowingsModalOpen: false,
 
   openLoginModal: () =>
     set({
@@ -93,14 +106,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
     });
   },
   openDeleteUserAccountModal: () => {
-    set({
-      isDeleteUserAccountModalOpen: true,
-    });
-  },
-  closeDeleteUserAccountModal: () => {
-    set({
-      isDeleteUserAccountModalOpen: false,
-    });
+    set((state) => ({
+      isDeleteUserAccountModalOpen: !state.isDeleteUserAccountModalOpen,
+    }));
   },
   openChangePasswordModalOpen: () => {
     set({
@@ -138,6 +146,20 @@ export const createModalStore: StateCreator<ModalStateInterface> = (set) => ({
     set((state) => ({
       isThreePointsAccountOpen: !state.isThreePointsAccountOpen,
       isDownloadAccountOpen: false,
+    }));
+  },
+  openFollowersModal: () => {
+    if (get().isFollowerModalOpen) bloqScroll();
+    if (!get().isFollowerModalOpen) activeScroll();
+    set((state) => ({
+      isFollowerModalOpen: !state.isFollowerModalOpen,
+    }));
+  },
+  openFollowingsModal: () => {
+    if (get().isFollowingsModalOpen) bloqScroll();
+    if (!get().isFollowingsModalOpen) activeScroll();
+    set((state) => ({
+      isFollowingsModalOpen: !state.isFollowingsModalOpen,
     }));
   },
 });

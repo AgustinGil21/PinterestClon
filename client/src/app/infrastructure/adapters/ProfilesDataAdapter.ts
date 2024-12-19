@@ -1,10 +1,12 @@
 import {
   FollowersListInterface,
+  FollowingsListInterface,
   OwnerProfileInterface,
   SearchUserProfileInterface,
 } from '@/app/domain/types/data-users';
 import {
   serviceGetFollowersList,
+  serviceGetFollowingList,
   serviceGetSearchUserProfile,
   serviceGetUserOwnerProfile,
   servicePostFollowUser,
@@ -87,6 +89,8 @@ export const getFollowersListAdapter = async (
   try {
     const response = await serviceGetFollowersList(username);
 
+    console.log(response);
+
     const adaptedResponse = {
       followers: response.followers.map((follower) => ({
         id: follower.id,
@@ -105,9 +109,46 @@ export const getFollowersListAdapter = async (
       followersCount: response.followersCount || 0,
     };
 
+    console.log(adaptedResponse);
+
     return adaptedResponse;
   } catch (error) {
     console.error('Error in getFollowersListAdapter:', error);
     return { followers: [], followersCount: 0 };
+  }
+};
+
+export const getFollowingsListAdapter = async (
+  username: string
+): Promise<FollowingsListInterface> => {
+  try {
+    const response = await serviceGetFollowingList(username);
+
+    console.log(response);
+
+    const adaptedResponse = {
+      following: response.following.map((following) => ({
+        id: following.id,
+        username: following.username,
+        name: following.name || '',
+        surname: following.surname || '',
+        verified: following.verified,
+        avatar: following.avatar || '',
+        avatar_background: following.avatar_background,
+        avatar_letter_color: following.avatar_letter_color,
+        avatar_letter: following.avatar_letter,
+        its_you: following.its_you,
+        follows_you: following.follows_you,
+        following: following.following,
+      })),
+      followingCount: response.followingCount || 0,
+    };
+
+    console.log(adaptedResponse);
+
+    return adaptedResponse;
+  } catch (error) {
+    console.error('Error in getFollowe  rsListAdapter:', error);
+    return { following: [], followingCount: 0 };
   }
 };

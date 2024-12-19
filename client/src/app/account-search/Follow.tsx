@@ -1,23 +1,44 @@
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
+import { useState } from 'react';
 
-const Follow = () => {
-  const { postFollowUser, dataSearchUserProfile } = useAppsStore();
+interface FollowingInterface {
+  following?: boolean;
+  id: string;
+}
+
+const Follow = ({ following, id }: FollowingInterface) => {
+  const {
+    postFollowUser,
+    dataSearchUserProfile,
+    isFollowingsModalOpen,
+    isFollowerModalOpen,
+  } = useAppsStore();
+
+  const [isFollowing, setFollowing] = useState(following);
 
   const handleClick = () => {
-    postFollowUser(dataSearchUserProfile.id);
+    if (id) {
+      postFollowUser(id);
+      setFollowing(!isFollowing);
+    } else {
+      // console.log(id);
+      // console.log(following);
+      postFollowUser(dataSearchUserProfile.id);
+      setFollowing(!isFollowing);
+    }
   };
 
   return (
     <ButtonStyled
-      className={` ${
-        dataSearchUserProfile.following
-          ? 'bg-black rounded-full text-white font-semibold py-3 px-4'
-          : 'bg-redPinterestBg rounded-full text-white font-semibold py-3 px-4 hover:bg-red-800'
+      className={`  font-semibold  py-2 px-4 text-white ${
+        isFollowing
+          ? 'bg-black rounded-full   '
+          : 'bg-redPinterestBg rounded-full hover:bg-red-800'
       }`}
       handleClick={handleClick}
     >
-      {dataSearchUserProfile.following ? 'Siguiendo' : 'Seguir'}
+      {isFollowing ? 'Siguiendo' : 'Seguir'}
     </ButtonStyled>
   );
 };

@@ -18,6 +18,10 @@ export default function SearchProfile() {
   const username = searchParams.get('query');
 
   useEffect(() => {
+    console.log(dataSearchUserProfile);
+  }, [dataSearchUserProfile.id]);
+
+  useEffect(() => {
     const fetchData = async () => {
       setLoading(false);
     };
@@ -66,7 +70,10 @@ export default function SearchProfile() {
 
           <div className=' flex flex-row gap-2'>
             <Message />
-            <Follow />
+            <Follow
+              following={dataSearchUserProfile.following}
+              id={dataSearchUserProfile.id}
+            />
           </div>
           <ThreePointsBlok />
         </div>

@@ -42,14 +42,34 @@ export interface FollowersInterface {
   verified: boolean;
   avatar?: string;
   avatar_background: string;
-  avatar_letter_color: string;
-  avatar_letter: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
   its_you?: boolean;
-  follows_you: boolean;
-  following: boolean;
+  follows_you?: boolean;
+  following?: boolean;
 }
 
 export interface FollowersListInterface {
   followers: FollowersInterface[];
   followersCount: number;
+}
+
+export interface FollowingsInterface {
+  id: string;
+  username: string;
+  name?: string;
+  surname?: string;
+  verified: boolean;
+  avatar?: string;
+  avatar_background: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
+  its_you?: boolean;
+  follows_you?: boolean;
+  following?: boolean;
+}
+
+export interface FollowingsListInterface {
+  following: FollowersInterface[];
+  followingCount: number;
 }

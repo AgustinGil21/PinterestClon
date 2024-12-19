@@ -219,14 +219,34 @@ export const FollowersSchema = z.object({
   verified: z.boolean(),
   avatar: z.string().optional(),
   avatar_background: z.string(),
-  avatar_letter_color: z.string(),
+  avatar_letter_color: z.string().optional(),
   avatar_letter: z.string(),
-  its_you: z.boolean(),
-  follows_you: z.boolean(),
-  following: z.boolean(),
+  its_you: z.boolean().optional(),
+  follows_you: z.boolean().optional(),
+  following: z.boolean().optional(),
 });
 
 export const FollowersListSchema = z.object({
   followers: z.array(FollowersSchema),
   followersCount: z.number(),
+});
+
+export const FollowingsSchema = z.object({
+  id: z.string(),
+  username: z.string(),
+  name: z.string().optional(),
+  surname: z.string().optional(),
+  verified: z.boolean(),
+  avatar: z.string().optional(),
+  avatar_background: z.string(),
+  avatar_letter_color: z.string().optional(),
+  avatar_letter: z.string(),
+  its_you: z.boolean().optional(),
+  follows_you: z.boolean().optional(),
+  following: z.boolean().optional(),
+});
+
+export const FollowingsListSchema = z.object({
+  following: z.array(FollowingsSchema),
+  followingCount: z.number(),
 });

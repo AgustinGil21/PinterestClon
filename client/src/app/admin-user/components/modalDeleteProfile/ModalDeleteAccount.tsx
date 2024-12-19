@@ -4,9 +4,9 @@ import ModalStyled from '@/app/interfaces/components/Basic/ModalStyled';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 
 const ModalDeleteAccount = () => {
-  const { closeDeleteUserAccountModal, deleteUserAccount, postDataLogOut } =
+  const { openDeleteUserAccountModal, deleteUserAccount, postDataLogOut } =
     useAppsStore();
-  const { modalRef } = useCloseModal({ setModal: closeDeleteUserAccountModal });
+  const { modalRef } = useCloseModal({ setModal: openDeleteUserAccountModal });
 
   const handleClickDelete = async () => {
     postDataLogOut();
@@ -39,7 +39,7 @@ const ModalDeleteAccount = () => {
               Confirmar
             </ButtonStyled>
             <ButtonStyled
-              handleClick={closeDeleteUserAccountModal}
+              handleClick={openDeleteUserAccountModal}
               className='bg-buttonGreyBg font-semibold w-full hover:bg-gray-300 dark:text-black'
               disabled={false}
             >

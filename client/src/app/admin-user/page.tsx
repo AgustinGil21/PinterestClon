@@ -5,8 +5,12 @@ import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const AdminProfile = () => {
-  const { getDataUserLogged, getUserAccountManagement, userAccountManagment } =
-    useAppsStore();
+  const {
+    getDataUserLogged,
+    getUserAccountManagement,
+    userAccountManagment,
+    isDeleteUserAccountModalOpen,
+  } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +36,11 @@ const AdminProfile = () => {
   }
 
   return (
-    <section className='p-5 py-8 flex flex-col min-h-[130vh]'>
+    <section
+      className={`p-5 py-8 flex flex-col min-h-[calc(100vh+100px)] ${
+        isDeleteUserAccountModalOpen ? 'overflow-hidden' : ''
+      }`}
+    >
       <div className='max-w-[420px] w-full lg:ml-[240px] flex flex-col gap-5 dark:text-white'>
         <div>
           <h2 className='text-[23px] font-semibold'>
