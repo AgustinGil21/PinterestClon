@@ -147,7 +147,7 @@ ORDER BY
     const users = response.rows;
     const usersCount = response.rowCount;
 
-    if (response) {
+    if (users) {
       return {
         response: { followers: users, followersCount: usersCount },
         ok: true,

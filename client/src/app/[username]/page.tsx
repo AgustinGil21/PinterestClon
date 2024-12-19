@@ -61,7 +61,10 @@ export default function UserProfile({ params }: Props) {
           <DownloadShare />
           <div className='flex flex-row gap-2'>
             <Message />
-            <Follow />
+            <Follow
+              following={dataSearchUserProfile.following}
+              id={dataSearchUserProfile.id}
+            />
           </div>
           <ThreePointsBlok />
         </div>

@@ -79,7 +79,6 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
 
   getUserOwnerProfile: async () => {
     const response = await getUserOwnerProfileCase();
-    console.log(response);
 
     if (response) {
       set({ dataOwnerProfile: response });
