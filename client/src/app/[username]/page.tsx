@@ -9,6 +9,7 @@ import DownloadShare from '../account-search/DownloadShare';
 import ThreePointsBlok from '../account-search/ThreePointsBlok';
 import Message from '../account-search/Message';
 import Follow from '../account-search/Follow';
+import ButtonsGroup from '../user-profile/ButtonsGroup';
 
 interface Props {
   params: { username?: string };
@@ -16,8 +17,13 @@ interface Props {
 
 export default function UserProfile({ params }: Props) {
   const [loading, setLoading] = useState(true);
-  const { dataSearchUserProfile, getSearchUserProfile, isFollowing } =
-    useAppsStore();
+  const {
+    dataSearchUserProfile,
+    getSearchUserProfile,
+    isFollowing,
+    openShareAccountModal,
+    isShareAccountOpen,
+  } = useAppsStore();
   const { username } = params;
 
   useEffect(() => {
@@ -46,28 +52,31 @@ export default function UserProfile({ params }: Props) {
   return (
     <section className='p-5 min-h-screen flex w-full flex-col'>
       <div className='flex items-center w-full flex-col'>
-        {dataSearchUserProfile.its_you ? (
-          <div>Es tu perfil</div>
-        ) : (
-          <div>No es tu perfil</div>
-        )}
         <AvatarUser
           data={dataSearchUserProfile}
           classProps='w-[110px] h-[110px]'
           textSize='text-[40px]'
         />
         <DataUser data={dataSearchUserProfile} />
-        <div className='flex flex-row justify-between items-center gap-3.5 mt-4'>
-          <DownloadShare />
-          <div className='flex flex-row gap-2'>
-            <Message />
-            <Follow
-              following={dataSearchUserProfile.following}
-              id={dataSearchUserProfile.id}
-            />
+        {dataSearchUserProfile.its_you ? (
+          <ButtonsGroup
+            username={dataSearchUserProfile.username}
+            openShareAccountModal={openShareAccountModal}
+            isShareAccountOpen={isShareAccountOpen}
+          />
+        ) : (
+          <div className='flex flex-row justify-between items-center gap-3.5 mt-4'>
+            <DownloadShare />
+            <div className='flex flex-row gap-2'>
+              <Message />
+              <Follow
+                following={dataSearchUserProfile.following}
+                id={dataSearchUserProfile.id}
+              />
+            </div>
+            <ThreePointsBlok />
           </div>
-          <ThreePointsBlok />
-        </div>
+        )}
       </div>
     </section>
   );

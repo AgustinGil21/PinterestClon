@@ -1,10 +1,10 @@
+import { RefObject, useState } from 'react';
 import ModalStyled from '../interfaces/components/Basic/ModalStyled';
 import CopyUrl from '../interfaces/components/icons/CopyUrl';
 import WhatsappIcon from '../interfaces/components/icons/WhatsappIcon';
 import MessengerIcon from '../interfaces/components/icons/MessengerIcon';
 import TwitterIcon from '../interfaces/components/icons/TwitterIcon';
 import FacebookIcon from '../interfaces/components/icons/FacebookIcon';
-import { RefObject, useState } from 'react';
 
 interface ModalShareAccountInterface {
   modalRef: RefObject<HTMLDivElement>;
@@ -29,7 +29,7 @@ const ModalShareAccount = ({
   ) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 10000);
+      setTimeout(() => setCopied(false), 2000);
     });
   };
 

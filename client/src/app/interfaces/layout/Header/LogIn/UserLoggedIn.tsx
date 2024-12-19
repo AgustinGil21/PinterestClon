@@ -20,7 +20,7 @@ export const UserLoggedIn = () => {
 
       <div className='flex items-center gap-3 -m-2'>
         <LinkNavigate
-          href={'/user-profile'}
+          href={`/${userPublicData?.username}`}
           classProps='hover:bg-slate-200 p-1 rounded-full cursor-pointer '
         >
           <Tooltip tooltipText='Tu perfil'>
