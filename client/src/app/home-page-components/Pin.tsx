@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PinInterface } from '../domain/types/pins-structure';
 import getDarkColor from '../interfaces/helpers/getColorDark';
+import { getDomain } from '../libs/getDomain';
 
 export const Pin = ({
   body,
@@ -21,14 +22,7 @@ export const Pin = ({
 }: PinInterface) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
-
-  const goToButtonURLDomain = url
-    ?.split('//')[1]
-    ?.split('.')[1]
-    ?.split('/' || '?')[0];
-
-  const goToButtonTLD = url?.split('.')[2]?.split('/' || '?')[0];
-  const buttonURL = `${goToButtonURLDomain}.${goToButtonTLD}`;
+  const buttonURL = getDomain(url);
   const userProfile = `/${username}`;
 
   useEffect(() => {
@@ -109,7 +103,11 @@ export const Pin = ({
               </div>
 
               {url && (
-                <a href={url} className='go-to text-blue-500' title={buttonURL}>
+                <a
+                  href={url}
+                  className='go-to text-blue-500'
+                  title={buttonURL || ''}
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 20 20'

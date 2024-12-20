@@ -173,14 +173,15 @@ export default class BoardsController {
   }
 
   static async createBoard(req, res) {
-    const { id } = req.user;
-    const { name, description } = req.body;
+    const { id: userID } = req.user;
+    const { name, description, pinId: pinID } = req.body;
 
     try {
       const result = await BoardsModel.createBoard({
-        id,
+        userID,
         name,
         description,
+        pinID,
       });
 
       if (result.ok) {

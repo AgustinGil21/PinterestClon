@@ -1128,12 +1128,18 @@ _id_: ID del tablero
   "name": "String",
   "description": "String?",
   "its_yours": "Boolean?",
-  "following": "String<Number>?",
-  "avatar": "String<URL>",
-  "avatar_letter": "String<Char>",
-  "avatar_letter_color": "String<Hex>",
-  "avatar_background": "String<Hex>",
+  "following": "Boolean?",
   "pins_count": "String<Number>",
+  "user": {
+    "id": "String<UUID>",
+    "name": "String?",
+    "surname": "String?",
+    "username": "String",
+    "avatar": "String<URL>",
+    "avatar_letter": "String<Char>",
+    "avatar_letter_color": "String<Hex>",
+    "avatar_background": "String<Hex>"
+  },
   "pins": [
     {
       "body": "String<URL>",
@@ -1210,7 +1216,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/create`
 ```json
 {
   "name": "String",
-  "description": "String?"
+  "description": "String?",
+  "pinId": "String<UUID>?"
 }
 ```
 

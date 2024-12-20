@@ -17,7 +17,7 @@ const ButtonsGroup = ({
   username,
   isShareAccountOpen,
 }: ButtonGroupInterface) => {
-  const { openShareAccountModal } = useAppsStore();
+  const { openShareAccountModal, openDownloadAccountModal } = useAppsStore();
   const buttonRef = useRef(null);
 
   const { modalRef } = useCloseModal({

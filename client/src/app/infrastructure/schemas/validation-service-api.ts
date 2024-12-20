@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { string, z } from 'zod';
 
 //Genders Schema
 export const genderSchema = z.object({
@@ -249,4 +249,63 @@ export const FollowingsSchema = z.object({
 export const FollowingsListSchema = z.object({
   following: z.array(FollowingsSchema),
   followingCount: z.number(),
+});
+
+export const LastBoardSchema = z.object({
+  board: z.string(),
+});
+
+export const BoardsListSchema = z.object({
+  boards: z.array(
+    z.object({
+      name: z.string(),
+      id: z.string(),
+      cover: z.string().optional(),
+      collage: z.array(z.string()).optional(),
+    })
+  ),
+});
+
+export const UserBoardsSchema = z.object({
+  boards: z.array(
+    z.object({
+      name: z.string(),
+      id: z.string(),
+      cover: z.string().optional(),
+      collage: z.array(z.string()).optional(),
+      created_at: z.date(),
+      pins_count: z.string(),
+      its_yours: z.boolean().optional(),
+    })
+  ),
+});
+
+export const GetBoardSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().optional(),
+  its_yours: z.boolean().optional(),
+  following: z.string().optional(),
+  avatar: z.string().url(),
+  avatar_letter: z.string().length(1),
+  avatar_letter_color: z.string(),
+  avatar_background: z.string(),
+  pins_count: z.string(),
+  pins: z.array(
+    z.object({
+      body: z.string().url(),
+      title: z.string().optional(),
+      url: z.string().url(),
+      adult_content: z.boolean(),
+      pin_id: z.string(),
+      alt_text: z.string(),
+      name: z.string().optional(),
+      surname: z.string().optional(),
+      username: z.string(),
+      avatar: z.string().url(),
+      avatar_background: z.string(),
+      avatar_letter_color: z.string(),
+      avatar_letter: z.string().length(1),
+    })
+  ),
 });

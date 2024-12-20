@@ -101,13 +101,29 @@ export default class BoardsModel {
     return { response, ok: false };
   }
 
-  static async createBoard({ name, description, id }) {
+  static async createBoard({ name, description, userID, pinID }) {
     const response = await pool.query(
-      'INSERT INTO boards(user_id, name, description) VALUES($1, $2, $3);',
-      [id, name, description]
+      'INSERT INTO boards(user_id, name, description) VALUES($1, $2, $3) RETURNING id;',
+      [userID, name, description]
     );
 
     const success = response.rowCount;
+
+    // Preparado para el caso en el que se cree
+    // un board desde la modal de crear board
+    // que hay al tocar un botón de los pins.
+    if (success && pinID) {
+      const { id: boardID } = response.rows[0];
+
+      const addPin = await pool.query(
+        'INSERT INTO board_posts(board_id, post_id) VALUES($1, $2);',
+        [boardID, pinID]
+      );
+
+      const success = response.rowCount;
+
+      if (!success) return { addPin, ok: false };
+    }
 
     if (success) return { response, ok: true };
     return { response, ok: false };
@@ -319,7 +335,7 @@ export default class BoardsModel {
   }
 
   // Información que se muestra al tocar en
-  // un board, los pins se  van a cargar
+  // un board. Los pins se van a cargar
   // con un paging.
   static async getSingleBoard({ userID, boardID, page, limit, isAuth }) {
     const offset = getOffset({ page, limit });
@@ -330,22 +346,28 @@ export default class BoardsModel {
         b.id,
         b.name, 
         b.description,
-      CASE 
-        WHEN $5 = TRUE THEN (u.id = $4)
-        ELSE NULL 
-      END AS its_yours,
-      CASE 
-        WHEN $5 = TRUE THEN 
-          (CASE 
-            WHEN (u.id = $4) THEN NULL 
-            ELSE (EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = $4 AND following_id = b.user_id)) 
-          END)
-        ELSE NULL
-      END AS following,
-        u.avatar, 
-        u.avatar_letter, 
-        u.avatar_letter_color, 
-        u.avatar_background,
+        CASE 
+          WHEN $5 = TRUE THEN (u.id = $4)
+          ELSE NULL 
+        END AS its_yours,
+        CASE 
+          WHEN $5 = TRUE THEN 
+            (CASE 
+              WHEN (u.id = $4) THEN NULL 
+              ELSE (EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = $4 AND following_id = b.user_id)) 
+            END)
+          ELSE NULL
+        END AS following,
+        json_build_object(
+          'id', u.id,
+          'avatar', u.avatar,
+          'avatar_letter', u.avatar_letter,
+          'avatar_letter_color', u.avatar_letter_color,
+          'avatar_background', u.avatar_background,
+          'username', u.username,
+          'name', u.name,
+          'surname', u.surname
+        ) AS user,
         (
             SELECT COUNT(1) 
             FROM board_posts bp 
@@ -366,7 +388,7 @@ export default class BoardsModel {
                     'avatar', pu.avatar,
                     'avatar_background', pu.avatar_background,
                     'avatar_letter_color', pu.avatar_letter_color,
-                    'avatar_letter', pu.avatar_letter,
+                    'avatar_letter', pu.avatar_letter
                 )
             )
             FROM posts p
@@ -376,13 +398,13 @@ export default class BoardsModel {
             ORDER BY p.id
             LIMIT $1 OFFSET $2
         ) AS pins
-    FROM 
+      FROM 
         boards b
-    LEFT JOIN 
+      LEFT JOIN 
         users u ON u.id = b.user_id  
-    WHERE 
+      WHERE 
         b.id = $3;  
-      `,
+    `,
       [limit, offset, boardID, userID, isAuth]
     );
 
