@@ -763,7 +763,7 @@ _username_: User username
       "body": "String",
       "url": "String<URL>?",
       "adult_content": "Boolean",
-      "its_yours": "Boolean",
+      "its_yours": "Boolean?",
       "created_at": "String<Date>"
     }
   ]
