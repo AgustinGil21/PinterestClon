@@ -11,7 +11,11 @@ router.get(
   authRequired,
   PinsController.getPreviousPinsFullData
 );
-router.get('/created/:username', PinsController.getCreatedPins);
+router.get(
+  '/created/:username',
+  isAuthenticated,
+  PinsController.getCreatedPins
+);
 router.get('/search', PinsController.searchPins);
 router.get('/search-by-category', PinsController.searchByCategory);
 router.get('/search/suggestions', PinsController.searchAutocompleteSuggestions);

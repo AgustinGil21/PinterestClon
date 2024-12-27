@@ -33,10 +33,32 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async getCreatedPins({ username }) {
+  static async getCreatedPins({ username, isAuth, userID = '', page, limit }) {
+    const offset = getOffset({ page, limit });
+
     const response = await pool.query(
-      'SELECT body, title, url, adult_content, alt_text FROM posts WHERE username = $1 GROUP BY id ORDER BY created_at ASC;',
-      [username]
+      `SELECT 
+        body, 
+        title, 
+        url, 
+        adult_content, 
+        alt_text, 
+        id, 
+        created_at,
+        CASE 
+          WHEN $1 = TRUE THEN 
+            CASE 
+              WHEN user_id = $2 THEN TRUE 
+              ELSE FALSE 
+            END 
+          ELSE NULL 
+        END AS its_yours
+      FROM posts 
+      WHERE username = $3 
+      ORDER BY created_at ASC
+      LIMIT $4 OFFSET $5
+      ;`,
+      [isAuth, userID, username, limit, offset]
     );
 
     const data = response.rows;
@@ -123,8 +145,9 @@ export default class PinsModel {
   static async getSinglePin({ pinID, userID }) {
     const response = await pool.query(
       `
-    SELECT p.id, p.title, p.description, p.topics, p.body, p.url, p.alt_text,
+    SELECT p.id, p.title, p.description, p.topics, p.body, p.url, p.alt_text, p.url
       (SELECT COUNT(1) FROM likes WHERE post_id = p.id) AS likes,
+      (SELECT EXISTS(SELECT 1 FROM likes WHERE post_id = p.id AND user_id = $1)) AS already_liked
       (SELECT COUNT(1) FROM comments WHERE post_id = p.id) AS comments,
       u.username, u.name, u.surname, u.avatar, u.avatar_background,
       u.avatar_letter_color, u.avatar_letter, u.verified,
