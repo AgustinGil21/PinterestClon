@@ -24,7 +24,7 @@ const PinCard = () => {
   return (
     <div className='max-w-[930px] bg-white shadow-pinShadow rounded-[30px] w-full p-5 flex flex-row gap-4 h-full  '>
       <ImagePin />
-      <div className='w-[50%] flex flex-col'>
+      <div className='w-[50%] flex flex-col gap-2'>
         <ActionsPin />
 
         <DataUserPinCard />
@@ -54,9 +54,9 @@ const PinCard = () => {
                   {/* <AvatarUser data={''} /> */}
                   <div className='flex flex-col'>
                     <div className='flex flex-col'>
-                      <h5 className='text-nowrap font-semibold text-[13px] flex flex-row items-center gap-1'>
+                      <h5 className='text-nowrap font-semibold text-[13px] flex flex-row items-center gap-1.5'>
                         Leo messi
-                        <span className='text-gray-400 text-[11px]'>2 a</span>
+                        <span className='text-[#b3b3b3] text-[11px]'>2 a</span>
                       </h5>
                       <p className='text-sm'>
                         Increible publciacion leo messi es increible a marcado
@@ -64,11 +64,11 @@ const PinCard = () => {
                       </p>
                     </div>
                     <div className='flex flex-row gap-2 mt-1 items-center'>
-                      <span className='text-gray-500 text-[11px] font-semibold cursor-pointer'>
+                      <span className='text-[#b3b3b3] text-[11px] font-semibold cursor-pointer'>
                         Responder
                       </span>
                       <div className='flex flex-row-reverse gap-1 items-center'>
-                        <span className='text-gray-400 text-[12px]'>4</span>{' '}
+                        <span className='text-black text-[12px]'>4</span>{' '}
                         <LikeIcon classProps='w-[12px] h-[12px] cursor-pointer' />
                       </div>
                     </div>
