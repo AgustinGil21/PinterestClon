@@ -1,4 +1,7 @@
 import { useDynamicModalPosition } from '@/app/hooks/useDynamicModalPosition';
+import { getDynamicPositionClass } from '@/app/libs/get-dynamic-position-class';
+import Modal from './Modal';
+import { useRef, useState } from 'react';
 
 interface Props {
   btnRef: React.RefObject<HTMLButtonElement>;
@@ -6,18 +9,28 @@ interface Props {
 }
 
 export const DynamicModal = ({ btnRef, parentPadding = 8 }: Props) => {
-  const { left, top, bottom, right } = useDynamicModalPosition({
+  const modalRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const position = useDynamicModalPosition({
     btnRef,
     parentPadding,
+    modalRef,
   });
 
-  const paddingClass = `${parentPadding}px`;
+  const modalPositionClass = getDynamicPositionClass({ ...position });
 
-  const modalPositionClass = `
-    absolute 
-    ${top ? 'top-[-8px] left-1/2 transform -translate-x-1/2' : ''}
-    ${bottom ? 'top-[calc(100%+8px)] left-1/2 transform -translate-x-1/2' : ''}
-    ${right ? 'top-1/2 left-[calc(100%+8px)] transform -translate-y-1/2' : ''}
-    ${left ? 'top-1/2 right-[calc(100%+8px)] transform -translate-y-1/2' : ''}
-  `;
+  const handleModalOpen = () => setIsOpen(!isOpen);
+
+  return (
+    <Modal
+      props={{
+        wrapperRef: modalRef,
+        isModalOpen: isOpen,
+        setModal: handleModalOpen,
+      }}
+    >
+      <p></p>
+    </Modal>
+  );
 };

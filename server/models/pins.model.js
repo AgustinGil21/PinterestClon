@@ -145,9 +145,9 @@ export default class PinsModel {
   static async getSinglePin({ pinID, userID }) {
     const response = await pool.query(
       `
-    SELECT p.id, p.title, p.description, p.topics, p.body, p.url, p.alt_text, p.url
+    SELECT p.id, p.title, p.description, p.topics, p.body, p.url, p.alt_text, p.url,
       (SELECT COUNT(1) FROM likes WHERE post_id = p.id) AS likes,
-      (SELECT EXISTS(SELECT 1 FROM likes WHERE post_id = p.id AND user_id = $1)) AS already_liked
+      (SELECT EXISTS(SELECT 1 FROM likes WHERE post_id = p.id AND user_id = $1)) AS already_liked,
       (SELECT COUNT(1) FROM comments WHERE post_id = p.id) AS comments,
       u.username, u.name, u.surname, u.avatar, u.avatar_background,
       u.avatar_letter_color, u.avatar_letter, u.verified,
