@@ -1,5 +1,6 @@
 import { getUserOwnerProfileCase } from '@/app/application/use-cases/profile-data/getUserOwnerProfile';
 import {
+  CreatedPinsInterface,
   FollowersListInterface,
   FollowingsListInterface,
   OwnerProfileInterface,
@@ -9,8 +10,8 @@ import { StateCreator } from 'zustand';
 import { getSearchUserProfileCase } from '@/app/application/use-cases/profile-data/getSearchUserProfile';
 import { postFollowUserCase } from '@/app/application/use-cases/profile-data/postFollowUser';
 import { getFollowersListCase } from '@/app/application/use-cases/profile-data/getFollowersList';
-import { promises } from 'dns';
 import { getFollowingsListCase } from '@/app/application/use-cases/profile-data/getFollowingsList';
+import { getCreatedPinsCase } from '@/app/application/use-cases/profile-data/getCreatedPins';
 
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
@@ -23,6 +24,12 @@ export interface UserDataStoreInterface {
   followingList: FollowingsListInterface;
   getFollowersList: (username: string) => Promise<void>;
   getFollowingsList: (username: string) => Promise<void>;
+  getCreatedPins: (
+    username: string,
+    page: number,
+    limit: number
+  ) => Promise<void>;
+  createdPins: CreatedPinsInterface[];
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -77,6 +84,8 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
 
   isFollowing: false,
 
+  createdPins: [],
+
   getUserOwnerProfile: async () => {
     const response = await getUserOwnerProfileCase();
 
@@ -114,6 +123,14 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
 
     set({
       followingList: response,
+    });
+  },
+
+  getCreatedPins: async (username: string, page: number, limit: number) => {
+    const response = await getCreatedPinsCase(username, page, limit);
+
+    set({
+      createdPins: response,
     });
   },
 });

@@ -14,7 +14,6 @@ const SearchUser = ({ elem, index, setModal }: SearchUserInterface) => {
   const router = useRouter();
 
   const handleClick = (username: string = 'username') => {
-    getSearchUserProfile(username);
     router.push(`/${username}`);
     updateDataSearch('value', '');
     setModal(false);

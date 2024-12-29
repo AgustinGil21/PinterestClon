@@ -1,4 +1,5 @@
 import {
+  CreatedPinsInterface,
   FollowingsListInterface,
   OwnerProfileInterface,
 } from '@/app/domain/types/data-users';
@@ -10,6 +11,7 @@ import {
   FollowersListSchema,
   FollowingsListSchema,
   OwnerProfileSchema,
+  PinCreatedDataSchema,
   SearchUserProfileSchema,
 } from '../schemas/validation-service-api';
 
@@ -46,7 +48,15 @@ export const serviceGetSearchUserProfile = async (
 
     const result = SearchUserProfileSchema.safeParse(response.data.profile);
 
-    return result.success ? result.data : null;
+    if (result.success) {
+      // Asegurar que `id` no sea undefined
+      return {
+        ...result.data,
+        id: result.data.id || '',
+      } as SearchUserProfileInterface;
+    }
+
+    return null;
   } catch (error) {
     console.log(error);
     return null;
@@ -80,7 +90,7 @@ export const serviceGetFollowersList = async (
   console.log(username);
   try {
     const response = await axios.get(
-      `http://localhost:1234/pinterest-clon-api/users/followers-list/${username}`,
+      `${URLDOMAIN}/users/followers-list/${username}`,
       {
         withCredentials: true,
       }
@@ -104,7 +114,7 @@ export const serviceGetFollowingList = async (
   console.log(username);
   try {
     const response = await axios.get(
-      `http://localhost:1234/pinterest-clon-api/users/following-list/${username}`,
+      `${URLDOMAIN}/users/following-list/${username}`,
       {
         withCredentials: true,
       }
@@ -119,5 +129,30 @@ export const serviceGetFollowingList = async (
   } catch (error) {
     console.log(error);
     return { following: [], followingCount: 0 };
+  }
+};
+
+export const serviceGetCreatedPins = async (
+  username: string,
+  page: number,
+  limit: number
+): Promise<CreatedPinsInterface[] | []> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/pins/created/${username}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+
+    const result = PinCreatedDataSchema.safeParse(response.data.pins);
+
+    console.log(result);
+
+    return result.success ? result.data : [];
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };

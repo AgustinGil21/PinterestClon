@@ -10,6 +10,7 @@ import { getPinSearchCategoriesCase } from '@/app/application/use-cases/home/get
 
 export interface homePinsStoreInterface {
   homePins: PinInterface[];
+  prevCategory: string;
   getHomePins: (page: number, limit: number) => Promise<void>;
   getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
   value: string;
@@ -43,6 +44,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   red: '',
   value: '',
   categorySelect: '',
+  prevCategory: '',
   homePins: [],
   suggestions: [],
   valuesSearch: loadValuesFromLocalStorage(),
@@ -105,6 +107,12 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   ) => {
     // Reinicia los pins al filtrar por categoría
     set({ homePins: [] });
+
+    if (get().prevCategory !== category) {
+      page = 1;
+    }
+
+    set({ prevCategory: category });
 
     const response = await getPinSearchCategoriesCase(category, page, limit);
 

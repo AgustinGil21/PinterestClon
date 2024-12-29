@@ -11,6 +11,7 @@ import Follow from '../account-search/Follow';
 import ButtonsGroup from '../user-profile/ButtonsGroup';
 import CreatesOrSavesLink from '../user-profile/CreatesOrSavesLink';
 import Masonry from '../interfaces/components/Basic/Masonry';
+import { Pin } from '../home-page-components/Pin';
 
 interface Props {
   params: { username?: string };
@@ -19,16 +20,42 @@ interface Props {
 export default function UserProfile({ params }: Props) {
   const [loading, setLoading] = useState(true);
   const [savesOrCreates, setSavesOrCreates] = useState<boolean | null>(null);
-  const { dataSearchUserProfile, getSearchUserProfile, isFollowing } =
-    useAppsStore();
-  const { username } = params;
+  const {
+    dataSearchUserProfile,
+    getSearchUserProfile,
+    isFollowing,
+    getCreatedPins,
+    createdPins,
+  } = useAppsStore();
+  const { username }: any = params;
 
   useEffect(() => {
-    if (username) {
-      getSearchUserProfile(username);
-    }
-    setLoading(false);
-  }, [username, isFollowing]);
+    const updateFollowingStatus = async () => {
+      if (!dataSearchUserProfile?.id) return;
+
+      await getSearchUserProfile(username);
+    };
+
+    updateFollowingStatus();
+  }, [isFollowing]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      if (!dataSearchUserProfile.id) {
+        if (username) {
+          await getSearchUserProfile(username);
+        }
+      }
+
+      await getCreatedPins(username, 1, 10);
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [username]);
 
   if (loading) {
     return (
@@ -37,14 +64,6 @@ export default function UserProfile({ params }: Props) {
       </section>
     );
   }
-
-  // if (!dataSearchUserProfile?.username) {
-  //   return (
-  //     <section className='w-full flex justify-center'>
-  //       <p>No user profile found.</p>
-  //     </section>
-  //   );
-  // }
 
   return (
     <section className='p-5 min-h-screen flex w-full flex-col'>
@@ -81,17 +100,18 @@ export default function UserProfile({ params }: Props) {
           setSavesOrCreates={setSavesOrCreates}
         />
       </div>
+
       {savesOrCreates ? (
         <Masonry>
           <p>masonry</p>
-          {/* {previousPin.map((elem) => (
+          {createdPins.map((elem) => (
             <Pin
               className='mb-4'
               pin_id={elem.id}
               key={elem.id}
               body={elem.body}
             />
-          ))} */}
+          ))}
         </Masonry>
       ) : (
         <p>Guardados</p>

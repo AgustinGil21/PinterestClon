@@ -40,8 +40,15 @@ export const Pin = ({
   }, [body]);
 
   const handleClick = () => {
-    getPinView(pin_id);
-    router.push(`pin/${pin_id}`);
+    const fetchData = async () => {
+      try {
+        await getPinView(pin_id);
+        router.push(`pin/${pin_id}`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
   };
 
   return (

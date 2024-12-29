@@ -73,3 +73,14 @@ export interface FollowingsListInterface {
   following: FollowersInterface[];
   followingCount: number;
 }
+
+export interface CreatedPinsInterface {
+  id: string;
+  alt_text: string;
+  title?: string;
+  body: string;
+  url?: string;
+  adult_content: boolean;
+  its_yours?: boolean;
+  created_at: string;
+}

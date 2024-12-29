@@ -18,7 +18,6 @@ const UserFollowFollowingCard = ({
   const router = useRouter();
 
   const handleClick = () => {
-    getSearchUserProfile(elem.username);
     router.push(`/${elem.username}`);
     updateDataSearch('value', '');
     openFollowersModal();

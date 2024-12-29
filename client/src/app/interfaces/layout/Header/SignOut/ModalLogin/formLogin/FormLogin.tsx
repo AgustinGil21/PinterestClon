@@ -46,7 +46,7 @@ const FormLogin = () => {
           className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         />
         <EyePasswordStyled
-          classname='left-[216px] top-[60px]'
+          classname='left-[216px] top-[54px]'
           showPassword={showPassword}
           togglePasswordVisibility={togglePasswordVisibility}
         />

@@ -5,6 +5,7 @@ interface Props {
   setModal: () => void;
   isModalOpen: boolean;
   className?: string;
+  wrapperRef?: React.RefObject<HTMLDivElement>;
 }
 
 interface ModalComponentProps {
@@ -13,18 +14,20 @@ interface ModalComponentProps {
 }
 
 const Modal = ({ props, children }: ModalComponentProps) => {
-  const { className, setModal, isModalOpen } = props;
+  const { className, setModal, isModalOpen, wrapperRef } = props;
 
   const { modalRef } = useCloseModal({ setModal });
 
   return (
     <>
       {isModalOpen && (
-        <div
-          ref={modalRef}
-          className={`absolute shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-40 ${className} modal`}
-        >
-          {children}
+        <div ref={wrapperRef}>
+          <div
+            ref={modalRef}
+            className={`absolute shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-40 ${className} modal`}
+          >
+            {children}
+          </div>
         </div>
       )}
     </>
