@@ -10,11 +10,10 @@ const DataUser = ({ data }: { data: any }) => {
     getFollowersList,
     openFollowersModal,
     isFollowerModalOpen,
-    followersList,
+    isAuth,
     getFollowingsList,
-
-    followingList,
     openFollowingsModal,
+    openRegisterModal,
     isFollowingsModalOpen,
   } = useAppsStore();
 
@@ -23,11 +22,19 @@ const DataUser = ({ data }: { data: any }) => {
   // }, [followersList]);
 
   const handleClickFollowers = async () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
     await getFollowersList(data.username);
     openFollowersModal();
   };
 
   const HandleClickFollowings = async () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
     await getFollowingsList(data.username);
 
     const updatedFollowingList = useAppsStore.getState().followingList;

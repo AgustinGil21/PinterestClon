@@ -1,10 +1,12 @@
 import {
+  CreatedPinsInterface,
   FollowersListInterface,
   FollowingsListInterface,
   OwnerProfileInterface,
   SearchUserProfileInterface,
 } from '@/app/domain/types/data-users';
 import {
+  serviceGetCreatedPins,
   serviceGetFollowersList,
   serviceGetFollowingList,
   serviceGetSearchUserProfile,
@@ -150,5 +152,31 @@ export const getFollowingsListAdapter = async (
   } catch (error) {
     console.error('Error in getFollowe  rsListAdapter:', error);
     return { following: [], followingCount: 0 };
+  }
+};
+
+export const getCreatedPinsAdapter = async (
+  username: string,
+  page: number,
+  limit: number
+): Promise<CreatedPinsInterface[]> => {
+  try {
+    const response = await serviceGetCreatedPins(username, page, limit);
+
+    const adaptedPins = response.map((pin) => ({
+      id: pin.id,
+      alt_text: pin.alt_text,
+      body: pin.body,
+      title: pin.title || '',
+      url: pin.url || '',
+      created_at: pin.created_at,
+      adult_content: pin.adult_content,
+      its_yours: pin.its_yours || false,
+    }));
+
+    return adaptedPins;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 };

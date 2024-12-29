@@ -5,11 +5,23 @@ import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import useCloseModal from '../interfaces/hooks/useCloseModal';
 
 const ThreePointsBlok = () => {
-  const { isThreePointsAccountOpen, openThreePointsAcountModal } =
-    useAppsStore();
+  const {
+    isThreePointsAccountOpen,
+    openThreePointsAcountModal,
+    isAuth,
+    openRegisterModal,
+  } = useAppsStore();
   const { modalRef } = useCloseModal({
     setModal: openThreePointsAcountModal,
   });
+
+  const handleClick = () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
+    openThreePointsAcountModal();
+  };
 
   return (
     <div className='relative inline-block'>
@@ -19,7 +31,7 @@ const ThreePointsBlok = () => {
             ? 'bg-black hover:bg-black'
             : 'hover:bg-gray-200'
         }`}
-        onClick={openThreePointsAcountModal}
+        onClick={handleClick}
       >
         <ThreePointsIcon isThreePointsAccountOpen={isThreePointsAccountOpen} />
       </button>

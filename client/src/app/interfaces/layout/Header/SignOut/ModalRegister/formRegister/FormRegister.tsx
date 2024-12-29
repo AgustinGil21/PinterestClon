@@ -40,7 +40,7 @@ const FormRegister = () => {
           />
 
           <EyePasswordStyled
-            classname='left-[216px] top-[60px]'
+            classname='left-[216px]  top-[54px]'
             showPassword={showPassword}
             togglePasswordVisibility={togglePasswordVisibility}
           />

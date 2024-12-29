@@ -333,3 +333,18 @@ export const GetBoardSchema = z.object({
     })
   ),
 });
+
+export const PinCreatedDataSchema = z.array(
+  z.object({
+    id: z.string().uuid(),
+    alt_text: z.string(),
+    title: z.string().optional(),
+    body: z.string(),
+    url: z.string().url().optional(),
+    adult_content: z.boolean(),
+    its_yours: z.boolean().optional(),
+    created_at: z.string().refine((date) => !isNaN(Date.parse(date)), {
+      message: 'Invalid date format',
+    }),
+  })
+);
