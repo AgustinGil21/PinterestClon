@@ -363,6 +363,10 @@
   transition: background-color 150ms ease, scale 150ms ease;
 }
 
+.save-to-board-button-sm {
+  display: hidden flex;
+}
+
 .save-to-board-button svg {
   width: 15px;
   stroke-width: 3;
@@ -370,10 +374,19 @@
 }
 
 .save-to-board-button:hover {
-  background-color: rgba(0, 0, 0, 0.038);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.save-to-board-button-sm:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .save-to-board-button:focus {
+  background-color: black;
+  scale: 1.06;
+}
+
+.save-to-board-button-sm:focus {
   background-color: black;
   scale: 1.06;
 }
@@ -396,7 +409,7 @@
   padding: 0.5rem;
   background-color: #f4f4f4;
   border-radius: 32px;
-  max-width: 125px;
+  width: 100%;
   transition: background-color ease 150ms;
   cursor: pointer;
   text-decoration: none;
@@ -600,6 +613,17 @@
   .masonry {
     columns: 24 200px;
   }
+
+  .save-to-board-button {
+    width: 45%;
+  }
+
+  .save-button {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 /* md */
@@ -663,6 +687,49 @@
 
 @media (max-width: 556px) {
   /* Achicar botones de pin cards */
+
+  .circle-buttons {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+    min-height: 27px;
+    padding: 0.5rem;
+  }
+
+  .ellipsis svg {
+    width: 20px;
+  }
+
+  .tray svg {
+    width: 15px;
+  }
+
+  .save-to-board-button-sm {
+    display: block;
+  }
+
+  .save-to-board-button {
+    display: none;
+  }
+}
+
+@media (max-width: 475px) {
+  .go-to {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+    min-height: 27px;
+    padding: 0.35rem;
+  }
+
+  .go-to svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .go-to span {
+    display: none;
+  }
 }
 
 /* xs */
@@ -670,6 +737,24 @@
   .masonry {
     columns: 24 130px;
     column-gap: 0.5rem;
+  }
+
+  .save-to-board-button-sm {
+    padding: 0.65rem;
+  }
+
+  .save-to-board-button-sm svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .save-button {
+    min-width: 75px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
   }
 }
 

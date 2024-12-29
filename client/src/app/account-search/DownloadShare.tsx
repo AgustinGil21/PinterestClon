@@ -29,7 +29,7 @@ const DownloadShare = ({ classProps, dataShare }: DownloadShareInterface) => {
   return (
     <div className='relative inline-block'>
       <div
-        className={`${classProps} rounded-full cursor-pointer  dark:bg-gray-400 ${
+        className={`${classProps} rounded-full cursor-pointer transition-colors duration-300 dark:bg-gray-400 ${
           isDownloadAccountOpen
             ? 'bg-black hover:bg-black'
             : 'hover:bg-gray-200'

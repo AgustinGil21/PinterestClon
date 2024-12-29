@@ -63,12 +63,13 @@ export const Pin = ({
           ></div>
         </div>
       ) : (
-        <article className='card hover:cursor-pointer' onClick={handleClick}>
+        <article className='card hover:cursor-pointer'>
           <article className='card-top'>
             <img
               src={body}
               className='card-body w-full h-60 object-cover'
               alt={alt_text}
+              onClick={handleClick}
             />
             <article className='top card-controls flex justify-between mt-2'>
               <button className='save-button bg-red-500 text-white px-3 py-1 rounded'>
@@ -82,6 +83,21 @@ export const Pin = ({
                   strokeWidth='1.5'
                   stroke='currentColor'
                   className='w-4 h-4 ml-1'
+                >
+                  <path
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                    d='m19.5 8.25-7.5 7.5-7.5-7.5'
+                  />
+                </svg>
+              </button>
+              <button className='hidden transition-[colors,scale] save-to-board-button-sm p-3 rounded-full bg-transparent justify-center items-center '>
+                <svg
+                  fill='none'
+                  viewBox='0 0 20 20'
+                  strokeWidth='2'
+                  stroke='white'
+                  className='w-4 h-4 -translate-x-0.5'
                 >
                   <path
                     strokeLinecap='round'
@@ -123,6 +139,8 @@ export const Pin = ({
                   href={url}
                   className='go-to text-blue-500'
                   title={buttonURL || ''}
+                  target='_blank'
+                  rel='noreferrer'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'

@@ -113,7 +113,7 @@ export default class PinsController {
         return res.status(200).json({ pins });
       }
     } catch (err) {
-      return res.status(400).json({ message: 'Error' });
+      return res.status(400).json({ message: 'Error fetching created pins' });
     }
   }
 
