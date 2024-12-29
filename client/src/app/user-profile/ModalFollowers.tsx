@@ -13,7 +13,7 @@ const ModalFollowers = () => {
       <div className='absolute inset-0 bg-black opacity-50 flex items-center justify-center'></div>
       <ModalStyled
         modalRef={modalRef}
-        classProps='max-w-[440px] top-[150px] rounded-xl 
+        classProps='max-w-[440px] modal rounded-xl 
                '
       >
         <div className='p-3 '>
