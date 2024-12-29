@@ -31,6 +31,18 @@ const BoardCoverModal = ({ lang = 'en', setCover }: Props) => {
         id: '4',
         body: 'https://i.pinimg.com/236x/cc/91/3d/cc913dd9129fbaea5cdd3dcd7c7e5a5b.jpg',
       },
+      {
+        id: '5',
+        body: 'https://i.pinimg.com/236x/cc/91/3d/cc913dd9129fbaea5cdd3dcd7c7e5a5b.jpg',
+      },
+      {
+        id: '6',
+        body: 'https://i.pinimg.com/236x/cc/91/3d/cc913dd9129fbaea5cdd3dcd7c7e5a5b.jpg',
+      },
+      {
+        id: '7',
+        body: 'https://i.pinimg.com/236x/cc/91/3d/cc913dd9129fbaea5cdd3dcd7c7e5a5b.jpg',
+      },
     ],
     results: 4,
   };

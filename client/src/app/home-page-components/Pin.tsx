@@ -1,9 +1,10 @@
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PinInterface } from '../domain/types/pins-structure';
 import getDarkColor from '../interfaces/helpers/getColorDark';
-import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import { getDomain } from '../libs/getDomain';
 import { useRouter } from 'next/navigation';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 export const Pin = ({
   body,
@@ -21,24 +22,12 @@ export const Pin = ({
   avatar_letter,
   className,
 }: PinInterface) => {
+  const { pinData, getPinView } = useAppsStore();
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
-  const { getPinView } = useAppsStore();
-  const router = useRouter();
-
-  const handleClick = () => {
-    getPinView(pin_id);
-    router.push(`pin/${pin_id}`);
-  };
-
-  const goToButtonURLDomain = url
-    ?.split('//')[1]
-    ?.split('.')[1]
-    ?.split('/' || '?')[0];
-
-  const goToButtonTLD = url?.split('.')[2]?.split('/' || '?')[0];
-  const buttonURL = `${goToButtonURLDomain}.${goToButtonTLD}`;
+  const buttonURL = getDomain(url);
   const userProfile = `/${username}`;
+  const router = useRouter();
 
   useEffect(() => {
     setSkeletonColor(getDarkColor());
@@ -49,6 +38,11 @@ export const Pin = ({
     img.src = body;
     img.onload = () => setIsLoaded(true);
   }, [body]);
+
+  const handleClick = () => {
+    getPinView(pin_id);
+    router.push(`pin/${pin_id}`);
+  };
 
   return (
     <section className={`${className}`}>
@@ -118,7 +112,11 @@ export const Pin = ({
               </div>
 
               {url && (
-                <a href={url} className='go-to text-blue-500' title={buttonURL}>
+                <a
+                  href={url}
+                  className='go-to text-blue-500'
+                  title={buttonURL || ''}
+                >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 20 20'

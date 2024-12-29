@@ -274,7 +274,6 @@
   z-index: 2;
   padding: 0.5rem;
   opacity: 0;
-  transition: opacity 150ms ease;
   visibility: hidden;
   pointer-events: none;
   cursor: default;
@@ -655,6 +654,10 @@
 
   .masonry {
     columns: 24 180px;
+  }
+
+  .board-modal {
+    max-width: 400px;
   }
 }
 

@@ -13,6 +13,7 @@ interface ButtonGroupInterface {
 
 const ButtonsGroup = ({ username }: ButtonGroupInterface) => {
   const { openDownloadAccountModal, isDownloadAccountOpen } = useAppsStore();
+
   const buttonRef = useRef(null);
 
   const { modalRef } = useCloseModal({

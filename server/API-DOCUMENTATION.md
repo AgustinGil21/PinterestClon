@@ -462,8 +462,12 @@ _:id_ => UUID Pin
     "body": "String",
     "alt_text": "String",
     "likes": "String<Number>",
+    "already_liked": "Boolean",
     "comments": "String<Number>",
     "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "avatar": "String<URL>?",
     "avatar_background": "String<URL>",
     "avatar_letter_color": "String<URL>",
     "avatar_letter": "String<Char>",
@@ -485,9 +489,14 @@ _:id_ => UUID Pin
     "topics": "String<UUID>[]?",
     "body": "String",
     "alt_text": "String",
+    "url": "String<URL>?",
     "likes": "String<Number>",
+    "already_liked": "Boolean",
     "comments": "String<Number>",
     "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "avatar": "String<URL>?",
     "avatar_background": "String<URL>",
     "avatar_letter_color": "String<URL>",
     "avatar_letter": "String<Char>",
@@ -514,6 +523,9 @@ _:id_ => UUID Pin
     "likes": "String<Number>",
     "comments": "String<Number>",
     "username": "String",
+    "name": "String?",
+    "surname": "String?",
+    "avatar": "String<URL>?",
     "avatar_background": "String",
     "avatar_letter_color": "String",
     "avatar_letter": "String",
@@ -730,6 +742,31 @@ _id_: UUID
     "url": "String<URL>?",
     "adult_content": "Boolean"
   }
+}
+```
+
+### Get created pins
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/created/:username?page=Number&limit=Number`
+
+_username_: User username
+
+[RESPONSE]
+
+```json
+{
+  "pins": [
+    {
+      "id": "String<UUID>",
+      "alt_text": "String",
+      "title": "String?",
+      "body": "String",
+      "url": "String<URL>?",
+      "adult_content": "Boolean",
+      "its_yours": "Boolean?",
+      "created_at": "String<Date>"
+    }
+  ]
 }
 ```
 
@@ -1128,12 +1165,18 @@ _id_: ID del tablero
   "name": "String",
   "description": "String?",
   "its_yours": "Boolean?",
-  "following": "String<Number>?",
-  "avatar": "String<URL>",
-  "avatar_letter": "String<Char>",
-  "avatar_letter_color": "String<Hex>",
-  "avatar_background": "String<Hex>",
+  "following": "Boolean?",
   "pins_count": "String<Number>",
+  "user": {
+    "id": "String<UUID>",
+    "name": "String?",
+    "surname": "String?",
+    "username": "String",
+    "avatar": "String<URL>",
+    "avatar_letter": "String<Char>",
+    "avatar_letter_color": "String<Hex>",
+    "avatar_background": "String<Hex>"
+  },
   "pins": [
     {
       "body": "String<URL>",
@@ -1210,7 +1253,8 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/create`
 ```json
 {
   "name": "String",
-  "description": "String?"
+  "description": "String?",
+  "pinId": "String<UUID>?"
 }
 ```
 

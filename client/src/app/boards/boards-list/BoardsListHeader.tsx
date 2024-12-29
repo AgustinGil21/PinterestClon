@@ -1,4 +1,5 @@
 import SearchIcon from '@/app/components/icons/SearchIcon';
+import CloseSearchIcon from '@/app/interfaces/components/icons/CloseSearchIcon';
 import { useState } from 'react';
 
 interface Props {
@@ -12,9 +13,17 @@ type Translations = {
 
 const BoardsListHeader = ({ lang = 'en', setValue }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+    // Para hacer aparecer el botón de la X
+    setInputValue(e.target.value);
+  };
+
+  const handleClick = () => {
+    setValue('');
+    setInputValue('');
   };
 
   const translations: Translations = {
@@ -32,12 +41,23 @@ const BoardsListHeader = ({ lang = 'en', setValue }: Props) => {
         <input
           type='text'
           className={`w-full p-2 ${
-            isFocused ? 'px-4' : 'px-8'
-          } text-sm rounded-3xl border-solid border-2 border-[#cdcdcd] focus:border-outline-search focus:ring-2 focus:outline-none font-sans py-3 group-hover:border-gray-500`}
+            isFocused ? 'px-4' : 'px-8 group-hover:border-gray-500'
+          } text-sm rounded-3xl border-solid border-2 border-[#cdcdcd] focus:border-outline-search focus:ring-2 focus:outline-none font-sans py-3 `}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onChange={handleChangeValue}
+          value={inputValue}
         />
+        {inputValue && (
+          <button
+            type='button'
+            className='absolute top-1/2 right-0.5 transform -translate-y-1/2 cursor-pointer hover:bg-gray-300 px-3.5 py-[13.5px] rounded-full'
+            onClick={handleClick}
+          >
+            <CloseSearchIcon />
+          </button>
+        )}
+
         {!isFocused && (
           <div className='absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500'>
             <SearchIcon

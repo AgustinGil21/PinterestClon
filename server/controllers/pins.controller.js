@@ -75,6 +75,7 @@ export default class PinsController {
 
   static async getCreatedPins(req, res) {
     const { username } = req.params;
+    const { page, limit } = req.query;
 
     // try {
     //   const result = getCreatedPinsSchema.safeParse({ username });
@@ -87,7 +88,24 @@ export default class PinsController {
     // }
 
     try {
-      const data = await PinsModel.getCreatedPins({ username });
+      let data;
+
+      if (req.isAuthenticated) {
+        data = await PinsModel.getCreatedPins({
+          username,
+          userID: req.user.id,
+          isAuth: true,
+          page,
+          limit,
+        });
+      } else {
+        data = await PinsModel.getCreatedPins({
+          username,
+          isAuth: false,
+          page,
+          limit,
+        });
+      }
 
       if (data.ok) {
         const { response: pins } = data;

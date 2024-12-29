@@ -70,7 +70,8 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   getSearchPins: async (value: string, page: number, limit: number) => {
     // Limpiar los pins si es una nueva búsqueda (página 1)
     if (page === 1) {
-      set({ homePins: [] }); // Reinicia los pins solo en la primera página (nueva búsqueda)
+      // Reinicia los pins solo en la primera página (nueva búsqueda)
+      set({ homePins: [] });
     }
 
     const response = await getSearchPinsCase(value, page, limit);
@@ -92,20 +93,16 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
             ? uniqueSearchPins
             : [...prevHomePins, ...uniqueSearchPins],
       });
-
-      console.log(
-        'Estado de homePins después de la búsqueda: ',
-        get().homePins
-      );
     }
   },
 
   getSearchPinForCategory: async (
     category: string,
-    page: number,
+    page: number = 1,
     limit: number
   ) => {
-    set({ homePins: [] }); // Reinicia los pins al filtrar por categoría
+    // Reinicia los pins al filtrar por categoría
+    set({ homePins: [] });
 
     const response = await getPinSearchCategoriesCase(category, page, limit);
 
@@ -119,12 +116,9 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
       // Almacena los resultados filtrados por categoría sin duplicados
       set({
-        homePins: uniqueSearchPinsForCategory, // Sobrescribe en lugar de concatenar
+        // Sobrescribe en lugar de concatenar
+        homePins: uniqueSearchPinsForCategory,
       });
-      console.log(
-        'Estado de homePins después de la búsqueda: ',
-        get().homePins
-      );
     }
   },
 
