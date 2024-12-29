@@ -221,3 +221,21 @@ export const serviceGetPinView = async (
     return null;
   }
 };
+
+export const servicePostLikeOrUnlikePin = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${URLDOMAIN}/pins/like/${id}`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(response);
+
+    return response.status ? response.data : null;
+  } catch (error) {
+    console.log(error);
+  }
+};

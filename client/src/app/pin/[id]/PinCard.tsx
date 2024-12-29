@@ -13,11 +13,6 @@ const PinCard = () => {
   const [openComments, setOpenComments] = useState(true);
 
   const handleClick = () => {
-    if (!isAuth) {
-      openRegisterModal();
-      return;
-    }
-
     setOpenComments(!openComments);
   };
 

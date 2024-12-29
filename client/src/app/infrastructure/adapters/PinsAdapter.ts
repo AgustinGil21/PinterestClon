@@ -20,6 +20,7 @@ import {
   serviceGetSearchPin,
   serviceGetSuggestions,
   servicePostCreatePin,
+  servicePostLikeOrUnlikePin,
   servicePutEditPinId,
 } from '../services/service-pins';
 
@@ -150,4 +151,8 @@ export const getPinViewAdapter = async (
     console.log(error);
     return null;
   }
+};
+
+export const postLikeOrUnlikePinAdapter = async (id: string) => {
+  return await servicePostLikeOrUnlikePin(id);
 };

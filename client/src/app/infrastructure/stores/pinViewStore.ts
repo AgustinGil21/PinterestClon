@@ -1,10 +1,12 @@
 import { PinViewInterface } from '@/app/domain/types/pins-structure';
 import { StateCreator } from 'zustand';
 import { getPinViewAdapter } from '../adapters/PinsAdapter';
+import { postLikeOrUnlikeCase } from '@/app/application/use-cases/view-pins/postLikeOrUnlike';
 
 export interface PinViewStoreInterface {
   pinData: PinViewInterface;
   getPinView: (id: string) => Promise<void>;
+  postLikeOrUnlike: (id: string) => Promise<void>;
 }
 
 export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
@@ -43,5 +45,9 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
         pinData: response,
       });
     }
+  },
+
+  postLikeOrUnlike: async (id: string) => {
+    const response = await postLikeOrUnlikeCase(id);
   },
 });

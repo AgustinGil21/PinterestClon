@@ -5,11 +5,11 @@ const ImagePin = () => {
   const { pinData } = useAppsStore();
 
   return (
-    <div className='w-[50%] bg-slate-200  h-full rounded-xl '>
+    <div className='w-[50%] bg-slate-200  h-full rounded-xl min-h-[500px] max-h-[800px] '>
       <img
         src={pinData.body}
         alt={pinData.alt_text}
-        className='w-full rounded-xl h-full object-cover'
+        className='w-full rounded-xl h-full object-cover '
       />
     </div>
   );

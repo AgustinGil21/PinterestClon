@@ -6,17 +6,30 @@ import ThreePointsIcon from '@/app/interfaces/components/icons/ThreePointsIcon';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 
 const ActionsPin = () => {
-  const { isThreePointsAccountOpen, pinData } = useAppsStore();
+  const { isThreePointsAccountOpen, pinData, postLikeOrUnlike } =
+    useAppsStore();
+
+  const handleClick = () => {
+    postLikeOrUnlike(pinData.id);
+  };
+
   return (
     <div className='flex justify-between flex-row'>
       <div className='flex flex-row gap-1 items-center'>
-        <div className='flex flex-row gap-1 items-center'>
+        <div className='flex flex-row  items-center'>
           <Tooltip tooltipText='Reaccionar'>
-            <div className='p-2 hover:bg-gray-200 rounded-full cursor-pointer'>
+            <div
+              className='p-2 hover:bg-gray-200 rounded-full cursor-pointer'
+              onClick={handleClick}
+            >
               <LikeIcon classProps='w-[20px] h-[20px]' />
             </div>
           </Tooltip>
-          {pinData.likes !== '0' && <span>{pinData.likes}</span>}
+          {pinData.likes !== '0' && (
+            <span className='text-[12px] font-semibold ml-[-3px]'>
+              {pinData.likes}
+            </span>
+          )}
         </div>
         <DownloadShare classProps='p-2' dataShare={`pin/${pinData.id}`} />
         <Tooltip tooltipText='Más opciones'>
