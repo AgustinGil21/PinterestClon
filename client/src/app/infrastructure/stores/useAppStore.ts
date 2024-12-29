@@ -14,6 +14,8 @@ import { homePinsStoreInterface } from './getPinsStore';
 import { homePinsStore } from './getPinsStore';
 import { UserDataStoreInterface } from './UserDataStore';
 import { createUserDataStore } from './UserDataStore';
+import { PinViewStoreInterface } from './pinViewStore';
+import { createPinViewStore } from './pinViewStore';
 
 type AppState = ThemeSliceInterface &
   ModalStateInterface &
@@ -21,7 +23,8 @@ type AppState = ThemeSliceInterface &
   UserAccountInterface &
   CreatePinsStoreInterface &
   homePinsStoreInterface &
-  UserDataStoreInterface;
+  UserDataStoreInterface &
+  PinViewStoreInterface;
 
 export const useAppsStore = create<AppState>()(
   devtools((...a) => ({
@@ -32,5 +35,6 @@ export const useAppsStore = create<AppState>()(
     ...createPinsStore(...a),
     ...homePinsStore(...a),
     ...createUserDataStore(...a),
+    ...createPinViewStore(...a),
   }))
 );

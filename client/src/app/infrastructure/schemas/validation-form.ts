@@ -196,17 +196,16 @@ export const UserSettingsEditProfileValidationSchema = z.object({
     .string()
     .max(30, { message: 'El apellido no puede tener más de 30 caracteres' })
     .regex(nameAndLastnameRegex, {
-      message:
-        'El apellido debe contener solo letras y, opcionalmente, un espacio seguido de más letras.',
+      message: 'El apellido debe contener solo letras.',
     })
     .optional(),
-  about: z
+  about_you: z
     .string()
     .max(500, {
       message: 'El contenido no puede tener más de 500 caracteres',
     })
     .optional(),
-  url: z.string().optional().refine(validateUrl, {
+  website: z.string().optional().refine(validateUrl, {
     message: 'El enlace debe ser una URL válida.',
   }),
 
@@ -313,4 +312,10 @@ export const CreatePinFormSchema = z.object({
     .regex(/^[\w\s.,!?'"()\-]+$/, {
       message: 'El texto alternativo contiene caracteres no permitidos.',
     }),
+});
+
+export const CreateCommentSchema = z.object({
+  comment: z.string().max(500, {
+    message: 'El comentario no puede exceder los 500 caracteres.',
+  }),
 });

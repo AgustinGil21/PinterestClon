@@ -60,7 +60,12 @@ const UserFollowFollowingCard = ({
             ¡Eres tú!
           </ButtonStyled>
         ) : (
-          <Follow following={elem.following} id={elem.id} />
+          <Follow
+            following={elem.following}
+            id={elem.id}
+            classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
+            classPropsTrueIsFollowing='bg-black rounded-full text-white'
+          />
         )}
       </div>
     </div>

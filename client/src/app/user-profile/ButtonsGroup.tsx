@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import useCloseModal from '../hooks/useCloseModal';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
@@ -8,20 +8,15 @@ import Link from 'next/link';
 import ModalShareAccount from './ModalShareAccount';
 
 interface ButtonGroupInterface {
-  isShareAccountOpen: boolean;
-  openShareAccountModal: () => void;
   username: string;
 }
 
-const ButtonsGroup = ({
-  username,
-  isShareAccountOpen,
-}: ButtonGroupInterface) => {
-  const { openShareAccountModal } = useAppsStore();
+const ButtonsGroup = ({ username }: ButtonGroupInterface) => {
+  const { openDownloadAccountModal, isDownloadAccountOpen } = useAppsStore();
   const buttonRef = useRef(null);
 
   const { modalRef } = useCloseModal({
-    setModal: openShareAccountModal,
+    setModal: openDownloadAccountModal,
     buttonRef,
   });
 
@@ -30,19 +25,19 @@ const ButtonsGroup = ({
       <ButtonStyled
         type='button'
         className={`font-semibold py-[12px] relative ${
-          isShareAccountOpen
+          isDownloadAccountOpen
             ? 'bg-black text-white'
             : 'bg-buttonGreyBg text-black hover:bg-gray-300'
         }`}
-        handleClick={openShareAccountModal}
+        handleClick={openDownloadAccountModal}
         btnRef={buttonRef}
       >
         Compartir
-        {isShareAccountOpen && (
+        {isDownloadAccountOpen && (
           <ModalShareAccount
             classProps='bottom-[90px] max-w-[390px] w-full absolute top-14 -left-16 min-w-[325px] share-account-modal'
             modalRef={modalRef}
-            username={username}
+            dataShare={username}
           />
         )}
       </ButtonStyled>

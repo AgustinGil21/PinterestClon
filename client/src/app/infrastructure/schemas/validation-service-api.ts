@@ -192,7 +192,7 @@ export const OwnerProfileSchema = z.object({
 });
 
 export const SearchUserProfileSchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   username: z.string(),
   name: z.string().optional(),
   surname: z.string().optional(),
@@ -249,4 +249,28 @@ export const FollowingsSchema = z.object({
 export const FollowingsListSchema = z.object({
   following: z.array(FollowingsSchema),
   followingCount: z.number(),
+});
+
+export const PinViewSchema = z.object({
+  id: z.string(),
+  name: z.string().optional(),
+  surname: z.string().optional(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+  topics: z.array(z.string()).optional(),
+  body: z.string(),
+  alt_text: z.string(),
+  likes: z.string(),
+  already_liked: z.boolean().optional(),
+  comments: z.string().optional(),
+  username: z.string(),
+  avatar: z.string().optional(),
+  avatar_background: z.string().optional(),
+  avatar_letter_color: z.string().optional(),
+  avatar_letter: z.string().length(1).optional(),
+  verified: z.boolean(),
+  its_you: z.boolean().optional(),
+  follows_you: z.boolean().optional(),
+  following: z.boolean().optional(),
+  followers: z.string(),
 });

@@ -7,6 +7,7 @@ import {
   GetPinsInterface,
   SuggestionsInterface,
   PinInterface,
+  PinViewInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
@@ -14,6 +15,7 @@ import {
   serviceGetEditPinId,
   serviceGetHomePins,
   serviceGetPinSearchCategories,
+  serviceGetPinView,
   serviceGetPreviousPins,
   serviceGetSearchPin,
   serviceGetSuggestions,
@@ -109,4 +111,43 @@ export const getPinSearchCategoriesAdapter = async (
   limit: number
 ): Promise<PinInterface[] | []> => {
   return await serviceGetPinSearchCategories(category, page, limit);
+};
+
+export const getPinViewAdapter = async (
+  id: string
+): Promise<PinViewInterface | null> => {
+  try {
+    const response = await serviceGetPinView(id);
+
+    if (response) {
+      return {
+        id: response.id,
+        title: response.title || '',
+        description: response.description || '',
+        topics: response.topics || [],
+        body: response.body,
+        already_liked: response.already_liked,
+        name: response.name,
+        surname: response.surname,
+        alt_text: response.alt_text,
+        likes: response.likes,
+        comments: response.comments,
+        avatar: response.avatar,
+        username: response.username,
+        avatar_background: response.avatar_background,
+        avatar_letter_color: response.avatar_letter_color,
+        avatar_letter: response.avatar_letter,
+        verified: response.verified,
+        its_you: response.its_you,
+        follows_you: response.follows_you,
+        following: response.following,
+        followers: response.followers,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

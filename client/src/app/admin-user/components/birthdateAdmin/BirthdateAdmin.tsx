@@ -31,6 +31,7 @@ const BirthdateAdmin = ({
         max='2014-01-01'
         textLabel='Fecha de nacimiento'
         type='date'
+        className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         infoName='date'
         register={register}
       />

@@ -9,6 +9,7 @@ import {
   PinCreateServerAdapter,
   GetPinsInterface,
   PinInterface,
+  PinViewInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
@@ -16,6 +17,7 @@ import {
   CategoriesSchema,
   getPinsSchema,
   PinEditIdSchema,
+  PinViewSchema,
 } from '../schemas/validation-service-api';
 
 export const servicePostCreatePin = async (
@@ -198,5 +200,24 @@ export const serviceGetPinSearchCategories = async (
   } catch (error) {
     console.log('Error en la solicitud o en el parseo:', error);
     return [];
+  }
+};
+
+export const serviceGetPinView = async (
+  id: string
+): Promise<PinViewInterface | null> => {
+  try {
+    const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
+      withCredentials: true,
+    });
+    console.log(response);
+
+    const result = PinViewSchema.safeParse(response.data.pin);
+    console.log(result);
+
+    return result.success ? result.data : null;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };

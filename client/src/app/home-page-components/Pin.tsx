@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { PinInterface } from '../domain/types/pins-structure';
 import getDarkColor from '../interfaces/helpers/getColorDark';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import { useRouter } from 'next/navigation';
 
 export const Pin = ({
   body,
@@ -21,6 +23,13 @@ export const Pin = ({
 }: PinInterface) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
+  const { getPinView } = useAppsStore();
+  const router = useRouter();
+
+  const handleClick = () => {
+    getPinView(pin_id);
+    router.push(`pin/${pin_id}`);
+  };
 
   const goToButtonURLDomain = url
     ?.split('//')[1]
@@ -53,7 +62,7 @@ export const Pin = ({
           ></div>
         </div>
       ) : (
-        <article className='card hover:cursor-pointer'>
+        <article className='card hover:cursor-pointer' onClick={handleClick}>
           <article className='card-top'>
             <img
               src={body}
@@ -133,6 +142,7 @@ export const Pin = ({
               <Link
                 href={`${userProfile}`}
                 className='user-data flex items-center '
+                onClick={(e) => e.stopPropagation()}
               >
                 {avatar ? (
                   <img

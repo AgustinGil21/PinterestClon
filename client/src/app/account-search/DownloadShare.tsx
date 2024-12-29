@@ -3,23 +3,38 @@ import DownloadIcon from '../interfaces/components/icons/DownloadIcon';
 import useCloseModal from '../interfaces/hooks/useCloseModal';
 import ModalShareAccount from '../user-profile/ModalShareAccount';
 
-const DownloadShare = () => {
+interface DownloadShareInterface {
+  classProps?: string;
+  dataShare: string;
+}
+
+const DownloadShare = ({ classProps, dataShare }: DownloadShareInterface) => {
   const {
     openDownloadAccountModal,
     isDownloadAccountOpen,
+    openRegisterModal,
     dataSearchUserProfile,
+    isAuth,
   } = useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
+
+  const handleClick = () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
+    openDownloadAccountModal();
+  };
 
   return (
     <div className='relative inline-block'>
       <div
-        className={`p-3 rounded-full cursor-pointer  dark:bg-gray-400 ${
+        className={`${classProps} rounded-full cursor-pointer  dark:bg-gray-400 ${
           isDownloadAccountOpen
             ? 'bg-black hover:bg-black'
             : 'hover:bg-gray-200'
         }`}
-        onClick={openDownloadAccountModal}
+        onClick={handleClick}
       >
         <DownloadIcon isDownloadAccountOpen={isDownloadAccountOpen} />
       </div>
@@ -28,7 +43,7 @@ const DownloadShare = () => {
           <ModalShareAccount
             classProps='w-full'
             modalRef={modalRef}
-            username={dataSearchUserProfile.username}
+            dataShare={dataShare}
           />
         </div>
       )}

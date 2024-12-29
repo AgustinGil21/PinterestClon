@@ -22,18 +22,21 @@ const FormRegister = () => {
           register={register}
           errors={errors.email}
           type='email'
+          placeHolder='Email'
           textLabel='Correo electrónico'
           infoName='email'
+          className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         />
         {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
         <div className='w-full mt-2 relative'>
           <InputLabelStyled
+            placeHolder='Contraseña'
             register={register}
             errors={errors.password}
             type={showPassword ? 'text' : 'password'}
             textLabel='Contraseña'
             infoName='password'
-            className='w-full'
+            className=' w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
           />
 
           <EyePasswordStyled
@@ -50,6 +53,7 @@ const FormRegister = () => {
           type='date'
           textLabel='Fecha de nacimiento'
           infoName='date'
+          className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         />
       </div>
 

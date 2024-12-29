@@ -29,7 +29,7 @@ export interface ModalStateInterface {
   openDeletePinModal: () => void;
   closeDeletePinModal: () => void;
   isShareAccountOpen: boolean;
-  openShareAccountModal: () => void;
+
   isDownloadAccountOpen: boolean;
   openDownloadAccountModal: () => void;
   isThreePointsAccountOpen: boolean;
@@ -130,10 +130,6 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       isDeletePinModal: false,
     });
   },
-  openShareAccountModal: () =>
-    set((state) => ({
-      isShareAccountOpen: !state.isShareAccountOpen,
-    })),
 
   openDownloadAccountModal: () => {
     set((state) => ({

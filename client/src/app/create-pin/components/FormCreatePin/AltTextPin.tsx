@@ -48,12 +48,13 @@ const AltTextPin = ({
       infoName='alt_text'
       textLabel='Texto Alt'
       type='text'
+      placeHolder='Agregar un texto alt'
       readOnly={isReadOnly}
       register={register}
       errors={errors.alt_text}
-      className={`${
+      className={` w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm ${
         isReadOnly
-          ? 'opacity-75 bg-transparent border-gray-300  outline-none outline-transparent cursor-default'
+          ? 'opacity-75 bg-transparent  outline-none outline-transparent cursor-default '
           : ''
       }`}
     />

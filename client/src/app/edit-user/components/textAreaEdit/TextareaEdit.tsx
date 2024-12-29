@@ -39,8 +39,8 @@ const TextareaEdit = ({
         className='w-full rounded-[13px] py-2 px-3 h-[100px]  border-gray-300 border-[1px] text-sm outline-outline-search resize-none'
         {...register('about_you')}
       ></textarea>
-      {errors.about && (
-        <ErrorStyled>{errors.about.message as string}</ErrorStyled>
+      {errors.about_you && (
+        <ErrorStyled>{errors.about_you.message as string}</ErrorStyled>
       )}
     </div>
   );

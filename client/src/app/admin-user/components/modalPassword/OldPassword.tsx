@@ -26,7 +26,8 @@ const OldPassword = ({
           textLabel='Contraseña actual'
           type={showOldPassword ? 'text' : 'password'}
           infoName='oldPassword'
-          className='w-full'
+          placeHolder='Contraseña actual'
+          className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
           errors={errors.oldPassword}
           register={register}
         />

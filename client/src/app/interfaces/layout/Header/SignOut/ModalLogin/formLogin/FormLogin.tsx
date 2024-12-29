@@ -30,7 +30,8 @@ const FormLogin = () => {
           type='email'
           textLabel='Correo electrónico'
           infoName='email'
-          className='w-full'
+          placeHolder='Email'
+          className='w-full  rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm  '
         />
       </div>
 
@@ -41,7 +42,8 @@ const FormLogin = () => {
           type={showPassword ? 'text' : 'password'}
           textLabel='Contraseña'
           infoName='password'
-          className='w-full'
+          placeHolder='Contraseña'
+          className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         />
         <EyePasswordStyled
           classname='left-[216px] top-[60px]'

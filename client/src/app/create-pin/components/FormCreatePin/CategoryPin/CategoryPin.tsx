@@ -43,12 +43,13 @@ const CategoryPin = ({
         register={register}
         textLabel='Etiqueta de categoria'
         infoName='category'
+        placeHolder='Buscar una etiqueta'
         type='text'
         onFocus={handleFocus}
         readOnly={!imagePreview}
-        className={`${
+        className={`w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm  ${
           !imagePreview &&
-          'opacity-75 bg-transparent border-gray-300 outline-none outline-transparent cursor-default'
+          'opacity-75 bg-transparent  outline-none outline-transparent cursor-default '
         }`}
       />
       <span

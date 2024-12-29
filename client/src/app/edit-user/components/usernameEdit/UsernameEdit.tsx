@@ -38,6 +38,8 @@ const UsernameEdit = ({
         textLabel='Nombre de usuario'
         register={register}
         errors={errors.username}
+        placeHolder=''
+        className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
       />
       <span className='text-[10px] px-2 text-gray-500'>
         www.pinterest.com/{userSettingsEditProfile?.username}

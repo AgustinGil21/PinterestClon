@@ -41,11 +41,16 @@ const useCategoryPin = ({
     }
   }, [getCategoriesPin, imagePreview]);
 
+  type p = {
+    name?: string;
+    color?: string;
+  };
+
   useEffect(() => {
     const selectedCategories = categoriesPin
       .filter((category) => dataCreatePin.topics.includes(category.id))
       .map((category) => ({
-        name: category.name,
+        name: category.name || 'Unknown',
         color: '#000',
       }));
     setCategoriesSelect(selectedCategories);
@@ -54,7 +59,7 @@ const useCategoryPin = ({
   useEffect(() => {
     const currentValues = getValues('category') || '';
     const response = categoriesPin.filter((elem) =>
-      elem.name.toLowerCase().includes(currentValues.toLowerCase())
+      elem.name?.toLowerCase().includes(currentValues.toLowerCase())
     );
     setFilterCategories(response);
   }, [watch('category'), categoriesPin, getValues]);

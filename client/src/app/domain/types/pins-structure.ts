@@ -98,3 +98,27 @@ export interface SuggestionsInterface {
   user_avatar_letter?: string;
   user_avatar_letter_color?: string;
 }
+
+export interface PinViewInterface {
+  id: string;
+  title?: string;
+  description?: string;
+  topics?: string[];
+  body: string;
+  name?: string;
+  surname?: string;
+  alt_text: string;
+  likes: string;
+  comments?: string;
+  username: string;
+  avatar?: string;
+  avatar_background?: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
+  verified?: boolean;
+  already_liked?: boolean;
+  its_you?: boolean;
+  follows_you?: boolean;
+  following?: boolean;
+  followers?: string;
+}

@@ -8,13 +8,13 @@ import FacebookIcon from '../interfaces/components/icons/FacebookIcon';
 
 interface ModalShareAccountInterface {
   modalRef: RefObject<HTMLDivElement>;
-  username: string;
+  dataShare: string;
   classProps?: string;
 }
 
 const ModalShareAccount = ({
   modalRef,
-  username,
+  dataShare,
   classProps,
 }: ModalShareAccountInterface) => {
   const [copied, setCopied] = useState(false);
@@ -34,7 +34,7 @@ const ModalShareAccount = ({
   };
 
   const domain = 'https://pinterestClon.com';
-  const urlToShare = `${domain}/${username}`;
+  const urlToShare = `${domain}/${dataShare}`;
 
   const socialMediaLinks = [
     {

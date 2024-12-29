@@ -21,7 +21,8 @@ const NewPassword = ({ errors, register }: NewPasswordInterface) => {
         textLabel='Contraseña nueva'
         type={showNewPassword ? 'text' : 'password'}
         infoName='newPassword'
-        className='w-full'
+        placeHolder='Contraseña nueva'
+        className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         errors={errors.newPassword}
         register={register}
       />

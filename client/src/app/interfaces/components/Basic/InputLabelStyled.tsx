@@ -26,6 +26,7 @@ interface RegisterInterface {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
+  placeHolder?: string;
 }
 
 const InputLabelStyled = ({
@@ -41,13 +42,14 @@ const InputLabelStyled = ({
   max,
   disabled,
   readOnly,
+  placeHolder,
   imagePreview,
   onFocus,
   onBlur,
   onClick,
 }: RegisterInterface) => {
   return (
-    <div className='w-full'>
+    <div className='w-full flex flex-col'>
       <label
         className={`text-black text-[12px] px-2 dark:text-white ${
           readOnly ? 'text-gray-300' : ' text-black'
@@ -68,12 +70,10 @@ const InputLabelStyled = ({
         register={register}
         type={type}
         infoName={infoName}
-        placeHolder={textLabel}
+        placeHolder={placeHolder}
         disabled={disabled}
         readOnly={readOnly}
-        classProps={`w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm ${className} ${
-          readOnly ? 'bg-gray-100' : ''
-        }`}
+        classProps={`${className} ${readOnly ? 'bg-gray-100' : ''}`}
       />
 
       {errors?.message && (

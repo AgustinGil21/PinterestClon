@@ -37,7 +37,9 @@ const NameLastnameEdit = ({
       <InputLabelStyled
         textLabel={`Nombre(s) ${errors.name ? '*' : ''}`}
         infoName='name'
+        placeHolder=''
         type='text'
+        className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         register={register}
         errors={errors.name}
         value={userSettingsEditProfile?.name}
@@ -46,8 +48,10 @@ const NameLastnameEdit = ({
         textLabel='Apellido(s)'
         infoName='surname'
         type='text'
+        placeHolder=''
+        className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         register={register}
-        errors={errors.lastname}
+        errors={errors.surname}
         value={userSettingsEditProfile?.surname}
       />
     </div>

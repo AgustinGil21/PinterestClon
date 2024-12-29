@@ -81,11 +81,11 @@ const AsideConfig = memo(() => {
   const pathname = usePathname();
   const { userPublicData } = useAppsStore();
 
-  useEffect(() => {
-    if (!userPublicData?.email_address) {
-      router.replace('/');
-    }
-  }, [userPublicData, router]);
+  // useEffect(() => {
+  //   if (!userPublicData?.email_address) {
+  //     router.replace('/');
+  //   }
+  // }, [userPublicData, router]);
 
   if (!userPublicData?.email_address || pathname === '/') {
     return null;

@@ -26,6 +26,8 @@ const config: Config = {
         '4xl':
           '0 35px 70px -15px rgba(0, 0, 0, 0.3), 0 20px 20px -10px rgba(0, 0, 0, 0.15)',
         uniform: '0 0 5px rgba(0, 0, 0, 0.15)',
+
+        pinShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
       },
     },
   },

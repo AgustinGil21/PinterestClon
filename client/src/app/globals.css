@@ -102,6 +102,10 @@
   filter: drop-shadow(0 0 0.1rem #767676);
 }
 
+.arrow-icon-rotate {
+  transition: transform 0.3s ease-in-out;
+}
+
 @keyframes loader {
   to {
     transform: rotate(0deg);
