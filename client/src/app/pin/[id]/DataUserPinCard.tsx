@@ -16,8 +16,8 @@ const DataUserPinCard = () => {
   };
 
   return (
-    <div className='p-2 mt-12'>
-      <div>
+    <div className='p-2 '>
+      <div className='flex flex-col gap-1'>
         <h2 className='text-[22px] font-bold'>
           {pinData.title ? `${pinData.title}` : `${pinData.alt_text}`}{' '}
         </h2>
@@ -52,8 +52,8 @@ const DataUserPinCard = () => {
             </div>
           </div>
           <Follow
-            classPropsFalseIsFollowing='bg-white  border-[1px] text-black  hover:bg-transparent'
-            classPropsTrueIsFollowing='bg-white text-black  border-[1px] '
+            classPropsFalseIsFollowing='bg-white border-[1px] text-black  hover:bg-transparent p-2 flex justify-center items-center '
+            classPropsTrueIsFollowing='bg-black text-white  border-[1px] p-2 flex justify-center items-center'
             id={dataSearchUserProfile.id}
             following={dataSearchUserProfile.following}
           />

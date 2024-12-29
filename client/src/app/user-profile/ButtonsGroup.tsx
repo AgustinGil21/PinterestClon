@@ -25,7 +25,7 @@ const ButtonsGroup = ({ username }: ButtonGroupInterface) => {
     <div className='mt-4 flex gap-2 flex-row'>
       <ButtonStyled
         type='button'
-        className={`font-semibold py-[12px] relative ${
+        className={`font-semibold py-[12px] relative transition-colors ${
           isDownloadAccountOpen
             ? 'bg-black text-white'
             : 'bg-buttonGreyBg text-black hover:bg-gray-300'

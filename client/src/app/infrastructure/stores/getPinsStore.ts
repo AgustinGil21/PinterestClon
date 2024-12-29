@@ -96,6 +96,8 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
             : [...prevHomePins, ...uniqueSearchPins],
       });
     }
+
+    set({ page: 1 });
   },
 
   getSearchPinForCategory: async (
