@@ -3,10 +3,10 @@ import Follow from '@/app/account-search/Follow';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import LabelsPin from './LabelsPin';
+import { useEffect } from 'react';
 
 const DataUserPinCard = () => {
-  const { pinData, dataSearchUserProfile, getSearchUserProfile } =
-    useAppsStore();
+  const { pinData, getSearchUserProfile, getPinView } = useAppsStore();
 
   const router = useRouter();
 
@@ -51,12 +51,14 @@ const DataUserPinCard = () => {
               )}
             </div>
           </div>
-          <Follow
-            classPropsFalseIsFollowing='bg-white border-[1px] text-black  hover:bg-transparent p-2 flex justify-center items-center '
-            classPropsTrueIsFollowing='bg-black text-white  border-[1px] p-2 flex justify-center items-center'
-            id={dataSearchUserProfile.id}
-            following={dataSearchUserProfile.following}
-          />
+          {pinData.user_id && !pinData.its_you && (
+            <Follow
+              classPropsFalseIsFollowing='bg-white border-[1px] text-black  hover:bg-transparent p-2 flex justify-center items-center '
+              classPropsTrueIsFollowing='bg-black text-white  border-[1px] p-2 flex justify-center items-center'
+              id={pinData.user_id}
+              following={pinData.following}
+            />
+          )}
         </div>
         <p className='text-[13px] mt-2'>{pinData.description}</p>
       </div>

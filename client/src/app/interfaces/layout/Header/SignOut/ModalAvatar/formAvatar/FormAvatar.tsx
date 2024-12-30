@@ -39,6 +39,7 @@ const FormAvatar = () => {
       </div>
       <InputLabelStyled
         type='text'
+        className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm mt-2'
         textLabel='Nombre de usuario'
         errors={errors.username}
         register={register}

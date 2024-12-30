@@ -253,6 +253,7 @@ export const FollowingsListSchema = z.object({
 
 export const PinViewSchema = z.object({
   id: z.string(),
+  user_id: z.string().optional(),
   name: z.string().optional(),
   surname: z.string().optional(),
   title: z.string().optional(),

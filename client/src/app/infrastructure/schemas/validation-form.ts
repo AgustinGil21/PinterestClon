@@ -145,11 +145,10 @@ export const loginSchema = z.object({
 export const UsernameSchema = z.object({
   username: z
     .string({
-      required_error: 'Se requiere nombre de usuario.',
-      message: 'El nombre de usuario debe ser una cadena.',
+      required_error: 'Se requiere nombre de usuario.', // Error si el campo está vacío o no es string
     })
     .min(8, {
-      message: 'El nombre de usuario debe contener al menos 8 caracteres',
+      message: 'El nombre de usuario debe contener al menos 8 caracteres.',
     })
     .max(24, {
       message: 'El nombre de usuario puede contener hasta 24 caracteres.',
@@ -158,9 +157,8 @@ export const UsernameSchema = z.object({
       message:
         'El nombre de usuario debe contener caracteres alfanuméricos y también puede incluir caracteres especiales como . (punto) o _ (guion bajo).',
     })
-    .trim(),
+    .trim(), // Elimina espacios al inicio o final
 });
-
 export const RecoverPasswordSchema = z.object({
   password: z
     .string({

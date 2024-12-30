@@ -101,6 +101,7 @@ export interface SuggestionsInterface {
 
 export interface PinViewInterface {
   id: string;
+  user_id?: string;
   title?: string;
   description?: string;
   topics?: string[];

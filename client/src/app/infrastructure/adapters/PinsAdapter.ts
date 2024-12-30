@@ -123,6 +123,7 @@ export const getPinViewAdapter = async (
     if (response) {
       return {
         id: response.id,
+        user_id: response.user_id,
         title: response.title || '',
         description: response.description || '',
         topics: response.topics || [],
@@ -145,6 +146,8 @@ export const getPinViewAdapter = async (
         followers: response.followers,
       };
     }
+
+    console.log(response);
 
     return null;
   } catch (error) {

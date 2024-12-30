@@ -35,7 +35,7 @@ export const Header = () => {
     };
 
     fetchData();
-  }, [getDataUserLogged, setIsHeaderLoaded, userPublicData]);
+  }, [getDataUserLogged, setIsHeaderLoaded]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

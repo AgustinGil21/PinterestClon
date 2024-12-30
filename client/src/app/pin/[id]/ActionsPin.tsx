@@ -4,31 +4,50 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import LikeIcon from '@/app/interfaces/components/icons/LikeIcon';
 import ThreePointsIcon from '@/app/interfaces/components/icons/ThreePointsIcon';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
+import LikeActiveIcon from '@/app/interfaces/components/icons/LikeActiveIcon';
+import { useState } from 'react';
 
 const ActionsPin = () => {
-  const { isThreePointsAccountOpen, pinData, postLikeOrUnlike } =
-    useAppsStore();
+  const {
+    isThreePointsAccountOpen,
+    pinData,
+    postLikeOrUnlike,
+    isAuth,
+    openRegisterModal,
+  } = useAppsStore();
 
-  const handleClick = () => {
+  const [likes, setLikes] = useState(Number(pinData.likes));
+  const [alreadyLiked, setAlreadyLiked] = useState(pinData.already_liked);
+
+  const toggleLike = () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
+    setAlreadyLiked(!alreadyLiked);
+    setLikes((prev) => prev + (alreadyLiked ? -1 : 1));
+
     postLikeOrUnlike(pinData.id);
   };
 
   return (
     <div className='flex justify-between flex-row'>
       <div className='flex flex-row gap-1 items-center'>
-        <div className='flex flex-row  items-center'>
+        <div className='flex flex-row items-center'>
           <Tooltip tooltipText='Reaccionar'>
             <div
               className='p-2 hover:bg-gray-200 rounded-full cursor-pointer'
-              onClick={handleClick}
+              onClick={toggleLike}
             >
-              <LikeIcon classProps='w-[20px] h-[20px]' />
+              {alreadyLiked ? (
+                <LikeActiveIcon classProps='w-[20px] h-[20px]' />
+              ) : (
+                <LikeIcon classProps='w-[20px] h-[20px]' />
+              )}
             </div>
           </Tooltip>
-          {pinData.likes !== '0' && (
-            <span className='text-[12px] font-semibold ml-[-3px]'>
-              {pinData.likes}
-            </span>
+          {likes > 0 && (
+            <span className='text-[12px] font-semibold ml-[-3px]'>{likes}</span>
           )}
         </div>
         <DownloadShare classProps='p-2' dataShare={`pin/${pinData.id}`} />

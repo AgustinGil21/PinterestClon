@@ -15,6 +15,7 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
 ) => ({
   pinData: {
     id: '',
+    user_id: '',
     title: '',
     description: '',
     topics: [],

@@ -12,8 +12,7 @@ interface PinPreviewPageInterface {
 }
 
 const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
-  const { pinData, getPinView, getSearchUserProfile, getCategoriesPin } =
-    useAppsStore();
+  const { pinData, getPinView, getCategoriesPin, isFollowing } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -23,10 +22,8 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     const fetchData = async () => {
       try {
         if (id) {
-          if (!pinData.id) await getPinView(id);
+          await getPinView(id);
         }
-
-        await getSearchUserProfile(pinData.username);
       } catch (error) {
         console.error(error);
       } finally {
@@ -35,8 +32,17 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     };
 
     fetchData();
+  }, [id, isFollowing]);
+
+  // useEffect(() => {
+  //   if (id) {
+  //     getPinView(id);
+  //   }
+  // }, [isFollowing]);
+
+  useEffect(() => {
     getCategoriesPin();
-  }, [id, pinData.username]);
+  }, []);
 
   const handleGoBack = () => {
     router.back();
