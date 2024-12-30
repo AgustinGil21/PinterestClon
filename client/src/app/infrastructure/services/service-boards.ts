@@ -2,6 +2,7 @@ import axios from 'axios';
 import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   BoardsListSchema,
+  GetBoardSchema,
   LastBoardSchema,
   UserBoardsSchema,
 } from '../schemas/validation-service-api';
@@ -31,6 +32,8 @@ export const serviceCreateBoard = async (data: ICreateBoard) => {
     const response = await axios.post(`${URLDOMAIN}/boards`, data, {
       withCredentials: true,
     });
+
+    // const result =
   } catch (err) {
     return null;
   }
@@ -88,8 +91,20 @@ export const serviceGetUserBoards = async ({
   }
 };
 
-export const serviceGetSingleBoards = async ({
-  page,
-  limit,
-  id,
-}: IGetBoard) => {};
+export const serviceGetSingleBoard = async ({ id, page, limit }: IGetBoard) => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/boards/${id}?page=${page}&limit=${limit}`
+    );
+
+    const result = GetBoardSchema.safeParse(response.data.board);
+
+    return result.success ? result.data : null;
+  } catch (err) {
+    return null;
+  }
+};
+
+// export const serviceCreateBoard = async ({ data }) => {
+
+// };

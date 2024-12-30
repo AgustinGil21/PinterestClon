@@ -24,7 +24,13 @@ const UserData = ({ onClick }: Props) => {
         </div>
 
         <div className='flex flex-col text-black   dark:text-white'>
-          <strong className='text-[12px]'>{userPublicData?.username}</strong>
+          {userPublicData?.name ? (
+            <strong className='text-[12px]'>
+              {`${userPublicData?.name}${' ' + userPublicData?.surname || ''}`}
+            </strong>
+          ) : (
+            <strong className='text-[12px]'>{userPublicData?.username}</strong>
+          )}
           <span className='text-[11px] text-gray-500 dark:text-white'>
             Personal
           </span>

@@ -409,7 +409,8 @@
   padding: 0.5rem;
   background-color: #f4f4f4;
   border-radius: 32px;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   transition: background-color ease 150ms;
   cursor: pointer;
   text-decoration: none;
@@ -686,16 +687,6 @@
 }
 
 @media (max-width: 556px) {
-  /* Achicar botones de pin cards */
-
-  .circle-buttons {
-    width: 27px;
-    height: 27px;
-    min-width: 27px;
-    min-height: 27px;
-    padding: 0.5rem;
-  }
-
   .ellipsis svg {
     width: 20px;
   }
@@ -715,10 +706,10 @@
 
 @media (max-width: 475px) {
   .go-to {
-    width: 27px;
-    height: 27px;
-    min-width: 27px;
-    min-height: 27px;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
     padding: 0.35rem;
   }
 
