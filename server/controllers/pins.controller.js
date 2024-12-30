@@ -237,6 +237,7 @@ export default class PinsController {
       }
       return res.status(404).json({ message: 'Pin not found!' });
     } catch (err) {
+      console.log(err);
       return res.status(404).json({ message: 'Pin not found!' });
     }
   }

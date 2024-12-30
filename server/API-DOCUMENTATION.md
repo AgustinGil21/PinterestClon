@@ -937,13 +937,13 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/profile`
 
 ### Follow/Unfollow user
 
-_*POST*_ `http://localhost:1234/pinterest-clon-api/users/follow`
+_*POST*_ `http://localhost:1234/pinterest-clon-api/users/follow/:id`
 
 [RESPONSE]
 
 ```json
 {
-  "username": "String"
+  "message": "String"
 }
 ```
 
