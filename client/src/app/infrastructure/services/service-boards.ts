@@ -3,14 +3,20 @@ import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   BoardsListSchema,
   GetBoardSchema,
+  GetPossibleCoversSchema,
+  HomeBoardsSchema,
   LastBoardSchema,
+  SearchBoardsSchema,
   UserBoardsSchema,
 } from '../schemas/validation-service-api';
 import {
+  IBoardPinsInteractions,
   ICreateBoard,
   IEditBoard,
-  IGetBoard,
   IGetUserBoards,
+  IPaging,
+  ISearchByID,
+  ISearchByValue,
 } from '@/app/domain/types/boards-interface';
 
 export const serviceGetLastBoardName = async () => {
@@ -33,7 +39,9 @@ export const serviceCreateBoard = async (data: ICreateBoard) => {
       withCredentials: true,
     });
 
-    // const result =
+    console.log(response);
+
+    return response.status ? response.data : null;
   } catch (err) {
     return null;
   }
@@ -44,6 +52,10 @@ export const serviceEditBoard = async (data: IEditBoard) => {
     const response = await axios.put(`${URLDOMAIN}/boards/edit`, data, {
       withCredentials: true,
     });
+
+    console.log(response);
+
+    return response.status ? response.data : null;
   } catch (err) {
     return null;
   }
@@ -54,6 +66,8 @@ export const serviceDeleteBoard = async (id: string) => {
     const response = await axios.delete(`${URLDOMAIN}/boards/${id}`, {
       withCredentials: true,
     });
+
+    console.log(response);
   } catch (err) {
     return null;
   }
@@ -66,6 +80,8 @@ export const serviceGetBoardsList = async () => {
     });
 
     const result = BoardsListSchema.safeParse(response.data.boards);
+
+    console.log(response);
 
     return result.success ? result.data : null;
   } catch (err) {
@@ -85,13 +101,19 @@ export const serviceGetUserBoards = async ({
 
     const result = UserBoardsSchema.safeParse(response.data.boards);
 
+    console.log(response);
+
     return result.success ? result.data : null;
   } catch (err) {
     return null;
   }
 };
 
-export const serviceGetSingleBoard = async ({ id, page, limit }: IGetBoard) => {
+export const serviceGetSingleBoard = async ({
+  id,
+  page,
+  limit,
+}: ISearchByID) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/boards/${id}?page=${page}&limit=${limit}`
@@ -99,12 +121,101 @@ export const serviceGetSingleBoard = async ({ id, page, limit }: IGetBoard) => {
 
     const result = GetBoardSchema.safeParse(response.data.board);
 
+    console.log(response);
+
     return result.success ? result.data : null;
   } catch (err) {
     return null;
   }
 };
 
-// export const serviceCreateBoard = async ({ data }) => {
+export const serviceAddPinToBoard = async (data: IBoardPinsInteractions) => {
+  try {
+    const response = await axios.post(`${URLDOMAIN}/boards/add-pin`, data, {
+      withCredentials: true,
+    });
 
-// };
+    console.log(response);
+  } catch (err) {
+    return null;
+  }
+};
+
+export const serviceRemovePinFromBoard = async (
+  data: IBoardPinsInteractions
+) => {
+  try {
+    const response = await axios.post(`${URLDOMAIN}/boards/remove-pin`, data, {
+      withCredentials: true,
+    });
+
+    console.log(response);
+  } catch (err) {
+    return null;
+  }
+};
+
+export const serviceGetPossibleCovers = async ({
+  id,
+  page,
+  limit,
+}: ISearchByID) => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/boards/covers/${id}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    const result = GetPossibleCoversSchema.safeParse(response.data);
+
+    console.log(response);
+
+    return result.success ? result.data : null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const serviceSearchBoards = async ({
+  value,
+  limit,
+  page,
+}: ISearchByValue) => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/boards/search?value=${value}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    const result = SearchBoardsSchema.safeParse(response.data);
+
+    console.log(response);
+
+    return result.success ? result.data : null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const serviceGetHomeBoards = async ({ page, limit }: IPaging) => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/boards?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    const result = HomeBoardsSchema.safeParse(response.data);
+
+    console.log(response);
+
+    return result.success ? result.data : null;
+  } catch (err) {
+    return null;
+  }
+};

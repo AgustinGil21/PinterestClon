@@ -276,6 +276,21 @@ export const PinViewSchema = z.object({
   followers: z.string(),
 });
 
+export const PinCreatedDataSchema = z.array(
+  z.object({
+    id: z.string().uuid(),
+    alt_text: z.string(),
+    title: z.string().optional(),
+    body: z.string(),
+    url: z.string().url().optional(),
+    adult_content: z.boolean(),
+    its_yours: z.boolean().optional(),
+    created_at: z.string().refine((date) => !isNaN(Date.parse(date)), {
+      message: 'Invalid date format',
+    }),
+  })
+);
+
 export const LastBoardSchema = z.object({
   board: z.string(),
 });
@@ -297,8 +312,8 @@ export const UserBoardsSchema = z.object({
       name: z.string(),
       id: z.string(),
       cover: z.string().optional(),
-      collage: z.array(z.string()).optional(),
-      created_at: z.date(),
+      collage: z.array(z.string().url()).optional(),
+      created_at: z.string().date(),
       pins_count: z.string(),
       its_yours: z.boolean().optional(),
     })
@@ -311,23 +326,29 @@ export const GetBoardSchema = z.object({
   description: z.string().optional(),
   its_yours: z.boolean().optional(),
   following: z.string().optional(),
-  avatar: z.string().url(),
-  avatar_letter: z.string().length(1),
-  avatar_letter_color: z.string(),
-  avatar_background: z.string(),
   pins_count: z.string(),
+  user: z.object({
+    id: z.string(),
+    name: z.string().optional(),
+    surname: z.string().optional(),
+    username: z.string(),
+    avatar: z.string().url().optional(),
+    avatar_letter: z.string().length(1),
+    avatar_letter_color: z.string(),
+    avatar_background: z.string(),
+  }),
   pins: z.array(
     z.object({
       body: z.string().url(),
       title: z.string().optional(),
-      url: z.string().url(),
+      url: z.string().url().optional(),
       adult_content: z.boolean(),
       pin_id: z.string(),
       alt_text: z.string(),
       name: z.string().optional(),
       surname: z.string().optional(),
       username: z.string(),
-      avatar: z.string().url(),
+      avatar: z.string().url().optional(),
       avatar_background: z.string(),
       avatar_letter_color: z.string(),
       avatar_letter: z.string().length(1),
@@ -335,17 +356,65 @@ export const GetBoardSchema = z.object({
   ),
 });
 
-export const PinCreatedDataSchema = z.array(
-  z.object({
+export const CreateBoardSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  pinId: z.string().optional(),
+});
+
+export const EditBoardSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  description: z.string().optional(),
+  cover: string().url().optional(),
+});
+
+export const AddPinToBoardSchema = z.object({
+  pinId: z.string().uuid(),
+  boardId: z.string().uuid(),
+});
+
+export const RemovePinFromBoardSchema = z.object({
+  pinId: z.string().uuid(),
+  boardId: z.string().uuid(),
+});
+
+export const GetPossibleCoversSchema = z.object({
+  pins: z.array(
+    z.object({
+      id: z.string().uuid(),
+      body: z.string().url(),
+    })
+  ),
+  results: z.number(),
+});
+
+const BoardPreviewSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string(),
+  created_at: z.string().date(),
+  pins_count: z.string(),
+  cover: z.string().url().optional(),
+  collage: z.array(z.string().url()).optional(),
+  user: z.object({
+    name: z.string().optional(),
+    surname: z.string().optional(),
+    username: z.string(),
     id: z.string().uuid(),
-    alt_text: z.string(),
-    title: z.string().optional(),
-    body: z.string(),
-    url: z.string().url().optional(),
-    adult_content: z.boolean(),
-    its_yours: z.boolean().optional(),
-    created_at: z.string().refine((date) => !isNaN(Date.parse(date)), {
-      message: 'Invalid date format',
-    }),
-  })
-);
+    avatar: z.string().url().optional(),
+    avatar_letter_color: z.string(),
+    avatar_letter: z.string().length(1),
+    avatar_background: z.string(),
+    verified: z.boolean(),
+  }),
+});
+
+export const SearchBoardsSchema = z.object({
+  boards: z.array(BoardPreviewSchema),
+  results: z.string().optional(),
+});
+
+export const HomeBoardsSchema = z.object({
+  boards: z.array(BoardPreviewSchema),
+  results: z.string().optional(),
+});

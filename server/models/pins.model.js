@@ -82,10 +82,10 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async deletePin({ pinID, userID }) {
+  static async deletePin({ pinID }) {
     const response = await pool.query(
       'SELECT delete_post_and_update_boards($1) AS body;',
-      [pinID, userID]
+      [pinID]
     );
 
     const [data] = response.rows;
