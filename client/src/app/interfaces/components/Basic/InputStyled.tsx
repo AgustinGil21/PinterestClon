@@ -21,6 +21,7 @@ interface InputStyledInterface {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
+  name?: string;
   autoComplete?: string;
 }
 

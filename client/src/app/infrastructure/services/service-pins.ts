@@ -11,11 +11,13 @@ import {
   PinInterface,
   PinViewInterface,
   PostCommentInterface,
+  CommentsResponseInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
   ArraySuggestionSchema,
   CategoriesSchema,
+  CommentsResponseSchema,
   getPinsSchema,
   PinEditIdSchema,
   PinViewSchema,
@@ -256,15 +258,21 @@ export const servicePostCommentsCreate = async (data: PostCommentInterface) => {
 };
 
 export const serviceGetPinComments = async (
-  id: string
-): Promise<PinViewInterface | null> => {
+  id: string,
+  page: number,
+  limit: number
+): Promise<CommentsResponseInterface | null> => {
   try {
-    const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      `${URLDOMAIN}/comments/pin-comments/${id}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+
     console.log(response);
 
-    const result = PinViewSchema.safeParse(response.data.pin);
+    const result = CommentsResponseSchema.safeParse(response.data);
     console.log(result);
 
     return result.success ? result.data : null;

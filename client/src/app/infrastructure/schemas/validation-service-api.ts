@@ -418,3 +418,28 @@ export const HomeBoardsSchema = z.object({
   boards: z.array(BoardPreviewSchema),
   results: z.string().optional(),
 });
+
+export const CreateBoardDataSchema = z.object({
+  name: z.string().max(150, 'El nombre no puede tener más de 150 caracteres'),
+  description: z.string().optional(),
+  pinId: z.string().uuid('El pinId debe ser un UUID válido').optional(),
+});
+
+const CommentSchema = z.object({
+  already_liked: z.boolean(),
+  avatar: z.string().optional(),
+  avatar_background: z.string().optional(),
+  avatar_letter: z.string().optional(),
+  avatar_letter_color: z.string().optional(),
+  content: z.string(),
+  created_at: z.string(),
+  id: z.string(),
+  its_yours: z.boolean(),
+  likes_count: z.string(),
+  user_id: z.string(),
+  username: z.string(),
+});
+
+export const CommentsResponseSchema = z.object({
+  comments: z.array(CommentSchema),
+});

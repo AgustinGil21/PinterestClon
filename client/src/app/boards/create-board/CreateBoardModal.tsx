@@ -2,18 +2,34 @@
 
 import { useState } from 'react';
 import Modal from '@/app/components/Basic/Modal';
-import InputStyled from '@/app/interfaces/components/Basic/InputStyled';
-import { Textarea } from '@headlessui/react';
+import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
+import useFormHook from '@/app/interfaces/hooks/useFormHook';
+import { CreateBoardDataSchema } from '@/app/infrastructure/schemas/validation-service-api';
+import { CustomTextArea } from '@/app/components/Basic/CustomTextArea';
+import { CustomInput } from '@/app/components/Basic/CustomInput';
 
 interface Props {
   pinBody?: string;
   pinID?: string;
 }
 
+interface IHandleChange {
+  key: string;
+  value: string;
+}
+
 const CreateBoardModal = ({ pinBody, pinID }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const handleCloseModal = () => setIsModalOpen(false);
+
+  const { errors, register, setValue, watch, isValid } = useFormHook({
+    schema: CreateBoardDataSchema,
+  });
+
+  const handleChange = ({ key, value }: IHandleChange) => {
+    console.log({ key, value });
+  };
 
   return (
     <Modal
@@ -35,31 +51,42 @@ const CreateBoardModal = ({ pinBody, pinID }: Props) => {
           />
         )}
         <form className='flex flex-col justify-start gap-3 w-full h-full'>
-          <label className='text-xs hover:cursor-pointer modal-input-label'>
-            <span className='text-[0.6rem] font-medium mr-[2px]'>Nombre</span>
-            <span
-              className='text-[#e60023] font-bold text-[0.6rem]'
-              title='Obligatorio'
-            >
-              *
-            </span>
-            <InputStyled
+          <label className='text-xs hover:cursor-pointer modal-input-label flex flex-col'>
+            <div className='flex'>
+              <span className='text-[0.6rem] font-medium mr-[2px]'>Nombre</span>
+              <span
+                className='text-[#e60023] font-bold text-[0.6rem]'
+                title='Obligatorio'
+              >
+                *
+              </span>
+            </div>
+            <CustomInput
               type='text'
-              placeHolder='Nombre del tablero'
-              infoName='Nombre del tablero'
-              classProps='p-2 border-solid border-[1.5px] border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem]'
+              placeholder='Nombre del tablero'
+              infoName='name'
+              register={register}
+              errors={errors.name}
+              className='p-2 border-solid border-[1.5px] border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem] w-full outline-outline-search'
+              handleChange={handleChange}
+              watch={watch}
             />
           </label>
           <label className='text-xs hover:cursor-pointer modal-input-label'>
             <span className='text-[0.6rem] font-medium mr-[2px]'>
               Descripción
             </span>
-            <Textarea
+            <CustomTextArea
               className={`resize-none w-full h-full flex-grow border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-[0.6rem] sm:min-h-[270px] ${
                 !pinBody ? 'min-h-[280px]' : 'xs:min-h-[180px] '
               }`}
+              infoName='description'
               placeholder='Descripción del tablero'
               maxLength={500}
+              register={register}
+              errors={errors.description}
+              watch={watch}
+              handleChange={handleChange}
             />
           </label>
         </form>

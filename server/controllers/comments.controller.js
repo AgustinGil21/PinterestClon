@@ -64,6 +64,7 @@ export default class CommentsController {
   static async getPinComments(req, res) {
     const { id: pinID } = req.params;
     const { page, limit } = req.query;
+
     let data;
 
     try {
@@ -86,7 +87,7 @@ export default class CommentsController {
       }
 
       if (data.ok) {
-        const filteredData = filterArrFalsyValues(data.response);
+        const filteredData = filterArrFalsyValues(data.response.data);
 
         return res.status(200).json({ comments: filteredData });
       }

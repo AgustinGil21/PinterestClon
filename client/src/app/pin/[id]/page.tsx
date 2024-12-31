@@ -34,12 +34,6 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     fetchData();
   }, [id, isFollowing]);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     getPinView(id);
-  //   }
-  // }, [isFollowing]);
-
   useEffect(() => {
     getCategoriesPin();
   }, []);

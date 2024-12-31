@@ -1370,7 +1370,7 @@ _*Description*_: Permite darle like a un comentario ya también sacarlo.
 
 ### Get pin comments
 
-_*GET*_ `http://localhost:1234/pinterest-clon-api/boards/pin-comments/:id`
+_*GET*_ `http://localhost:1234/pinterest-clon-api/comments/pin-comments/:id?page=Number&limit=Number`
 
 _id_: Pin ID
 

@@ -9,12 +9,15 @@ import {
   PinInterface,
   PinViewInterface,
   PostCommentInterface,
+  CommentsResponseInterface,
+  CommentInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
   serviceGetCategoriesPin,
   serviceGetEditPinId,
   serviceGetHomePins,
+  serviceGetPinComments,
   serviceGetPinSearchCategories,
   serviceGetPinView,
   serviceGetPreviousPins,
@@ -25,6 +28,7 @@ import {
   servicePostLikeOrUnlikePin,
   servicePutEditPinId,
 } from '../services/service-pins';
+import { CommentsResponseSchema } from '../schemas/validation-service-api';
 
 export const postCreatePinAdapter = async (data: PinCreate): Promise<void> => {
   const newData: PinCreateServerAdapter = {
@@ -164,4 +168,43 @@ export const postLikeOrUnlikePinAdapter = async (id: string) => {
 
 export const postCommentCreateAdapter = async (data: PostCommentInterface) => {
   return await servicePostCommentsCreate(data);
+};
+
+export const getPinCommentsAdapter = async (
+  id: string,
+  page: number,
+  limit: number
+): Promise<CommentsResponseInterface | null> => {
+  try {
+    const response = await serviceGetPinComments(id, page, limit);
+
+    if (response) {
+      const adaptedComments = response.comments.map(
+        (comment: CommentInterface) => ({
+          id: comment.id,
+          content: comment.content,
+          created_at: comment.created_at,
+          likes_count: comment.likes_count,
+          already_liked: comment.already_liked,
+          its_yours: comment.its_yours,
+          username: comment.username,
+          avatar: comment.avatar || undefined,
+          avatar_letter: comment.avatar_letter,
+          avatar_letter_color: comment.avatar_letter_color,
+          avatar_background: comment.avatar_background,
+          user_id: comment.user_id,
+        })
+      );
+
+      return {
+        comments: adaptedComments,
+      };
+    }
+
+    console.log(response);
+    return null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

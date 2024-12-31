@@ -14,7 +14,17 @@ const InputComment = () => {
     schema: CreateCommentSchema,
     event: 'onChange',
   });
-  const { postCreateComment, pinData } = useAppsStore();
+  const {
+    postCreateComment,
+    pinData,
+    updateFrontComment,
+    getUserOwnerProfile,
+    dataOwnerProfile,
+  } = useAppsStore();
+
+  useEffect(() => {
+    getUserOwnerProfile();
+  }, []);
 
   const [emojiIsOpen, setEmojiIsOpen] = useState(false);
 
@@ -36,11 +46,27 @@ const InputComment = () => {
       return;
     }
 
+    const newComment = {
+      id: pinData.user_id,
+      content: comment,
+      created_at: new Date().toISOString(),
+      likes_count: 0,
+      already_liked: false,
+      username: dataOwnerProfile.username,
+      avatar: dataOwnerProfile.avatar,
+      avatar_letter: dataOwnerProfile.avatar_letter,
+      avatar_letter_color: dataOwnerProfile.avatar_letter_color,
+      avatar_background: dataOwnerProfile.avatar_background,
+      its_yours: true,
+    };
+
     try {
       await postCreateComment({
         id: pinData.id,
         content: comment,
       });
+      updateFrontComment(newComment);
+      setValue('comment', '');
     } catch (error) {
       console.error('Error al enviar el comentario:', error);
     }
@@ -53,7 +79,7 @@ const InputComment = () => {
         register={register}
         errors={errors.comment}
         infoName='comment'
-        className='w-full px-3 py-3 rounded-3xl border-[1px] bg-gray-200 text-sm pr-10'
+        className='w-full px-3 py-3 rounded-3xl border-[1px] bg-gray-200 text-sm pr-[86px]'
         placeHolder='Agregar un comentario'
         value={comment}
       />
@@ -64,7 +90,7 @@ const InputComment = () => {
         </div>
       )}
 
-      <div className='flex flex-row items-center absolute top-1/2 right-3 transform -translate-y-1/2'>
+      <div className='pr-2 flex flex-row items-center absolute top-1/2 right-3 transform -translate-y-1/2'>
         <ButtonStyled
           className='rounded-full flex items-center justify-center hover:bg-gray-300 p-2'
           handleClick={handleEmojiIsOpen}
