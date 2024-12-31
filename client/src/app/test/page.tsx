@@ -30,8 +30,8 @@ export default function Test() {
   return (
     <>
       {/* <BoardCoverModal /> */}
-      {/* <CreateBoardModal /> */}
-      <BoardsListModal boards={boards} />
+      <CreateBoardModal />
+      {/* <BoardsListModal boards={boards} /> */}
       {/* <DynamicPositioning /> */}
     </>
   );

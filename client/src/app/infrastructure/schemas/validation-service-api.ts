@@ -418,3 +418,9 @@ export const HomeBoardsSchema = z.object({
   boards: z.array(BoardPreviewSchema),
   results: z.string().optional(),
 });
+
+export const CreateBoardDataSchema = z.object({
+  name: z.string().max(150, 'El nombre no puede tener más de 150 caracteres'),
+  description: z.string().optional(),
+  pinId: z.string().uuid('El pinId debe ser un UUID válido').optional(),
+});

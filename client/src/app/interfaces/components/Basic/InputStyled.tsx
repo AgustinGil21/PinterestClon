@@ -21,6 +21,7 @@ interface InputStyledInterface {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
+  name?: string;
 }
 
 const InputStyled = ({
@@ -41,6 +42,7 @@ const InputStyled = ({
   onBlur,
   onFocus,
   onClick,
+  name,
 }: InputStyledInterface) => {
   return (
     <input
@@ -60,6 +62,7 @@ const InputStyled = ({
       className={` w-full p-1 text-black outline-outline-search  ${classProps}`}
       placeholder={placeHolder}
       {...(register ? register(infoName) : {})}
+      name={name}
     />
   );
 };
