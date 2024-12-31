@@ -14,13 +14,18 @@ const RelativeTime = ({ props }: RelativeTimeProps) => {
   const now = new Date();
 
   const targetDate = typeof date === 'string' ? new Date(date) : date;
-  const diffInSeconds = Math.round(
-    (now.getTime() - targetDate.getTime()) / 1000
-  );
 
   if (isNaN(targetDate.getTime())) {
     return <span className={className}>Invalid date</span>;
   }
+
+  const targetDateLocal = new Date(
+    targetDate.getTime() - targetDate.getTimezoneOffset() * 60000
+  );
+
+  const diffInSeconds = Math.round(
+    (now.getTime() - targetDateLocal.getTime()) / 1000
+  );
 
   let value: number;
   let unit: 'y' | 'mo' | 'w' | 'd' | 'h' | 'm' | 's';
@@ -49,17 +54,41 @@ const RelativeTime = ({ props }: RelativeTimeProps) => {
   }
 
   const translations = {
-    y: { en: `${value}y`, es: `${value} a`, pt: `${value} a` },
+    y: {
+      en: `${value}y`,
+      es: `${value} ${value === 1 ? 'a' : 'a'}`,
+      pt: `${value} ${value === 1 ? 'a' : 'a'}`,
+    },
     mo: {
       en: `${value}mo`,
       es: `${value} ${value === 1 ? 'mes' : 'meses'}`,
       pt: `${value} ${value === 1 ? 'mês' : 'meses'}`,
     },
-    w: { en: `${value}w`, es: `${value} sem.`, pt: `${value} sem` },
-    d: { en: `${value}d`, es: `${value} d`, pt: `${value} d` },
-    h: { en: `${value}h`, es: `${value} h`, pt: `${value} h` },
-    m: { en: `${value}m`, es: `${value} min`, pt: `${value} min` },
-    s: { en: 'Just now', es: `Ahora mismo`, pt: 'Agora mesmo' },
+    w: {
+      en: `${value}w`,
+      es: `${value} ${value === 1 ? 'sem.' : 'sem.'}`,
+      pt: `${value} ${value === 1 ? 'sem.' : 'sem.'}`,
+    },
+    d: {
+      en: `${value}d`,
+      es: `${value} ${value === 1 ? 'd' : 'd'}`,
+      pt: `${value} ${value === 1 ? 'd' : 'd'}`,
+    },
+    h: {
+      en: `${value}h`,
+      es: `${value} ${value === 1 ? 'h' : 'h'}`,
+      pt: `${value} ${value === 1 ? 'h' : 'h'}`,
+    },
+    m: {
+      en: `${value}m`,
+      es: `${value} ${value === 1 ? 'min.' : 'mins.'}`,
+      pt: `${value} ${value === 1 ? 'min.' : 'mins.'}`,
+    },
+    s: {
+      en: 'Just now',
+      es: `Ahora mismo`,
+      pt: 'Agora mesmo',
+    },
   };
 
   const formattedTime = translations[unit][lang];

@@ -88,7 +88,6 @@ export default class CommentsController {
 
       if (data.ok) {
         const filteredData = filterArrFalsyValues(data.response.data);
-        console.log(filteredData);
 
         return res.status(200).json({ comments: filteredData });
       }
