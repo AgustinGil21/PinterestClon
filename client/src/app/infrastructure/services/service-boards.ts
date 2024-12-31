@@ -35,11 +35,9 @@ export const serviceGetLastBoardName = async () => {
 
 export const serviceCreateBoard = async (data: ICreateBoard) => {
   try {
-    const response = await axios.post(`${URLDOMAIN}/boards`, data, {
+    const response = await axios.post(`${URLDOMAIN}/boards/create`, data, {
       withCredentials: true,
     });
-
-    console.log(response);
 
     return response.status ? response.data : null;
   } catch (err) {

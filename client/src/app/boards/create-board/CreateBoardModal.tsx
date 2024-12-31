@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@/app/components/Basic/Modal';
 import InputLabelStyled from '@/app/interfaces/components/Basic/InputLabelStyled';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
 import { CreateBoardDataSchema } from '@/app/infrastructure/schemas/validation-service-api';
 import { CustomTextArea } from '@/app/components/Basic/CustomTextArea';
 import { CustomInput } from '@/app/components/Basic/CustomInput';
+import { ICreateBoard } from '@/app/domain/types/boards-interface';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface Props {
   pinBody?: string;
@@ -18,18 +20,31 @@ interface IHandleChange {
   value: string;
 }
 
+interface IOnSubmit {
+  name: string;
+  description?: string;
+}
+
 const CreateBoardModal = ({ pinBody, pinID }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(true);
+  const { createBoard } = useAppsStore();
 
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const { errors, register, setValue, watch, isValid } = useFormHook({
+  const { errors, register, handleSubmit, watch } = useFormHook({
     schema: CreateBoardDataSchema,
   });
 
-  const handleChange = ({ key, value }: IHandleChange) => {
-    console.log({ key, value });
+  const onSubmit = (values: IOnSubmit) => {
+    const dataToSubmit = {
+      ...values,
+      ...(pinID ? { pinID } : {}),
+    };
+
+    createBoard(dataToSubmit);
   };
+
+  const handleChange = ({ key, value }: IHandleChange) => {};
 
   return (
     <Modal
@@ -50,7 +65,11 @@ const CreateBoardModal = ({ pinBody, pinID }: Props) => {
             className='w-full sm:w-1/2 h-[300px] sm:h-full object-cover rounded-lg max-w-[200px] max-h-[200px] sm:max-h-full'
           />
         )}
-        <form className='flex flex-col justify-start gap-3 w-full h-full'>
+        <form
+          className='flex flex-col justify-start gap-3 w-full h-full'
+          onSubmit={handleSubmit(onSubmit)}
+          id='createBoardForm'
+        >
           <label className='text-xs hover:cursor-pointer modal-input-label flex flex-col'>
             <div className='flex'>
               <span className='text-[0.6rem] font-medium mr-[2px]'>Nombre</span>
@@ -98,7 +117,11 @@ const CreateBoardModal = ({ pinBody, pinID }: Props) => {
         >
           Cancelar
         </button>
-        <button className='p-2 bg-[#e60023] rounded-2xl text-white font-bold text-[0.7rem] hover:bg-[#b60000] transition-colors min-w-[67px]'>
+        <button
+          className='p-2 bg-[#e60023] rounded-2xl text-white font-bold text-[0.7rem] hover:bg-[#b60000] transition-colors min-w-[67px]'
+          type='submit'
+          form='createBoardForm'
+        >
           Crear
         </button>
       </footer>
