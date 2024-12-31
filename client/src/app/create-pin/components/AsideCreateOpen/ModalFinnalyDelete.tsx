@@ -28,6 +28,7 @@ const ModalFinnalyDelete = ({
   };
 
   const handleClickDelete = async (id: string) => {
+    console.log(id);
     await deletePreviousPin(id);
     setImagePreview(null);
 

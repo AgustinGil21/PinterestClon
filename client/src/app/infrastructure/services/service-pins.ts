@@ -10,6 +10,7 @@ import {
   GetPinsInterface,
   PinInterface,
   PinViewInterface,
+  PostCommentInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
@@ -237,5 +238,38 @@ export const servicePostLikeOrUnlikePin = async (id: string) => {
     return response.status ? response.data : null;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const servicePostCommentsCreate = async (data: PostCommentInterface) => {
+  try {
+    const response = await axios.post(`${URLDOMAIN}/comments/create`, data, {
+      withCredentials: true,
+    });
+
+    console.log(response);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const serviceGetPinComments = async (
+  id: string
+): Promise<PinViewInterface | null> => {
+  try {
+    const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
+      withCredentials: true,
+    });
+    console.log(response);
+
+    const result = PinViewSchema.safeParse(response.data.pin);
+    console.log(result);
+
+    return result.success ? result.data : null;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };

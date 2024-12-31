@@ -21,6 +21,7 @@ interface InputStyledInterface {
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
+  autoComplete?: string;
 }
 
 const InputStyled = ({
@@ -38,12 +39,14 @@ const InputStyled = ({
   defaultValue,
   disabled,
   readOnly,
+  autoComplete = 'off',
   onBlur,
   onFocus,
   onClick,
 }: InputStyledInterface) => {
   return (
     <input
+      autoComplete={autoComplete}
       onClick={onClick}
       onFocus={onFocus}
       readOnly={readOnly}

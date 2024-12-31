@@ -8,6 +8,7 @@ import {
   SuggestionsInterface,
   PinInterface,
   PinViewInterface,
+  PostCommentInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
@@ -19,6 +20,7 @@ import {
   serviceGetPreviousPins,
   serviceGetSearchPin,
   serviceGetSuggestions,
+  servicePostCommentsCreate,
   servicePostCreatePin,
   servicePostLikeOrUnlikePin,
   servicePutEditPinId,
@@ -158,4 +160,8 @@ export const getPinViewAdapter = async (
 
 export const postLikeOrUnlikePinAdapter = async (id: string) => {
   return await servicePostLikeOrUnlikePin(id);
+};
+
+export const postCommentCreateAdapter = async (data: PostCommentInterface) => {
+  return await servicePostCommentsCreate(data);
 };

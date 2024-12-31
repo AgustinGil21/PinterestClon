@@ -123,3 +123,8 @@ export interface PinViewInterface {
   following?: boolean;
   followers?: string;
 }
+
+export interface PostCommentInterface {
+  id: string;
+  content: string;
+}

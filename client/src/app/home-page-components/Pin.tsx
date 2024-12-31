@@ -5,6 +5,8 @@ import getDarkColor from '../interfaces/helpers/getColorDark';
 import { getDomain } from '../libs/getDomain';
 import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import ModalShareAccount from '../user-profile/ModalShareAccount';
+import useCloseModal from '../hooks/useCloseModal';
 
 export const Pin = ({
   body,
@@ -22,7 +24,13 @@ export const Pin = ({
   avatar_letter,
   className,
 }: PinInterface) => {
-  const { pinData, getPinView } = useAppsStore();
+  const {
+    pinData,
+    getPinView,
+    openDownloadAccountModal,
+    isDownloadAccountOpen,
+  } = useAppsStore();
+  const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
   const buttonURL = getDomain(url);
@@ -49,6 +57,10 @@ export const Pin = ({
       }
     };
     fetchData();
+  };
+
+  const handleClickOpenMenu = () => {
+    openDownloadAccountModal();
   };
 
   return (

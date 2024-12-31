@@ -4,6 +4,7 @@ import { UseFormReset, FieldValues, UseFormClearErrors } from 'react-hook-form';
 import ModalEditPin from '../ModalEditPin';
 import usePreviousPins from './usePreviousPins';
 import ImageLoaded from './ImageLoaded';
+import { HorizontalEllipsisIcon } from '@/app/icons/HorizontalEllipsis';
 
 interface PreviousPinInterface {
   elem: PreviousPin;
