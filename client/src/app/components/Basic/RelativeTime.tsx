@@ -12,6 +12,7 @@ const RelativeTime = ({ props }: RelativeTimeProps) => {
   const { date, className, lang = 'en' } = props;
 
   const now = new Date();
+
   const targetDate = typeof date === 'string' ? new Date(date) : date;
   const diffInSeconds = Math.round(
     (now.getTime() - targetDate.getTime()) / 1000

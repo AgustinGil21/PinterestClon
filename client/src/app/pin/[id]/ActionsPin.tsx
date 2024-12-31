@@ -6,6 +6,7 @@ import ThreePointsIcon from '@/app/interfaces/components/icons/ThreePointsIcon';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import LikeActiveIcon from '@/app/interfaces/components/icons/LikeActiveIcon';
 import { useState } from 'react';
+import Counter from '@/app/components/Basic/Counter';
 
 const ActionsPin = () => {
   const {
@@ -47,7 +48,10 @@ const ActionsPin = () => {
             </div>
           </Tooltip>
           {likes > 0 && (
-            <span className='text-[12px] font-semibold ml-[-3px]'>{likes}</span>
+            <Counter
+              value={likes}
+              className='text-[12px] font-semibold ml-[-3px] mr-2'
+            />
           )}
         </div>
         <DownloadShare classProps='p-2' dataShare={`pin/${pinData.id}`} />

@@ -4,6 +4,8 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import LabelsPin from './LabelsPin';
 import { useEffect } from 'react';
+import SingularOrPlural from '@/app/components/Basic/SingularOrPlural';
+import InteractionSummary from '@/app/components/Basic/InteractionSummary';
 
 const DataUserPinCard = () => {
   const { pinData, getSearchUserProfile, getPinView } = useAppsStore();
@@ -43,11 +45,14 @@ const DataUserPinCard = () => {
                   ? `${pinData.username}`
                   : `${pinData.name} ${pinData.surname}`}
               </h4>
-              {pinData.followers !== '0' && (
-                <span className='text-[13px]'>
-                  {pinData.followers}{' '}
-                  {pinData.followers === '1' ? 'Seguidor' : 'Seguidores'}
-                </span>
+              {pinData.followers !== '0' && pinData.followers && (
+                <InteractionSummary
+                  value={pinData.followers}
+                  className='text-[13px] flex gap-1'
+                  lang='es'
+                  type='followers'
+                  numberFirst
+                />
               )}
             </div>
           </div>
