@@ -426,7 +426,7 @@ export const CreateBoardDataSchema = z.object({
 });
 
 const CommentSchema = z.object({
-  already_liked: z.boolean(),
+  already_liked: z.boolean().optional(),
   avatar: z.string().optional(),
   avatar_background: z.string().optional(),
   avatar_letter: z.string().optional(),
@@ -434,9 +434,9 @@ const CommentSchema = z.object({
   content: z.string(),
   created_at: z.string(),
   id: z.string(),
-  its_yours: z.boolean(),
+  its_yours: z.boolean().optional(),
   likes_count: z.string(),
-  user_id: z.string(),
+  user_id: z.string().optional(),
   username: z.string(),
 });
 

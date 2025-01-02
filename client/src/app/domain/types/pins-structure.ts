@@ -133,15 +133,15 @@ export interface CommentInterface {
   id: string;
   content: string;
   created_at: string;
-  likes_count: string;
-  already_liked: boolean;
-  its_yours: boolean;
+  likes_count?: string;
+  already_liked?: boolean;
+  its_yours?: boolean;
   username: string;
   avatar?: string;
   avatar_letter?: string;
   avatar_letter_color?: string;
   avatar_background?: string;
-  user_id: string;
+  user_id?: string;
 }
 
 export interface CommentsResponseInterface {

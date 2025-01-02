@@ -20,6 +20,8 @@ const InputComment = () => {
     updateFrontComment,
     getUserOwnerProfile,
     dataOwnerProfile,
+    openRegisterModal,
+    isAuth,
   } = useAppsStore();
 
   useEffect(() => {
@@ -42,6 +44,10 @@ const InputComment = () => {
   }, [comment, setValue]);
 
   const handleClickCreateComment = async () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
     if (!comment || comment.trim() === '' || !isValid) {
       return;
     }
