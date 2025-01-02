@@ -7,6 +7,7 @@ import InputComment from './InputComment';
 import { ArrowDownIcon } from '@/app/icons/ArrowDown';
 import LikeIcon from '@/app/interfaces/components/icons/LikeIcon';
 import AvatarUser from '@/app/interfaces/layout/Header/Avatar/AvatarUser';
+import { CommentTextExtend } from './CommentTextExtend';
 
 const PinCard = () => {
   const { pinData, getPinComments, commentsState, resetComments } =
@@ -81,30 +82,27 @@ const PinCard = () => {
                 onScroll={handleScroll}
               >
                 {commentsState.comments.map((elem, index) => (
-                  <div key={index} className='flex flex-row gap-2 mt-1'>
-                    <AvatarUser
-                      textSize='text-sm'
-                      data={elem}
-                      classProps='max-w-[25px] max-h-[25px] w-full h-full object-cover rounded-full'
-                    />
-                    <div className='flex flex-col'>
-                      <div className='flex flex-col'>
-                        <h5 className='text-nowrap font-semibold text-[13px] flex flex-row items-center gap-1.5'>
-                          {elem.username}
-                          <span className='text-[#b3b3b3] text-[11px]'>
-                            2 a
-                          </span>
-                        </h5>
-                        <p className='text-sm'>{elem.content}</p>
-                      </div>
-                      <div className='flex flex-row gap-2  items-center'>
+                  <div key={index} className='flex items-start gap-2 mt-1'>
+                    <div className='flex-shrink-0 w-[25px] h-[25px]'>
+                      <AvatarUser
+                        textSize='text-sm'
+                        data={elem}
+                        classProps='w-full h-full object-cover rounded-full'
+                      />
+                    </div>
+                    <div className='flex flex-col flex-grow overflow-hidden'>
+                      <h5 className='text-nowrap font-semibold text-[13px] flex flex-row items-center gap-1.5'>
+                        {elem.username}
+                        <span className='text-[#b3b3b3] text-[11px]'>2 a</span>
+                      </h5>
+                      <CommentTextExtend text={elem.content} />
+                      <div className='flex flex-row gap-2 items-center mt-1'>
                         <span className='text-[#b3b3b3] text-[11px] font-semibold cursor-pointer'>
                           Responder
                         </span>
                         <div className='flex flex-row-reverse gap-1 items-center'>
                           {elem.likes_count !== '0' && (
                             <span className='text-black text-[12px]'>
-                              {' '}
                               {elem.likes_count}
                             </span>
                           )}
