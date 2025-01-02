@@ -3,7 +3,7 @@ import { numberFormatter } from '@/app/libs/NumberFormatter';
 import SingularOrPlural from './SingularOrPlural';
 
 interface Props {
-  value: number;
+  value: number | string;
   type: TInteraction;
   lang?: TLang;
   className?: string;

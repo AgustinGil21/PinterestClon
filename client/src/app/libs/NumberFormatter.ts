@@ -1,6 +1,10 @@
-export const numberFormatter = (value: number) => {
+export const numberFormatter = (valueArgs?: number | string) => {
   const units = ['', 'k', 'M', 'B'];
   let unit: string;
+
+  let value = Number(valueArgs);
+
+  if (!value) return 0;
 
   if (value < 1000) {
     unit = units[0];

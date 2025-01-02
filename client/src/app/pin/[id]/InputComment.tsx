@@ -76,10 +76,12 @@ const InputComment = () => {
     } catch (error) {
       console.error('Error al enviar el comentario:', error);
     }
+
+    setEmojiIsOpen(false);
   };
 
   return (
-    <div className='w-full relative'>
+    <div className='w-full relative '>
       <InputLabelStyled
         type='text'
         register={register}
@@ -106,7 +108,7 @@ const InputComment = () => {
 
         {comment.length > 0 && (
           <ButtonStyled
-            className='bg-redPinterestBg w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-700'
+            className='bg-redPinterestBg px-1 py-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-700'
             handleClick={handleClickCreateComment}
           >
             <SendCommentIcon />
