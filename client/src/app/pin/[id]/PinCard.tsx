@@ -7,15 +7,30 @@ import InputComment from './InputComment';
 import { ArrowDownIcon } from '@/app/icons/ArrowDown';
 import Comment from './Comment';
 import { useGetElementSize } from '@/app/hooks/useGetElementSize';
+import { useGetElementDistance } from '@/app/hooks/useGetElementsDistance';
+import { getElementDistance } from '@/app/libs/getElementDistance';
 
 const PinCard = () => {
   const { pinData, getPinComments, commentsState, resetComments } =
     useAppsStore();
+  const [commentsCount, setCommentsCount] = useState(Number(pinData.comments));
   const [openComments, setOpenComments] = useState(true);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const cardRef = useRef(null);
+  const openCommentsRef = useRef(null);
+  const footerRef = useRef(null);
+
   const { height: cardHeight } = useGetElementSize(cardRef);
+
+  const handleCommentsCount = () => setCommentsCount((prev) => prev + 1);
+
+  const commentsMaxHeight = useGetElementDistance({
+    ref1: footerRef,
+    ref2: openCommentsRef,
+    axis: 'y',
+    dependencies: [commentsCount],
+  });
 
   const handleClick = () => {
     setOpenComments(!openComments);
@@ -56,7 +71,7 @@ const PinCard = () => {
     >
       <ImagePin />
       <div
-        className='w-[50%] flex flex-col gap-2 min-h-[449px]  justify-between '
+        className='w-[50%] flex flex-col min-h-[449px]  justify-between '
         style={{
           height: `${cardHeight - 32}px`,
           maxHeight: `${cardHeight - 32}px`,
@@ -71,14 +86,15 @@ const PinCard = () => {
             <div>
               <div
                 className={`flex flex-row justify-between px-1 cursor-pointer h-full ${
-                  pinData.comments === '0' && 'hidden'
+                  !commentsCount && 'hidden'
                 }`}
                 onClick={handleClick}
+                ref={openCommentsRef}
               >
                 <span className='font-semibold'>
-                  {pinData.comments === '1'
-                    ? `${pinData.comments} Comentario `
-                    : `${pinData.comments} comentarios`}
+                  {commentsCount === 1
+                    ? `${commentsCount} Comentario `
+                    : `${commentsCount} comentarios`}
                 </span>
 
                 <ArrowDownIcon
@@ -89,8 +105,9 @@ const PinCard = () => {
               </div>
               {openComments && (
                 <div
-                  className='mt-3 overflow-y-auto h-full max-h-[470px] min-h-[145px]'
+                  className='mt-3 overflow-y-auto h-full min-h-[145px] '
                   onScroll={handleScroll}
+                  style={{ maxHeight: commentsMaxHeight }}
                 >
                   {commentsState.comments.map((elem, index) => (
                     <Comment elem={elem} key={index} />
@@ -100,13 +117,16 @@ const PinCard = () => {
             </div>
           </div>
         </div>
-        <footer className='w-full relative h-14 flex items-end bg-white'>
+        <footer
+          className='w-full relative h-14 flex items-end bg-white'
+          ref={footerRef}
+        >
           {!commentsState.comments.length && (
             <span className='absolute -top-7 font-semibold'>
               ¿Qué te parece?
             </span>
           )}
-          <InputComment />
+          <InputComment handleCommentsCount={handleCommentsCount} />
         </footer>
       </div>
     </div>

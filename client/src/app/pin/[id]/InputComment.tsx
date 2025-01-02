@@ -9,7 +9,11 @@ import SendCommentIcon from '@/app/interfaces/components/icons/SendCommentIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { isValid } from 'zod';
 
-const InputComment = () => {
+interface Props {
+  handleCommentsCount: () => void;
+}
+
+const InputComment = ({ handleCommentsCount }: Props) => {
   const { watch, register, errors, setValue, getValues } = useFormHook({
     schema: CreateCommentSchema,
     event: 'onChange',
@@ -78,6 +82,8 @@ const InputComment = () => {
     }
 
     setEmojiIsOpen(false);
+
+    handleCommentsCount();
   };
 
   return (

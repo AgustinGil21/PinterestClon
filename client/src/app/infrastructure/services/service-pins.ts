@@ -270,10 +270,7 @@ export const serviceGetPinComments = async (
       }
     );
 
-    console.log(response);
-
     const result = CommentsResponseSchema.safeParse(response.data);
-    console.log(result);
 
     return result.success ? result.data : null;
   } catch (error) {
