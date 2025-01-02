@@ -60,8 +60,11 @@ const PinCard = () => {
     >
       <ImagePin />
       <div
-        className='w-[50%] flex flex-col gap-2 min-h-[449px] max-h-[750px] justify-between '
-        style={{ height: `${cardHeight - 32}px` }}
+        className='w-[50%] flex flex-col gap-2 min-h-[449px]  justify-between '
+        style={{
+          height: `${cardHeight - 32}px`,
+          maxHeight: `${cardHeight - 32}px`,
+        }}
       >
         <div>
           <ActionsPin />
