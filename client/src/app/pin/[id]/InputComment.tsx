@@ -75,7 +75,7 @@ const InputComment = () => {
   };
 
   return (
-    <div className='w-full relative'>
+    <div className='w-full relative '>
       <InputLabelStyled
         type='text'
         register={register}

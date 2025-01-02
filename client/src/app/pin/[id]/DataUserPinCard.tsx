@@ -18,7 +18,7 @@ const DataUserPinCard = () => {
   };
 
   return (
-    <div className='p-2 '>
+    <div className='py-2 '>
       <div className='flex flex-col gap-1'>
         <h2 className='text-[22px] font-bold'>
           {pinData.title ? `${pinData.title}` : `${pinData.alt_text}`}{' '}
