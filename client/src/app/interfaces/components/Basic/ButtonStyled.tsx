@@ -24,7 +24,7 @@ const ButtonStyled = ({
       disabled={disabled}
       onClick={handleClick}
       type={type}
-      className={` text-nowrap rounded-3xl  ${className} py-2 px-3 text-sm `}
+      className={` ${className} text-nowrap rounded-3xl  py-2 px-3 text-sm `}
       ref={btnRef}
     >
       {children}

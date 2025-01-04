@@ -3,8 +3,8 @@ import { getCreatedPinsAdapter } from '@/app/infrastructure/adapters/ProfilesDat
 
 export const getCreatedPinsCase = async (
   username: string,
-  limit: number,
-  page: number
+  page: number,
+  limit: number
 ): Promise<CreatedPinsInterface[]> => {
-  return await getCreatedPinsAdapter(username, limit, page);
+  return await getCreatedPinsAdapter(username, page, limit);
 };

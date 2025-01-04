@@ -269,6 +269,7 @@ export const serviceGetPinComments = async (
         withCredentials: true,
       }
     );
+    console.log(response);
 
     const result = CommentsResponseSchema.safeParse(response.data);
 
@@ -276,5 +277,23 @@ export const serviceGetPinComments = async (
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const servicePostToggleLikeComment = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${URLDOMAIN}/comments/toggle-like`,
+      { id },
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(response);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 };

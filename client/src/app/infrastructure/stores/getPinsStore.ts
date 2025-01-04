@@ -134,7 +134,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
   getSuggestions: async () => {
     const response = await getSuggestionsCase();
-    console.log(response);
+
     const shuffledArraySuggestions = response.sort(() => Math.random() - 0.5);
 
     set({

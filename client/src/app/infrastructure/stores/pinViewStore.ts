@@ -9,6 +9,7 @@ import { postLikeOrUnlikeCase } from '@/app/application/use-cases/view-pins/post
 import { postCommentCreateCase } from '@/app/application/use-cases/view-pins/postCommentsCreate';
 import { getPinCommentsCase } from '@/app/application/use-cases/view-pins/getComments';
 import { cp } from 'fs';
+import { postToggleLikeCommentCase } from '@/app/application/use-cases/view-pins/postToggleLikeComment';
 
 export interface PinViewStoreInterface {
   pinData: PinViewInterface;
@@ -19,6 +20,7 @@ export interface PinViewStoreInterface {
   commentsState: CommentsResponseInterface;
   resetComments: () => void;
   updateFrontComment: (comment: any) => void;
+  postToggleLikeComment: (id: string) => Promise<void>;
 }
 
 export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
@@ -124,5 +126,9 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
         comments: [comment, ...state.commentsState.comments],
       },
     }));
+  },
+
+  postToggleLikeComment: async (id: string) => {
+    await postToggleLikeCommentCase(id);
   },
 });

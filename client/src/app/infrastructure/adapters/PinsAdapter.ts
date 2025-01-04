@@ -26,6 +26,7 @@ import {
   servicePostCommentsCreate,
   servicePostCreatePin,
   servicePostLikeOrUnlikePin,
+  servicePostToggleLikeComment,
   servicePutEditPinId,
 } from '../services/service-pins';
 import { CommentsResponseSchema } from '../schemas/validation-service-api';
@@ -207,4 +208,8 @@ export const getPinCommentsAdapter = async (
     console.log(error);
     return null;
   }
+};
+
+export const postToggleLikeCommentAdapter = async (id: string) => {
+  return await servicePostToggleLikeComment(id);
 };
