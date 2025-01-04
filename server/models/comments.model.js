@@ -80,10 +80,10 @@ export default class CommentsModel {
             u.avatar_background, 
             u.id AS user_id,
             (SELECT COUNT(1) FROM comment_likes WHERE comment_id = c.id) AS likes_count,
-          CASE WHEN $5 = TRUE THEN
-            EXISTS(SELECT 1 FROM comment_likes WHERE comment_id = c.id AND user_id = $1) 
-          ELSE NULL
-          END AS already_liked,
+          CASE WHEN $5 = TRUE AND $1 != '' THEN
+            EXISTS(SELECT 1 FROM comment_likes WHERE comment_id = c.id AND user_id = $1)
+          ELSE FALSE
+        END AS already_liked,
           CASE WHEN (c.user_id = $1) THEN TRUE
           ELSE FALSE
           END AS its_yours

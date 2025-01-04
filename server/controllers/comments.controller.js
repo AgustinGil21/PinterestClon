@@ -82,7 +82,7 @@ export default class CommentsController {
           page,
           limit,
           pinID,
-          isAuth: true,
+          isAuth: false,
         });
       }
 
