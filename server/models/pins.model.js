@@ -290,9 +290,9 @@ WHERE
     WHERE posts.id != $1
     AND (
         posts.topics && current_pin.search_topics
-        OR similarity(posts.title, current_pin.search_title) > 0.3 
-        OR similarity(posts.description, current_pin.search_description) > 0.3
-        OR similarity(posts.alt_text, current_pin.search_alt_text) > 0.3
+        OR similarity(posts.title, current_pin.search_title) > 0.1 
+        OR similarity(posts.description, current_pin.search_description) > 0.1
+        OR similarity(posts.alt_text, current_pin.search_alt_text) > 0.1
     )
     ORDER BY similarity_score DESC
     LIMIT $2 OFFSET $3;
