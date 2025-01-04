@@ -62,7 +62,7 @@ export default class CommentsModel {
   }
 
   // Trae todos los comentarios de un pin
-  static async getPinComments({ userID = '', pinID, page, limit, isAuth }) {
+  static async getPinComments({ userID, pinID, page, limit, isAuth }) {
     const offset = getOffset({ limit, page });
 
     const response = await pool.query(
@@ -80,7 +80,7 @@ export default class CommentsModel {
             u.avatar_background, 
             u.id AS user_id,
             (SELECT COUNT(1) FROM comment_likes WHERE comment_id = c.id) AS likes_count,
-          CASE WHEN $5 = TRUE AND $1 != '' THEN
+          CASE WHEN $5 = TRUE THEN
             EXISTS(SELECT 1 FROM comment_likes WHERE comment_id = c.id AND user_id = $1)
           ELSE FALSE
         END AS already_liked,
