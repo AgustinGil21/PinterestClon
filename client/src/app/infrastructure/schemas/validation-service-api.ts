@@ -140,6 +140,8 @@ export const PinSchema = z.object({
   avatar_background: z.string(),
   avatar_letter_color: z.string(),
   avatar_letter: z.string(),
+  user_id: z.string().optional(),
+  similarity_score: z.number().optional(),
 });
 
 export const getPinsSchema = z.object({
@@ -442,4 +444,22 @@ const CommentSchema = z.object({
 
 export const CommentsResponseSchema = z.object({
   comments: z.array(CommentSchema),
+});
+
+export const PinSimilarSchema = z.object({
+  username: z.string(),
+  body: z.string(),
+  pin_id: z.string(),
+  alt_text: z.string(),
+  adult_content: z.boolean().optional(),
+  avatar_background: z.string().optional(),
+  avatar_letter_color: z.string().optional(),
+  avatar_letter: z.string().optional(),
+  title: z.string().optional(),
+  name: z.string().optional(),
+  surname: z.string().optional(),
+  avatar: z.string().optional(),
+  url: z.string().optional(),
+  user_id: z.string(),
+  similarity_score: z.number(),
 });

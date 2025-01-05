@@ -147,3 +147,21 @@ export interface CommentInterface {
 export interface CommentsResponseInterface {
   comments: CommentInterface[];
 }
+
+export interface PinSimilarInterface {
+  username: string;
+  body: string;
+  pin_id: string;
+  alt_text: string;
+  adult_content?: boolean;
+  avatar_background?: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
+  title?: string;
+  name?: string;
+  surname?: string;
+  avatar?: string;
+  url?: string;
+  user_id: string;
+  similarity_score: number;
+}

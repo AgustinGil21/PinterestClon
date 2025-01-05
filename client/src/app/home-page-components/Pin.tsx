@@ -5,36 +5,19 @@ import getDarkColor from '../interfaces/helpers/getColorDark';
 import { getDomain } from '../libs/getDomain';
 import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
-import ModalShareAccount from '../user-profile/ModalShareAccount';
 import useCloseModal from '../hooks/useCloseModal';
 
-export const Pin = ({
-  body,
-  title,
-  url,
-  adult_content,
-  pin_id,
-  alt_text,
-  name,
-  surname,
-  avatar,
-  username,
-  avatar_background,
-  avatar_letter_color,
-  avatar_letter,
-  className,
-}: PinInterface) => {
-  const {
-    pinData,
-    getPinView,
-    openDownloadAccountModal,
-    isDownloadAccountOpen,
-  } = useAppsStore();
+interface PinProps {
+  elem: PinInterface;
+}
+
+export const Pin = ({ elem }: PinProps) => {
+  const { openDownloadAccountModal } = useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
-  const buttonURL = getDomain(url);
-  const userProfile = `/${username}`;
+  const buttonURL = getDomain(elem.url);
+  const userProfile = `/${elem.username}`;
   const router = useRouter();
 
   useEffect(() => {
@@ -43,15 +26,24 @@ export const Pin = ({
 
   useEffect(() => {
     const img = new Image();
-    img.src = body;
+    img.src = elem.body;
     img.onload = () => setIsLoaded(true);
-  }, [body]);
+  }, [elem.body]);
 
   const handleClick = () => {
     const fetchData = async () => {
       try {
-        // await getPinView(pin_id);
-        router.push(`pin/${pin_id}`);
+        let pinId = String(elem.pin_id).trim();
+
+        if (!pinId.startsWith('http')) {
+          pinId = `/${pinId}`;
+        }
+
+        if (pinId.includes('pin')) {
+          router.push(pinId);
+        } else {
+          router.push(`/pin/${pinId}`);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -59,13 +51,13 @@ export const Pin = ({
     fetchData();
   };
 
-  const handleClickOpenMenu = () => {
-    openDownloadAccountModal();
-  };
+  // const handleClickOpenMenu = () => {
+  //   openDownloadAccountModal();
+  // };
 
   return (
-    <section className={`${className}`}>
-      {!isLoaded && username ? (
+    <section className={`${elem.className}`}>
+      {!isLoaded && elem.username ? (
         <div className='animate-pulse p-0.5'>
           <div
             className=' h-[320px] w-full mb-4 rounded-2xl my-3'
@@ -78,9 +70,9 @@ export const Pin = ({
         <article className='card hover:cursor-pointer'>
           <article className='card-top'>
             <img
-              src={body}
+              src={elem.body}
               className='card-body w-full h-60 object-cover'
-              alt={alt_text}
+              alt={elem.alt_text}
               onClick={handleClick}
             />
             <article className='top card-controls flex justify-between mt-2'>
@@ -146,9 +138,9 @@ export const Pin = ({
                 </button>
               </div>
 
-              {url && (
+              {elem.url && (
                 <a
-                  href={url}
+                  href={elem.url}
                   className='go-to text-blue-500'
                   title={buttonURL || ''}
                   target='_blank'
@@ -171,34 +163,36 @@ export const Pin = ({
               )}
             </article>
           </article>
-          {username && (
+          {elem.username && (
             <footer className='card-bottom mt-2'>
-              {title && <strong className='dark:text-white'>{title}</strong>}
+              {elem.title && (
+                <strong className='dark:text-white'>{elem.title}</strong>
+              )}
               <Link
                 href={`${userProfile}`}
                 className='user-data flex items-center '
                 onClick={(e) => e.stopPropagation()}
               >
-                {avatar ? (
+                {elem.avatar ? (
                   <img
-                    src={avatar}
-                    alt={`${username} avatar`}
+                    src={elem.avatar}
+                    alt={`${elem.avatar} avatar`}
                     className='user-avatar w-8 h-8 rounded-full mr-2 object-cover'
                   />
                 ) : (
                   <div
                     className='user-avatar w-8 h-8 rounded-full mr-2 flex items-center justify-center'
                     style={{
-                      backgroundColor: avatar_background,
-                      color: avatar_letter_color,
+                      backgroundColor: elem.avatar_background,
+                      color: elem.avatar_letter_color,
                     }}
-                    aria-label={`${username} avatar`}
+                    aria-label={`${elem.username} avatar`}
                   >
-                    {avatar_letter}
+                    {elem.avatar_letter}
                   </div>
                 )}
                 <span className='text-sm dark:text-white'>
-                  {name ? `${name} ${surname}` : `${username}`}
+                  {elem.name ? `${name} ${elem.surname}` : `${elem.username}`}
                 </span>
               </Link>
             </footer>

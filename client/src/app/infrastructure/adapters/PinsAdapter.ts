@@ -11,6 +11,7 @@ import {
   PostCommentInterface,
   CommentsResponseInterface,
   CommentInterface,
+  PinSimilarInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   serviceDeletePreviousPin,
@@ -22,6 +23,7 @@ import {
   serviceGetPinView,
   serviceGetPreviousPins,
   serviceGetSearchPin,
+  serviceGetSimilarPins,
   serviceGetSuggestions,
   servicePostCommentsCreate,
   servicePostCreatePin,
@@ -212,4 +214,12 @@ export const getPinCommentsAdapter = async (
 
 export const postToggleLikeCommentAdapter = async (id: string) => {
   return await servicePostToggleLikeComment(id);
+};
+
+export const getSimilarPinsAdapter = async (
+  id: string,
+  page: number,
+  limit: number
+): Promise<PinSimilarInterface[] | []> => {
+  return await serviceGetSimilarPins(id, page, limit);
 };

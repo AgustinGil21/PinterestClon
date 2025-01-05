@@ -12,6 +12,7 @@ import {
   PinViewInterface,
   PostCommentInterface,
   CommentsResponseInterface,
+  PinSimilarInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
@@ -20,6 +21,8 @@ import {
   CommentsResponseSchema,
   getPinsSchema,
   PinEditIdSchema,
+  PinSchema,
+  PinSimilarSchema,
   PinViewSchema,
 } from '../schemas/validation-service-api';
 
@@ -295,5 +298,32 @@ export const servicePostToggleLikeComment = async (id: string) => {
     return response.data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const serviceGetSimilarPins = async (
+  id: string,
+  page: number,
+  limit: number
+): Promise<PinSimilarInterface[] | []> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/pins/similar-pins/${id}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(response);
+
+    const result = PinSimilarSchema.array().safeParse(
+      response.data.response.pins
+    );
+
+    console.log(result);
+
+    return result.success ? result.data : [];
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };

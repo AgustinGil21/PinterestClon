@@ -1,5 +1,7 @@
 import {
   CommentsResponseInterface,
+  PinInterface,
+  PinSimilarInterface,
   PinViewInterface,
   PostCommentInterface,
 } from '@/app/domain/types/pins-structure';
@@ -8,8 +10,8 @@ import { getPinViewAdapter } from '../adapters/PinsAdapter';
 import { postLikeOrUnlikeCase } from '@/app/application/use-cases/view-pins/postLikeOrUnlike';
 import { postCommentCreateCase } from '@/app/application/use-cases/view-pins/postCommentsCreate';
 import { getPinCommentsCase } from '@/app/application/use-cases/view-pins/getComments';
-import { cp } from 'fs';
 import { postToggleLikeCommentCase } from '@/app/application/use-cases/view-pins/postToggleLikeComment';
+import { getSimilarPinsCase } from '@/app/application/use-cases/view-pins/getSimilarPins';
 
 export interface PinViewStoreInterface {
   pinData: PinViewInterface;
@@ -21,6 +23,8 @@ export interface PinViewStoreInterface {
   resetComments: () => void;
   updateFrontComment: (comment: any) => void;
   postToggleLikeComment: (id: string) => Promise<void>;
+  similarPins: PinSimilarInterface[];
+  getSimilarPins: (id: string, page: number, limit: number) => Promise<void>;
 }
 
 export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
@@ -69,6 +73,26 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
       },
     ],
   },
+
+  similarPins: [
+    {
+      body: '',
+      title: '',
+      url: '',
+      adult_content: false,
+      pin_id: '',
+      alt_text: '',
+      user_id: '',
+      name: '',
+      surname: '',
+      username: '',
+      avatar: '',
+      avatar_background: '',
+      avatar_letter_color: '',
+      avatar_letter: '',
+      similarity_score: 0,
+    },
+  ],
 
   getPinView: async (id: string) => {
     const response = await getPinViewAdapter(id);
@@ -130,5 +154,24 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
 
   postToggleLikeComment: async (id: string) => {
     await postToggleLikeCommentCase(id);
+  },
+
+  getSimilarPins: async (id: string, page: number, limit: number) => {
+    const response = await getSimilarPinsCase(id, page, limit);
+
+    if (response) {
+      const { similarPins } = get();
+
+      const newPins = response.filter(
+        (newPin) =>
+          !similarPins.some(
+            (existingPin) => existingPin.pin_id === newPin.pin_id
+          )
+      );
+
+      set({
+        similarPins: [...similarPins, ...newPins],
+      });
+    }
   },
 });

@@ -103,15 +103,10 @@ export default function UserProfile({ params }: Props) {
 
       {savesOrCreates ? (
         <Masonry>
-          <p>masonry</p>
+          {/* <p>masonry</p>
           {createdPins.map((elem) => (
-            <Pin
-              className='mb-4'
-              pin_id={elem.id}
-              key={elem.id}
-              body={elem.body}
-            />
-          ))}
+            <Pin elem={elem} key={elem.id} />
+          ))} */}
         </Masonry>
       ) : (
         <p>Guardados</p>

@@ -71,40 +71,9 @@ const Search = () => {
 
   return (
     <section className='masonry'>
-      {homePins.map(
-        ({
-          name,
-          surname,
-          pin_id,
-          username,
-          avatar,
-          body,
-          title,
-          alt_text,
-          adult_content,
-          url,
-          avatar_background,
-          avatar_letter_color,
-          avatar_letter,
-        }: PinInterface) => (
-          <Pin
-            key={pin_id}
-            pin_id={pin_id}
-            name={name}
-            surname={surname}
-            username={username}
-            avatar={avatar}
-            body={body}
-            title={title}
-            alt_text={alt_text}
-            adult_content={adult_content}
-            url={url}
-            avatar_background={avatar_background}
-            avatar_letter_color={avatar_letter_color}
-            avatar_letter={avatar_letter}
-          />
-        )
-      )}
+      {homePins.map((elem) => (
+        <Pin elem={elem} key={elem.pin_id} />
+      ))}
     </section>
   );
 };

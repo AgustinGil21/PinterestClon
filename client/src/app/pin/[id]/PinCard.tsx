@@ -7,8 +7,8 @@ import InputComment from './InputComment';
 import { ArrowDownIcon } from '@/app/icons/ArrowDown';
 import Comment from './Comment';
 import { useGetElementSize } from '@/app/hooks/useGetElementSize';
+
 import { useGetElementDistance } from '@/app/hooks/useGetElementsDistance';
-import { getElementDistance } from '@/app/libs/getElementDistance';
 
 const PinCard = () => {
   const { pinData, getPinComments, commentsState, resetComments } =

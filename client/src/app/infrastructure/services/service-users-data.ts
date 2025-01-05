@@ -156,3 +156,4 @@ export const serviceGetCreatedPins = async (
     return [];
   }
 };
+
