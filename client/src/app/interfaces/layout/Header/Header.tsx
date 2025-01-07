@@ -7,8 +7,13 @@ import { UserLoggedIn } from './LogIn/UserLoggedIn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const Header = () => {
-  const { isAuth, userPublicData, getDataUserLogged, setIsHeaderLoaded } =
-    useAppsStore();
+  const {
+    isAuth,
+    userPublicData,
+    getDataUserLogged,
+    setIsHeaderLoaded,
+    getLastBoard,
+  } = useAppsStore();
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
 
@@ -35,6 +40,7 @@ export const Header = () => {
     };
 
     fetchData();
+    getLastBoard();
   }, [getDataUserLogged, setIsHeaderLoaded]);
 
   useEffect(() => {

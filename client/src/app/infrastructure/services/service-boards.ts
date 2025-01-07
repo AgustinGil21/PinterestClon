@@ -25,7 +25,11 @@ export const serviceGetLastBoardName = async () => {
       withCredentials: true,
     });
 
-    const result = LastBoardSchema.safeParse(response.data.board);
+    console.log(response.data.board);
+
+    const result = LastBoardSchema.safeParse(response.data?.board);
+
+    console.log(result);
 
     return result.success ? result.data : null;
   } catch (err) {

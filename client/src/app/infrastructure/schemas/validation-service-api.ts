@@ -294,7 +294,7 @@ export const PinCreatedDataSchema = z.array(
 );
 
 export const LastBoardSchema = z.object({
-  board: z.string(),
+  board: z.string().optional(),
 });
 
 export const BoardsListSchema = z.object({

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useGetElementBorderDistance = (
-  elementRef: React.RefObject<any>
+  elementRef: React.RefObject<HTMLElement>
 ) => {
   const [distance, setDistance] = useState({
     top: 0,
@@ -10,18 +10,28 @@ export const useGetElementBorderDistance = (
     left: 0,
   });
 
-  const element = elementRef.current;
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
 
-  if (!element) return distance;
+    const updateDistance = () => {
+      const rect = element.getBoundingClientRect();
+      setDistance({
+        left: rect.left,
+        top: rect.top,
+        bottom: rect.bottom,
+        right: rect.right,
+      });
+    };
 
-  const rect = element.getBoundingClientRect();
+    updateDistance();
 
-  setDistance({
-    left: rect.left,
-    top: rect.top,
-    bottom: rect.bottom,
-    right: rect.right,
-  });
+    window.addEventListener('resize', updateDistance);
+
+    return () => {
+      window.removeEventListener('resize', updateDistance);
+    };
+  }, [elementRef]);
 
   return distance;
 };

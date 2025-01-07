@@ -11,7 +11,7 @@ const ModalStyled = ({ children, classProps, modalRef }: ModalStyledProps) => {
     <>
       <div
         ref={modalRef}
-        className={`absolute shadow-uniform bg-white dark:bg-gray-800  w-full z-50  ${classProps}`}
+        className={`absolute shadow-uniform bg-white dark:bg-gray-800 w-full z-50  ${classProps}`}
       >
         {children}
       </div>

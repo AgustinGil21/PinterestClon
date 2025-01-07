@@ -20,10 +20,16 @@ const BoardsList = ({ boards }: Props) => {
         <div className='flex w-full flex-col gap-2'>
           {!value && <BoardListProfileCard />}
         </div>
-        <div className='flex w-full flex-col gap-2'>
-          {!value ? <h3>Todos los tableros</h3> : <h3>Resultados</h3>}
-          <BoardsListResults value={value} boards={boards} />
-        </div>
+        {boards.length ? (
+          <div className='flex w-full flex-col gap-2'>
+            {!value ? <h3>Todos los tableros</h3> : <h3>Resultados</h3>}
+            {boards.length && (
+              <BoardsListResults value={value} boards={boards} />
+            )}
+          </div>
+        ) : (
+          <span>Sin tableros</span>
+        )}
       </section>
       <footer className='w-full h-[80px] p-[1rem_0.8rem] hover:bg-[#e9e9e9] rounded-b-2xl flex gap-2 items-center cursor-pointer font-semibold  boards-list-shadow hover:shadow-none'>
         <div className='size-[48px] rounded-md flex justify-center items-center bg-[#e9e9e9] '>

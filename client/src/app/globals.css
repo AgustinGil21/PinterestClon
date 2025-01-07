@@ -193,6 +193,12 @@
   pointer-events: auto;
 }
 
+.card-controls-modal-open .card-controls {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
 .card-top {
   width: 100%;
   margin: 0;
@@ -277,6 +283,25 @@
   visibility: hidden;
   pointer-events: none;
   cursor: default;
+}
+
+.card-controls-modal-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-direction: row-reverse;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0.5rem;
+  pointer-events: none;
+  cursor: default;
+}
+
+.card-controls-modal-open .card-body {
+  filter: brightness(0.7);
 }
 
 .top {
@@ -386,7 +411,17 @@
   scale: 1.06;
 }
 
+.card-controls-modal-open .save-to-board-button {
+  background-color: black;
+  scale: 1.06;
+}
+
 .save-to-board-button-sm:focus {
+  background-color: black;
+  scale: 1.06;
+}
+
+.card-controls-modal-open .save-to-board-button-sm {
   background-color: black;
   scale: 1.06;
 }

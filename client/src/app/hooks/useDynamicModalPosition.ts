@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useGetElementBorderDistance } from './useGetElementBorderDistance';
-import { useGetElementSize } from './useGetElementSize';
 import { isSpaceAvailable } from '../libs/is-space-available';
 
 interface Props {
   btnRef: React.RefObject<HTMLButtonElement>;
-  modalRef: React.RefObject<HTMLButtonElement>;
   parentRef?: React.RefObject<any>;
-  parentPadding?: number;
+  padding?: number;
   btnMargin?: number;
+  modalHeight: number;
+  modalWidth: number;
 }
 
 export const useDynamicModalPosition = ({
   btnRef,
-  modalRef,
-  parentPadding = 16,
+  padding = 16,
   btnMargin = 8,
+  modalHeight,
+  modalWidth,
 }: Props) => {
   const [position, setPosition] = useState({
     top: false,
@@ -26,9 +27,6 @@ export const useDynamicModalPosition = ({
     centerY: false,
   });
 
-  const { width: modalWidth, height: modalHeight } =
-    useGetElementSize(modalRef);
-
   const {
     left: btnLeft,
     top: btnTop,
@@ -37,25 +35,25 @@ export const useDynamicModalPosition = ({
   } = useGetElementBorderDistance(btnRef);
 
   useEffect(() => {
-    if (!btnRef.current || !modalRef.current) return;
+    if (!btnRef.current || (!modalHeight && modalWidth)) return;
 
     // El espacio disponible respecto a cada
     // lado teniendo en cuenta el padding.
-    const DL = btnLeft - parentPadding; // DistanceLeft
-    const DT = btnTop - parentPadding; // DistanceTop
-    const DR = btnRight - parentPadding; // DistanceRight
-    const DB = btnBottom - parentPadding; // DistanceBottom
+    const DistanceLeft = btnLeft - padding;
+    const DistanceTop = btnTop - padding;
+    const DistanceRight = btnRight - padding;
+    const DistanceBottom = btnBottom - padding;
 
     const modalW = modalWidth + btnMargin;
     const modalH = modalHeight + btnMargin;
 
     const newPosition = {
-      top: isSpaceAvailable(DT, modalH, parentPadding),
-      right: isSpaceAvailable(DR, modalW, parentPadding),
-      bottom: isSpaceAvailable(DB, modalH, parentPadding),
-      left: isSpaceAvailable(DL, modalW, parentPadding),
-      centerX: DR < modalW && DL < modalW,
-      centerY: DB < modalH && DT < modalH,
+      top: isSpaceAvailable(DistanceTop, modalH, padding),
+      right: isSpaceAvailable(DistanceRight, modalW, padding),
+      bottom: isSpaceAvailable(DistanceBottom, modalH, padding),
+      left: isSpaceAvailable(DistanceLeft, modalW, padding),
+      centerX: DistanceRight < modalW && DistanceLeft < modalW,
+      centerY: DistanceBottom < modalH && DistanceTop < modalH,
     };
 
     setPosition(newPosition);
@@ -66,7 +64,7 @@ export const useDynamicModalPosition = ({
     btnRight,
     modalWidth,
     modalHeight,
-    parentPadding,
+    padding,
     btnMargin,
   ]);
 
