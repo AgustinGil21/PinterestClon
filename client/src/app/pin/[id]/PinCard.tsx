@@ -71,10 +71,11 @@ const PinCard = () => {
     >
       <ImagePin />
       <div
-        className='w-[50%] flex flex-col min-h-[449px]  justify-between '
+        className='w-[50%] grid grid-rows-[1fr_auto]'
         style={{
           height: `${cardHeight - 32}px`,
           maxHeight: `${cardHeight - 32}px`,
+          minHeight: `${cardHeight - 32}px`,
         }}
       >
         <div>
@@ -118,7 +119,7 @@ const PinCard = () => {
           </div>
         </div>
         <footer
-          className='w-full relative h-14 flex items-end bg-white'
+          className='w-full relative h-14 flex self-end bg-white items-end'
           ref={footerRef}
         >
           {!commentsState.comments.length && (

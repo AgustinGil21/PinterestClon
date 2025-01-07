@@ -47,7 +47,9 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     setValue('comment', comment);
   }, [comment, setValue]);
 
-  const handleClickCreateComment = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (!isAuth) {
       openRegisterModal();
       return;
@@ -59,7 +61,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     const newComment = {
       id: pinData.user_id,
       content: comment,
-      created_at: new Date().toISOString(),
+      created_at: new Date().toLocaleString(),
       likes_count: 0,
       already_liked: false,
       username: dataOwnerProfile.username,
@@ -87,7 +89,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
   };
 
   return (
-    <div className='w-full relative '>
+    <form className='w-full relative' onSubmit={handleSubmit}>
       <InputLabelStyled
         type='text'
         register={register}
@@ -108,6 +110,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
         <ButtonStyled
           className='rounded-full flex items-center justify-center hover:bg-gray-300 p-2'
           handleClick={handleEmojiIsOpen}
+          type='button'
         >
           <EmojiIcon />
         </ButtonStyled>
@@ -115,13 +118,13 @@ const InputComment = ({ handleCommentsCount }: Props) => {
         {comment.length > 0 && (
           <ButtonStyled
             className='bg-redPinterestBg px-1 py-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-700'
-            handleClick={handleClickCreateComment}
+            type='submit'
           >
             <SendCommentIcon />
           </ButtonStyled>
         )}
       </div>
-    </div>
+    </form>
   );
 };
 
