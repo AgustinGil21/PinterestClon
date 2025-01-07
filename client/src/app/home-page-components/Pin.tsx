@@ -192,7 +192,9 @@ export const Pin = ({ elem }: PinProps) => {
                   </div>
                 )}
                 <span className='text-sm dark:text-white'>
-                  {elem.name ? `${name} ${elem.surname}` : `${elem.username}`}
+                  {elem.name
+                    ? `${elem.name} ${elem.surname || ''}`
+                    : `${elem.username}`}
                 </span>
               </Link>
             </footer>

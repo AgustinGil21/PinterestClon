@@ -12,6 +12,7 @@ import { postCommentCreateCase } from '@/app/application/use-cases/view-pins/pos
 import { getPinCommentsCase } from '@/app/application/use-cases/view-pins/getComments';
 import { postToggleLikeCommentCase } from '@/app/application/use-cases/view-pins/postToggleLikeComment';
 import { getSimilarPinsCase } from '@/app/application/use-cases/view-pins/getSimilarPins';
+import { getUniqueItems } from '@/app/libs/getUniqueItems';
 
 export interface PinViewStoreInterface {
   pinData: PinViewInterface;
@@ -74,25 +75,7 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
     ],
   },
 
-  similarPins: [
-    {
-      body: '',
-      title: '',
-      url: '',
-      adult_content: false,
-      pin_id: '',
-      alt_text: '',
-      user_id: '',
-      name: '',
-      surname: '',
-      username: '',
-      avatar: '',
-      avatar_background: '',
-      avatar_letter_color: '',
-      avatar_letter: '',
-      similarity_score: 0,
-    },
-  ],
+  similarPins: [],
 
   getPinView: async (id: string) => {
     const response = await getPinViewAdapter(id);
@@ -162,12 +145,7 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
     if (response) {
       const { similarPins } = get();
 
-      const newPins = response.filter(
-        (newPin) =>
-          !similarPins.some(
-            (existingPin) => existingPin.pin_id === newPin.pin_id
-          )
-      );
+      const newPins = getUniqueItems(response, similarPins, 'pin_id');
 
       set({
         similarPins: [...similarPins, ...newPins],

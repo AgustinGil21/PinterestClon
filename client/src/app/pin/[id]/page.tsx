@@ -86,7 +86,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
   }
 
   return (
-    <section className='flex justify-center items-center w-full p-2 relative min-h-[90vh] flex-col '>
+    <section className='flex justify-center items-center w-full p-2 relative min-h-[90vh] flex-col gap-4'>
       <div className='absolute top-0 left-0 m-4'>
         <ButtonStyled
           className='font-semibold text-sm flex items-center flex-row gap-4 hover:bg-gray-200 '
