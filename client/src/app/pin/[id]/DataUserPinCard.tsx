@@ -41,9 +41,9 @@ const DataUserPinCard = () => {
                 className='font-semibold text-sm cursor-pointer'
                 onClick={handleClickSearchUser}
               >
-                {pinData.username
-                  ? `${pinData.username}`
-                  : `${pinData.name} ${pinData.surname}`}
+                {pinData.name
+                  ? `${pinData.name} ${pinData.surname || ''}`
+                  : `${pinData.username}`}
               </h4>
               {pinData.followers !== '0' && pinData.followers && (
                 <InteractionSummary

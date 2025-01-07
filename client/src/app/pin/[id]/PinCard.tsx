@@ -71,12 +71,12 @@ const PinCard = () => {
     >
       <ImagePin />
       <div
-        className='w-[50%] grid grid-rows-[1fr_auto]'
-        style={{
-          height: `${cardHeight - 32}px`,
-          maxHeight: `${cardHeight - 32}px`,
-          minHeight: `${cardHeight - 32}px`,
-        }}
+        className='w-[50%] grid grid-rows-[1fr_auto] h-full'
+        // style={{
+        //   height: `${cardHeight - 32}px`,
+        //   maxHeight: `${cardHeight - 32}px`,
+        //   minHeight: `${cardHeight - 32}px`,
+        // }}
       >
         <div>
           <ActionsPin />
@@ -86,7 +86,7 @@ const PinCard = () => {
           <div className='flex flex-col justify-between py-2 h-fit max-h-[510px] min-h-[180px]'>
             <div>
               <div
-                className={`flex flex-row justify-between px-1 cursor-pointer h-full ${
+                className={`flex flex-row justify-between px-1 cursor-pointer h-full max-h-full ${
                   !commentsCount && 'hidden'
                 }`}
                 onClick={handleClick}

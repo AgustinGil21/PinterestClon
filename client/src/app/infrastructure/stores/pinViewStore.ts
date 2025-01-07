@@ -104,6 +104,7 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
         const existingCommentIds = new Set(
           state.commentsState.comments.map((c) => c.id)
         );
+
         const newComments = response.comments.filter(
           (comment) => !existingCommentIds.has(comment.id)
         );

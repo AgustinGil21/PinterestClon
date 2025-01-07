@@ -93,7 +93,8 @@ export default class CommentsModel {
             users u ON u.id = c.user_id
         WHERE 
             c.post_id = $2
-        ORDER BY 
+        ORDER BY
+            likes_count DESC,
             c.created_at ASC
         LIMIT $3 OFFSET $4;
 

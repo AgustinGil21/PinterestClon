@@ -12,7 +12,7 @@ interface PinProps {
 }
 
 export const Pin = ({ elem }: PinProps) => {
-  const { openDownloadAccountModal } = useAppsStore();
+  const { openDownloadAccountModal, lastBoard, getLastBoard } = useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
@@ -51,12 +51,14 @@ export const Pin = ({ elem }: PinProps) => {
     fetchData();
   };
 
-  // const handleClickOpenMenu = () => {
-  //   openDownloadAccountModal();
-  // };
+  const handleGetLasBoard = async () => await getLastBoard();
+
+  const handleClickOpenMenu = () => {
+    openDownloadAccountModal();
+  };
 
   return (
-    <section className={`${elem.className}`}>
+    <section className={`${elem.className}`} onMouseOver={handleGetLasBoard}>
       {!isLoaded && elem.username ? (
         <div className='animate-pulse p-0.5'>
           <div
@@ -80,7 +82,7 @@ export const Pin = ({ elem }: PinProps) => {
                 Guardar
               </button>
               <button className='save-to-board-button flex items-center'>
-                <span className='text-sm'>Programacion</span>
+                <span className='text-sm'>{lastBoard || 'Perfil'}</span>
                 <svg
                   fill='none'
                   viewBox='0 0 24 24'

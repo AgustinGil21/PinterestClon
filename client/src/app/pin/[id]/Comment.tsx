@@ -37,6 +37,8 @@ const Comment = ({ elem }: CommentProps) => {
     router.push(`/${elem.username}`);
   };
 
+  const createdAt = elem.created_at || new Date().toLocaleDateString();
+
   return (
     <div className='flex flex-row gap-2 mt-1 h-full'>
       <div onClick={handleClickSearchUser}>
@@ -55,7 +57,7 @@ const Comment = ({ elem }: CommentProps) => {
             {elem.username}
             <RelativeTime
               props={{
-                date: elem.created_at,
+                date: createdAt,
                 lang: 'es',
                 className: 'text-[#b3b3b3] text-[11px]',
               }}

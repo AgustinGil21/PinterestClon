@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import AsideConfig from './interfaces/layout/settingsConfig/AsideSettings';
 import { useAppsStore } from './infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
+import { changeDocTitle } from './libs/changeDocTitle';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -48,6 +49,10 @@ export default function RootLayout({
       setIsLoading(false);
     }
   }, [userPublicData]);
+
+  useEffect(() => {
+    changeDocTitle('PinterestClon');
+  }, [pathname]);
 
   if (isLoading) {
     return null;

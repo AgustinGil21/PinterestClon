@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import ArrowTwoLeftIcon from '@/app/interfaces/components/icons/ArrowTwoLeftIcon';
 import { Pin } from '@/app/home-page-components/Pin';
 import Masonry from '@/app/interfaces/components/Basic/Masonry';
+import { changeDocTitle } from '@/app/libs/changeDocTitle';
 
 interface PinPreviewPageInterface {
   params: { id?: string };
@@ -48,6 +49,10 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
 
     fetchData();
   }, [id]);
+
+  useEffect(() => {
+    changeDocTitle(pinData?.title || 'Pin page');
+  }, [pinData]);
 
   const handleGoBack = () => {
     router.back();
