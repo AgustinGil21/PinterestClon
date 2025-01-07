@@ -23,8 +23,6 @@ export const useDynamicModalPosition = ({
     right: false,
     bottom: false,
     left: false,
-    centerX: false,
-    centerY: false,
   });
 
   const {
@@ -35,26 +33,27 @@ export const useDynamicModalPosition = ({
   } = useGetElementBorderDistance(btnRef);
 
   useEffect(() => {
-    if (!btnRef.current || (!modalHeight && modalWidth)) return;
+    if (!btnRef.current || !modalHeight || !modalWidth) return;
 
-    // El espacio disponible respecto a cada
-    // lado teniendo en cuenta el padding.
     const DistanceLeft = btnLeft - padding;
     const DistanceTop = btnTop - padding;
-    const DistanceRight = btnRight - padding;
-    const DistanceBottom = btnBottom - padding;
+    const DistanceRight = window.innerWidth - btnRight - padding;
+    const DistanceBottom = window.innerHeight - btnBottom - padding;
 
     const modalW = modalWidth + btnMargin;
     const modalH = modalHeight + btnMargin;
 
     const newPosition = {
       top: isSpaceAvailable(DistanceTop, modalH, padding),
-      right: isSpaceAvailable(DistanceRight, modalW, padding),
       bottom: isSpaceAvailable(DistanceBottom, modalH, padding),
       left: isSpaceAvailable(DistanceLeft, modalW, padding),
-      centerX: DistanceRight < modalW && DistanceLeft < modalW,
-      centerY: DistanceBottom < modalH && DistanceTop < modalH,
+      right: isSpaceAvailable(DistanceRight, modalW, padding),
     };
+
+    // Si ninguna posición es viable, establece una posición por defecto
+    if (!Object.values(newPosition).includes(true)) {
+      newPosition.bottom = true;
+    }
 
     setPosition(newPosition);
   }, [

@@ -92,7 +92,7 @@ export const Pin = ({ elem }: PinProps) => {
                 <button
                   className='save-to-board-button flex items-center'
                   onClick={handleModalOpen}
-                  // ref={btnRef}
+                  ref={btnRef}
                 >
                   <span className='text-sm'>{lastBoard || 'Perfil'}</span>
                   <svg
