@@ -3,6 +3,7 @@ import BoardsList from '../boards/boards-list/BoardsList';
 import BoardsListModal from '../boards/boards-list/BoardsListModal';
 import CreateBoardModal from '../boards/create-board/CreateBoardModal';
 import DynamicPositioning from '../components/Basic/DynamicPositioningModal';
+import ToastNotification from '../components/Basic/ToastNotification';
 
 export default function Test() {
   const boards = [
@@ -31,8 +32,6 @@ export default function Test() {
     <>
       {/* <BoardCoverModal /> */}
       <CreateBoardModal />
-      {/* <BoardsListModal boards={boards} /> */}
-      {/* <DynamicPositioning /> */}
     </>
   );
 }

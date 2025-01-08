@@ -51,7 +51,7 @@ const CreateBoardModal = ({ pinBody, pinID }: Props) => {
       props={{
         isModalOpen,
         setModal: () => setIsModalOpen(false),
-        className: `flex flex-col p-3 gap-4 rounded-lg justify-center items-center sm:min-w-[300px] min-h-[400px] h-full w-full  max-h-[500px]  ${
+        className: `absolute shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-40 modal flex flex-col p-3 gap-4 rounded-lg justify-center items-center sm:min-w-[300px] min-h-[400px] h-full w-full  max-h-[500px]  ${
           !pinBody ? 'max-w-[350px]' : ' sm:max-w-[550px] board-modal'
         }`,
       }}

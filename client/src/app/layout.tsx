@@ -8,6 +8,7 @@ import AsideConfig from './interfaces/layout/settingsConfig/AsideSettings';
 import { useAppsStore } from './infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
 import { changeDocTitle } from './libs/changeDocTitle';
+import ToastNotification from './components/Basic/ToastNotification';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { userPublicData } = useAppsStore();
+  const { userPublicData, toastNotificationContent } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
   const routesWithoutAside = [
@@ -74,6 +75,12 @@ export default function RootLayout({
         <main className={`flex pt-16 `}>
           {routesWithoutAside.includes(pathname) && <AsideConfig />}
           {children}
+          {toastNotificationContent && (
+            <ToastNotification
+              key={toastNotificationContent}
+              content={toastNotificationContent}
+            />
+          )}
         </main>
       </body>{' '}
     </html>
