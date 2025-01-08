@@ -102,7 +102,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
   getLastBoard: async () => {
     const response = await lastBoardUseCase();
 
-    if (response) set({ lastBoard: response.board });
+    if (response) set({ lastBoard: response });
   },
 
   getBoardsList: async () => {

@@ -27,11 +27,11 @@ export const serviceGetLastBoardName = async () => {
 
     console.log(response.data.board);
 
-    const result = LastBoardSchema.safeParse(response.data?.board);
+    const result = LastBoardSchema.safeParse({ board: response.data?.board });
 
     console.log(result);
 
-    return result.success ? result.data : null;
+    return result.success ? result.data.board : null;
   } catch (err) {
     return null;
   }

@@ -54,7 +54,7 @@ export default class PinsModel {
           ELSE NULL 
         END AS its_yours
       FROM posts 
-      WHERE username = $3 
+      WHERE user_id = (SELECT id FROM users WHERE username = $3) 
       ORDER BY created_at ASC
       LIMIT $4 OFFSET $5
       ;`,
