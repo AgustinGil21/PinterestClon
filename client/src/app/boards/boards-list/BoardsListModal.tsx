@@ -1,20 +1,16 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import BoardsList from './BoardsList';
-import { ListOfBoards } from './BoardsListResults';
 import { DynamicModal } from '@/app/components/Basic/DynamicModal';
 
 interface Props {
-  boards: ListOfBoards[];
   btnRef: React.RefObject<HTMLButtonElement>;
   handleModalOpen: () => void;
   isOpen: boolean;
 }
 
-const BoardsListModal = ({
-  // boards,
-  btnRef,
-  handleModalOpen,
-  isOpen,
-}: Props) => {
+const BoardsListModal = ({ btnRef, handleModalOpen, isOpen }: Props) => {
+  const { boardsList } = useAppsStore();
+
   const boards = [
     {
       id: '1',

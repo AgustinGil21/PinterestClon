@@ -304,34 +304,34 @@ export default class BoardsModel {
   static async getCreatedBoardsList({ id }) {
     const response = await pool.query(
       `
-      SELECT
-       b.name, b.id
+    SELECT
+      b.name, 
+      b.id,
       CASE 
         WHEN b.cover IS NOT NULL THEN b.cover
         ELSE NULL
       END AS cover,
       CASE 
-        WHEN b.cover IS NULL OR b.cover = '' THEN 
-          ARRAY(
-            SELECT p.body 
-            FROM board_posts bp 
-            JOIN posts p ON bp.post_id = p.id 
-            WHERE bp.board_id = b.id
-            ORDER BY bp.created_at ASC
-            LIMIT 1
-          )
+        WHEN b.cover IS NULL THEN (
+          SELECT p.url
+          FROM board_posts bp 
+          JOIN posts p ON bp.post_id = p.id 
+          WHERE bp.board_id = b.id
+          ORDER BY bp.created_at ASC
+          LIMIT 1
+        )
         ELSE NULL
       END AS collage
-        FROM boards b
-        WHERE b.user_id = $1;
-      `,
+    FROM boards b
+    WHERE b.user_id = $1;
+    `,
       [id]
     );
 
     const data = response.rows;
 
-    if (data) return { response: data, ok: true };
-    return { response: data, ok: false };
+    if (data.length > 0) return { response: data, ok: true };
+    return { response: [], ok: false };
   }
 
   // Información que se muestra al tocar en

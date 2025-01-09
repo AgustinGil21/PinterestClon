@@ -1,4 +1,6 @@
 'use client';
+
+import { useEffect, useState } from 'react';
 import { Roboto, Poppins, Inter } from 'next/font/google';
 import { Header } from './interfaces/layout/Header/Header';
 import './globals.css';
@@ -6,7 +8,6 @@ import DataDevs from './interfaces/layout/DataDevs';
 import { usePathname } from 'next/navigation';
 import AsideConfig from './interfaces/layout/settingsConfig/AsideSettings';
 import { useAppsStore } from './infrastructure/stores/useAppStore';
-import { useEffect, useState } from 'react';
 import { changeDocTitle } from './libs/changeDocTitle';
 import ToastNotification from './components/Basic/ToastNotification';
 
@@ -82,7 +83,7 @@ export default function RootLayout({
             />
           )}
         </main>
-      </body>{' '}
+      </body>
     </html>
   );
 }

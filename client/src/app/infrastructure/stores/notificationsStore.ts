@@ -1,8 +1,9 @@
+import { TToastNotification } from '@/app/global-interfaces/global-interfaces';
 import { StateCreator } from 'zustand';
 
 export interface INotificationsStore {
-  toastNotificationContent: string;
-  setToastNotification: (value: string) => void;
+  toastNotificationContent: TToastNotification;
+  setToastNotification: (value: TToastNotification) => void;
 }
 
 export const createNotificationsStore: StateCreator<INotificationsStore> = (
@@ -11,6 +12,6 @@ export const createNotificationsStore: StateCreator<INotificationsStore> = (
 ) => ({
   toastNotificationContent: '',
 
-  setToastNotification: (value: string) =>
+  setToastNotification: (value: TToastNotification) =>
     set({ toastNotificationContent: value }),
 });

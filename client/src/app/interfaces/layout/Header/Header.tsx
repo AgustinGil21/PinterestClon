@@ -13,6 +13,7 @@ export const Header = () => {
     getDataUserLogged,
     setIsHeaderLoaded,
     getLastBoard,
+    getBoardsList,
   } = useAppsStore();
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
@@ -41,6 +42,7 @@ export const Header = () => {
 
     fetchData();
     getLastBoard();
+    getBoardsList();
   }, [getDataUserLogged, setIsHeaderLoaded]);
 
   useEffect(() => {

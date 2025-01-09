@@ -25,11 +25,7 @@ export const serviceGetLastBoardName = async () => {
       withCredentials: true,
     });
 
-    console.log(response.data.board);
-
     const result = LastBoardSchema.safeParse({ board: response.data?.board });
-
-    console.log(result);
 
     return result.success ? result.data.board : null;
   } catch (err) {
@@ -81,7 +77,7 @@ export const serviceGetBoardsList = async () => {
       withCredentials: true,
     });
 
-    const result = BoardsListSchema.safeParse(response.data.boards);
+    const result = BoardsListSchema.safeParse(response.data);
 
     console.log(response);
 
@@ -98,7 +94,7 @@ export const serviceGetUserBoards = async ({
 }: IGetUserBoards) => {
   try {
     const response = await axios.get(
-      `${URLDOMAIN}/boards/${username}?page=${page}&limit=${limit}`
+      `${URLDOMAIN}/boards/user/${username}?page=${page}&limit=${limit}`
     );
 
     const result = UserBoardsSchema.safeParse(response.data.boards);
