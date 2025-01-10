@@ -75,7 +75,7 @@ export interface FollowingsListInterface {
 }
 
 export interface CreatedPinsInterface {
-  id: string;
+  pin_id?: string;
   alt_text: string;
   title?: string;
   body: string;

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import Loader from '../interfaces/components/Basic/Loader';
 import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
@@ -19,6 +19,8 @@ interface Props {
 
 export default function UserProfile({ params }: Props) {
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
   const [savesOrCreates, setSavesOrCreates] = useState<boolean | null>(null);
   const {
     dataSearchUserProfile,
@@ -49,13 +51,39 @@ export default function UserProfile({ params }: Props) {
         }
       }
 
-      await getCreatedPins(username, 1, 10);
+      await getCreatedPins(username, 1, 10, true);
 
       setLoading(false);
     };
 
     fetchData();
   }, [username]);
+
+  const handleScroll = useCallback(async () => {
+    const isBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 100;
+
+    if (isBottom && !loadingMore) {
+      setLoadingMore(true);
+      try {
+        const nextPage = page + 1;
+        setPage(nextPage);
+        if (username) {
+          await getCreatedPins(username, nextPage, 10, false);
+        }
+      } finally {
+        setLoadingMore(false);
+      }
+    }
+  }, [loadingMore, page, username, getCreatedPins]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
 
   if (loading) {
     return (
@@ -103,10 +131,9 @@ export default function UserProfile({ params }: Props) {
 
       {savesOrCreates ? (
         <Masonry>
-          {/* <p>masonry</p>
           {createdPins.map((elem) => (
-            <Pin elem={elem} key={elem.id} />
-          ))} */}
+            <Pin elem={elem} key={elem.pin_id} />
+          ))}
         </Masonry>
       ) : (
         <p>Guardados</p>

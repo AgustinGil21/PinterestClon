@@ -40,7 +40,6 @@ export const Header = () => {
     };
 
     fetchData();
-    getLastBoard();
   }, [getDataUserLogged, setIsHeaderLoaded]);
 
   useEffect(() => {

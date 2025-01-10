@@ -67,7 +67,7 @@ export interface PinId {
 export interface PinInterface {
   username?: string;
   body: string;
-  pin_id: string;
+  pin_id?: string;
   alt_text?: string;
   adult_content?: boolean;
   avatar_background?: string;

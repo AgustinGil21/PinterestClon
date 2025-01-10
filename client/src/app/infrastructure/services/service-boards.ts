@@ -25,7 +25,7 @@ export const serviceGetLastBoardName = async () => {
       withCredentials: true,
     });
 
-    console.log(response.data.board);
+    console.log(response);
 
     const result = LastBoardSchema.safeParse(response.data?.board);
 

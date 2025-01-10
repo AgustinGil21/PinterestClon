@@ -12,6 +12,7 @@ import { postFollowUserCase } from '@/app/application/use-cases/profile-data/pos
 import { getFollowersListCase } from '@/app/application/use-cases/profile-data/getFollowersList';
 import { getFollowingsListCase } from '@/app/application/use-cases/profile-data/getFollowingsList';
 import { getCreatedPinsCase } from '@/app/application/use-cases/profile-data/getCreatedPins';
+import { getUniqueItems } from '@/app/libs/getUniqueItems';
 
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
@@ -27,7 +28,8 @@ export interface UserDataStoreInterface {
   getCreatedPins: (
     username: string,
     page: number,
-    limit: number
+    limit: number,
+    reset: boolean
   ) => Promise<void>;
   createdPins: CreatedPinsInterface[];
 }
@@ -126,11 +128,23 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     });
   },
 
-  getCreatedPins: async (username: string, page: number, limit: number) => {
+  getCreatedPins: async (
+    username: string,
+    page: number,
+    limit: number,
+    reset: boolean = false
+  ) => {
+    if (reset) {
+      set({ createdPins: [] });
+    }
     const response = await getCreatedPinsCase(username, page, limit);
 
+    const { createdPins } = get();
+
+    const newPins = getUniqueItems(response, createdPins, 'pin_id');
+
     set({
-      createdPins: response,
+      createdPins: [...createdPins, ...newPins],
     });
   },
 });

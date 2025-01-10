@@ -7,12 +7,16 @@ import InputComment from './InputComment';
 import { ArrowDownIcon } from '@/app/icons/ArrowDown';
 import Comment from './Comment';
 import { useGetElementSize } from '@/app/hooks/useGetElementSize';
-
 import { useGetElementDistance } from '@/app/hooks/useGetElementsDistance';
 
 const PinCard = () => {
-  const { pinData, getPinComments, commentsState, resetComments } =
-    useAppsStore();
+  const {
+    pinData,
+    getPinComments,
+    commentsState,
+    resetComments,
+    getLastBoard,
+  } = useAppsStore();
   const [commentsCount, setCommentsCount] = useState(Number(pinData.comments));
   const [openComments, setOpenComments] = useState(true);
   const [page, setPage] = useState(1);
@@ -57,6 +61,9 @@ const PinCard = () => {
     },
     [loadMoreComments, isLoading]
   );
+  const handlePrueba = () => {
+    getLastBoard();
+  };
 
   useEffect(() => {
     resetComments();
@@ -67,6 +74,7 @@ const PinCard = () => {
   return (
     <div
       className='max-w-[930px] bg-white shadow-pinShadow rounded-[30px] w-full p-5 flex flex-row gap-4 max-h-[800px] min-h-[466px]'
+      onMouseOver={handlePrueba}
       ref={cardRef}
     >
       <ImagePin />

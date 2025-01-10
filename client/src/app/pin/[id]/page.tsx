@@ -19,7 +19,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     pinData,
     getPinView,
     getCategoriesPin,
-    isFollowing,
+    getLastBoard,
     getSimilarPins,
     similarPins,
   } = useAppsStore();
@@ -29,6 +29,10 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
   const [page, setPage] = useState(1);
   const router = useRouter();
   const { id } = params;
+
+  useEffect(() => {
+    getLastBoard();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {

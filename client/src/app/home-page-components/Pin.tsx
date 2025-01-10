@@ -6,7 +6,7 @@ import { getDomain } from '../libs/getDomain';
 import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import useCloseModal from '../hooks/useCloseModal';
-import { DynamicModal } from '../components/Basic/DynamicModal';
+
 import BoardsListModal from '../boards/boards-list/BoardsListModal';
 
 interface PinProps {
