@@ -157,7 +157,7 @@ export default class BoardsController {
   // Trae los boards disponibles a los cuales
   // el usuario puede agregar un pin
   static async getCreatedBoardsList(req, res) {
-    const { id } = req.users;
+    const { id } = req.user;
 
     try {
       const data = await BoardsModel.getCreatedBoardsList({ id });

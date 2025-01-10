@@ -5,6 +5,7 @@ import Loader from '../interfaces/components/Basic/Loader';
 import { PinInterface } from '../domain/types/pins-structure';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { Pin } from '../home-page-components/Pin';
+import Masonry from '../interfaces/components/Basic/Masonry';
 
 const Search = () => {
   const {
@@ -70,11 +71,11 @@ const Search = () => {
   }
 
   return (
-    <section className='masonry'>
+    <Masonry>
       {homePins.map((elem) => (
         <Pin elem={elem} key={elem.pin_id} />
       ))}
-    </section>
+    </Masonry>
   );
 };
 

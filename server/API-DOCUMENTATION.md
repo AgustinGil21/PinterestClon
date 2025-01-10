@@ -1043,6 +1043,42 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/users/following-list/:username
 }
 ```
 
+### Save pin to profile
+
+_*POST*_ `http://localhost:1234/pinterest-clon-api/users/save-pin`
+
+[BODY]
+
+```json
+{
+  "id": "String<UUID>"
+}
+```
+
+### Remove pin from profile
+
+_*POST*_ `http://localhost:1234/pinterest-clon-api/users/remove-pin`
+
+[BODY]
+
+```json
+{
+  "id": "String<UUID>"
+}
+```
+
+### Get user's pin
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/saved-pins/:username?page=Number&limit=Number`
+
+[RESPONSE]
+
+```json
+{
+  "pins": [{}]
+}
+```
+
 ## Boards
 
 ### Search boards
@@ -1201,7 +1237,7 @@ _*Description*_: Trae los datos de un board en específico junto con los pins qu
 
 ### Get user boards
 
-_*GET*_ `http://localhost:1234/pinterest-clon-api/boards/:username?page=Number&limit=Number`
+_*GET*_ `http://localhost:1234/pinterest-clon-api/boards/user/:username?page=Number&limit=Number`
 
 _username_: Username del usuario
 

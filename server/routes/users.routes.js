@@ -18,11 +18,13 @@ router.get(
   isAuthenticated,
   UsersController.userFollowers
 );
-
 router.get(
   '/following-list/:username',
   isAuthenticated,
   UsersController.userFollowingAccounts
 );
+router.post('/save-pin', authRequired, UsersController.savePin);
+router.post('/remove-pin', authRequired, UsersController.removePin);
+router.get('/saved-pins/:username', isAuthenticated, UsersController.savedPins);
 
 export default router;

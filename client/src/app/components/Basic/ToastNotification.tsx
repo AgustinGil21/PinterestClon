@@ -1,18 +1,7 @@
-type Type = 'message' | 'pin' | 'board' | 'comment' | 'profile' | 'user';
-
-type Action =
-  | 'create'
-  | 'update'
-  | 'delete'
-  | 'follow'
-  | 'like'
-  | 'save'
-  | 'remove';
-
-type Lang = 'es' | 'en' | 'pt';
+import { TToastNotification } from '@/app/global-interfaces/global-interfaces';
 
 interface Props {
-  content?: `?${Type}:${Action}[${Lang}]`;
+  content?: TToastNotification;
 }
 
 const ToastNotification = ({ content }: Props) => {

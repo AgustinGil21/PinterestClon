@@ -1,4 +1,5 @@
 import { pool } from '../dbpool.js';
+import { getOffset } from '../libs/getOffset.js';
 
 export default class UsersModel {
   static async searchUsers({ value, page, limit }) {
@@ -318,6 +319,59 @@ ORDER BY
     }
 
     if (response.rowCount) return { response, ok: true };
+    return { response, ok: false };
+  }
+
+  static async savePin({ userID, pinID }) {
+    const checkIfPinAlreadySaved = await pool.query(
+      'SELECT EXISTS(SELECT 1 FROM saved_profile_posts WHERE user_id = $1 AND post_id = $2) AS already_saved',
+      [userID, pinID]
+    );
+
+    const alreadySaved = checkIfPinAlreadySaved.rows[0].already_saved;
+
+    if (alreadySaved) {
+      const deleteRelationship = await pool.query(
+        'DELETE FROM saved_profile_posts WHERE user_id = $1 AND post_id = $2;',
+        [userID, pinID]
+      );
+
+      const deleteSuccess = deleteRelationship.rowCount;
+
+      if (!deleteSuccess) throw new Error('Cannot delete relationship');
+    }
+
+    const response = await pool.query(
+      'INSERT INTO saved_profile_posts(user_id, post_id) VALUES($1, $2)',
+      [userID, pinID]
+    );
+
+    const success = response.rowCount;
+
+    if (success) return { response, ok: true };
+    return { response, ok: false };
+  }
+
+  static async removePin({ userID, pinID }) {
+    const response = await pool.query(
+      'DELETE FROM saved_profile_posts WHERE user_id = $1 AND post_id = $2;',
+      [userID, pinID]
+    );
+
+    const success = response.rowCount;
+
+    if (success) return { response, ok: true };
+    return { response, ok: false };
+  }
+
+  static async savedPins({ username, id = '', isAuth, page, limit }) {
+    const offset = getOffset({ page, limit });
+
+    const response = await pool.query(``, []);
+
+    const data = response.rows;
+
+    if (data) return { response: data, ok: true };
     return { response, ok: false };
   }
 }

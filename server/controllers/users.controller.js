@@ -88,9 +88,8 @@ export default class UsersController {
           .json({ followers: filteredFollowers, followersCount });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       return res.status(400).json({ message: 'Could not get user followers!' });
-    
     }
   }
 
@@ -142,5 +141,73 @@ export default class UsersController {
     } catch (err) {
       return res.status(400).json({ message: 'Unexpected error!' });
     }
+  }
+
+  static async savePin(req, res) {
+    const { id: userID } = req.user;
+    const { id: pinID } = req.body;
+
+    try {
+      const successfully = await UsersModel.savePin({ pinID, userID });
+
+      if (successfully.ok) {
+        return res
+          .status(200)
+          .json({ message: 'Operation successfully completed!' });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Unexpected error!' });
+    }
+  }
+
+  static async removePin(req, res) {
+    const { id: userID } = req.user;
+    const { id: pinID } = req.body;
+
+    try {
+      const result = await UsersModel.removePin({ pinID, userID });
+
+      if (result.ok) {
+        return res
+          .status(200)
+          .json({ message: 'Pin successfully removed from profile' });
+      }
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: 'Cannot remove pin from profile' });
+    }
+  }
+
+  static async savedPins(req, res) {
+    const { username } = req.params;
+    const { limit, page } = req.query;
+
+    try {
+      if (req.isAuthenticated) {
+        const { id } = req.user;
+
+        data = await UsersModel.savedPins({
+          username,
+          id,
+          isAuth: true,
+          page,
+          limit,
+        });
+      } else {
+        data = await UsersModel.savedPins({
+          username,
+          isAuth: true,
+          page,
+          limit,
+        });
+      }
+
+      if (data.ok) {
+        const filteredData = filterArrFalsyValues(data.response);
+
+        return res.status(200).json({ pins: filteredData });
+      }
+    } catch (err) {}
   }
 }
