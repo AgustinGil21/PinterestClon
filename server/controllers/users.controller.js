@@ -182,6 +182,7 @@ export default class UsersController {
   static async savedPins(req, res) {
     const { username } = req.params;
     const { limit, page } = req.query;
+    let data;
 
     try {
       if (req.isAuthenticated) {
@@ -204,10 +205,14 @@ export default class UsersController {
       }
 
       if (data.ok) {
-        const filteredData = filterArrFalsyValues(data.response);
+        const pins = data.response;
+
+        const filteredData = filterArrFalsyValues(pins);
 
         return res.status(200).json({ pins: filteredData });
       }
-    } catch (err) {}
+    } catch (err) {
+      return res.status(400).json({ message: 'Could not get pins' });
+    }
   }
 }

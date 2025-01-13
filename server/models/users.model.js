@@ -367,7 +367,7 @@ ORDER BY
   static async savedPins({ username, id = '', isAuth, page, limit }) {
     const offset = getOffset({ page, limit });
 
-    const response = await pool.query(``, []);
+    const response = await pool.query(`SELECT id FROM posts `, []);
 
     const data = response.rows;
 

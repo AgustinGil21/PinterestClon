@@ -10,7 +10,7 @@ export const isAuthenticated = (req, res, next) => {
   }
 
   jwt.verify(access_token, SECRETKEY, (err, decoded) => {
-    if (err) res.status(401).json({ message: 'Invalid access token!' });
+    if (err) return res.status(401).json({ message: 'Invalid access token!' });
 
     req.isAuthenticated = true;
     req.user = decoded;
