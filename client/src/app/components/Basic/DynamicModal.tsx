@@ -32,7 +32,6 @@ export const DynamicModal = ({
   useEffect(() => {
     setPositionReady(true);
   }, [x, y, btnRef.current]);
-  console.log(x, y);
 
   return (
     <Modal

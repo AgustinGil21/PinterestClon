@@ -35,9 +35,10 @@ export const useDynamicModalPosition = ({
     let x = btnLeft;
     let y = btnBottom + btnMargin;
 
-    // Si se sale por la derecha
+    // Si se sale por la derecha. El -10 del final
+    // es para contemplar el scroll
     if (x + modalWidth > window.innerWidth) {
-      x = window.innerWidth - modalWidth - padding;
+      x = window.innerWidth - modalWidth - padding - 10;
     }
 
     // Si se sale por la izquierda
