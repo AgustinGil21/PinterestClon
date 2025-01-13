@@ -2,50 +2,53 @@ import { useDynamicModalPosition } from '@/app/hooks/useDynamicModalPosition';
 import { getDynamicPositionClass } from '@/app/libs/get-dynamic-position-class';
 import Modal from './Modal';
 import { useEffect, useRef, useState } from 'react';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface Props {
-  btnRef: React.RefObject<HTMLButtonElement>;
   padding?: number;
   children?: React.ReactNode;
   className?: string;
-  handleModalOpen: () => void;
-  isOpen: boolean;
+  width: number;
+  height: number;
 }
 
 export const DynamicModal = ({
-  btnRef,
   padding = 8,
   children,
   className,
-  handleModalOpen,
-  isOpen,
+  width,
+  height,
 }: Props) => {
-  const [modalClass, setModalClass] = useState('');
+  const { closeDynamicModal, btnRef, dynamicModalIsOpen } = useAppsStore();
   const [positionReady, setPositionReady] = useState(false);
 
-  const position = useDynamicModalPosition({
+  const { x, y } = useDynamicModalPosition({
     btnRef,
     padding,
-    modalWidth: 360,
-    modalHeight: 502,
+    modalWidth: width,
+    modalHeight: height,
   });
 
   useEffect(() => {
-    const modalPositionClass = getDynamicPositionClass({ ...position });
-
-    setModalClass(modalPositionClass);
     setPositionReady(true);
-  }, [position, btnRef.current]);
+  }, [x, y, btnRef.current]);
+  console.log(x, y);
 
   return (
     <Modal
       props={{
-        isModalOpen: isOpen,
-        setModal: handleModalOpen,
-        className: `absolute ${modalClass} ${className} ${
+        isModalOpen: dynamicModalIsOpen,
+        setModal: closeDynamicModal,
+        className: `absolute ${className} ${
           positionReady ? 'visible' : 'invisible'
         }`,
         buttonRef: btnRef,
+        styles: {
+          maxHeight: height,
+          maxWidth: width,
+          left: x,
+          top: y,
+        },
       }}
     >
       {children}

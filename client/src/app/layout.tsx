@@ -10,6 +10,7 @@ import AsideConfig from './interfaces/layout/settingsConfig/AsideSettings';
 import { useAppsStore } from './infrastructure/stores/useAppStore';
 import { changeDocTitle } from './libs/changeDocTitle';
 import ToastNotification from './components/Basic/ToastNotification';
+import BoardsListModal from './boards/boards-list/BoardsListModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -73,7 +74,7 @@ export default function RootLayout({
         {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
 
-        <main className={`flex pt-16 `}>
+        <main className={`flex pt-16 relative`}>
           {routesWithoutAside.includes(pathname) && <AsideConfig />}
           {children}
           {toastNotificationContent && (
@@ -82,6 +83,8 @@ export default function RootLayout({
               content={toastNotificationContent}
             />
           )}
+
+          <BoardsListModal />
         </main>
       </body>
     </html>

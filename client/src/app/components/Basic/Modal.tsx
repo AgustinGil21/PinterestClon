@@ -1,4 +1,5 @@
 import useCloseModal from '@/app/hooks/useCloseModal';
+import { CSSProperties } from 'react';
 
 interface Props {
   children?: React.ReactNode;
@@ -8,6 +9,7 @@ interface Props {
   wrapperRef?: React.RefObject<HTMLDivElement>;
   buttonRef?: React.RefObject<HTMLButtonElement>;
   wrapperClass?: string;
+  styles?: CSSProperties;
 }
 
 interface ModalComponentProps {
@@ -23,6 +25,7 @@ const Modal = ({ props, children }: ModalComponentProps) => {
     wrapperRef,
     buttonRef,
     wrapperClass,
+    styles,
   } = props;
 
   const { modalRef } = useCloseModal({ setModal, buttonRef });
@@ -33,6 +36,7 @@ const Modal = ({ props, children }: ModalComponentProps) => {
         <div ref={wrapperRef} className={`${wrapperClass}`}>
           <div
             ref={modalRef}
+            style={styles}
             // className={`absolute shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-40 ${className} modal`}
             className={`${className} z-40 shadow-uniform`}
           >

@@ -14,9 +14,13 @@ interface PinProps {
 }
 
 export const Pin = ({ elem }: PinProps) => {
-  const { openDownloadAccountModal, lastBoard } = useAppsStore();
-  const [isOpen, setIsOpen] = useState(false);
-  const handleModalOpen = () => setIsOpen(!isOpen);
+  const {
+    openDownloadAccountModal,
+    lastBoard,
+    setDynamicModal,
+    dynamicModalIsOpen,
+    btnRef: btnRefStore,
+  } = useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
   const btnRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,6 +28,8 @@ export const Pin = ({ elem }: PinProps) => {
   const buttonURL = getDomain(elem.url);
   const userProfile = `/${elem.username}`;
   const router = useRouter();
+
+  const handleModalOpen = () => setDynamicModal(btnRef);
 
   useEffect(() => {
     setSkeletonColor(getDarkColor());
@@ -63,7 +69,7 @@ export const Pin = ({ elem }: PinProps) => {
 
   return (
     <>
-      <section className={`${elem.className} relative`} onClick={handleClick}>
+      <section className={`${elem.className}`}>
         {!isLoaded && elem.username ? (
           <div className='animate-pulse p-0.5'>
             <div
@@ -80,10 +86,13 @@ export const Pin = ({ elem }: PinProps) => {
                 src={elem.body}
                 className='card-body w-full h-60 object-cover'
                 alt={elem.alt_text}
+                onClick={handleClick}
               />
               <article
                 className={`top  flex justify-between mt-2 ${
-                  isOpen ? 'card-controls-modal-open' : 'card-controls'
+                  dynamicModalIsOpen && btnRefStore === btnRef
+                    ? 'card-controls-modal-open'
+                    : 'card-controls'
                 }`}
               >
                 <button className='save-button bg-red-500 text-white px-3 py-1 rounded'>
@@ -214,13 +223,6 @@ export const Pin = ({ elem }: PinProps) => {
               </footer>
             )}
           </article>
-        )}
-        {isOpen && (
-          <BoardsListModal
-            btnRef={btnRef}
-            handleModalOpen={handleModalOpen}
-            isOpen={isOpen}
-          />
         )}
       </section>
     </>

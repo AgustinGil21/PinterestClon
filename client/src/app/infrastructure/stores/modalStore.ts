@@ -3,6 +3,7 @@ import {
   activeScroll,
   bloqScroll,
 } from '@/app/interfaces/helpers/BlockOrActiveScroll';
+import { createRef } from 'react';
 
 export interface ModalStateInterface {
   isLoginModalOpen: boolean;
@@ -29,6 +30,11 @@ export interface ModalStateInterface {
   openDeletePinModal: () => void;
   closeDeletePinModal: () => void;
   isShareAccountOpen: boolean;
+
+  dynamicModalIsOpen: boolean;
+  btnRef: React.RefObject<HTMLButtonElement>;
+  setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) => void;
+  closeDynamicModal: () => void;
 
   isDownloadAccountOpen: boolean;
   openDownloadAccountModal: () => void;
@@ -57,6 +63,19 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isThreePointsAccountOpen: false,
   isFollowerModalOpen: false,
   isFollowingsModalOpen: false,
+  dynamicModalIsOpen: false,
+  btnRef: createRef(),
+
+  setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) =>
+    set((state) => ({
+      btnRef: ref,
+      dynamicModalIsOpen: !state.dynamicModalIsOpen,
+    })),
+
+  closeDynamicModal: () =>
+    set({
+      dynamicModalIsOpen: false,
+    }),
 
   openLoginModal: () =>
     set({

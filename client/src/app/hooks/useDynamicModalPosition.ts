@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useGetElementBorderDistance } from './useGetElementBorderDistance';
-import { isSpaceAvailable } from '../libs/is-space-available';
+import { isSpaceAvailable } from '../libs/isSpaceAvailable';
 
 interface Props {
   btnRef: React.RefObject<HTMLButtonElement>;
-  parentRef?: React.RefObject<any>;
   padding?: number;
   btnMargin?: number;
   modalHeight: number;
@@ -19,10 +18,8 @@ export const useDynamicModalPosition = ({
   modalWidth,
 }: Props) => {
   const [position, setPosition] = useState({
-    top: false,
-    right: false,
-    bottom: false,
-    left: false,
+    x: 0,
+    y: 0,
   });
 
   const {
@@ -35,35 +32,37 @@ export const useDynamicModalPosition = ({
   useEffect(() => {
     if (!btnRef.current || !modalHeight || !modalWidth) return;
 
-    const DistanceLeft = btnLeft - padding;
-    const DistanceTop = btnTop - padding;
-    const DistanceRight = window.innerWidth - btnRight - padding;
-    const DistanceBottom = window.innerHeight - btnBottom - padding;
+    let x = btnLeft;
+    let y = btnBottom + btnMargin;
 
-    const modalW = modalWidth + btnMargin;
-    const modalH = modalHeight + btnMargin;
-
-    const newPosition = {
-      top: isSpaceAvailable(DistanceTop, modalH, padding),
-      bottom: isSpaceAvailable(DistanceBottom, modalH, padding),
-      left: isSpaceAvailable(DistanceLeft, modalW, padding),
-      right: isSpaceAvailable(DistanceRight, modalW, padding),
-    };
-
-    // Si ninguna posición es viable, establece una posición por defecto
-    if (!Object.values(newPosition).includes(true)) {
-      newPosition.bottom = true;
+    // Si se sale por la derecha
+    if (x + modalWidth > window.innerWidth) {
+      x = window.innerWidth - modalWidth - padding;
     }
 
-    setPosition(newPosition);
+    // Si se sale por la izquierda
+    if (x < 0) {
+      x = padding;
+    }
+
+    // Si se sale por abajo
+    if (y + modalHeight > window.innerHeight) {
+      y = btnTop - modalHeight - btnMargin;
+    }
+
+    // Si se sale por arriba
+    if (y < 0) {
+      y = padding;
+    }
+
+    setPosition({ x, y });
   }, [
     btnLeft,
     btnTop,
     btnBottom,
     btnRight,
-    modalWidth,
     modalHeight,
-    padding,
+    modalWidth,
     btnMargin,
   ]);
 

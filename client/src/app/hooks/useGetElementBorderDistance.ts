@@ -17,19 +17,20 @@ export const useGetElementBorderDistance = (
     const updateDistance = () => {
       const rect = element.getBoundingClientRect();
       setDistance({
-        left: rect.left,
-        top: rect.top,
-        bottom: rect.bottom,
-        right: rect.right,
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        bottom: rect.bottom + window.scrollY,
+        right: rect.right + window.scrollX,
       });
     };
 
     updateDistance();
-
     window.addEventListener('resize', updateDistance);
+    window.addEventListener('scroll', updateDistance);
 
     return () => {
       window.removeEventListener('resize', updateDistance);
+      window.removeEventListener('scroll', updateDistance);
     };
   }, [elementRef]);
 

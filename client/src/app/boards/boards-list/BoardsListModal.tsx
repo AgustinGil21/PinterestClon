@@ -2,13 +2,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import BoardsList from './BoardsList';
 import { DynamicModal } from '@/app/components/Basic/DynamicModal';
 
-interface Props {
-  btnRef: React.RefObject<HTMLButtonElement>;
-  handleModalOpen: () => void;
-  isOpen: boolean;
-}
-
-const BoardsListModal = ({ btnRef, handleModalOpen, isOpen }: Props) => {
+const BoardsListModal = () => {
   const { boardsList } = useAppsStore();
 
   const boards = [
@@ -36,9 +30,8 @@ const BoardsListModal = ({ btnRef, handleModalOpen, isOpen }: Props) => {
   return (
     <DynamicModal
       className='w-[360px] rounded-2xl bg-white'
-      btnRef={btnRef}
-      handleModalOpen={handleModalOpen}
-      isOpen={isOpen}
+      width={360}
+      height={502}
     >
       <BoardsList boards={boards} />
     </DynamicModal>
