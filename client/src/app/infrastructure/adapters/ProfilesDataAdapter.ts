@@ -164,7 +164,7 @@ export const getCreatedPinsAdapter = async (
     const response = await serviceGetCreatedPins(username, page, limit);
 
     const adaptedPins = response.map((pin) => ({
-      pin_id: pin.pin_id,
+      pin_id: pin.id,
       alt_text: pin.alt_text,
       body: pin.body,
       title: pin.title || '',

@@ -10,7 +10,7 @@ const UserData = ({ onClick }: Props) => {
   const { userPublicData } = useAppsStore();
 
   return (
-    <Link href={'/user-profile'} onClick={onClick}>
+    <Link href={`/${userPublicData?.username}`} onClick={onClick}>
       <div className='flex flex-row items-center  hover:bg-gray-200 dark:hover:bg-gray-900 p-1 rounded-lg cursor-pointer'>
         <div
           className='p-2 rounded-full flex items-center justify-center'

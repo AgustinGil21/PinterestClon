@@ -36,6 +36,7 @@ export const Pin = ({ elem }: PinProps) => {
   }, [elem.body]);
 
   const handleClick = () => {
+    console.log(elem.pin_id);
     const fetchData = async () => {
       try {
         let pinId = String(elem.pin_id).trim();
@@ -62,7 +63,7 @@ export const Pin = ({ elem }: PinProps) => {
 
   return (
     <>
-      <section className={`${elem.className} relative`}>
+      <section className={`${elem.className} relative`} onClick={handleClick}>
         {!isLoaded && elem.username ? (
           <div className='animate-pulse p-0.5'>
             <div
@@ -79,7 +80,6 @@ export const Pin = ({ elem }: PinProps) => {
                 src={elem.body}
                 className='card-body w-full h-60 object-cover'
                 alt={elem.alt_text}
-                onClick={handleClick}
               />
               <article
                 className={`top  flex justify-between mt-2 ${
