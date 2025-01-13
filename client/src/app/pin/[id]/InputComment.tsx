@@ -3,11 +3,12 @@ import useFormHook from '@/app/interfaces/hooks/useFormHook';
 import { CreateCommentSchema } from '@/app/infrastructure/schemas/validation-form';
 import EmojiIcon from '@/app/interfaces/components/icons/EmojiIcon';
 import EmojiPicker from 'emoji-picker-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import SendCommentIcon from '@/app/interfaces/components/icons/SendCommentIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { isValid } from 'zod';
+import useCloseModal from '@/app/hooks/useCloseModal';
 
 interface Props {
   handleCommentsCount: () => void;
@@ -27,6 +28,14 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     openRegisterModal,
     isAuth,
   } = useAppsStore();
+  const btnRef = useRef(null);
+
+  const handleEmojiModal = () => setEmojiIsOpen(false);
+
+  const { modalRef } = useCloseModal({
+    setModal: handleEmojiModal,
+    buttonRef: btnRef,
+  });
 
   useEffect(() => {
     getUserOwnerProfile();
@@ -101,7 +110,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
       />
 
       {emojiIsOpen && (
-        <div className='absolute z-50 bottom-[50px] right-0'>
+        <div className='absolute z-50 bottom-[50px] right-0' ref={modalRef}>
           <EmojiPicker onEmojiClick={handleEmojiClick} />
         </div>
       )}
@@ -111,6 +120,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
           className='rounded-full flex items-center justify-center hover:bg-gray-300 p-2'
           handleClick={handleEmojiIsOpen}
           type='button'
+          btnRef={btnRef}
         >
           <EmojiIcon />
         </ButtonStyled>

@@ -27,9 +27,10 @@ export default class CommentsModel {
     return { response, ok: false };
   }
 
+  // Le da like a un comentario si es que
+  // ya no lo hizo previamente, de lo contrario
+  // le sacará el like.
   static async toggleLikeComment({ commentID, userID }) {
-    // Verifica si el comentario ya ha sido
-    // marcado con "like" por el usuario
     const checkIfCommentAlreadyLiked = await pool.query(
       'SELECT EXISTS(SELECT 1 FROM comment_likes WHERE comment_id = $1 AND user_id = $2) AS already_liked;',
       [commentID, userID]
@@ -37,28 +38,25 @@ export default class CommentsModel {
 
     const alreadyLiked = checkIfCommentAlreadyLiked.rows[0].already_liked;
 
-    // Si ya tiene "like", se elimina
+    let response;
+
     if (alreadyLiked) {
       const unlikeMsg = await pool.query(
         'DELETE FROM comment_likes WHERE comment_id = $1 AND user_id = $2;',
         [commentID, userID]
       );
 
-      const unlikeSuccess = unlikeMsg.rowCount;
+      if (unlikeMsg.rowCount === 0) throw new Error('Cannot unlike comment');
+    } else {
+      response = await pool.query(
+        'INSERT INTO comment_likes(comment_id, user_id) VALUES($1, $2);',
+        [commentID, userID]
+      );
 
-      if (!unlikeSuccess) throw new Error('Cannot unlike comment');
+      if (response.rowCount === 0) throw new Error('Cannot like comment');
     }
 
-    // Si no tiene "like", se añade
-    const response = await pool.query(
-      'INSERT INTO comment_likes(comment_id, user_id) VALUES($1, $2);',
-      [commentID, userID]
-    );
-
-    const success = response.rowCount;
-
-    if (success) return { response, ok: true };
-    return { response, ok: false };
+    return { response, ok: true };
   }
 
   // Trae todos los comentarios de un pin
@@ -83,7 +81,7 @@ export default class CommentsModel {
           CASE WHEN $5 = TRUE THEN
             EXISTS(SELECT 1 FROM comment_likes WHERE comment_id = c.id AND user_id = $1)
           ELSE FALSE
-        END AS already_liked,
+          END AS already_liked,
           CASE WHEN (c.user_id = $1) THEN TRUE
           ELSE FALSE
           END AS its_yours
