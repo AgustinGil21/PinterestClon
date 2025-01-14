@@ -25,7 +25,7 @@ const BoardListCard = ({ board }: Props) => {
           }}
         ></div>
         <h3
-          className='font-semibold text-ellipsis whitespace-nowrap overflow-hidden max-w-[175px]'
+          className='font-semibold text-ellipsis whitespace-nowrap overflow-hidden max-w-[175px] text-[0.93rem]'
           title={board.name}
         >
           {board.name}

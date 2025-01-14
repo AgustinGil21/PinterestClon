@@ -7,7 +7,7 @@ const BoardListProfileCard = () => {
         <div className='size-[48px] rounded-md flex justify-center items-center bg-[#e9e9e9] group-hover:bg-white'>
           <ClockIcon svgClassName='size-[1.35rem]' />
         </div>
-        <h3 className='font-semibold text-ellipsis whitespace-nowrap overflow-hidden max-w-[175px]'>
+        <h3 className='font-semibold text-ellipsis whitespace-nowrap overflow-hidden max-w-[175px] text-[0.93rem]'>
           Perfil
         </h3>
       </div>
