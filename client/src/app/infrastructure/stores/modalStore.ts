@@ -36,6 +36,15 @@ export interface ModalStateInterface {
   setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) => void;
   closeDynamicModal: () => void;
 
+  sharePinData?: string;
+  dynamicSharePinModalIsOpen: boolean;
+  sharePinBtnRef: React.RefObject<HTMLButtonElement>;
+  setDynamicSharePinModalIsOpen: (
+    ref: React.RefObject<HTMLButtonElement>,
+    data?: string
+  ) => void;
+  closeDynamicSharePinModal: () => void;
+
   isDownloadAccountOpen: boolean;
   openDownloadAccountModal: () => void;
   isThreePointsAccountOpen: boolean;
@@ -65,6 +74,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isFollowingsModalOpen: false,
   dynamicModalIsOpen: false,
   btnRef: createRef(),
+  sharePinBtnRef: createRef(),
+  dynamicSharePinModalIsOpen: false,
+  sharePinData: '',
 
   setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) =>
     set((state) => ({
@@ -75,6 +87,21 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   closeDynamicModal: () =>
     set({
       dynamicModalIsOpen: false,
+    }),
+
+  setDynamicSharePinModalIsOpen: (
+    ref: React.RefObject<HTMLButtonElement>,
+    data?: string
+  ) =>
+    set((state) => ({
+      sharePinBtnRef: ref,
+      dynamicSharePinModalIsOpen: !state.dynamicSharePinModalIsOpen,
+      sharePinData: data,
+    })),
+
+  closeDynamicSharePinModal: () =>
+    set({
+      dynamicSharePinModalIsOpen: false,
     }),
 
   openLoginModal: () =>

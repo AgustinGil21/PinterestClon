@@ -11,6 +11,7 @@ import { useAppsStore } from './infrastructure/stores/useAppStore';
 import { changeDocTitle } from './libs/changeDocTitle';
 import ToastNotification from './components/Basic/ToastNotification';
 import BoardsListModal from './boards/boards-list/BoardsListModal';
+import { SharePinModal } from './home-page-components/SharePinModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -85,6 +86,7 @@ export default function RootLayout({
           )}
 
           <BoardsListModal />
+          <SharePinModal />
         </main>
       </body>
     </html>

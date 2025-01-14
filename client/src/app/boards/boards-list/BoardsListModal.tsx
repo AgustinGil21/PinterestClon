@@ -3,7 +3,8 @@ import BoardsList from './BoardsList';
 import { DynamicModal } from '@/app/components/Basic/DynamicModal';
 
 const BoardsListModal = () => {
-  const { boardsList } = useAppsStore();
+  const { boardsList, closeDynamicModal, btnRef, dynamicModalIsOpen } =
+    useAppsStore();
 
   const boards = [
     {
@@ -32,6 +33,9 @@ const BoardsListModal = () => {
       className='w-[360px] rounded-2xl bg-white'
       width={360}
       height={502}
+      dynamicModalIsOpen={dynamicModalIsOpen}
+      btnRef={btnRef}
+      closeDynamicModal={closeDynamicModal}
     >
       <BoardsList boards={boards} />
     </DynamicModal>

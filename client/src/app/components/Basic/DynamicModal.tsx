@@ -10,6 +10,9 @@ interface Props {
   className?: string;
   width: number;
   height: number;
+  btnRef: React.RefObject<HTMLButtonElement>;
+  dynamicModalIsOpen: boolean;
+  closeDynamicModal: () => void;
 }
 
 export const DynamicModal = ({
@@ -18,8 +21,10 @@ export const DynamicModal = ({
   className,
   width,
   height,
+  btnRef,
+  dynamicModalIsOpen,
+  closeDynamicModal,
 }: Props) => {
-  const { closeDynamicModal, btnRef, dynamicModalIsOpen } = useAppsStore();
   const [positionReady, setPositionReady] = useState(false);
 
   const { x, y } = useDynamicModalPosition({

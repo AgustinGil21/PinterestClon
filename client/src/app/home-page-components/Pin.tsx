@@ -7,8 +7,6 @@ import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import useCloseModal from '../hooks/useCloseModal';
 
-import BoardsListModal from '../boards/boards-list/BoardsListModal';
-
 interface PinProps {
   elem: PinInterface;
 }
@@ -20,14 +18,21 @@ export const Pin = ({ elem }: PinProps) => {
     setDynamicModal,
     dynamicModalIsOpen,
     btnRef: btnRefStore,
+    sharePinBtnRef,
+    setDynamicSharePinModalIsOpen,
+    dynamicSharePinModalIsOpen,
   } = useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
   const btnRef = useRef(null);
+  const shareBtnRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
   const buttonURL = getDomain(elem.url);
   const userProfile = `/${elem.username}`;
   const router = useRouter();
+
+  const handleSharePinModal = () =>
+    setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
 
   const handleModalOpen = () => setDynamicModal(btnRef);
 
@@ -89,7 +94,7 @@ export const Pin = ({ elem }: PinProps) => {
                 onClick={handleClick}
               />
               <article
-                className={`top  flex justify-between mt-2 ${
+                className={`top flex justify-between mt-2 ${
                   dynamicModalIsOpen && btnRefStore === btnRef
                     ? 'card-controls-modal-open'
                     : 'card-controls'
@@ -148,7 +153,11 @@ export const Pin = ({ elem }: PinProps) => {
                     </svg>
                   </button>
 
-                  <button className='circle-buttons bg-gray-100 p-2 rounded-full'>
+                  <button
+                    className='circle-buttons bg-gray-100 p-2 rounded-full'
+                    onClick={handleSharePinModal}
+                    ref={shareBtnRef}
+                  >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 20 20'
