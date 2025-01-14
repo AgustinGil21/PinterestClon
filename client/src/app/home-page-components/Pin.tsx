@@ -15,6 +15,8 @@ export const Pin = ({ elem }: PinProps) => {
   const {
     openDownloadAccountModal,
     lastBoard,
+    dataOpenBoardModal,
+    updateDataOpenBoardModal,
     setDynamicModal,
     dynamicModalIsOpen,
     btnRef: btnRefStore,
@@ -31,10 +33,15 @@ export const Pin = ({ elem }: PinProps) => {
   const userProfile = `/${elem.username}`;
   const router = useRouter();
 
-  const handleSharePinModal = () =>
+  const handleSharePinModal = () => {
     setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
+  };
 
-  const handleModalOpen = () => setDynamicModal(btnRef);
+  const handleModalOpen = () => {
+    if (elem.pin_id) updateDataOpenBoardModal(elem.pin_id, elem.body);
+
+    setDynamicModal(btnRef);
+  };
 
   useEffect(() => {
     setSkeletonColor(getDarkColor());

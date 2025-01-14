@@ -165,3 +165,8 @@ export interface PinSimilarInterface {
   user_id: string;
   similarity_score: number;
 }
+
+export interface DataOpenBoardModalInteface {
+  pinId: string;
+  pinBody: string;
+}
