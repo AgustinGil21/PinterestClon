@@ -5,6 +5,7 @@ import BoardsListHeader from './BoardsListHeader';
 import BoardsListResults, { ListOfBoards } from './BoardsListResults';
 import BoardListProfileCard from './BoardListProfileCard';
 import PlusIcon from '@/app/components/icons/PlusIcon';
+import { BoardsListEmpty } from './BoardsListEmpty';
 
 interface Props {
   boards: ListOfBoards[];
@@ -28,7 +29,7 @@ const BoardsList = ({ boards }: Props) => {
             )}
           </div>
         ) : (
-          <span>Sin tableros</span>
+          <BoardsListEmpty typing={value ? true : false} />
         )}
       </section>
       <footer className='w-full h-[80px] p-[1rem_0.8rem] hover:bg-[#e9e9e9] rounded-b-2xl flex gap-2 items-center cursor-pointer font-semibold  boards-list-shadow hover:shadow-none'>

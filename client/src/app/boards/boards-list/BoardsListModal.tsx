@@ -33,7 +33,7 @@ const BoardsListModal = () => {
       width={360}
       height={502}
     >
-      <BoardsList boards={boards} />
+      <BoardsList boards={boardsList} />
     </DynamicModal>
   );
 };
