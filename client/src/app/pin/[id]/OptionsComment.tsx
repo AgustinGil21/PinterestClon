@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { CommentInterface } from '@/app/domain/types/pins-structure';
 import ModalComment from './ModalComment';
+import { useRef } from 'react';
 
 interface OptionCommentProps {
   elem: CommentInterface;
@@ -18,6 +19,7 @@ const OptionsComment = ({ elem }: OptionCommentProps) => {
   const [alreadyLiked, setAlreadyLiked] = useState(elem.already_liked);
   const { openRegisterModal, postToggleLikeComment, isAuth } = useAppsStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const openModal = () => setIsModalOpen(!isModalOpen);
 
@@ -66,11 +68,17 @@ const OptionsComment = ({ elem }: OptionCommentProps) => {
           </ButtonStyled>
         </Tooltip>
       </div>
-      <ButtonStyled className='!p-0 relative' handleClick={openModal}>
+      <ButtonStyled
+        className='!p-0 relative'
+        handleClick={openModal}
+        btnRef={buttonRef}
+      >
         <div className='hover:bg-gray-200 p-1 rounded-full cursor-pointer'>
           <ThreePointsIcon className='w-[12px] h-[12px]' />
         </div>
-        {isModalOpen && <ModalComment onClose={openModal} />}
+        {isModalOpen && (
+          <ModalComment onClose={openModal} buttonRef={buttonRef} />
+        )}
       </ButtonStyled>
     </div>
   );

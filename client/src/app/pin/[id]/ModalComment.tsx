@@ -4,10 +4,14 @@ import ModalStyled from '@/app/interfaces/components/Basic/ModalStyled';
 
 interface ModalCommentInterface {
   onClose: () => void;
+  buttonRef: React.RefObject<HTMLButtonElement>;
 }
 
-const ModalComment = ({ onClose }: ModalCommentInterface) => {
-  const { modalRef } = useCloseModal({ setModal: onClose });
+const ModalComment = ({ onClose, buttonRef }: ModalCommentInterface) => {
+  const { modalRef } = useCloseModal({
+    setModal: onClose,
+    buttonRef: buttonRef,
+  });
 
   return (
     <ModalStyled
@@ -16,7 +20,6 @@ const ModalComment = ({ onClose }: ModalCommentInterface) => {
     >
       <button
         onClick={() => {
-          console.log('Comentario eliminado');
           onClose();
         }}
         className='block w-full text-left text-sm text-red-500 hover:bg-red-100 px-4 py-2 rounded-md transition'
