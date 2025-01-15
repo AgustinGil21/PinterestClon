@@ -13,7 +13,7 @@ const MessengerIcon = () => {
         height='55'
         rx='27.5'
         stroke='#767676'
-        stroke-opacity='.4'
+        strokeOpacity='.4'
         width='55'
         x='.5'
         y='.5'
@@ -35,10 +35,10 @@ const MessengerIcon = () => {
           id='paint0_radial_3730_649_messenger'
           r='1'
         >
-          <stop stop-color='#09F'></stop>
-          <stop offset='.61' stop-color='#A033FF'></stop>
-          <stop offset='.935' stop-color='#FF5280'></stop>
-          <stop offset='1' stop-color='#FF7061'></stop>
+          <stop stopColor='#09F'></stop>
+          <stop offset='.61' stopColor='#A033FF'></stop>
+          <stop offset='.935' stopColor='#FF5280'></stop>
+          <stop offset='1' stopColor='#FF7061'></stop>
         </radialGradient>
       </defs>
     </svg>

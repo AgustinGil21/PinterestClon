@@ -9,9 +9,10 @@ import useCloseModal from '../hooks/useCloseModal';
 
 interface PinProps {
   elem: PinInterface;
+  className?: string;
 }
 
-export const Pin = ({ elem }: PinProps) => {
+export const Pin = ({ elem, className }: PinProps) => {
   const {
     openDownloadAccountModal,
     lastBoard,
@@ -22,7 +23,6 @@ export const Pin = ({ elem }: PinProps) => {
     setDynamicSharePinModalIsOpen,
     dynamicSharePinModalIsOpen,
   } = useAppsStore();
-  const { modalRef } = useCloseModal({ setModal: openDownloadAccountModal });
   const btnRef = useRef(null);
   const shareBtnRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -31,8 +31,9 @@ export const Pin = ({ elem }: PinProps) => {
   const userProfile = `/${elem.username}`;
   const router = useRouter();
 
-  const handleSharePinModal = () =>
+  const handleSharePinModal = () => {
     setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
+  };
 
   const handleModalOpen = () => setDynamicModal(btnRef);
 

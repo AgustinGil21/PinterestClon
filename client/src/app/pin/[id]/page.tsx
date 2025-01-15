@@ -108,7 +108,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
       <PinCard />
       <Masonry className='w-full'>
         {similarPins.map((elem) => (
-          <Pin elem={elem} key={elem.pin_id} />
+          <Pin elem={elem} className='mb-4' key={elem.pin_id} />
         ))}
       </Masonry>
     </section>
