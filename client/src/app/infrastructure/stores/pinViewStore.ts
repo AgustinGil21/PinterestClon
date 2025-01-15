@@ -1,5 +1,6 @@
 import {
   CommentsResponseInterface,
+  DataOpenBoardModalInteface,
   PinInterface,
   PinSimilarInterface,
   PinViewInterface,
@@ -13,6 +14,7 @@ import { getPinCommentsCase } from '@/app/application/use-cases/view-pins/getCom
 import { postToggleLikeCommentCase } from '@/app/application/use-cases/view-pins/postToggleLikeComment';
 import { getSimilarPinsCase } from '@/app/application/use-cases/view-pins/getSimilarPins';
 import { getUniqueItems } from '@/app/libs/getUniqueItems';
+import { postSavePinCase } from '@/app/application/use-cases/view-pins/postSavePin';
 
 export interface PinViewStoreInterface {
   pinData: PinViewInterface;
@@ -26,12 +28,20 @@ export interface PinViewStoreInterface {
   postToggleLikeComment: (id: string) => Promise<void>;
   similarPins: PinSimilarInterface[];
   getSimilarPins: (id: string, page: number, limit: number) => Promise<void>;
+  dataOpenBoardModal: DataOpenBoardModalInteface;
+  updateDataOpenBoardModal: (pinId: string, pinBody: string) => void;
+  postSavePin: (data: string) => Promise<void>;
 }
 
 export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
   set,
   get
 ) => ({
+  dataOpenBoardModal: {
+    pinId: '',
+    pinBody: '',
+  },
+
   pinData: {
     id: '',
     user_id: '',
@@ -152,5 +162,19 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
         similarPins: [...similarPins, ...newPins],
       });
     }
+  },
+
+  updateDataOpenBoardModal: (pinId: string, pinBody: string) => {
+    set((state) => ({
+      dataOpenBoardModal: {
+        ...state.dataOpenBoardModal,
+        pinBody: pinBody,
+        pinId: pinId,
+      },
+    }));
+  },
+
+  postSavePin: async (data: string) => {
+    await postSavePinCase(data);
   },
 });

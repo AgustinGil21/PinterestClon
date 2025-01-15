@@ -29,6 +29,7 @@ export interface ModalStateInterface {
   isDeletePinModal: boolean;
   openDeletePinModal: () => void;
   closeDeletePinModal: () => void;
+
   isShareAccountOpen: boolean;
 
   dynamicModalIsOpen: boolean;
@@ -44,7 +45,6 @@ export interface ModalStateInterface {
     data?: string
   ) => void;
   closeDynamicSharePinModal: () => void;
-
   isDownloadAccountOpen: boolean;
   openDownloadAccountModal: () => void;
   isThreePointsAccountOpen: boolean;
@@ -53,6 +53,8 @@ export interface ModalStateInterface {
   isFollowerModalOpen: boolean;
   isFollowingsModalOpen: boolean;
   openFollowingsModal: () => void;
+  isCreateBoardModalOpen: boolean;
+  createBoardModalOpen: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -76,12 +78,13 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   btnRef: createRef(),
   sharePinBtnRef: createRef(),
   dynamicSharePinModalIsOpen: false,
+  isCreateBoardModalOpen: false,
   sharePinData: '',
 
   setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) =>
     set((state) => ({
       btnRef: ref,
-      dynamicModalIsOpen: !state.dynamicModalIsOpen,
+      dynamicModalIsOpen: true,
     })),
 
   closeDynamicModal: () =>
@@ -202,6 +205,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     if (!get().isFollowingsModalOpen) activeScroll();
     set((state) => ({
       isFollowingsModalOpen: !state.isFollowingsModalOpen,
+    }));
+  },
+  createBoardModalOpen: () => {
+    set((state) => ({
+      ...state,
+      isCreateBoardModalOpen: !state.isCreateBoardModalOpen,
     }));
   },
 });

@@ -28,6 +28,7 @@ import {
   servicePostCommentsCreate,
   servicePostCreatePin,
   servicePostLikeOrUnlikePin,
+  servicePostSavePin,
   servicePostToggleLikeComment,
   servicePutEditPinId,
 } from '../services/service-pins';
@@ -222,4 +223,8 @@ export const getSimilarPinsAdapter = async (
   limit: number
 ): Promise<PinSimilarInterface[] | []> => {
   return await serviceGetSimilarPins(id, page, limit);
+};
+
+export const postSavePinAdapter = async (data: string) => {
+  return await servicePostSavePin(data);
 };

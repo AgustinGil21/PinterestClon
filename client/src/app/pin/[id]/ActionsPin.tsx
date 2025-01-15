@@ -7,6 +7,7 @@ import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import LikeActiveIcon from '@/app/interfaces/components/icons/LikeActiveIcon';
 import { useState } from 'react';
 import Counter from '@/app/components/Basic/Counter';
+import SavePin from './SavePin';
 
 const ActionsPin = () => {
   const {
@@ -15,6 +16,7 @@ const ActionsPin = () => {
     postLikeOrUnlike,
     isAuth,
     openRegisterModal,
+    postSavePin,
   } = useAppsStore();
 
   const [likes, setLikes] = useState(Number(pinData.likes));
@@ -73,9 +75,7 @@ const ActionsPin = () => {
           </div>
         </Tooltip>
       </div>
-      <ButtonStyled className='bg-redPinterestBg text-white font-semibold py-3 hover:bg-red-800 '>
-        Guardar
-      </ButtonStyled>
+      <SavePin />
     </div>
   );
 };

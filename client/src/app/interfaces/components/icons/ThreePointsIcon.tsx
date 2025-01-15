@@ -1,15 +1,17 @@
 interface ThreePointsInterface {
-  isThreePointsAccountOpen: boolean;
+  isThreePointsAccountOpen?: boolean;
+  className?: string;
 }
 
 const ThreePointsIcon = ({
   isThreePointsAccountOpen,
+  className,
 }: ThreePointsInterface) => {
   return (
     <svg
       aria-hidden='true'
       aria-label=''
-      className='Uvi gUZ U9O kVc'
+      className={className}
       height='20'
       role='img'
       viewBox='0 0 24 24'
