@@ -55,7 +55,6 @@ export interface ModalStateInterface {
   openFollowingsModal: () => void;
   isCreateBoardModalOpen: boolean;
   createBoardModalOpen: () => void;
-  closeCreateBoardModal: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -211,13 +210,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   createBoardModalOpen: () => {
     set((state) => ({
       ...state,
-      isCreateBoardModalOpen: true,
+      isCreateBoardModalOpen: !state.isCreateBoardModalOpen,
     }));
-  },
-  closeCreateBoardModal: () => {
-    set({
-      isCreateBoardModalOpen: false,
-      dynamicModalIsOpen: false,
-    });
   },
 });

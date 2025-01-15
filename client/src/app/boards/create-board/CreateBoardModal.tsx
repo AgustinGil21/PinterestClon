@@ -8,6 +8,8 @@ import { CustomTextArea } from '@/app/components/Basic/CustomTextArea';
 import { CustomInput } from '@/app/components/Basic/CustomInput';
 import { ICreateBoard } from '@/app/domain/types/boards-interface';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import ModalStyled from '@/app/interfaces/components/Basic/ModalStyled';
+import useCloseModal from '@/app/hooks/useCloseModal';
 
 // interface Props {
 //   pinBody?: string;
@@ -31,7 +33,7 @@ const CreateBoardModal = () => {
     dataOpenBoardModal,
     updateDataOpenBoardModal,
     isCreateBoardModalOpen,
-    closeCreateBoardModal,
+    createBoardModalOpen,
   } = useAppsStore();
 
   const { pinBody, pinId } = dataOpenBoardModal;
@@ -51,16 +53,10 @@ const CreateBoardModal = () => {
 
   const handleChange = ({ key, value }: IHandleChange) => {};
 
-  return (
-    <Modal
-      props={{
-        isModalOpen,
-        setModal: closeCreateBoardModal,
-        className: `fixed inset-0 flex items-center justify-center z-[100]`,
-      }}
-    >
-      <div className='fixed inset-0 bg-black bg-opacity-50 z-[100]' />
+  const { modalRef } = useCloseModal({ setModal: createBoardModalOpen });
 
+  return (
+    <ModalStyled modalRef={modalRef}>
       <div
         className={`absolute bg-white shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-[101] flex flex-col p-3 gap-4 rounded-lg justify-center items-center sm:min-w-[300px] min-h-[400px] h-full w-full max-h-[500px] ${
           !pinBody ? 'max-w-[350px]' : ' sm:max-w-[550px] board-modal'
@@ -125,7 +121,7 @@ const CreateBoardModal = () => {
         <footer className='border-solid border-t border-[#cdcdcd] w-full p-2 flex items-center justify-between'>
           <button
             className='p-2 bg-[#e9e9e9] rounded-2xl text-black font-bold text-[0.7rem] hover:bg-gray-300 transition-colors min-w-[67px]'
-            onClick={closeCreateBoardModal}
+            onClick={createBoardModalOpen}
           >
             Cancelar
           </button>
@@ -138,7 +134,7 @@ const CreateBoardModal = () => {
           </button>
         </footer>
       </div>
-    </Modal>
+    </ModalStyled>
   );
 };
 

@@ -327,3 +327,17 @@ export const serviceGetSimilarPins = async (
     return [];
   }
 };
+
+export const servicePostSavePin = async (data: string) => {
+  try {
+    const response = await axios.post(`${URLDOMAIN}/users/save-pin`, data, {
+      withCredentials: true,
+    });
+
+    console.log(response);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

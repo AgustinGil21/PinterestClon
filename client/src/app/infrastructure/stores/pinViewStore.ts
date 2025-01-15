@@ -14,6 +14,7 @@ import { getPinCommentsCase } from '@/app/application/use-cases/view-pins/getCom
 import { postToggleLikeCommentCase } from '@/app/application/use-cases/view-pins/postToggleLikeComment';
 import { getSimilarPinsCase } from '@/app/application/use-cases/view-pins/getSimilarPins';
 import { getUniqueItems } from '@/app/libs/getUniqueItems';
+import { postSavePinCase } from '@/app/application/use-cases/view-pins/postSavePin';
 
 export interface PinViewStoreInterface {
   pinData: PinViewInterface;
@@ -29,6 +30,7 @@ export interface PinViewStoreInterface {
   getSimilarPins: (id: string, page: number, limit: number) => Promise<void>;
   dataOpenBoardModal: DataOpenBoardModalInteface;
   updateDataOpenBoardModal: (pinId: string, pinBody: string) => void;
+  postSavePin: (data: string) => Promise<void>;
 }
 
 export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
@@ -170,5 +172,9 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
         pinId: pinId,
       },
     }));
+  },
+
+  postSavePin: async (data: string) => {
+    await postSavePinCase(data);
   },
 });
