@@ -313,7 +313,7 @@ export default class BoardsModel {
       END AS cover,
       CASE 
         WHEN b.cover IS NULL THEN (
-          SELECT p.url
+          SELECT p.body
           FROM board_posts bp 
           JOIN posts p ON bp.post_id = p.id 
           WHERE bp.board_id = b.id
@@ -417,7 +417,7 @@ export default class BoardsModel {
   static async getLastUsedBoardName({ id }) {
     const response = await pool.query(
       `
-      SELECT b.name 
+      SELECT b.name, b.id 
       FROM boards b
       LEFT JOIN board_posts bp
       ON bp.board_id = b.id
@@ -430,7 +430,7 @@ export default class BoardsModel {
 
     const [data] = response.rows;
 
-    if (data) return { response: data.name, ok: true };
+    if (data) return { response: data, ok: true };
 
     return { response, ok: false };
   }

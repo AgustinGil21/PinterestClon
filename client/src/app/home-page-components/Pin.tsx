@@ -129,7 +129,7 @@ export const Pin = ({ elem, className }: PinProps) => {
                   onClick={handleModalOpen}
                   ref={btnRef}
                 >
-                  <span className='text-sm'>{lastBoard || 'Perfil'}</span>
+                  <span className='text-sm'>{lastBoard.name || 'Perfil'}</span>
                   <svg
                     fill='none'
                     viewBox='0 0 24 24'

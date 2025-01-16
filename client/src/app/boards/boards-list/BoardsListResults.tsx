@@ -3,7 +3,7 @@ import BoardListCard from './BoardListCard';
 export interface ListOfBoards {
   name: string;
   cover?: string;
-  collage?: string[];
+  collage?: string;
   id: string;
 }
 

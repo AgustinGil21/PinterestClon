@@ -22,6 +22,7 @@ import {
   ICreateBoard,
   IEditBoard,
   IGetUserBoards,
+  ILastBoard,
   IPaging,
   IPin,
   ISearchByID,
@@ -33,7 +34,7 @@ import { StateCreator } from 'zustand';
 export interface IBoardsStore {
   createBoardData: ICreateBoard;
   editBoardData: IEditBoard;
-  lastBoard: string;
+  lastBoard: ILastBoard;
   boardsList: IBoardsList[];
   userBoards: IUserBoard[];
   board: IBoard;
@@ -66,7 +67,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     name: '',
   },
 
-  lastBoard: '',
+  lastBoard: { name: '', id: '' },
   boardsList: [],
   userBoards: [],
 

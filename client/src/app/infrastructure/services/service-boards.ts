@@ -25,9 +25,9 @@ export const serviceGetLastBoardName = async () => {
       withCredentials: true,
     });
 
-    const result = LastBoardSchema.safeParse({ board: response.data?.board });
+    const result = LastBoardSchema.safeParse(response.data?.board);
 
-    return result.success ? result.data.board : null;
+    return result.success ? result.data : null;
   } catch (err) {
     return null;
   }
@@ -78,8 +78,6 @@ export const serviceGetBoardsList = async () => {
     });
 
     const result = BoardsListSchema.safeParse(response.data);
-
-    console.log(response);
 
     return result.success ? result.data : null;
   } catch (err) {
@@ -167,8 +165,6 @@ export const serviceGetPossibleCovers = async ({
     );
 
     const result = GetPossibleCoversSchema.safeParse(response.data);
-
-    console.log(response);
 
     return result.success ? result.data : null;
   } catch (err) {

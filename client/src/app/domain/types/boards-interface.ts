@@ -40,7 +40,7 @@ export interface IBoardsList {
   name: string;
   id: string;
   cover?: string;
-  collage?: Collage;
+  collage?: string;
 }
 
 interface IUserData {
@@ -104,4 +104,9 @@ export interface IUserBoard {
 export interface ICover {
   id: string;
   body: string;
+}
+
+export interface ILastBoard {
+  name: string;
+  id: string;
 }

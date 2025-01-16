@@ -9,8 +9,8 @@ const BoardListCard = ({ board }: Props) => {
 
   if (board.cover) {
     url = board.cover;
-  } else if (!board?.cover && board?.collage?.[0]) {
-    url = board.collage[0];
+  } else if (!board?.cover && board?.collage) {
+    url = board.collage;
   } else {
     url = '';
   }
