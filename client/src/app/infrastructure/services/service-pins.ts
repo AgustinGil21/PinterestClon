@@ -330,9 +330,13 @@ export const serviceGetSimilarPins = async (
 
 export const servicePostSavePin = async (data: string) => {
   try {
-    const response = await axios.post(`${URLDOMAIN}/users/save-pin`, data, {
-      withCredentials: true,
-    });
+    const response = await axios.post(
+      `${URLDOMAIN}/users/save-pin`,
+      { id: data },
+      {
+        withCredentials: true,
+      }
+    );
 
     console.log(response);
 
