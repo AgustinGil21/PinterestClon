@@ -48,11 +48,11 @@ const BoardsList = ({ boards }: Props) => {
             <BoardsListEmpty typing={value ? true : false} />
           )}
         </section>
-        <footer className='w-full h-[80px] p-[1rem_0.8rem] hover:bg-[#e9e9e9] rounded-b-2xl flex gap-2 items-center cursor-pointer font-semibold  boards-list-shadow hover:shadow-none'>
-          <ButtonStyled
-            className='flex flex-row items-center gap-3 !p-0'
-            handleClick={handleClick}
-          >
+        <footer
+          onClick={handleClick}
+          className='w-full h-[80px] p-[1rem_0.8rem] hover:bg-[#e9e9e9] rounded-b-2xl flex gap-2 items-center cursor-pointer font-semibold  boards-list-shadow hover:shadow-none'
+        >
+          <ButtonStyled className='flex flex-row items-center gap-3 !p-0'>
             {' '}
             <div className='size-[48px] rounded-md flex justify-center items-center bg-[#e9e9e9] '>
               <PlusIcon />
@@ -61,13 +61,6 @@ const BoardsList = ({ boards }: Props) => {
           </ButtonStyled>
         </footer>
       </section>
-
-      {/* {openModalCreate && (
-        <CreateBoardModal
-          openModalCreate={openModalCreate}
-          setOpenModalCreate={handleClick}
-        />
-      )} */}
     </>
   );
 };

@@ -345,3 +345,21 @@ export const servicePostSavePin = async (data: string) => {
     console.log(error);
   }
 };
+
+export const servicePostDeleteComment = async (id: string) => {
+  try {
+    const response = await axios.delete(
+      `${URLDOMAIN}/comments/${id}`,
+
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(response);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

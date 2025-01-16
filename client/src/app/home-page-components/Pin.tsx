@@ -23,13 +23,9 @@ export const Pin = ({ elem, className }: PinProps) => {
     setDynamicModal,
     dynamicModalIsOpen,
     btnRef: btnRefStore,
-    sharePinBtnRef,
     setDynamicSharePinModalIsOpen,
-    dynamicSharePinModalIsOpen,
-    closeDynamicModal,
     isCreateBoardModalOpen,
     createBoardModalOpen,
-    dataCreatePin,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
 
@@ -40,10 +36,6 @@ export const Pin = ({ elem, className }: PinProps) => {
   const buttonURL = getDomain(elem.url);
   const userProfile = `/${elem.username}`;
   const router = useRouter();
-
-  const handleClick2 = () => {
-    createBoardModalOpen();
-  };
 
   const handleSharePinModal = () => {
     setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
@@ -256,12 +248,7 @@ export const Pin = ({ elem, className }: PinProps) => {
         )}
       </section>
       {isCreateBoardModalOpen && elem.pin_id === pinId && (
-        <CreateBoardModal
-          openModalCreate={createBoardModalOpen}
-          setOpenModalCreate={handleClick2}
-          pinBody={pinBody}
-          pinId={pinId}
-        />
+        <CreateBoardModal pinBody={pinBody} pinId={pinId} />
       )}
     </>
   );

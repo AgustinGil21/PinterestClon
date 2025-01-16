@@ -68,18 +68,20 @@ const OptionsComment = ({ elem }: OptionCommentProps) => {
           </ButtonStyled>
         </Tooltip>
       </div>
-      <ButtonStyled
-        className='!p-0 relative'
-        handleClick={openModal}
-        btnRef={buttonRef}
-      >
-        <div className='hover:bg-gray-200 p-1 rounded-full cursor-pointer'>
-          <ThreePointsIcon className='w-[12px] h-[12px]' />
-        </div>
+      <div className='relative flex  items-center flex-col'>
+        <ButtonStyled
+          className='!p-0 '
+          handleClick={openModal}
+          btnRef={buttonRef}
+        >
+          <div className='hover:bg-gray-200 p-1 rounded-full cursor-pointer'>
+            <ThreePointsIcon className='w-[12px] h-[12px]' />
+          </div>
+        </ButtonStyled>
         {isModalOpen && (
-          <ModalComment onClose={openModal} buttonRef={buttonRef} />
+          <ModalComment onClose={openModal} buttonRef={buttonRef} elem={elem} />
         )}
-      </ButtonStyled>
+      </div>
     </div>
   );
 };
