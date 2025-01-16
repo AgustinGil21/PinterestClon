@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import useCloseModal from '../hooks/useCloseModal';
 import { Skeleton } from '../components/Basic/Skeleton';
+import CreateBoardModal from '../boards/create-board/CreateBoardModal';
 
 interface PinProps {
   elem: PinInterface;
@@ -25,7 +26,13 @@ export const Pin = ({ elem, className }: PinProps) => {
     sharePinBtnRef,
     setDynamicSharePinModalIsOpen,
     dynamicSharePinModalIsOpen,
+    closeDynamicModal,
+    isCreateBoardModalOpen,
+    createBoardModalOpen,
+    dataCreatePin,
   } = useAppsStore();
+  const { pinBody, pinId } = dataOpenBoardModal;
+
   const btnRef = useRef(null);
   const shareBtnRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,6 +40,10 @@ export const Pin = ({ elem, className }: PinProps) => {
   const buttonURL = getDomain(elem.url);
   const userProfile = `/${elem.username}`;
   const router = useRouter();
+
+  const handleClick2 = () => {
+    createBoardModalOpen();
+  };
 
   const handleSharePinModal = () => {
     setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
@@ -244,6 +255,14 @@ export const Pin = ({ elem, className }: PinProps) => {
           </article>
         )}
       </section>
+      {isCreateBoardModalOpen && elem.pin_id === pinId && (
+        <CreateBoardModal
+          openModalCreate={createBoardModalOpen}
+          setOpenModalCreate={handleClick2}
+          pinBody={pinBody}
+          pinId={pinId}
+        />
+      )}
     </>
   );
 };

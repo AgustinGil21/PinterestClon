@@ -29,16 +29,20 @@ const BoardsListModal = () => {
   ];
 
   return (
-    <DynamicModal
-      className='w-[360px] rounded-2xl bg-white'
-      width={360}
-      height={502}
-      dynamicModalIsOpen={dynamicModalIsOpen}
-      btnRef={btnRef}
-      closeDynamicModal={closeDynamicModal}
-    >
-      <BoardsList boards={boards} />
-    </DynamicModal>
+    <>
+      {dynamicModalIsOpen && (
+        <DynamicModal
+          className='w-[360px] rounded-2xl bg-white'
+          width={360}
+          height={502}
+          dynamicModalIsOpen={dynamicModalIsOpen}
+          btnRef={btnRef}
+          closeDynamicModal={closeDynamicModal}
+        >
+          <BoardsList boards={boardsList} />
+        </DynamicModal>
+      )}
+    </>
   );
 };
 

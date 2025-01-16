@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Modal from '@/app/components/Basic/Modal';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
 import { CreateBoardDataSchema } from '@/app/infrastructure/schemas/validation-service-api';
@@ -10,6 +10,8 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 interface IntefaceCreateBoardModal {
   openModalCreate: boolean;
   setOpenModalCreate: (state: boolean) => void;
+  pinId?: string;
+  pinBody?: string;
 }
 
 interface IHandleChange {
@@ -25,16 +27,16 @@ interface IOnSubmit {
 const CreateBoardModal = ({
   openModalCreate,
   setOpenModalCreate,
+  pinBody,
+  pinId,
 }: IntefaceCreateBoardModal) => {
   const {
     createBoard,
     dataOpenBoardModal,
     closeDynamicModal,
     setDynamicModal,
+    isCreateBoardModalOpen,
   } = useAppsStore();
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const { pinBody, pinId } = dataOpenBoardModal;
 
   const { errors, register, handleSubmit, watch } = useFormHook({
     schema: CreateBoardDataSchema,
@@ -53,21 +55,23 @@ const CreateBoardModal = ({
 
   const handleCancel = () => {
     setOpenModalCreate(false);
-    closeDynamicModal();
+    // closeDynamicModal();
   };
+
+  useEffect(() => {
+    console.log(isCreateBoardModalOpen);
+  }, [isCreateBoardModalOpen]);
 
   return (
     <>
-      {openModalCreate && (
+      {isCreateBoardModalOpen && (
         <>
           <div className='fixed inset-0 bg-black bg-opacity-50 z-[29]' />
           <Modal
             props={{
-              isModalOpen: openModalCreate,
+              isModalOpen: isCreateBoardModalOpen,
               setModal: handleCancel,
               className: `fixed z-[30] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[550px]`,
-              buttonRef,
-              wrapperRef,
             }}
           >
             <div

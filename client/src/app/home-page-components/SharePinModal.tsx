@@ -12,15 +12,19 @@ export const SharePinModal = () => {
   } = useAppsStore();
 
   return (
-    <DynamicModal
-      closeDynamicModal={closeDynamicSharePinModal}
-      dynamicModalIsOpen={dynamicSharePinModalIsOpen}
-      btnRef={sharePinBtnRef}
-      width={325}
-      height={230}
-      className='z-50 bg-white py-5 px-4 rounded-xl shadow-uniform'
-    >
-      <ShareComponent endpoint='pins' data={sharePinData} />
-    </DynamicModal>
+    <>
+      {dynamicSharePinModalIsOpen && (
+        <DynamicModal
+          closeDynamicModal={closeDynamicSharePinModal}
+          dynamicModalIsOpen={dynamicSharePinModalIsOpen}
+          btnRef={sharePinBtnRef}
+          width={325}
+          height={230}
+          className='z-50 bg-white py-5 px-4 rounded-xl shadow-uniform'
+        >
+          <ShareComponent endpoint='pins' data={sharePinData} />
+        </DynamicModal>
+      )}
+    </>
   );
 };

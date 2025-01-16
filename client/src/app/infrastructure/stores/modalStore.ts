@@ -54,6 +54,7 @@ export interface ModalStateInterface {
   isFollowingsModalOpen: boolean;
   openFollowingsModal: () => void;
   isCreateBoardModalOpen: boolean;
+  createBoardModalOpen: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -79,6 +80,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   dynamicSharePinModalIsOpen: false,
   isCreateBoardModalOpen: false,
   sharePinData: '',
+
+  createBoardModalOpen: () => {
+    set((state) => ({
+      isCreateBoardModalOpen: !state.isCreateBoardModalOpen,
+    }));
+  },
 
   setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) =>
     set((state) => ({

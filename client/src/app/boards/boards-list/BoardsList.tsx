@@ -21,10 +21,12 @@ const BoardsList = ({ boards }: Props) => {
     updateDataOpenBoardModal,
     setDynamicModal,
     closeDynamicModal,
+    createBoardModalOpen,
   } = useAppsStore();
 
   const handleClick = () => {
-    setOpenModalCreate(!openModalCreate);
+    createBoardModalOpen();
+    closeDynamicModal();
   };
 
   return (
@@ -60,12 +62,12 @@ const BoardsList = ({ boards }: Props) => {
         </footer>
       </section>
 
-      {openModalCreate && (
+      {/* {openModalCreate && (
         <CreateBoardModal
           openModalCreate={openModalCreate}
           setOpenModalCreate={handleClick}
         />
-      )}
+      )} */}
     </>
   );
 };
