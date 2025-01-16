@@ -94,7 +94,7 @@ export default function UserProfile({ params }: Props) {
   }
 
   return (
-    <section className='p-5 min-h-screen flex w-full flex-col'>
+    <section className='p-5 min-h-screen flex w-full flex-col relative'>
       <div className='flex items-center w-full flex-col'>
         <AvatarUser
           data={dataSearchUserProfile}
@@ -130,9 +130,9 @@ export default function UserProfile({ params }: Props) {
       </div>
 
       {savesOrCreates ? (
-        <Masonry>
+        <Masonry className='w-full'>
           {createdPins.map((elem) => (
-            <Pin elem={elem} key={elem.pin_id} />
+            <Pin elem={elem} key={elem.pin_id} className='mb-4 z-10' />
           ))}
         </Masonry>
       ) : (

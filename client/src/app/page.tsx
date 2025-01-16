@@ -1,8 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useAppsStore } from './infrastructure/stores/useAppStore';
 import { Pin } from './home-page-components/Pin';
 import Loader from './interfaces/components/Basic/Loader';
+import { Skeleton } from './components/Basic/Skeleton';
+import getDarkColor from './interfaces/helpers/getColorDark';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);

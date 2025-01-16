@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
-import { useEffect, useState } from 'react';
 
 interface FollowingInterface {
   following?: boolean;
@@ -28,10 +28,6 @@ const Follow = ({
     postFollowUser(id);
     setFollowing(!isFollowing);
   };
-
-  useEffect(() => {
-    console.log(following);
-  }, [following]);
 
   return (
     <ButtonStyled

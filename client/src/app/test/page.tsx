@@ -3,6 +3,7 @@ import BoardsList from '../boards/boards-list/BoardsList';
 import BoardsListModal from '../boards/boards-list/BoardsListModal';
 import CreateBoardModal from '../boards/create-board/CreateBoardModal';
 import DynamicPositioning from '../components/Basic/DynamicPositioningModal';
+import { Skeleton } from '../components/Basic/Skeleton';
 import ToastNotification from '../components/Basic/ToastNotification';
 
 export default function Test() {
@@ -31,7 +32,15 @@ export default function Test() {
   return (
     <>
       {/* <BoardCoverModal /> */}
-      <CreateBoardModal />
+      {/* <CreateBoardModal /> */}
+      <Skeleton
+        width={200}
+        height={100}
+        borderRadius='1rem'
+        angle='diagonalRight'
+        direction='bottom'
+        color='#e60023'
+      />
     </>
   );
 }

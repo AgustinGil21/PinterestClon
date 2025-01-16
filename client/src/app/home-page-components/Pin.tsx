@@ -6,6 +6,7 @@ import { getDomain } from '../libs/getDomain';
 import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import useCloseModal from '../hooks/useCloseModal';
+import { Skeleton } from '../components/Basic/Skeleton';
 
 interface PinProps {
   elem: PinInterface;
@@ -81,16 +82,18 @@ export const Pin = ({ elem, className }: PinProps) => {
 
   return (
     <>
-      <section className={`${elem.className}`}>
+      <section className={`${elem.className} ${className}`}>
         {!isLoaded && elem.username ? (
-          <div className='animate-pulse p-0.5'>
-            <div
-              className=' h-[320px] w-full mb-4 rounded-2xl my-3'
-              style={{
-                backgroundColor: skeletonColor,
-              }}
-            ></div>
-          </div>
+          <Skeleton
+            height={400}
+            presets='rounded'
+            angle='diagonalLeft'
+            direction='top'
+            color={skeletonColor}
+            className='w-full mb-4 mt-4'
+            speed='slow'
+            borderRadius='16px'
+          />
         ) : (
           <article className='card hover:cursor-pointer'>
             <article className='card-top'>
