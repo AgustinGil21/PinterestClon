@@ -27,6 +27,7 @@ import {
   serviceGetSuggestions,
   servicePostCommentsCreate,
   servicePostCreatePin,
+  servicePostDeleteComment,
   servicePostLikeOrUnlikePin,
   servicePostSavePin,
   servicePostToggleLikeComment,
@@ -227,4 +228,8 @@ export const getSimilarPinsAdapter = async (
 
 export const postSavePinAdapter = async (data: string) => {
   return await servicePostSavePin(data);
+};
+
+export const postDeleteCommentAdapter = async (id: string) => {
+  return await servicePostDeleteComment(id);
 };

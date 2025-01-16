@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef } from 'react';
+
 import Modal from '@/app/components/Basic/Modal';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
 import { CreateBoardDataSchema } from '@/app/infrastructure/schemas/validation-service-api';
@@ -8,8 +8,7 @@ import { CustomInput } from '@/app/components/Basic/CustomInput';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface IntefaceCreateBoardModal {
-  openModalCreate: boolean;
-  setOpenModalCreate: (state: boolean) => void;
+  setOpenModalCreate?: (state: boolean) => void;
   pinId?: string;
   pinBody?: string;
 }
@@ -25,7 +24,6 @@ interface IOnSubmit {
 }
 
 const CreateBoardModal = ({
-  openModalCreate,
   setOpenModalCreate,
   pinBody,
   pinId,
@@ -35,6 +33,7 @@ const CreateBoardModal = ({
     dataOpenBoardModal,
     closeDynamicModal,
     setDynamicModal,
+    createBoardModalOpen,
     isCreateBoardModalOpen,
   } = useAppsStore();
 
@@ -48,19 +47,14 @@ const CreateBoardModal = ({
       ...(pinId ? { pinId } : {}),
     };
     createBoard(dataToSubmit);
-    setOpenModalCreate(false);
+    createBoardModalOpen();
   };
 
   const handleChange = ({ key, value }: IHandleChange) => {};
 
   const handleCancel = () => {
-    setOpenModalCreate(false);
-    // closeDynamicModal();
+    createBoardModalOpen();
   };
-
-  useEffect(() => {
-    console.log(isCreateBoardModalOpen);
-  }, [isCreateBoardModalOpen]);
 
   return (
     <>

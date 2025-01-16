@@ -24,16 +24,20 @@ export default class CommentsController {
   }
 
   static async deleteComment(req, res) {
-    const { id } = req.params;
+    const { id: userID } = req.user;
+    const { id: commentID } = req.params;
 
     try {
-      const success = await CommentsModel.deleteComment({ id });
+      const success = await CommentsModel.deleteComment({ commentID, userID });
 
+      console.log(success);
       if (success.ok) {
         return res
           .status(200)
           .json({ message: 'Comment successfully deleted' });
       }
+
+      return res.status(400).json({ message: 'Could not delete comment' });
     } catch (err) {
       return res.status(400).json({ message: 'Could not delete comment' });
     }

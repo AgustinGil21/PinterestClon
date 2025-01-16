@@ -16,10 +16,11 @@ export default class CommentsModel {
     return { response, ok: false };
   }
 
-  static async deleteComment({ id }) {
-    const response = await pool.query('DELETE FROM comments WHERE id = $1;', [
-      id,
-    ]);
+  static async deleteComment({ userID, commentID }) {
+    const response = await pool.query(
+      'DELETE FROM comments WHERE id = $1 AND user_id = $2;',
+      [commentID, userID]
+    );
 
     const success = response.rowCount;
 

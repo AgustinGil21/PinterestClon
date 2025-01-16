@@ -37,7 +37,6 @@ export const servicePostCreatePin = async (
         'Content-Type': 'multipart/form-data',
       },
     });
-    console.log(response);
 
     return response.status ? response.data : null;
   } catch (error) {
@@ -65,7 +64,6 @@ export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
     const response = await axios.get(`${URLDOMAIN}/pins/previous-pins`, {
       withCredentials: true,
     });
-    console.log(response);
 
     const result = ArrayPreviousPinSchema.safeParse(response.data.pins.data);
     return result.success ? result.data : [];
@@ -80,7 +78,6 @@ export const serviceDeletePreviousPin = async (id: string) => {
     const response = await axios.delete(`${URLDOMAIN}/pins/${id}`, {
       withCredentials: true,
     });
-    console.log(response);
   } catch (error) {
     console.log(error);
     return null;
@@ -94,10 +91,8 @@ export const serviceGetEditPinId = async (
     const response = await axios.get(`${URLDOMAIN}/pins/previous-pins/${id}`, {
       withCredentials: true,
     });
-    console.log(response);
 
     const result = PinEditIdSchema.safeParse(response.data.pin);
-    console.log(result);
 
     return result.success ? result.data : null;
   } catch (error) {
@@ -111,7 +106,6 @@ export const servicePutEditPinId = async (id: string, data: PinEdit) => {
     const response = await axios.put(`${URLDOMAIN}/pins/${id}`, data, {
       withCredentials: true,
     });
-    console.log(response);
   } catch (error) {
     console.log(error);
     return null;
@@ -151,11 +145,8 @@ export const serviceGetSearchPin = async (
         withCredentials: true,
       }
     );
-    console.log(response);
 
     const result = getPinsSchema.safeParse(response.data);
-
-    console.log(result);
 
     return result.success ? result.data.pins : [];
   } catch (error) {
@@ -170,11 +161,7 @@ export const serviceGetSuggestions = async (): Promise<
   try {
     const response = await axios.get(`${URLDOMAIN}/pins/search/suggestions`);
 
-    console.log(response.data);
-
     const result = ArraySuggestionSchema.safeParse(response.data.suggestions);
-
-    console.log(result);
 
     return result.success ? result.data : [];
   } catch (error) {
@@ -196,11 +183,7 @@ export const serviceGetPinSearchCategories = async (
       }
     );
 
-    console.log(response);
-
     const result = getPinsSchema.safeParse(response.data);
-
-    console.log(result);
 
     return result.success ? result.data.pins : [];
   } catch (error) {
@@ -216,10 +199,8 @@ export const serviceGetPinView = async (
     const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
       withCredentials: true,
     });
-    console.log(response);
 
     const result = PinViewSchema.safeParse(response.data.pin);
-    console.log(result);
 
     return result.success ? result.data : null;
   } catch (error) {
@@ -238,8 +219,6 @@ export const servicePostLikeOrUnlikePin = async (id: string) => {
       }
     );
 
-    console.log(response);
-
     return response.status ? response.data : null;
   } catch (error) {
     console.log(error);
@@ -251,8 +230,6 @@ export const servicePostCommentsCreate = async (data: PostCommentInterface) => {
     const response = await axios.post(`${URLDOMAIN}/comments/create`, data, {
       withCredentials: true,
     });
-
-    console.log(response);
 
     return response.data;
   } catch (error) {
@@ -272,7 +249,6 @@ export const serviceGetPinComments = async (
         withCredentials: true,
       }
     );
-    console.log(response);
 
     const result = CommentsResponseSchema.safeParse(response.data);
 
@@ -293,8 +269,6 @@ export const servicePostToggleLikeComment = async (id: string) => {
       }
     );
 
-    console.log(response);
-
     return response.data;
   } catch (error) {
     console.log(error);
@@ -313,13 +287,10 @@ export const serviceGetSimilarPins = async (
         withCredentials: true,
       }
     );
-    console.log(response);
 
     const result = PinSimilarSchema.array().safeParse(
       response.data.response.pins
     );
-
-    console.log(result);
 
     return result.success ? result.data : [];
   } catch (error) {
@@ -338,7 +309,21 @@ export const servicePostSavePin = async (data: string) => {
       }
     );
 
-    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const servicePostDeleteComment = async (id: string) => {
+  try {
+    const response = await axios.delete(
+      `${URLDOMAIN}/comments/${id}`,
+
+      {
+        withCredentials: true,
+      }
+    );
 
     return response.data;
   } catch (error) {
