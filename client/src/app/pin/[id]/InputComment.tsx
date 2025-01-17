@@ -104,7 +104,9 @@ const InputComment = ({ handleCommentsCount }: Props) => {
         register={register}
         errors={errors.comment}
         infoName='comment'
-        className='w-full px-3 py-3 rounded-3xl border-[1px] bg-gray-200 text-sm pr-[86px]'
+        className={`w-full px-3 py-3 rounded-3xl border-[1px] bg-gray-200 text-sm ${
+          comment.length > 0 ? 'pr-[100px]' : ''
+        }`}
         placeHolder='Agregar un comentario'
         value={comment}
       />
@@ -115,9 +117,9 @@ const InputComment = ({ handleCommentsCount }: Props) => {
         </div>
       )}
 
-      <div className='pr-2 flex flex-row items-center absolute top-1/2 right-3 transform -translate-y-1/2'>
+      <div className='pr-2 flex flex-row items-center absolute justify-center top-1/2 right-3 transform -translate-y-1/2'>
         <ButtonStyled
-          className='rounded-full flex items-center justify-center hover:bg-gray-300 p-2'
+          className='rounded-full flex items-center justify-center hover:bg-gray-300 !p-2'
           handleClick={handleEmojiIsOpen}
           type='button'
           btnRef={btnRef}
@@ -127,7 +129,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
 
         {comment.length > 0 && (
           <ButtonStyled
-            className='bg-redPinterestBg px-1 py-1 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-700'
+            className='bg-redPinterestBg !p-2 w-8 h-8 rounded-full flex items-center justify-center cursor-pointer hover:bg-red-700'
             type='submit'
           >
             <SendCommentIcon />

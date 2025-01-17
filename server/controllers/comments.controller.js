@@ -7,16 +7,16 @@ export default class CommentsController {
     const { id: pinID, content } = req.body;
 
     try {
-      const success = await CommentsModel.createComment({
+      const data = await CommentsModel.createComment({
         userID,
         pinID,
         content,
       });
 
-      if (success.ok) {
-        return res
-          .status(201)
-          .json({ message: 'Comment successfully created' });
+      if (data.ok) {
+        const comment = data.response;
+
+        return res.status(201).json({ comment });
       }
     } catch (err) {
       return res.status(400).json({ message: 'Could not create comment' });
