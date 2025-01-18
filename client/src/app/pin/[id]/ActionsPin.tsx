@@ -3,7 +3,6 @@ import Tooltip from '@/app/components/Header/ToolTip';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import LikeIcon from '@/app/interfaces/components/icons/LikeIcon';
 import ThreePointsIcon from '@/app/interfaces/components/icons/ThreePointsIcon';
-import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import LikeActiveIcon from '@/app/interfaces/components/icons/LikeActiveIcon';
 import { useState } from 'react';
 import Counter from '@/app/components/Basic/Counter';
@@ -52,7 +51,7 @@ const ActionsPin = () => {
                 />
               ) : (
                 <LikeIcon
-                  classProps={`${
+                  classProps={` ${
                     renders > 1 ? 'like-btn-animated' : ''
                   } w-[20px] h-[20px]`}
                 />

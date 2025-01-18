@@ -35,7 +35,10 @@ const AsideCreateOpen = ({
   };
 
   return (
-    <div className='border-r-gray-300 border-r-[1px] min-w-[300px] h-full flex flex-col items-center gap-6 previous-pins-aside'>
+    <div
+      className='border-r-gray-300 border-r-[1px] min-w-[300px] h-full flex flex-col items-center gap-6 previous-pins-aside overflow-y-auto'
+      style={{ maxHeight: '100vh' }}
+    >
       <div className='border-b-[1px] border-b-gray-300 p-3 px-5 h-[139px] w-full pt-6 max-w-[600px]'>
         <div className='flex flex-col gap-5 justify-between h-full'>
           <div className='flex justify-between items-center'>
@@ -58,7 +61,7 @@ const AsideCreateOpen = ({
         </div>
       </div>
 
-      <div className='w-full p-2 py-1 h-full flex flex-col-reverse justify-end gap-3 overflow-y-auto max-w-[600px] items-center'>
+      <div className='w-full p-2 py-1 flex flex-col-reverse gap-3 max-w-[600px] items-center'>
         {previousPin.map((elem) => (
           <PreviousPins
             elem={elem}

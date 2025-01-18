@@ -27,6 +27,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     getUserOwnerProfile,
     dataOwnerProfile,
     openRegisterModal,
+    commentsState,
     isAuth,
   } = useAppsStore();
   const btnRef = useRef(null);
@@ -85,19 +86,23 @@ const InputComment = ({ handleCommentsCount }: Props) => {
 
     try {
       updateFrontComment(newComment);
-      await postCreateComment({
-        id: pinData.id,
-        content: comment,
-      });
+      await postCreateComment(
+        {
+          id: pinData.id,
+          content: comment,
+        },
+        newComment.id
+      );
+
+      console.log(newComment.id);
 
       setValue('comment', '');
     } catch (error) {
       console.error('Error al enviar el comentario:', error);
     }
 
-    setEmojiIsOpen(false);
-
     handleCommentsCount();
+    setEmojiIsOpen(false);
   };
 
   return (

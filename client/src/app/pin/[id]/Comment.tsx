@@ -2,16 +2,15 @@ import AvatarUser from '@/app/interfaces/layout/Header/Avatar/AvatarUser';
 import RelativeTime from '@/app/components/Basic/RelativeTime';
 import { CommentTextExtend } from './CommentTextExtend';
 import { CommentInterface } from '@/app/domain/types/pins-structure';
-import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import OptionsComment from './OptionsComment';
 
 interface CommentProps {
   elem: CommentInterface;
+  handleCommentsCount: () => void;
 }
 
-const Comment = ({ elem }: CommentProps) => {
-  const { postToggleLikeComment, isAuth, openRegisterModal } = useAppsStore();
+const Comment = ({ elem, handleCommentsCount }: CommentProps) => {
   const router = useRouter();
 
   const handleClickSearchUser = () => {
@@ -46,7 +45,7 @@ const Comment = ({ elem }: CommentProps) => {
           </h5>
           <CommentTextExtend text={elem.content} />
         </div>
-        <OptionsComment elem={elem} />
+        <OptionsComment elem={elem} handleCommentsCount={handleCommentsCount} />
       </div>
     </div>
   );

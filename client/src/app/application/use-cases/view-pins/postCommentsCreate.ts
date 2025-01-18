@@ -2,5 +2,6 @@ import { postCommentCreateAdapter } from '@/app/infrastructure/adapters/PinsAdap
 import { PostCommentInterface } from '@/app/domain/types/pins-structure';
 
 export const postCommentCreateCase = async (data: PostCommentInterface) => {
-  return await postCommentCreateAdapter(data);
+  const response = await postCommentCreateAdapter(data);
+  return response;
 };

@@ -17,8 +17,9 @@ const PinCard = () => {
     resetComments,
     getLastBoard,
   } = useAppsStore();
-  const [commentsCount, setCommentsCount] = useState(Number(pinData.comments));
+
   const [openComments, setOpenComments] = useState(true);
+  const [commentsCount, setCommentsCount] = useState(Number(pinData.comments));
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const cardRef = useRef(null);
@@ -26,8 +27,6 @@ const PinCard = () => {
   const footerRef = useRef(null);
 
   const { height: cardHeight } = useGetElementSize(cardRef);
-
-  const handleCommentsCount = () => setCommentsCount((prev) => prev + 1);
 
   const commentsMaxHeight = useGetElementDistance({
     ref1: footerRef,
@@ -65,6 +64,14 @@ const PinCard = () => {
     getLastBoard();
   };
 
+  const handleCommentsCount = () => {
+    setCommentsCount((prev) => prev + 1);
+  };
+
+  const handleDeleteComment = () => {
+    setCommentsCount((prev) => (prev > 0 ? prev - 1 : 0));
+  };
+
   useEffect(() => {
     resetComments();
     setPage(1);
@@ -73,7 +80,7 @@ const PinCard = () => {
 
   return (
     <div
-      className='max-w-[930px] bg-white shadow-pinShadow rounded-[30px] w-full p-5 flex flex-row gap-4 max-h-[800px] min-h-[466px]'
+      className='max-w-[930px] bg-white shadow-pinShadow rounded-[30px] w-full p-5 flex flex-row gap-4 max-h-[800px] min-h-[466px] '
       onMouseOver={handlePrueba}
       ref={cardRef}
     >
@@ -114,12 +121,15 @@ const PinCard = () => {
               </div>
               {openComments && (
                 <div
-                  className='mt-3 overflow-y-auto h-full min-h-[145px] '
+                  className='mt-3 overflow-y-auto h-full max-h-[350px] min-h-[350px]  '
                   onScroll={handleScroll}
-                  style={{ maxHeight: commentsMaxHeight }}
                 >
                   {commentsState.comments.map((elem, index) => (
-                    <Comment elem={elem} key={index} />
+                    <Comment
+                      elem={elem}
+                      key={index}
+                      handleCommentsCount={handleDeleteComment}
+                    />
                   ))}
                 </div>
               )}

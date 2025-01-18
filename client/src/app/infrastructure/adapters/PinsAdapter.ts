@@ -172,7 +172,9 @@ export const postLikeOrUnlikePinAdapter = async (id: string) => {
 };
 
 export const postCommentCreateAdapter = async (data: PostCommentInterface) => {
-  return await servicePostCommentsCreate(data);
+  const response = await servicePostCommentsCreate(data);
+
+  return response;
 };
 
 export const getPinCommentsAdapter = async (

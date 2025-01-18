@@ -60,12 +60,12 @@ const CreateBoardModal = ({
     <>
       {isCreateBoardModalOpen && (
         <>
-          <div className='fixed inset-0 bg-black bg-opacity-50 z-[29]' />
+          <div className='fixed inset-0 bg-black bg-opacity-50 z-[70]' />
           <Modal
             props={{
               isModalOpen: isCreateBoardModalOpen,
               setModal: handleCancel,
-              className: `fixed z-[30] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[550px]`,
+              className: `fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[550px]`,
             }}
           >
             <div

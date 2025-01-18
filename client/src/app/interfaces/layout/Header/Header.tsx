@@ -63,7 +63,7 @@ export const Header = () => {
 
   return (
     <header
-      className={`w-full h-16 text-white py-3 flex gap-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-20 ${
+      className={`w-full h-16 text-white py-3 flex gap-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-[60] ${
         shadow ? 'shadow-md' : ''
       }`}
     >

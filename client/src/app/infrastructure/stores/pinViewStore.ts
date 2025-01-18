@@ -21,7 +21,10 @@ export interface PinViewStoreInterface {
   pinData: PinViewInterface;
   getPinView: (id: string) => Promise<void>;
   postLikeOrUnlike: (id: string) => Promise<void>;
-  postCreateComment: (data: PostCommentInterface) => Promise<void>;
+  postCreateComment: (
+    data: PostCommentInterface,
+    uuid: string
+  ) => Promise<void>;
   getPinComments: (id: string, page: number, limit: number) => Promise<void>;
   commentsState: CommentsResponseInterface;
   resetComments: () => void;
@@ -105,10 +108,20 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
     await postLikeOrUnlikeCase(id);
   },
 
-  postCreateComment: async (data: PostCommentInterface) => {
-    await postCommentCreateCase(data);
-  },
+  postCreateComment: async (data: PostCommentInterface, uuid: string) => {
+    const response = await postCommentCreateCase(data);
 
+    const updatedComments = get().commentsState.comments.map((comment) =>
+      comment.id === uuid ? { ...comment, id: response.comment.id } : comment
+    );
+
+    set((state) => ({
+      commentsState: {
+        ...state.commentsState,
+        comments: updatedComments,
+      },
+    }));
+  },
   getPinComments: async (id: string, page: number, limit: number) => {
     const response = await getPinCommentsCase(id, page, limit);
 
@@ -159,6 +172,32 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
   },
 
   postToggleLikeComment: async (id: string) => {
+    const comments = get().commentsState.comments;
+
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === id) {
+        const alreadyLiked = comment.already_liked;
+        const likesCount = Number(comment.likes_count);
+
+        return {
+          ...comment,
+          already_liked: !alreadyLiked,
+          likes_count: (alreadyLiked
+            ? likesCount - 1
+            : likesCount + 1
+          ).toString(),
+        };
+      }
+      return comment;
+    });
+
+    set((state) => ({
+      commentsState: {
+        ...state.commentsState,
+        comments: updatedComments,
+      },
+    }));
+
     await postToggleLikeCommentCase(id);
   },
 

@@ -1,85 +1,78 @@
+import React, { useRef, useState } from 'react';
 import Counter from '@/app/components/Basic/Counter';
 import Tooltip from '@/app/components/Header/ToolTip';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import LikeActiveIcon from '@/app/interfaces/components/icons/LikeActiveIcon';
 import LikeIcon from '@/app/interfaces/components/icons/LikeIcon';
 import ThreePointsIcon from '@/app/interfaces/components/icons/ThreePointsIcon';
-import { useState } from 'react';
-import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { CommentInterface } from '@/app/domain/types/pins-structure';
 import ModalComment from './ModalComment';
-import { useRef } from 'react';
+import { CommentInterface } from '@/app/domain/types/pins-structure';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface OptionCommentProps {
   elem: CommentInterface;
+  handleCommentsCount: () => void;
 }
 
-const OptionsComment = ({ elem }: OptionCommentProps) => {
-  const [likes, setLikes] = useState(Number(elem.likes_count));
-  const [alreadyLiked, setAlreadyLiked] = useState(elem.already_liked);
-  const { openRegisterModal, postToggleLikeComment, isAuth } = useAppsStore();
+const OptionsComment = ({ elem, handleCommentsCount }: OptionCommentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isAuth, openRegisterModal, postToggleLikeComment } = useAppsStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const openModal = () => setIsModalOpen(!isModalOpen);
+  const likes = Number(elem.likes_count);
+  const alreadyLiked = elem.already_liked;
 
-  const handleToggleLikeComment = () => {
+  const handleToggleLikeComment = async () => {
     if (!isAuth) {
       openRegisterModal();
       return;
     }
-    setAlreadyLiked(!alreadyLiked);
-    console.log(elem.already_liked);
-    setLikes((prev) => prev + (alreadyLiked ? -1 : 1));
+    await postToggleLikeComment(elem.id);
 
-    postToggleLikeComment(elem.id);
+    const updatedLikes = alreadyLiked ? likes - 1 : likes + 1;
+    elem.likes_count = updatedLikes.toString();
+    elem.already_liked = !alreadyLiked;
   };
 
+  const openModal = () => setIsModalOpen((prev) => !prev);
+
   return (
-    <div className='flex flex-row gap-2 mt-[-3px]  items-center'>
-      <span className='text-[#b3b3b3] text-[11px] font-semibold cursor-pointer'>
+    <div className='flex flex-row gap-2 items-center'>
+      <span className='text-gray-500 text-xs font-semibold cursor-pointer hover:underline'>
         Responder
       </span>
-      <div className='flex flex-row-reverse gap-[2px]  items-center'>
-        {likes > 0 && (
-          <Counter
-            value={Number(likes) || 0}
-            className='text-black text-[11px]'
-          />
-        )}
+      <div className='flex flex-row-reverse gap-1 items-center'>
+        {likes > 0 && <Counter value={likes} className='text-black text-xs' />}
         <Tooltip tooltipText='Me encanta' className='!top-6'>
           <ButtonStyled
             className='!px-0 !py-0'
             handleClick={handleToggleLikeComment}
           >
-            {' '}
             {alreadyLiked ? (
-              <LikeActiveIcon
-                classProps={`
-                  w-[12px] h-[12px]`}
-              />
+              <LikeActiveIcon classProps='w-3 h-3' />
             ) : (
-              <LikeIcon
-                classProps={`
-                     
-                     w-[12px] h-[12px]`}
-              />
+              <LikeIcon classProps='w-3 h-3' />
             )}
           </ButtonStyled>
         </Tooltip>
       </div>
-      <div className='relative flex  items-center flex-col'>
+      <div className='relative flex items-center'>
         <ButtonStyled
-          className='!p-0 '
+          className='!p-0'
           handleClick={openModal}
           btnRef={buttonRef}
         >
-          <div className='hover:bg-gray-200 p-1 rounded-full cursor-pointer'>
-            <ThreePointsIcon className='w-[12px] h-[12px]' />
+          <div className='hover:bg-gray-200 p-1 rounded-full cursor-pointer transition'>
+            <ThreePointsIcon className='w-3 h-3' />
           </div>
         </ButtonStyled>
         {isModalOpen && (
-          <ModalComment onClose={openModal} buttonRef={buttonRef} elem={elem} />
+          <ModalComment
+            onClose={openModal}
+            buttonRef={buttonRef}
+            elem={elem}
+            handleCommentsCount={handleCommentsCount}
+          />
         )}
       </div>
     </div>
