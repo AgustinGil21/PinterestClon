@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import AvatarUser from '@/app/interfaces/layout/Header/Avatar/AvatarUser';
 import RelativeTime from '@/app/components/Basic/RelativeTime';
 import { CommentTextExtend } from './CommentTextExtend';
-
 import { CommentInterface } from '@/app/domain/types/pins-structure';
-
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-
 import { useRouter } from 'next/navigation';
 import OptionsComment from './OptionsComment';
 

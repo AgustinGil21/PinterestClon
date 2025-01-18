@@ -7,13 +7,13 @@ interface CommentTextExtendInterface {
 export const CommentTextExtend = ({ text }: CommentTextExtendInterface) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  if (text.length <= 100) {
+  if (text?.length <= 100) {
     return <p className='text-sm break-words'>{text}</p>;
   }
 
   return (
     <p className='text-sm break-words'>
-      {isExpanded ? text : `${text.substring(0, 100)}...`}{' '}
+      {isExpanded ? text : `${text?.substring(0, 100)}...`}{' '}
       <button
         className='text-blue-500 hover:underline'
         onClick={() => setIsExpanded(!isExpanded)}

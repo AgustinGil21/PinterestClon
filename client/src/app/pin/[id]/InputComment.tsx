@@ -9,6 +9,7 @@ import SendCommentIcon from '@/app/interfaces/components/icons/SendCommentIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { isValid } from 'zod';
 import useCloseModal from '@/app/hooks/useCloseModal';
+import { v4 as uuidv4 } from 'uuid';
 
 interface Props {
   handleCommentsCount: () => void;
@@ -29,6 +30,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     isAuth,
   } = useAppsStore();
   const btnRef = useRef(null);
+  const tempId = uuidv4();
 
   const handleEmojiModal = () => setEmojiIsOpen(false);
 
@@ -68,7 +70,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     }
 
     const newComment = {
-      id: pinData.user_id,
+      id: tempId,
       content: comment,
       created_at: new Date().toLocaleString(),
       likes_count: 0,
@@ -82,11 +84,12 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     };
 
     try {
+      updateFrontComment(newComment);
       await postCreateComment({
         id: pinData.id,
         content: comment,
       });
-      updateFrontComment(newComment);
+
       setValue('comment', '');
     } catch (error) {
       console.error('Error al enviar el comentario:', error);

@@ -12,7 +12,12 @@ interface ModalCommentInterface {
 }
 
 const ModalComment = ({ onClose, buttonRef, elem }: ModalCommentInterface) => {
-  const { postDeleteComment } = useAppsStore();
+  const {
+    postDeleteComment,
+    updateStateCommentsThenDelete,
+    commentsState,
+    pinData,
+  } = useAppsStore();
   const { modalRef } = useCloseModal({
     setModal: onClose,
     buttonRef: buttonRef,
@@ -20,21 +25,39 @@ const ModalComment = ({ onClose, buttonRef, elem }: ModalCommentInterface) => {
 
   const handleClick = () => {
     console.log(elem.id);
+
     postDeleteComment(elem.id);
+    const commentsFrontFilter = commentsState.comments.filter(
+      (comment) => comment.id !== elem.id
+    );
+
+    console.log(commentsFrontFilter);
+
+    updateStateCommentsThenDelete(commentsFrontFilter);
+
     onClose();
   };
 
   return (
     <ModalStyled
       modalRef={modalRef}
-      classProps='absolute top-5 right-[-45px] bg-white shadow-lg rounded-lg z-50 border  w-auto'
+      classProps='absolute top-5 right-[-45px] bg-white shadow-lg rounded-lg z-50 border hover:bg-gray-200  w-[70px]'
     >
-      <ButtonStyled
-        handleClick={handleClick}
-        className=' text-black !p-2  rounded-lg transition font-semibold !text-[12px] hover:bg-gray-200 text-center'
-      >
-        Eliminar
-      </ButtonStyled>
+      {elem.its_yours ? (
+        <ButtonStyled
+          handleClick={handleClick}
+          className=' text-black !p-2  rounded-lg transition font-semibold !text-[12px] '
+        >
+          Eliminar
+        </ButtonStyled>
+      ) : (
+        <ButtonStyled
+          handleClick={handleClick}
+          className=' text-black !p-2  rounded-lg transition font-semibold !text-[12px] '
+        >
+          Reportar
+        </ButtonStyled>
+      )}
     </ModalStyled>
   );
 };

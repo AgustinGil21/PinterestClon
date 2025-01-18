@@ -33,6 +33,7 @@ export interface PinViewStoreInterface {
   updateDataOpenBoardModal: (pinId: string, pinBody: string) => void;
   postSavePin: (data: string) => Promise<void>;
   postDeleteComment: (id: string) => Promise<void>;
+  updateStateCommentsThenDelete: (commentsUpdatedThenDelete: any) => void;
 }
 
 export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
@@ -144,6 +145,15 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
       commentsState: {
         ...state.commentsState,
         comments: [comment, ...state.commentsState.comments],
+      },
+    }));
+  },
+
+  updateStateCommentsThenDelete: (commentsUpdatedThenDelete: any) => {
+    set((state) => ({
+      commentsState: {
+        ...state.commentsState,
+        comments: commentsUpdatedThenDelete,
       },
     }));
   },
