@@ -1374,6 +1374,28 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/comments/create`
 
 _NOTA_: Donde dice "id", va el ID del pin.
 
+[RESPONSE]
+
+```json
+{
+  "comment": {
+    "id": "String<UUID>",
+    "content": "String",
+    "created_at": "String<Date>",
+    "name": "String?",
+    "surname": "String?",
+    "username": "String",
+    "avatar": "String<URL>",
+    "avatar_letter": "String<Char>",
+    "avatar_letter_color": "String<Hex>",
+    "avatar_background": "String<Hex>",
+    "user_id": "String<UUID>",
+    "likes_count": "String<Number>",
+    "its_yours": "Boolean"
+  }
+}
+```
+
 _*Description*_: Crea un comentario en cierto pin especificado.
 
 ### Delete comment

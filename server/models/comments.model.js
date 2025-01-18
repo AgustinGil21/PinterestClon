@@ -3,16 +3,47 @@ import { getOffset } from '../libs/getOffset.js';
 
 export default class CommentsModel {
   static async createComment({ pinID, userID, content }) {
-    const response = await pool.query(
+    const createComment = await pool.query(
       `
-      INSERT INTO comments(post_id, user_id, content) VALUES ($1, $2, $3);
+      INSERT INTO comments(post_id, user_id, content) VALUES ($1, $2, $3) RETURNING id;
       `,
       [pinID, userID, content]
     );
 
-    const success = response.rowCount;
+    if (createComment.rows.length) {
+      const { id: commentID } = createComment.rows[0];
 
-    if (success) return { response, ok: true };
+      const data = await pool.query(
+        `SELECT 
+            c.id, 
+            c.content, 
+            c.created_at,
+            u.name, 
+            u.surname, 
+            u.username, 
+            u.avatar, 
+            u.avatar_letter, 
+            u.avatar_letter_color, 
+            u.avatar_background, 
+            u.id AS user_id,
+            (SELECT COUNT(1) FROM comment_likes WHERE comment_id = c.id) AS likes_count,
+          CASE WHEN (c.user_id = $2) THEN TRUE
+          ELSE FALSE
+          END AS its_yours
+        FROM 
+            comments c
+        LEFT JOIN 
+            users u ON u.id = c.user_id
+        WHERE 
+            c.id = $1;
+        `,
+        [commentID, userID]
+      );
+
+      const [comment] = data.rows;
+      if (comment) return { response: comment, ok: true };
+    }
+
     return { response, ok: false };
   }
 
