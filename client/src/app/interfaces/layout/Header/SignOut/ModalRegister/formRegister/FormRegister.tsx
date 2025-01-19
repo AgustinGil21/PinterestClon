@@ -59,7 +59,7 @@ const FormRegister = () => {
 
       <ButtonStyled
         handleClick={handleClick}
-        className='bg-redPinterestBg w-full text-sm mt-2 hover:bg-red-800'
+        className='bg-redPinterestBg w-full text-sm mt-2 hover:bg-red-800 text-white'
         disabled={false}
       >
         Continuar
@@ -67,7 +67,7 @@ const FormRegister = () => {
       <span className='text-black my-0.5 text-[16px] text-center dark:text-white'>
         o
       </span>
-      <ButtonGoogleSession />
+      {/* <ButtonGoogleSession /> */}
     </form>
   );
 };

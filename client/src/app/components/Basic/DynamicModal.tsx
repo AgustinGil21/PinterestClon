@@ -1,8 +1,6 @@
 import { useDynamicModalPosition } from '@/app/hooks/useDynamicModalPosition';
-import { getDynamicPositionClass } from '@/app/libs/get-dynamic-position-class';
 import Modal from './Modal';
 import { useEffect, useRef, useState } from 'react';
-import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface Props {
   padding?: number;

@@ -60,6 +60,7 @@ const PinCard = () => {
     },
     [loadMoreComments, isLoading]
   );
+
   const handlePrueba = () => {
     getLastBoard();
   };
@@ -80,24 +81,16 @@ const PinCard = () => {
 
   return (
     <div
-      className='max-w-[930px] bg-white shadow-pinShadow rounded-[30px] w-full p-5 flex flex-row gap-4 max-h-[800px] min-h-[466px] '
+      className='bg-white shadow-pinShadow rounded-[30px] w-full p-4 flex flex-col lg:flex-row gap-4  min-h-[466px] max-w-[930px] lg:p-5 lg:gap-6 lg:rounded-[30px]'
       onMouseOver={handlePrueba}
       ref={cardRef}
     >
       <ImagePin />
-      <div
-        className='w-[50%] grid grid-rows-[1fr_auto] h-full'
-        // style={{
-        //   height: `${cardHeight - 32}px`,
-        //   maxHeight: `${cardHeight - 32}px`,
-        //   minHeight: `${cardHeight - 32}px`,
-        // }}
-      >
+
+      <div className='w-full lg:w-[50%] grid grid-rows-[1fr_auto] h-full'>
         <div>
           <ActionsPin />
-
           <DataUserPinCard />
-
           <div className='flex flex-col justify-between py-2 h-fit max-h-[510px] min-h-[180px]'>
             <div>
               <div
@@ -119,9 +112,10 @@ const PinCard = () => {
                   }`}
                 />
               </div>
+
               {openComments && (
                 <div
-                  className='mt-3 overflow-y-auto h-full max-h-[350px] min-h-[350px]  '
+                  className='mt-3 overflow-y-auto h-full max-h-[350px] lg:min-h-[350px]'
                   onScroll={handleScroll}
                 >
                   {commentsState.comments.map((elem, index) => (
@@ -136,6 +130,7 @@ const PinCard = () => {
             </div>
           </div>
         </div>
+
         <footer
           className='w-full relative h-14 flex self-end bg-white items-end'
           ref={footerRef}

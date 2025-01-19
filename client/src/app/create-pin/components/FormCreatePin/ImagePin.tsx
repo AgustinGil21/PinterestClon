@@ -21,7 +21,7 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
   return (
     <div className='flex flex-col gap-4'>
       <div
-        className='w-[310px] h-[380px] bg-[#e9e9e9] border-[1px] border-gray-300 p-5 rounded-3xl flex justify-center flex-col items-center cursor-pointer relative'
+        className='max-w-[310px] w-full h-[380px] bg-[#e9e9e9] border-[1px] border-gray-300 p-5 rounded-3xl flex justify-center flex-col items-center cursor-pointer relative'
         onClick={handleDivClick}
       >
         <input

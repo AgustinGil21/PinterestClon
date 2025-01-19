@@ -34,7 +34,13 @@ const OptionsComment = ({ elem, handleCommentsCount }: OptionCommentProps) => {
     elem.already_liked = !alreadyLiked;
   };
 
-  const openModal = () => setIsModalOpen((prev) => !prev);
+  const openModal = () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
+    setIsModalOpen((prev) => !prev);
+  };
 
   return (
     <div className='flex flex-row gap-2 items-center'>
@@ -69,6 +75,7 @@ const OptionsComment = ({ elem, handleCommentsCount }: OptionCommentProps) => {
         {isModalOpen && (
           <ModalComment
             onClose={openModal}
+            isModalOpen={isModalOpen}
             buttonRef={buttonRef}
             elem={elem}
             handleCommentsCount={handleCommentsCount}

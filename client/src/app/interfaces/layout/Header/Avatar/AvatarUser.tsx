@@ -13,7 +13,7 @@ const AvatarUser = ({
 }: AvatarUserInterface) => {
   return (
     <>
-      {data.avatar ? (
+      {data?.avatar ? (
         <div className={`${classProps}`}>
           <img
             src={data.avatar}
@@ -24,7 +24,7 @@ const AvatarUser = ({
         </div>
       ) : (
         <div
-          style={{ backgroundColor: `${data.avatar_background}` }}
+          style={{ backgroundColor: `${data?.avatar_background}` }}
           className={`bg-gray-500  ${classProps}  rounded-full flex justify-center items-center ${
             !isClickable ? 'hover:cursor-default' : 'hover:cursor-pointer'
           }`}
@@ -34,7 +34,7 @@ const AvatarUser = ({
               !isClickable ? 'hover:cursor-default' : 'hover:cursor-pointer'
             } ${textSize}`}
           >
-            {data.avatar_letter}
+            {data?.avatar_letter}
           </span>
         </div>
       )}

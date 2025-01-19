@@ -28,8 +28,14 @@ export default function UserProfile({ params }: Props) {
     isFollowing,
     getCreatedPins,
     createdPins,
+    savedPins,
+    getSavePins,
   } = useAppsStore();
   const { username }: any = params;
+
+  useEffect(() => {
+    getSavePins(username, page, 10);
+  }, []);
 
   useEffect(() => {
     const updateFollowingStatus = async () => {
@@ -136,7 +142,11 @@ export default function UserProfile({ params }: Props) {
           ))}
         </Masonry>
       ) : (
-        <p>Guardados</p>
+        <Masonry className='w-full'>
+          {savedPins.map((elem) => (
+            <Pin elem={elem} key={elem.pin_id} className='mb-4 z-10' />
+          ))}
+        </Masonry>
       )}
     </section>
   );

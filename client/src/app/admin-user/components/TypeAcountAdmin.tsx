@@ -29,7 +29,7 @@ const TypeAcountAdmin = () => {
   };
 
   return (
-    <div className='flex flex-row items-center mt-4 justify-between'>
+    <div className='flex flex-col items-start md:items-center mt-4 justify-between md:flex-row'>
       <div>
         <span className='text-sm font-semibold'>
           Convertir a una cuenta para empresa

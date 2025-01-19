@@ -17,12 +17,12 @@ export const HeaderAuth = () => {
         <StartLog />
         <StartRegister />
       </div>
-      <button onClick={() => setModal(true)}>
+      <button onClick={() => setModal(true)} className='md:block hidden '>
         <ArrowBottomUser />
       </button>
       {modal && (
         <ModalStyled
-          classProps='right-5 top-[54px] max-w-[300px] py-2 px-1 rounded-xl '
+          classProps='right-5 top-[54px] max-w-[300px] py-2 px-1 rounded-xl md:block hidden   '
           modalRef={modalRef}
         >
           <div className='p-1 flex flex-col '>

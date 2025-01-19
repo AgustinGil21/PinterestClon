@@ -5,11 +5,11 @@ const ImagePin = () => {
   const { pinData } = useAppsStore();
 
   return (
-    <div className='w-[50%] bg-slate-200 h-full rounded-xl min-h-[500px] max-h-[750px] overflow-hidden'>
+    <div className='w-full lg:w-[50%] bg-slate-200 h-auto lg:h-full rounded-xl overflow-hidden'>
       <img
         src={pinData.body}
         alt={pinData.alt_text}
-        className='w-full rounded-xl h-full object-cover min-h-[500px] max-h-[750px] hover:scale-110 transition-transform duration-300'
+        className='w-full h-auto lg:h-full object-cover rounded-xl hover:scale-110 transition-transform duration-300'
       />
     </div>
   );

@@ -14,7 +14,7 @@ const Tooltip = ({
   isVisible,
   className,
 }: TooltipProps) => {
-  const { isDownloadAccountOpen } = useAppsStore();
+  const { isDownloadAccountOpen, isThreePointsAccountOpen } = useAppsStore();
 
   if (isVisible) {
     return <div className='p-1'>{children}</div>;
@@ -23,7 +23,7 @@ const Tooltip = ({
   return (
     <div
       className={`relative group ${
-        isDownloadAccountOpen ? 'z-[51]' : 'z-[20]'
+        isDownloadAccountOpen || isThreePointsAccountOpen ? 'z-[51]' : 'z-[20]'
       }  p-1`}
     >
       {children}

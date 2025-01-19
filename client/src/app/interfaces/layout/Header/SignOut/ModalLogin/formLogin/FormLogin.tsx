@@ -57,7 +57,7 @@ const FormLogin = () => {
       <ButtonStyled
         handleClick={handleClick}
         disabled={false}
-        className='bg-redPinterestBg w-full py-1 text-[11px] mt-2 rounded-[23px] hover:bg-red-700'
+        className='bg-redPinterestBg text-white w-full py-1 text-[11px] mt-2 rounded-[23px] hover:bg-red-700'
         type='submit'
       >
         Iniciar Sesión

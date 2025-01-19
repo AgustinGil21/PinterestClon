@@ -16,7 +16,7 @@ const DeleteAccount = () => {
   };
 
   return (
-    <div className='flex mt-3 flex-row items-center gap-4'>
+    <div className='flex mt-3 flex-col md:flex-row items-start md:items-center gap-4'>
       <div>
         <span className='text-sm  font-semibold'>
           Eliminar tus datos y tu cuenta

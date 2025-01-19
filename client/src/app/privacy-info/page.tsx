@@ -29,7 +29,7 @@ const PrivacyInfo = () => {
 
   return (
     <section className='p-5 py-8 flex flex-col'>
-      <div className='max-w-[420px] w-full lg:ml-[240px] flex flex-col gap-5 dark:text-white'>
+      <div className='max-w-[420px] w-full lg:ml-[140px] flex flex-col gap-5 dark:text-white px-4'>
         <div>
           <h2 className='text-[23px] font-semibold'>Visibilidad del perfil</h2>
           <p className='text-sm max-w-[440px]'>

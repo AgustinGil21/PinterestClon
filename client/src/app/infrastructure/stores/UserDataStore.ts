@@ -13,6 +13,8 @@ import { getFollowersListCase } from '@/app/application/use-cases/profile-data/g
 import { getFollowingsListCase } from '@/app/application/use-cases/profile-data/getFollowingsList';
 import { getCreatedPinsCase } from '@/app/application/use-cases/profile-data/getCreatedPins';
 import { getUniqueItems } from '@/app/libs/getUniqueItems';
+import { getSavePinsCase } from '@/app/application/use-cases/profile-data/getSavePinsUser';
+import { PinInterface } from '@/app/domain/types/pins-structure';
 
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
@@ -32,6 +34,8 @@ export interface UserDataStoreInterface {
     reset: boolean
   ) => Promise<void>;
   createdPins: CreatedPinsInterface[];
+  savedPins: PinInterface[];
+  getSavePins: (username: string, page: number, limit: number) => Promise<void>;
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -87,6 +91,7 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
   isFollowing: false,
 
   createdPins: [],
+  savedPins: [],
 
   getUserOwnerProfile: async () => {
     const response = await getUserOwnerProfileCase();
@@ -145,6 +150,26 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
 
     set({
       createdPins: [...createdPins, ...newPins],
+    });
+  },
+
+  getSavePins: async (
+    username: string,
+    page: number,
+    limit: number,
+    reset: boolean = false
+  ) => {
+    if (reset) {
+      set({ savedPins: [] });
+    }
+    const response = await getSavePinsCase(username, page, limit);
+
+    const { savedPins } = get();
+
+    const newPins = getUniqueItems(response, savedPins, 'pin_id');
+
+    set({
+      savedPins: [...savedPins, ...newPins],
     });
   },
 });

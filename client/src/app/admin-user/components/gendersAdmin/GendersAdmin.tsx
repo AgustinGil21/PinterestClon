@@ -31,7 +31,7 @@ const GendersAdmin = ({
   return (
     <div className='flex gap-2 mt-5 flex-col'>
       <span className='text-[12px]'>Género</span>
-      <div className='flex gap-4'>
+      <div className='flex gap-4 md:flex-row flex-col items-start'>
         {genders.map((elem) => (
           <GenderInput
             register={register}

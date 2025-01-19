@@ -22,6 +22,7 @@ import {
   serviceGetPinSearchCategories,
   serviceGetPinView,
   serviceGetPreviousPins,
+  serviceGetSavesPins,
   serviceGetSearchPin,
   serviceGetSimilarPins,
   serviceGetSuggestions,
@@ -230,6 +231,14 @@ export const getSimilarPinsAdapter = async (
 
 export const postSavePinAdapter = async (data: string) => {
   return await servicePostSavePin(data);
+};
+
+export const getSavePinsAdapter = async (
+  username: string,
+  page: number,
+  limit: number
+): Promise<PinInterface[]> => {
+  return await serviceGetSavesPins(username, page, limit);
 };
 
 export const postDeleteCommentAdapter = async (id: string) => {

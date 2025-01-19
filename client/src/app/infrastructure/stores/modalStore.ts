@@ -29,7 +29,8 @@ export interface ModalStateInterface {
   isDeletePinModal: boolean;
   openDeletePinModal: () => void;
   closeDeletePinModal: () => void;
-
+  openMenuAsideSettingsResponsive: () => void;
+  isOpenMenuAsideSettingsResponsive: boolean;
   isShareAccountOpen: boolean;
 
   dynamicModalIsOpen: boolean;
@@ -80,6 +81,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   dynamicSharePinModalIsOpen: false,
   isCreateBoardModalOpen: false,
   sharePinData: '',
+  isOpenMenuAsideSettingsResponsive: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -211,6 +213,13 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     if (!get().isFollowingsModalOpen) activeScroll();
     set((state) => ({
       isFollowingsModalOpen: !state.isFollowingsModalOpen,
+    }));
+  },
+
+  openMenuAsideSettingsResponsive: () => {
+    set((state) => ({
+      isOpenMenuAsideSettingsResponsive:
+        !state.isOpenMenuAsideSettingsResponsive,
     }));
   },
 });

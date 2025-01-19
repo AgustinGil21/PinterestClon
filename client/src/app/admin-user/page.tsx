@@ -37,11 +37,11 @@ const AdminProfile = () => {
 
   return (
     <section
-      className={`p-5 py-8 flex flex-col min-h-[calc(100vh+100px)] ${
+      className={`p-5 py-8 flex flex-col min-h-[calc(100vh+350px)] ${
         isDeleteUserAccountModalOpen ? 'overflow-hidden' : ''
       }`}
     >
-      <div className='max-w-[420px] w-full lg:ml-[240px] flex flex-col gap-5 dark:text-white'>
+      <div className='max-w-[420px] w-full lg:ml-[140px] flex flex-col gap-5 dark:text-white'>
         <div>
           <h2 className='text-[23px] font-semibold'>
             Administración de la cuenta

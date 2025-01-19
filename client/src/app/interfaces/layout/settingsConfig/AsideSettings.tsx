@@ -1,28 +1,57 @@
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import LinkNavigate from '../Header/Nav/LinkNavigate';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const AsideConfig = memo(() => {
-  const router = useRouter();
   const pathname = usePathname();
-  const { userPublicData } = useAppsStore();
+  const {
+    userPublicData,
+    isOpenMenuAsideSettingsResponsive,
+    openMenuAsideSettingsResponsive,
+  } = useAppsStore();
+  const [isMobile, setIsMobile] = useState(false);
 
-  // useEffect(() => {
-  //   if (!userPublicData?.email_address) {
-  //     router.replace('/');
-  //   }
-  // }, [userPublicData, router]);
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileView = window.innerWidth < 750;
+      setIsMobile(isMobileView);
 
-  if (!userPublicData?.email_address || pathname === '/') {
-    return null;
-  }
+      if (!isMobileView && isOpenMenuAsideSettingsResponsive) {
+        openMenuAsideSettingsResponsive();
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpenMenuAsideSettingsResponsive, openMenuAsideSettingsResponsive]);
+
+  // if (!userPublicData?.email_address || pathname === '/') {
+  //   return null;
+  // }
 
   return (
     <div>
-      <aside className='px-6 py-8 dark:text-white'>
+      {isMobile && isOpenMenuAsideSettingsResponsive && (
+        <div
+          className='fixed inset-0 bg-black opacity-50 z-40'
+          onClick={openMenuAsideSettingsResponsive}
+        ></div>
+      )}
+
+      <aside
+        className={`fixed bg-white dark:bg-gray-900 h-full max-w-[80%] z-50 transform transition-transform duration-300 ${
+          isMobile
+            ? isOpenMenuAsideSettingsResponsive
+              ? 'translate-x-0'
+              : '-translate-x-full'
+            : 'relative max-w-none px-6 py-8'
+        }`}
+      >
         <nav>
-          <ul className='flex flex-col gap-2 font-semibold max-w-[140px]'>
+          <ul className='flex flex-col gap-2 font-semibold'>
             <LinkNavigate href='/edit-user' classProps=''>
               <div
                 className={`w-fit text-[13px] link-settings-aside ${

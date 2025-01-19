@@ -30,7 +30,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { userPublicData, toastNotificationContent } = useAppsStore();
+  const {
+    userPublicData,
+    toastNotificationContent,
+    isOpenMenuAsideSettingsResponsive,
+    isAuth,
+  } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
   const routesWithoutAside = [
@@ -76,7 +81,8 @@ export default function RootLayout({
         <DataDevs />
 
         <main className={`flex pt-16 relative`}>
-          {routesWithoutAside.includes(pathname) && <AsideConfig />}
+          {(isAuth && routesWithoutAside.includes(pathname)) ||
+            (isOpenMenuAsideSettingsResponsive && <AsideConfig />)}
           {children}
           {toastNotificationContent && (
             <ToastNotification

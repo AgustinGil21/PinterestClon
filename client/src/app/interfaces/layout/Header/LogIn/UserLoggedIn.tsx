@@ -13,10 +13,10 @@ export const UserLoggedIn = () => {
     useAppsStore();
 
   return (
-    <div className='flex gap-2'>
-      <Tooltip tooltipText='Mensajes'>
+    <div className=' gap-2 hidden md:flex'>
+      {/* <Tooltip tooltipText='Mensajes'>
         <MessageIcon />
-      </Tooltip>
+      </Tooltip> */}
 
       <div className='flex items-center gap-3 -m-2'>
         <LinkNavigate

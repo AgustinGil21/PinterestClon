@@ -17,7 +17,7 @@ const PasswordAdmin = () => {
 
   return (
     <>
-      <div className='flex flex-row items-center gap-6 mt-3 w-full '>
+      <div className='flex flex-col items-start md:items-center  md:gap-6 mt-3 w-full  md:flex-row'>
         <div className=''>
           <span className='font-semibold text-sm'>Contraseña</span>
           <p className='text-[12px]  '>

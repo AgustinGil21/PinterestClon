@@ -1,7 +1,7 @@
 import { SuggestionsInterface } from '@/app/domain/types/pins-structure';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
-import React, { RefObject, useEffect } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import SearchTitle from './SearchTitle';
 import SearchUser from './SearchUser';
 import SavePinsButton from './SavePinsButton';
@@ -34,9 +34,22 @@ const ModalSearch = ({
     updateDataSearch,
   } = useAppsStore();
 
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     getCategoriesPin();
     console.log(categoriesPin);
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 750);
+    };
+
+    handleResize(); // Set the initial state
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const router = useRouter();
@@ -60,8 +73,11 @@ const ModalSearch = ({
       <div className='fixed inset-0 bg-black opacity-50 z-40 top-[62px]'></div>
       <div
         ref={modalRef}
-        className='absolute bg-white dark:bg-gray-900 w-[100%] h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[100] py-2'
-        style={{ top: '45px', left: '46%', transform: 'translateX(-46%)' }}
+        className={` bg-white dark:bg-gray-900 w-[100%]  h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[100] py-2  ${
+          isMobile
+            ? 'w-full left-0 fixed top-[61px]'
+            : 'w-[100%] left-[46%] translate-x-[-46%] absolute top-[45px]'
+        }`}
       >
         {value.length <= 0 && (
           <div className='px-7'>
