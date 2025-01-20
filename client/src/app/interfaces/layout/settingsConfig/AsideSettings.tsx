@@ -14,7 +14,7 @@ const AsideConfig = memo(() => {
 
   useEffect(() => {
     const handleResize = () => {
-      const isMobileView = window.innerWidth < 750;
+      const isMobileView = window.innerWidth < 768;
       setIsMobile(isMobileView);
 
       if (!isMobileView && isOpenMenuAsideSettingsResponsive) {

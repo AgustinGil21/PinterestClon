@@ -315,30 +315,6 @@ export const servicePostSavePin = async (data: string) => {
   }
 };
 
-export const serviceGetSavesPins = async (
-  username: string,
-  page: number,
-  limit: number
-): Promise<PinInterface[]> => {
-  try {
-    const response = await axios.get(
-      `${URLDOMAIN}/users/saved-pins/${username}?page=${page}&limit=${limit}`,
-      {
-        withCredentials: true,
-      }
-    );
-
-    console.log(response);
-
-    const result = PinSchema.array().safeParse(response.data);
-
-    return result.success ? result.data : [];
-  } catch (error) {
-    console.log(error);
-    return [];
-  }
-};
-
 export const servicePostDeleteComment = async (id: string) => {
   try {
     const response = await axios.delete(

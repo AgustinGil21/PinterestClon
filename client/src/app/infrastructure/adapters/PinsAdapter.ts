@@ -22,7 +22,6 @@ import {
   serviceGetPinSearchCategories,
   serviceGetPinView,
   serviceGetPreviousPins,
-  serviceGetSavesPins,
   serviceGetSearchPin,
   serviceGetSimilarPins,
   serviceGetSuggestions,
@@ -34,7 +33,7 @@ import {
   servicePostToggleLikeComment,
   servicePutEditPinId,
 } from '../services/service-pins';
-import { CommentsResponseSchema } from '../schemas/validation-service-api';
+import { serviceGetSavesPins } from '../services/service-users-data';
 
 export const postCreatePinAdapter = async (data: PinCreate): Promise<void> => {
   const newData: PinCreateServerAdapter = {

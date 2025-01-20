@@ -8,6 +8,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import AvatarUser from './Avatar/AvatarUser';
 import LinkNavigate from './Nav/LinkNavigate';
 import { FaBars } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
 
 export const Header = () => {
   const {
@@ -22,7 +23,8 @@ export const Header = () => {
 
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 750);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,7 +55,7 @@ export const Header = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 750);
+      setIsMobileView(window.innerWidth <= 768);
     };
 
     window.addEventListener('resize', handleResize);
@@ -82,7 +84,7 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`w-full h-16 text-white py-3 flex gap-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-[60] ${
+        className={`w-full h-16 text-white py-3 flex gap-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-[60]  ${
           shadow ? 'shadow-md' : ''
         }`}
       >
@@ -98,7 +100,9 @@ export const Header = () => {
         </div>
         {isAuth && (
           <div
-            className='md:hidden   flex items-center justify-center p-2 cursor-pointer'
+            className={`md:hidden   flex items-center justify-center p-2 cursor-pointer ${
+              pathname !== '/edit-user' && 'hidden'
+            }`}
             onClick={openMenuAsideSettingsResponsive}
           >
             <FaBars size={20} color='black' />
