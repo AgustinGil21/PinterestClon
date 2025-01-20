@@ -147,7 +147,6 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       ...state,
       [store]: value,
     }));
-    console.log(get().page);
   },
   setPage: (increment: number) => {
     set((state) => ({

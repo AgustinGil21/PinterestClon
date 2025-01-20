@@ -22,4 +22,4 @@ type Action =
 
 export type TLang = 'es' | 'en' | 'pt';
 
-export type TToastNotification = `?${Type}:${Action}[${Lang}]` | '';
+export type TToastNotification = `${'?' | '!'}${Type}:${Action}[${Lang}]` | '';

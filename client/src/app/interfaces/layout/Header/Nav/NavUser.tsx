@@ -33,19 +33,29 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
             {isMobileView ? (
               <>
                 <LinkNavigate
-                  classProps={`${pathname === '/' ? 'active' : ''}`}
+                  classProps={`p-2 rounded-full transition-colors ${
+                    pathname === '/' ? 'active-mobile' : 'hover:bg-slate-200'
+                  } `}
                   href={'/'}
                 >
                   <FaHome size={24} />
                 </LinkNavigate>
                 <LinkNavigate
-                  classProps={`${pathname === '/explore' ? 'active' : ''}`}
+                  classProps={`p-2 rounded-full transition-colors ${
+                    pathname === '/explore'
+                      ? 'active-mobile'
+                      : 'hover:bg-slate-200'
+                  }`}
                   href={'/explore'}
                 >
                   <FaSearch size={24} />
                 </LinkNavigate>
                 <LinkNavigate
-                  classProps={`${pathname === '/create-pin' ? 'active' : ''}`}
+                  classProps={`p-2 rounded-full transition-colors ${
+                    pathname === '/create-pin'
+                      ? 'active-mobile'
+                      : 'hover:bg-slate-200'
+                  }`}
                   href={'/create-pin'}
                 >
                   <FaPlus size={24} />
@@ -79,13 +89,19 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
             {isMobileView ? (
               <>
                 <LinkNavigate
-                  classProps={`${pathname === '/' ? 'active' : ''}`}
+                  classProps={`p-2 rounded-full transition-colors ${
+                    pathname === '/' ? 'active-mobile' : 'hover:bg-slate-200'
+                  }`}
                   href={'/'}
                 >
                   <FaHome size={24} />
                 </LinkNavigate>
                 <LinkNavigate
-                  classProps={`${pathname === '/explore' ? 'active' : ''}`}
+                  classProps={`p-2 rounded-full transition-colors ${
+                    pathname === '/explore'
+                      ? 'active-mobile'
+                      : 'hover:bg-slate-200'
+                  }`}
                   href={'/explore'}
                 >
                   <FaSearch size={24} />
