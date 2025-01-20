@@ -12,8 +12,10 @@ import {
   FollowingsListSchema,
   OwnerProfileSchema,
   PinCreatedDataSchema,
+  PinSchema,
   SearchUserProfileSchema,
 } from '../schemas/validation-service-api';
+import { PinInterface } from '@/app/domain/types/pins-structure';
 
 export const serviceGetUserOwnerProfile =
   async (): Promise<OwnerProfileInterface | null> => {
@@ -170,6 +172,30 @@ export const serviceSavePinToProfile = async (id: string) => {
     return response.status;
   } catch (err) {
     return null;
+  }
+};
+
+export const serviceGetSavesPins = async (
+  username: string,
+  page: number,
+  limit: number
+): Promise<PinInterface[]> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/users/saved-pins/${username}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    console.log(response);
+
+    const result = PinSchema.array().safeParse(response.data);
+
+    return result.success ? result.data : [];
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };
 
