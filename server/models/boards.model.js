@@ -217,7 +217,7 @@ export default class BoardsModel {
     return { response, ok: false };
   }
 
-  static async getUserBoards({ username, id = '', isAuth, page, limit }) {
+  static async getUserBoards({ username, id, isAuth, page, limit }) {
     const offset = getOffset({ page, limit });
 
     const response = await pool.query(

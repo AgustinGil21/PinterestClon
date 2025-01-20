@@ -95,9 +95,7 @@ export const serviceGetUserBoards = async ({
       `${URLDOMAIN}/boards/user/${username}?page=${page}&limit=${limit}`
     );
 
-    const result = UserBoardsSchema.safeParse(response.data.boards);
-
-    console.log(response);
+    const result = UserBoardsSchema.safeParse(response.data);
 
     return result.success ? result.data : null;
   } catch (err) {
