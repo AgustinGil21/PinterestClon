@@ -33,7 +33,7 @@ export const DynamicModal = ({
   });
 
   useEffect(() => {
-    setPositionReady(true);
+    if (x || y) setPositionReady(true);
   }, [x, y, btnRef.current]);
 
   return (
@@ -41,7 +41,7 @@ export const DynamicModal = ({
       props={{
         isModalOpen: dynamicModalIsOpen,
         setModal: closeDynamicModal,
-        className: `absolute ${className} ${
+        className: `absolute  ${className} ${
           positionReady ? 'visible' : 'invisible'
         }`,
         buttonRef: btnRef,

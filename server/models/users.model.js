@@ -339,7 +339,8 @@ ORDER BY
       const deleteSuccess = deleteRelationship.rowCount;
 
       if (!deleteSuccess) throw new Error('Cannot delete relationship');
-      return;
+
+      return { response: deleteRelationship, ok: true };
     }
 
     const response = await pool.query(

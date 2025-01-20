@@ -1,3 +1,4 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { ListOfBoards } from './BoardsListResults';
 
 interface Props {
@@ -5,6 +6,9 @@ interface Props {
 }
 
 const BoardListCard = ({ board }: Props) => {
+  const { dataOpenBoardModal, addPinToBoard } = useAppsStore();
+  const { pinId } = dataOpenBoardModal;
+
   let url: string;
 
   if (board.cover) {
@@ -14,6 +18,9 @@ const BoardListCard = ({ board }: Props) => {
   } else {
     url = '';
   }
+
+  const handleSavePinToBoard = () =>
+    addPinToBoard({ pinId, boardId: board.id });
 
   return (
     <li className='flex items-center p-2 hover:bg-[#e9e9e9] hover:cursor-pointer w-full justify-between rounded-xl gap-2 group'>
@@ -31,7 +38,10 @@ const BoardListCard = ({ board }: Props) => {
           {board.name}
         </h3>
       </div>
-      <button className='p-[0.5rem_1rem] bg-[#e60023] rounded-3xl text-white font-bold text-[0.9rem]  hover:bg-[#b60000] transition-colors min-w-[67px]'>
+      <button
+        className='p-[0.5rem_1rem] bg-[#e60023] rounded-3xl text-white font-bold text-[0.9rem]  hover:bg-[#b60000] transition-colors min-w-[67px]'
+        onClick={handleSavePinToBoard}
+      >
         Guardar
       </button>
     </li>

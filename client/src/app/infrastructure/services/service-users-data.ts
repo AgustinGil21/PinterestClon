@@ -156,3 +156,36 @@ export const serviceGetCreatedPins = async (
     return [];
   }
 };
+
+export const serviceSavePinToProfile = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${URLDOMAIN}/users/save-pin`,
+      { id },
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.status;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const serviceRemovePinFromProfile = async (id: string) => {
+  try {
+    const response = await axios.post(
+      `${URLDOMAIN}/users/remove-pin`,
+      { id },
+      {
+        withCredentials: true,
+      }
+    );
+
+    return response.status;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};

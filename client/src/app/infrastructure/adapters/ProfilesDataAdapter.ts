@@ -12,6 +12,8 @@ import {
   serviceGetSearchUserProfile,
   serviceGetUserOwnerProfile,
   servicePostFollowUser,
+  serviceRemovePinFromProfile,
+  serviceSavePinToProfile,
 } from '../services/service-users-data';
 
 export const getUserOwnerProfileAdapter =
@@ -180,3 +182,9 @@ export const getCreatedPinsAdapter = async (
     return [];
   }
 };
+
+export const savePinToProfileAdapter = async (id: string) =>
+  await serviceSavePinToProfile(id);
+
+export const removePinFromProfileAdapter = async (id: string) =>
+  await serviceRemovePinFromProfile(id);

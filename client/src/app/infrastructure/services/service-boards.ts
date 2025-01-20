@@ -131,7 +131,7 @@ export const serviceAddPinToBoard = async (data: IBoardPinsInteractions) => {
       withCredentials: true,
     });
 
-    console.log(response);
+    return response.status;
   } catch (err) {
     return null;
   }
@@ -144,8 +144,6 @@ export const serviceRemovePinFromBoard = async (
     const response = await axios.post(`${URLDOMAIN}/boards/remove-pin`, data, {
       withCredentials: true,
     });
-
-    console.log(response);
   } catch (err) {
     return null;
   }

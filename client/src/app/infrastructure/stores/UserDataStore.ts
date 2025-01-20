@@ -15,6 +15,8 @@ import { getCreatedPinsCase } from '@/app/application/use-cases/profile-data/get
 import { getUniqueItems } from '@/app/libs/getUniqueItems';
 import { getSavePinsCase } from '@/app/application/use-cases/profile-data/getSavePinsUser';
 import { PinInterface } from '@/app/domain/types/pins-structure';
+import { removePinFromProfileUseCase } from '@/app/application/use-cases/profile-data/removePinFromProfile';
+import { savePinToProfileUseCase } from '@/app/application/use-cases/profile-data/savePinToProfile';
 
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
@@ -36,6 +38,8 @@ export interface UserDataStoreInterface {
   createdPins: CreatedPinsInterface[];
   savedPins: PinInterface[];
   getSavePins: (username: string, page: number, limit: number) => Promise<void>;
+  savePinToProfile: (id: string) => void;
+  removePinFromProfile: (id: string) => void;
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -171,5 +175,13 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     set({
       savedPins: [...savedPins, ...newPins],
     });
+  },
+
+  savePinToProfile: async (id: string) => {
+    return await savePinToProfileUseCase(id);
+  },
+
+  removePinFromProfile: async (id: string) => {
+    return await removePinFromProfileUseCase(id);
   },
 });

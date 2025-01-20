@@ -26,6 +26,8 @@ export const Pin = ({ elem, className }: PinProps) => {
     setDynamicSharePinModalIsOpen,
     isCreateBoardModalOpen,
     createBoardModalOpen,
+    addPinToBoard,
+    savePinToProfile,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
 
@@ -45,6 +47,16 @@ export const Pin = ({ elem, className }: PinProps) => {
     if (elem.pin_id) updateDataOpenBoardModal(elem.pin_id, elem.body);
 
     setDynamicModal(btnRef);
+  };
+
+  const handleSavePin = () => {
+    if (!elem.pin_id) return;
+
+    if (lastBoard.id) {
+      addPinToBoard({ pinId: elem.pin_id, boardId: lastBoard.id });
+    } else {
+      savePinToProfile(elem.pin_id);
+    }
   };
 
   useEffect(() => {
@@ -113,7 +125,10 @@ export const Pin = ({ elem, className }: PinProps) => {
                     : 'card-controls'
                 }`}
               >
-                <button className='save-button bg-red-500 text-white px-3 py-1 rounded'>
+                <button
+                  className='save-button bg-red-500 text-white px-3 py-1 rounded'
+                  onClick={handleSavePin}
+                >
                   Guardar
                 </button>
                 <button
