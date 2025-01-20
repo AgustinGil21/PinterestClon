@@ -41,7 +41,13 @@ const PlusOptionsPin = () => {
           </div>
         </ButtonStyled>
       </Tooltip>
-      {isThreePointsAccountOpen && <ModalPlusOptionPin btnRef={btnRef} />}
+
+      {isThreePointsAccountOpen && (
+        <div className='relative'>
+          {' '}
+          <ModalPlusOptionPin btnRef={btnRef} />{' '}
+        </div>
+      )}
     </>
   );
 };

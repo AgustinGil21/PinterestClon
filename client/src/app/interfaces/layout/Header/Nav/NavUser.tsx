@@ -11,11 +11,11 @@ interface NavUserProps {
 const NavUser = ({ loginAuth }: NavUserProps) => {
   const { userPublicData } = useAppsStore();
   const pathname = usePathname();
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 750);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileView(window.innerWidth <= 750);
+      setIsMobileView(window.innerWidth <= 768);
     };
 
     window.addEventListener('resize', handleResize);

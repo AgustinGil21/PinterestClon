@@ -27,10 +27,10 @@ const ModalPlusOptionPin = ({ btnRef }: ModalPlusOptionPinInterface) => {
         isModalOpen: isThreePointsAccountOpen,
         setModal: openThreePointsAcountModal,
         styles: {
-          position: 'fixed',
-          top: '19.5%',
-          left: '56%',
-          transform: 'translate(-50%, -50%)',
+          position: 'absolute',
+          top: '15.5%',
+          left: '40%',
+
           zIndex: 50,
         },
         className: ' bg-white rounded-lg shadow-lg',
