@@ -29,7 +29,7 @@ const DataDevs = () => {
   return (
     <>
       <button
-        className='fixed bottom-20  md:bottom-5 right-7   p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300 xl:w-16 xl:h-16 flex justify-center items-center'
+        className='fixed bottom-20   md:bottom-12 right-7   p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300 xl:w-16 xl:h-16 flex justify-center items-center'
         onClick={() => setModal(!modal)}
       >
         <Tooltip tooltipText='Mas' isVisible={modal}>
@@ -40,7 +40,7 @@ const DataDevs = () => {
         <ModalStyled
           modalRef={modalRef}
           classProps={
-            'fixed-modal right-14  bottom-[130px]  p-2 border-[0.5px] rounded-xl xl:right-16 xl:bottom-24 w-[200px] max-w-[200px]'
+            'fixed-modal right-14  bottom-[130px] md:bottom-[105px]  p-2 border-[0.5px] rounded-xl xl:right-16 xl:bottom-24 w-[200px] max-w-[200px]'
           }
         >
           <div className='flex flex-col text-sm lg:text-md gap-2'>
