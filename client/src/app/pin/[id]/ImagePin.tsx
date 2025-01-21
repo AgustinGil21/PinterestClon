@@ -9,11 +9,11 @@ const ImagePin = ({ size }: { size: 'small' | 'medium' | 'large' }) => {
       className='w-full lg:w-[50%] bg-slate-200 h-auto lg:h-full rounded-xl overflow-hidden'
       style={{
         maxHeight:
-          size === 'small' ? '500px' : size === 'medium' ? '611px' : '960px',
+          size === 'small' ? '500px' : size === 'medium' ? '611px' : '760px',
         minHeight:
-          size === 'small' ? '500px' : size === 'medium' ? '611px' : '960px',
+          size === 'small' ? '500px' : size === 'medium' ? '611px' : '760px',
         height:
-          size === 'small' ? '500px' : size === 'medium' ? '611px' : '960px',
+          size === 'small' ? '500px' : size === 'medium' ? '611px' : '760px',
       }}
     >
       <img

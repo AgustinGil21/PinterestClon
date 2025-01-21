@@ -117,19 +117,19 @@ const PinCard = () => {
                         ? '183px'
                         : sizeCategory === 'medium'
                         ? '295px'
-                        : '650px',
+                        : '460px',
                     minHeight:
                       sizeCategory === 'small'
                         ? '183px'
                         : sizeCategory === 'medium'
                         ? '295px'
-                        : '650px',
+                        : '460px',
                     height:
                       sizeCategory === 'small'
                         ? '183px'
                         : sizeCategory === 'medium'
                         ? '295px'
-                        : '650px',
+                        : '460px',
                   }}
                 >
                   {commentsState.comments.map((elem, index) => (
