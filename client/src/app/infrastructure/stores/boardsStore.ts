@@ -205,6 +205,10 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     await removePinFromBoardUseCase({ pinId, boardId }),
 
   getUserBoards: async ({ username, page, limit }: IGetUserBoards) => {
+    set({
+      userBoards: [],
+    });
+
     const response = await userBoardsUseCase({ page, limit, username });
 
     if (response?.boards) {

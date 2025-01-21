@@ -4,7 +4,7 @@ interface Props {
 
 const Grid = ({ children }: Props) => {
   return (
-    <section className='grid gap-4 p-4 w-full h-full grid-cols-[repeat(auto-fit,minmax(247.6px,1fr))]'>
+    <section className='grid gap-4 p-4 w-full grid-cols-[repeat(auto-fit,minmax(180px,247.6px))]'>
       {children}
     </section>
   );
