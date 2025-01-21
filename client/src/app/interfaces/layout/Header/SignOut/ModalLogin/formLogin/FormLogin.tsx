@@ -63,8 +63,8 @@ const FormLogin = () => {
         Iniciar Sesión
       </ButtonStyled>
 
-      <span className='text-black my-0.5 text-[16px] dark:text-white'>o</span>
-      <ButtonGoogleSession />
+      {/* <span className='text-black my-0.5 text-[16px] dark:text-white'>o</span>
+      <ButtonGoogleSession /> */}
     </form>
   );
 };

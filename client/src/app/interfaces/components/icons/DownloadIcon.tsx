@@ -1,13 +1,17 @@
 interface DownloadIconInterface {
-  isDownloadAccountOpen: boolean;
+  isDownloadAccountOpen?: boolean;
+  classProps?: string;
 }
 
-const DownloadIcon = ({ isDownloadAccountOpen }: DownloadIconInterface) => {
+const DownloadIcon = ({
+  isDownloadAccountOpen,
+  classProps,
+}: DownloadIconInterface) => {
   return (
     <svg
       aria-hidden='true'
       aria-label=''
-      className='Uvi gUZ U9O kVc'
+      className={classProps}
       height='20'
       role='img'
       viewBox='0 0 24 24'

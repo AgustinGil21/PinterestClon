@@ -8,6 +8,9 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import useCloseModal from '../hooks/useCloseModal';
 import { Skeleton } from '../components/Basic/Skeleton';
 import CreateBoardModal from '../boards/create-board/CreateBoardModal';
+import ModalPlusOptionPin from '../pin/[id]/ModalPlusOptionPin';
+import DownloadIcon from '../interfaces/components/icons/DownloadIcon';
+import ArrowUrlPin from '../interfaces/components/icons/ArrowUrlPin';
 
 interface PinProps {
   elem: PinInterface;
@@ -16,7 +19,6 @@ interface PinProps {
 
 export const Pin = ({ elem, className }: PinProps) => {
   const {
-    openDownloadAccountModal,
     lastBoard,
     dataOpenBoardModal,
     updateDataOpenBoardModal,
@@ -25,15 +27,19 @@ export const Pin = ({ elem, className }: PinProps) => {
     btnRef: btnRefStore,
     setDynamicSharePinModalIsOpen,
     isCreateBoardModalOpen,
-    createBoardModalOpen,
+
+    isAuth,
+    openRegisterModal,
     addPinToBoard,
     savePinToProfile,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
 
   const btnRef = useRef(null);
+  const btnThreePoints = useRef(null);
   const shareBtnRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [openModalThreePoints, setOpenModalThreePoints] = useState(false);
   const [skeletonColor, setSkeletonColor] = useState<string>('#');
   const buttonURL = getDomain(elem.url);
   const userProfile = `/${elem.username}`;
@@ -91,8 +97,11 @@ export const Pin = ({ elem, className }: PinProps) => {
     fetchData();
   };
 
-  const handleClickOpenMenu = () => {
-    openDownloadAccountModal();
+  const handleClickOpenModalThreePoints = () => {
+    if (!isAuth) {
+      openRegisterModal();
+    }
+    setOpenModalThreePoints(!openModalThreePoints);
   };
 
   return (
@@ -168,9 +177,13 @@ export const Pin = ({ elem, className }: PinProps) => {
                 </button>
               </article>
 
-              <article className='bottom card-controls flex justify-between items-center mt-2'>
+              <article className='bottom card-controls flex justify-between items-center mt-2 relative '>
                 <div className='flex gap-2 flex-row-reverse'>
-                  <button className='circle-buttons bg-gray-100 p-2 rounded-full'>
+                  <button
+                    ref={btnThreePoints}
+                    className='circle-buttons bg-gray-100 p-2 rounded-full'
+                    onClick={handleClickOpenModalThreePoints}
+                  >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       viewBox='0 0 20 20'
@@ -180,21 +193,21 @@ export const Pin = ({ elem, className }: PinProps) => {
                       <path d='M3 10a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM8.5 10a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM15.5 8.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z' />
                     </svg>
                   </button>
+                  {openModalThreePoints && (
+                    <ModalPlusOptionPin
+                      body={elem.body}
+                      btnRef={btnThreePoints}
+                      setModal={handleClickOpenModalThreePoints}
+                      isModalOpen={openModalThreePoints}
+                    />
+                  )}
 
                   <button
                     className='circle-buttons bg-gray-100 p-2 rounded-full'
                     onClick={handleSharePinModal}
                     ref={shareBtnRef}
                   >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                      className='w-4 h-4 min-h-4 min-w-4'
-                    >
-                      <path d='M9.25 13.25a.75.75 0 0 0 1.5 0V4.636l2.955 3.129a.75.75 0 0 0 1.09-1.03l-4.25-4.5a.75.75 0 0 0-1.09 0l-4.25 4.5a.75.75 0 1 0 1.09 1.03L9.25 4.636v8.614Z' />
-                      <path d='M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z' />
-                    </svg>
+                    <DownloadIcon classProps='w-4 h-4' />
                   </button>
                 </div>
 
@@ -206,18 +219,7 @@ export const Pin = ({ elem, className }: PinProps) => {
                     target='_blank'
                     rel='noreferrer'
                   >
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      viewBox='0 0 20 20'
-                      fill='currentColor'
-                      className='w-5 h-5'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z'
-                        clipRule='evenodd'
-                      />
-                    </svg>
+                    <ArrowUrlPin />
                     <span>{buttonURL}</span>
                   </a>
                 )}

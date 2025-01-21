@@ -80,7 +80,7 @@ export default function RootLayout({
         {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
 
-        <main className={`flex pt-16 relative`}>
+        <main className={`flex pt-16 relative `}>
           {isAuth && routesWithoutAside.includes(pathname) && <AsideConfig />}
           {children}
           {toastNotificationContent && (

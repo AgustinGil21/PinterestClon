@@ -4,6 +4,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRef } from 'react';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import ModalPlusOptionPin from './ModalPlusOptionPin';
+import ModalReport from './ModalReport';
 
 const PlusOptionsPin = () => {
   const {
@@ -11,6 +12,8 @@ const PlusOptionsPin = () => {
     openThreePointsAcountModal,
     pinData,
     isAuth,
+    openReportModal,
+    isOpenReportModal,
     openRegisterModal,
   } = useAppsStore();
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -45,9 +48,15 @@ const PlusOptionsPin = () => {
       {isThreePointsAccountOpen && (
         <div className='relative'>
           {' '}
-          <ModalPlusOptionPin btnRef={btnRef} />{' '}
+          <ModalPlusOptionPin
+            body={pinData.body}
+            btnRef={btnRef}
+            isModalOpen={isThreePointsAccountOpen}
+            setModal={openThreePointsAcountModal}
+          />{' '}
         </div>
       )}
+      {isOpenReportModal && <ModalReport />}
     </>
   );
 };

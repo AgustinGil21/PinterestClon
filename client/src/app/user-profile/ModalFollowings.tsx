@@ -9,8 +9,8 @@ const ModalFollowings = () => {
   const { followingList, openFollowingsModal } = useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openFollowingsModal });
   return (
-    <div className='fixed inset-0 z-[100] flex items-center justify-center '>
-      <div className='absolute inset-0 bg-black opacity-50 flex items-center justify-center '></div>
+    <div className='fixed inset-0 z-[100] flex items-center justify-center  '>
+      <div className='absolute inset-0 bg-black opacity-50 flex items-center justify-center  '></div>
       <ModalStyled
         modalRef={modalRef}
         classProps='max-w-[440px] modal rounded-xl 
