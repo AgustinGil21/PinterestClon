@@ -10,10 +10,9 @@ export const PinSkeleton = () => {
   const direction = 'left';
 
   return (
-    <div className='flex flex-col gap-2 mb-4 mt-4 w-fit ml-5'>
+    <div className='flex flex-col gap-2 mb-4 mt-4 ml-5 w-full'>
       <Skeleton
         height={400}
-        width={258}
         angle={angle}
         direction={direction}
         color={color}

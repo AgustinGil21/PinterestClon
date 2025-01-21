@@ -47,13 +47,16 @@ const PlusOptionsPin = () => {
 
       {isThreePointsAccountOpen && (
         <div className='relative'>
-          {' '}
           <ModalPlusOptionPin
             body={pinData.body}
             btnRef={btnRef}
             isModalOpen={isThreePointsAccountOpen}
             setModal={openThreePointsAcountModal}
-          />{' '}
+            styles={{
+              top: '10px',
+              left: '0',
+            }}
+          />
         </div>
       )}
       {isOpenReportModal && <ModalReport />}

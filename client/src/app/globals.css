@@ -325,73 +325,6 @@
 
 /* Buttons */
 
-.circle-buttons {
-  width: 32px;
-  height: 32px;
-  min-width: 32px;
-  min-height: 32px;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color ease 150ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.circle-buttons path {
-  stroke-width: 0.7;
-  stroke: currentColor;
-}
-
-.circle-buttons:hover {
-  background-color: #f4f4f4;
-}
-
-.ellipsis svg {
-  width: 25px;
-}
-
-.tray svg {
-  width: 18px;
-}
-
-.save-button {
-  padding: 0 1.5rem;
-  height: 45px;
-  border-radius: 24px;
-  color: #ffffff;
-  background-color: #e60023;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: background-color ease 150ms;
-}
-
-.save-button:hover {
-  background-color: #b6031e;
-}
-
-.save-to-board-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 45px;
-  padding: 0 1rem;
-  width: fit-content;
-  max-width: 110px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
-  border-radius: 24px;
-  border: none;
-  cursor: pointer;
-  gap: 0.3rem;
-  transition: background-color 150ms ease, scale 150ms ease;
-}
-
 .save-to-board-button-sm {
   display: hidden flex;
 }
@@ -402,17 +335,8 @@
   flex-shrink: 0;
 }
 
-.save-to-board-button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
 .save-to-board-button-sm:hover {
   background-color: rgba(0, 0, 0, 0.1);
-}
-
-.save-to-board-button:focus {
-  background-color: black;
-  scale: 1.06;
 }
 
 .card-controls-modal-open .save-to-board-button {
@@ -434,67 +358,30 @@
   stroke: #ffffff;
 }
 
-.save-to-board-button span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .down-arrow-svg {
   width: 10px;
 }
 
-.go-to {
-  padding: 0.5rem;
-  background-color: #f4f4f4;
-  border-radius: 32px;
-  width: fit-content;
-  max-width: 100%;
-  transition: background-color ease 150ms;
-  cursor: pointer;
-  text-decoration: none;
-  color: #000;
-  font-weight: bold;
-  overflow: hidden;
-  display: flex;
-  place-content: center;
-  gap: 0.5rem;
-}
-
-.go-to:hover {
-  background-color: #ffffff;
-}
-
-.go-to svg {
-  width: 20px;
-}
-
-.go-to span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .scrollbar-thin::-webkit-scrollbar {
-  width: 8px; /* Ancho de la barra */
+  width: 8px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Color de la pista */
+  background: #f1f1f1;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #888; /* Color del pulgar (thumb) */
-  border-radius: 10px; /* Bordes redondeados */
+  background: #888;
+  border-radius: 10px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Color del pulgar al pasar el mouse */
+  background: #555;
 }
 
 .scrollbar-thin {
-  scrollbar-width: thin; /* Ancho de la barra */
-  scrollbar-color: #888 #f1f1f1; /* Color del pulgar y color de la pista */
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 }
 
 /* Boards */

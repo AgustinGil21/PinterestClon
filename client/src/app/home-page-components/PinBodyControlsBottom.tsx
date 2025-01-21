@@ -4,14 +4,30 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ArrowUrlPin from '../interfaces/components/icons/ArrowUrlPin';
 import DownloadIcon from '../interfaces/components/icons/DownloadIcon';
 import { getDomain } from '../libs/getDomain';
+import LinkNavigate from '../components/Header/LinkNavigate';
+import { FaPen } from 'react-icons/fa';
+import { FaEllipsis } from 'react-icons/fa6';
 
 export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
-  const { setDynamicSharePinModalIsOpen, isAuth, openRegisterModal } =
-    useAppsStore();
+  const {
+    setDynamicSharePinModalIsOpen,
+    isAuth,
+    openRegisterModal,
+    userPublicData,
+    setImagePreview,
+    getPinEditId,
+  } = useAppsStore();
   const btnThreePoints = useRef(null);
   const shareBtnRef = useRef(null);
   const [openModalThreePoints, setOpenModalThreePoints] = useState(false);
   const buttonURL = getDomain(elem.url);
+
+  const handleClickEditPin = async () => {
+    if (!elem.pin_id) return;
+
+    setImagePreview(null);
+    await getPinEditId(elem.pin_id);
+  };
 
   const handleSharePinModal = () => {
     setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
@@ -27,23 +43,26 @@ export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
   return (
     <article className='bottom card-controls flex justify-between items-center mt-2 relative '>
       <div className='flex gap-2 flex-row-reverse'>
-        <button
-          ref={btnThreePoints}
-          className='circle-buttons bg-gray-100 p-2 rounded-full'
-          onClick={handleClickOpenModalThreePoints}
-        >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            className='w-6 h-6 min-h-6 min-w-6'
+        {elem.username === userPublicData?.username ? (
+          <LinkNavigate
+            href='/create-pin'
+            handleClick={handleClickEditPin}
+            linkClass='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
           >
-            <path d='M3 10a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM8.5 10a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM15.5 8.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z' />
-          </svg>
-        </button>
+            <FaPen size={12} />
+          </LinkNavigate>
+        ) : (
+          <button
+            ref={btnThreePoints}
+            className='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
+            onClick={handleClickOpenModalThreePoints}
+          >
+            <FaEllipsis size={20} />
+          </button>
+        )}
 
         <button
-          className='circle-buttons bg-gray-100 p-2 rounded-full'
+          className='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
           onClick={handleSharePinModal}
           ref={shareBtnRef}
         >
@@ -54,13 +73,15 @@ export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
       {elem.url && (
         <a
           href={elem.url}
-          className='go-to text-blue-500'
+          className='go-to p-2 bg-[#f4f4f4] rounded-[32px] w-fit max-w-full font-bold overflow-hidden flex place-content-center gap-2 hover:bg-white text-black transition-colors'
           title={buttonURL || ''}
           target='_blank'
           rel='noreferrer'
         >
           <ArrowUrlPin />
-          <span>{buttonURL}</span>
+          <span className='overflow-hidden text-ellipsis whitespace-nowrap'>
+            {buttonURL}
+          </span>
         </a>
       )}
     </article>

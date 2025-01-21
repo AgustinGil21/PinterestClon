@@ -6,7 +6,6 @@ export const PinBodyControls = ({ elem }: { elem: PinInterface }) => {
   return (
     <>
       <PinBodyControlsTop elem={elem} />
-
       <PinBodyControlsBottom elem={elem} />
     </>
   );

@@ -54,6 +54,10 @@ export const Pin = ({ elem, className }: PinProps) => {
             btnRef={btnThreePoints}
             setModal={handleClickOpenModalThreePoints}
             isModalOpen={openModalThreePoints}
+            styles={{
+              right: '0',
+              bottom: '7px',
+            }}
           />
         )}
       </section>

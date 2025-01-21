@@ -4,12 +4,22 @@ interface LinkNavigateProps {
   children: React.ReactNode;
   href: string;
   classProps?: string;
+  linkClass?: string;
+  handleClick?: () => void;
 }
 
-const LinkNavigate = ({ children, href, classProps }: LinkNavigateProps) => {
+const LinkNavigate = ({
+  children,
+  href,
+  classProps,
+  handleClick,
+  linkClass,
+}: LinkNavigateProps) => {
   return (
-    <li className={`list-none ${classProps}`}>
-      <Link href={href}>{children}</Link>
+    <li className={`list-none ${classProps}`} onClick={handleClick}>
+      <Link className={linkClass} href={href}>
+        {children}
+      </Link>
     </li>
   );
 };

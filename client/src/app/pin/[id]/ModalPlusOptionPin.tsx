@@ -1,7 +1,7 @@
 import Modal from '@/app/components/Basic/Modal';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useState, RefObject, useRef } from 'react';
+import { useState, RefObject, useRef, CSSProperties } from 'react';
 import ModalReport from './ModalReport';
 
 interface ModalPlusOptionPinInterface {
@@ -9,6 +9,7 @@ interface ModalPlusOptionPinInterface {
   isModalOpen: boolean;
   setModal: () => void;
   body: string;
+  styles?: CSSProperties;
 }
 
 const ModalPlusOptionPin = ({
@@ -16,6 +17,7 @@ const ModalPlusOptionPin = ({
   setModal,
   isModalOpen,
   body,
+  styles,
 }: ModalPlusOptionPinInterface) => {
   const { openReportModal } = useAppsStore();
 
@@ -43,8 +45,7 @@ const ModalPlusOptionPin = ({
           setModal: setModal,
           styles: {
             position: 'absolute',
-            right: '0',
-            bottom: '7px',
+            ...styles,
             zIndex: 50,
           },
           className: ' bg-white rounded-lg shadow-lg',
