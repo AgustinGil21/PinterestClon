@@ -30,6 +30,7 @@ export default function UserProfile({ params }: Props) {
     getCreatedPins,
     createdPins,
     savedPins,
+    dataOwnerProfile,
     getSavePins,
     getUserBoards,
     userBoards,
@@ -38,6 +39,7 @@ export default function UserProfile({ params }: Props) {
   const { username }: { username: string } = params;
 
   useEffect(() => {
+    console.log(dataOwnerProfile.private_account);
     getSavePins(username, page, 10);
     getUserBoards({ username, page: 1, limit: 100 });
     console.log(userBoards);
@@ -135,13 +137,21 @@ export default function UserProfile({ params }: Props) {
           </div>
         )}
 
-        <CreatesOrSavesLink
-          savesOrCreates={savesOrCreates}
-          setSavesOrCreates={setSavesOrCreates}
-        />
+        {dataSearchUserProfile.private_account &&
+        dataSearchUserProfile.username !== dataOwnerProfile.username ? (
+          <p></p>
+        ) : (
+          <CreatesOrSavesLink
+            savesOrCreates={savesOrCreates}
+            setSavesOrCreates={setSavesOrCreates}
+          />
+        )}
       </div>
 
-      {savesOrCreates ? (
+      {dataSearchUserProfile.private_account &&
+      dataSearchUserProfile.username !== dataOwnerProfile.username ? (
+        <p>Esta cuenta es privada</p>
+      ) : savesOrCreates ? (
         <Masonry className='w-full'>
           {createdPins.map((elem) => (
             <Pin elem={elem} key={elem.pin_id} className='mb-4 z-10' />

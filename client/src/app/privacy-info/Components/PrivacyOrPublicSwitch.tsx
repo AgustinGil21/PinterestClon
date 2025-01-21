@@ -20,8 +20,10 @@ const PrivacyOrPublicSwitch = ({ setValue }: PrivacyOrPublicSwitchProps) => {
   }, [userProfileVisibility, setValue]);
 
   const handleChange = (checked: boolean) => {
+    console.log(userProfileVisibility);
     setEnabled(checked);
     setValue('switch', checked);
+    console.log(checked);
   };
 
   return (

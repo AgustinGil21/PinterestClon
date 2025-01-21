@@ -19,11 +19,12 @@ export const Pin = ({ elem, className }: PinProps) => {
     isAuth,
     openRegisterModal,
     userPublicData,
+    openThreePointsAcountModal,
+    isThreePointsAccountOpen,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
   const btnThreePoints = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [openModalThreePoints, setOpenModalThreePoints] = useState(false);
 
   useEffect(() => {
     const img = new Image();
@@ -35,7 +36,7 @@ export const Pin = ({ elem, className }: PinProps) => {
     if (!isAuth) {
       openRegisterModal();
     }
-    setOpenModalThreePoints(!openModalThreePoints);
+    openThreePointsAcountModal();
   };
 
   return (
@@ -49,12 +50,12 @@ export const Pin = ({ elem, className }: PinProps) => {
             {elem.username && <PinFooter elem={elem} />}
           </article>
         )}
-        {openModalThreePoints && (
+        {isThreePointsAccountOpen && (
           <ModalPlusOptionPin
             body={elem.body}
             btnRef={btnThreePoints}
             setModal={handleClickOpenModalThreePoints}
-            isModalOpen={openModalThreePoints}
+            isModalOpen={isThreePointsAccountOpen}
             styles={{
               right: '0',
               bottom: '7px',
