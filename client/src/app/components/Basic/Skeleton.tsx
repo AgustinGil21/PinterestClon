@@ -15,6 +15,18 @@ interface Props {
   speed?: 'slow' | 'default' | 'fast';
   angle?: 'vertical' | 'horizontal' | 'diagonalLeft' | 'diagonalRight';
   direction?: 'top' | 'bottom' | 'left' | 'right';
+  delay?: string;
+  animation?: 'shimmer' | 'pulse';
+  secondaryColor?: string;
+  timingFunction?:
+    | 'linear'
+    | 'ease'
+    | `ease-${'in-out' | 'in' | 'out'}`
+    | `step-${'end' | 'start'}`
+    | `steps${string}`
+    | `cubic-bezier${string}`
+    | `frames${string}`
+    | `spring${string}`;
 }
 
 export const Skeleton = ({
@@ -32,6 +44,10 @@ export const Skeleton = ({
   minWidth,
   angle,
   direction,
+  delay,
+  animation,
+  secondaryColor,
+  timingFunction = 'linear',
 }: Props) => {
   let skeletonColor = color || '#f0f0f0';
 
@@ -71,7 +87,13 @@ export const Skeleton = ({
 
   const backgroundSize = angle === 'horizontal' ? '100% 200%' : '200% 100%';
 
-  const animationName = angle === 'horizontal' ? 'shimmer-vertical' : 'shimmer';
+  let animationName = 'shimmer';
+
+  if (animation === 'pulse') {
+    animationName = 'pulse';
+  } else if (animation === 'shimmer') {
+    animationName = angle === 'horizontal' ? 'shimmer-vertical' : 'shimmer';
+  }
 
   let animationDirection =
     (direction ?? 'top') === 'top' ? 'reverse' : 'normal';
@@ -88,29 +110,49 @@ export const Skeleton = ({
       (direction ?? 'bottom') === 'bottom' ? 'reverse' : 'normal';
   }
 
+  const pulseAnimationKeyframes = `
+    @keyframes pulse {
+      0% { background-color: ${color}; }
+      50% { background-color: ${secondaryColor}; }
+      100% { background-color: ${color}; }
+    }
+  `;
+
   return (
-    <div
-      style={{
-        width: width,
-        height: height,
-        maxWidth: maxWidth,
-        maxHeight: maxHeight,
-        minHeight: minHeight,
-        minWidth: minWidth,
-        borderRadius: borderRadius,
-        backgroundImage: `linear-gradient(
+    <>
+      <style>{pulseAnimationKeyframes}</style>
+      <div
+        style={{
+          width: width,
+          height: height,
+          maxWidth: maxWidth,
+          maxHeight: maxHeight,
+          minHeight: minHeight,
+          minWidth: minWidth,
+          borderRadius: borderRadius,
+          background: animation === 'pulse' ? skeletonColor : '',
+          backgroundImage:
+            animation !== 'pulse'
+              ? `linear-gradient(
           ${animationAngle},
           ${skeletonColor} 25%,
-          ${adjustColorBrightness(skeletonColor, 20)} 50%,
+          ${
+            secondaryColor
+              ? secondaryColor
+              : adjustColorBrightness(skeletonColor, 20)
+          } 50%,
           ${skeletonColor} 75%
-        )`,
-        backgroundSize: backgroundSize,
-        animation: `${animationName} ${animationSpeed} linear infinite`,
-        animationDirection: animationDirection,
-      }}
-      className={`${fontSize && fonts[fontSize]} ${
-        presetsStyle[presets || 'rectangle']
-      } ${className}`}
-    ></div>
+          )`
+              : '',
+          backgroundSize: animation === 'pulse' ? '' : backgroundSize,
+          animation: `${animationName} ${animationSpeed} ${timingFunction} infinite`,
+          animationDirection: animationDirection,
+          animationDelay: delay,
+        }}
+        className={`${fontSize && fonts[fontSize]} ${
+          presetsStyle[presets || 'rectangle']
+        } ${className} `}
+      ></div>
+    </>
   );
 };

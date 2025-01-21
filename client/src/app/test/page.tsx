@@ -11,6 +11,8 @@ import DynamicPositioning from '../components/Basic/DynamicPositioningModal';
 import { Skeleton } from '../components/Basic/Skeleton';
 import ToastNotification from '../components/Basic/ToastNotification';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import { PinSkeleton } from '../skeletons/PinSkeleton';
+import { CategoryCardSkeleton } from '../skeletons/CategoryCardSkeleton';
 
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();
@@ -41,14 +43,16 @@ export default function Test() {
     <>
       {/* <BoardCoverModal /> */}
       {/* <CreateBoardModal /> */}
-      <Skeleton
+      {/* <Skeleton
         width={200}
         height={100}
         borderRadius='1rem'
         angle='diagonalRight'
         direction='bottom'
         color='#e60023'
-      />
+      /> */}
+      <PinSkeleton />
+      <CategoryCardSkeleton />
     </>
   );
 }

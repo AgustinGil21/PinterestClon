@@ -1,46 +1,20 @@
-import { UserPreview } from './UserPreview';
+import Link from 'next/link';
+import { PinInterface } from '../domain/types/pins-structure';
+import { PinUserData } from './PinUserData';
 
-interface PinFooterInterface {
-  title?: string;
-  avatar?: string;
-  username: string;
-  avatar_background: string;
-  avatar_letter_color: string;
-  avatar_letter: string;
-  name?: string | null;
-  surname?: string | null;
-  footerClassProps?: string;
-}
+export const PinFooter = ({ elem }: { elem: PinInterface }) => {
+  const userProfile = `/${elem.username}`;
 
-export const PinFooter = ({
-  title,
-  avatar,
-  username,
-  avatar_background,
-  avatar_letter_color,
-  avatar_letter,
-  name,
-  surname,
-  footerClassProps,
-}: PinFooterInterface) => {
   return (
-    <footer
-      className={`cursor-default flex flex-col gap-[4px] pt-[8px] pl-[6px] pb-[16px] pr-[6px]  ${footerClassProps}`}
-    >
-      {title && (
-        <strong className='whitespace-nowrap hidden text-ellipsis'>
-          {title}
-        </strong>
-      )}
-      <UserPreview
-        avatar={avatar}
-        username={username}
-        avatar_background={avatar_background}
-        avatar_letter_color={avatar_letter_color}
-        avatar_letter={avatar_letter}
-        name={name}
-        surname={surname}
-      />
+    <footer className='card-bottom mt-2'>
+      {elem.title && <strong className='dark:text-white'>{elem.title}</strong>}
+      <Link
+        href={`${userProfile}`}
+        className='user-data flex items-center '
+        onClick={(e) => e.stopPropagation()}
+      >
+        <PinUserData elem={elem} />
+      </Link>
     </footer>
   );
 };
