@@ -18,6 +18,7 @@ export const Pin = ({ elem, className }: PinProps) => {
     isCreateBoardModalOpen,
     isAuth,
     openRegisterModal,
+    userPublicData,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
   const btnThreePoints = useRef(null);
@@ -58,6 +59,7 @@ export const Pin = ({ elem, className }: PinProps) => {
               right: '0',
               bottom: '7px',
             }}
+            its_yours={elem.username === userPublicData?.username}
           />
         )}
       </section>

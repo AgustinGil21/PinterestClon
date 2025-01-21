@@ -15,6 +15,7 @@ const PlusOptionsPin = () => {
     openReportModal,
     isOpenReportModal,
     openRegisterModal,
+    userPublicData,
   } = useAppsStore();
   const btnRef = useRef<HTMLButtonElement>(null);
 
@@ -56,6 +57,7 @@ const PlusOptionsPin = () => {
               top: '10px',
               left: '0',
             }}
+            its_yours={pinData.username === userPublicData?.username}
           />
         </div>
       )}

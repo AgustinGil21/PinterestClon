@@ -90,11 +90,6 @@ export default function RootLayout({
             />
           )}
 
-          <ToastNotification
-            key={toastNotificationContent}
-            content={toastNotificationContent}
-          />
-
           <BoardsListModal />
           <SharePinModal />
         </main>

@@ -10,6 +10,7 @@ interface ModalPlusOptionPinInterface {
   setModal: () => void;
   body: string;
   styles?: CSSProperties;
+  its_yours?: boolean;
 }
 
 const ModalPlusOptionPin = ({
@@ -18,6 +19,7 @@ const ModalPlusOptionPin = ({
   isModalOpen,
   body,
   styles,
+  its_yours = false,
 }: ModalPlusOptionPinInterface) => {
   const { openReportModal } = useAppsStore();
 
@@ -58,12 +60,14 @@ const ModalPlusOptionPin = ({
           >
             Descargar imagen
           </ButtonStyled>
-          <ButtonStyled
-            className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
-            handleClick={handleClick}
-          >
-            Reportar pin
-          </ButtonStyled>
+          {!its_yours && (
+            <ButtonStyled
+              className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
+              handleClick={handleClick}
+            >
+              Reportar pin
+            </ButtonStyled>
+          )}
         </div>
       </Modal>
     </>
