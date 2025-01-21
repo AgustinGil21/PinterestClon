@@ -1,3 +1,4 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import Link from 'next/link';
 
@@ -6,6 +7,8 @@ interface SavePinsButtonInterface {
 }
 
 const SavePinsButton = ({ setModal }: SavePinsButtonInterface) => {
+  const { dataOwnerProfile } = useAppsStore();
+
   return (
     <div className='w-full px-6 4 mt-4 dark:text-white'>
       <hr className='w-full border-t-[1.5px] border-gray-300' />
@@ -13,7 +16,10 @@ const SavePinsButton = ({ setModal }: SavePinsButtonInterface) => {
         <span className='text-sm font-semibold'>
           ¿Estás buscando ideas que guardaste?
         </span>
-        <Link href={'/user-profile'} onClick={() => setModal(false)}>
+        <Link
+          href={`/${dataOwnerProfile.username}`}
+          onClick={() => setModal(false)}
+        >
           <ButtonStyled
             type='button'
             className='font-semibold bg-buttonGreyBg hover:bg-gray-300 text-[11px] dark:text-black'

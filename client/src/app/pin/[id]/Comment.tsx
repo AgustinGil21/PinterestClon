@@ -8,9 +8,16 @@ import OptionsComment from './OptionsComment';
 interface CommentProps {
   elem: CommentInterface;
   handleCommentsCount: () => void;
+  commentIndex: number;
+  commentsLength: number;
 }
 
-const Comment = ({ elem, handleCommentsCount }: CommentProps) => {
+const Comment = ({
+  elem,
+  handleCommentsCount,
+  commentIndex,
+  commentsLength,
+}: CommentProps) => {
   const router = useRouter();
 
   const handleClickSearchUser = () => {
@@ -45,7 +52,11 @@ const Comment = ({ elem, handleCommentsCount }: CommentProps) => {
           </h5>
           <CommentTextExtend text={elem.content} />
         </div>
-        <OptionsComment elem={elem} handleCommentsCount={handleCommentsCount} />
+        <OptionsComment
+          elem={elem}
+          handleCommentsCount={handleCommentsCount}
+          top={commentIndex === commentsLength - 1}
+        />
       </div>
     </div>
   );

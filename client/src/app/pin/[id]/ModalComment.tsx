@@ -10,6 +10,7 @@ interface ModalCommentInterface {
   elem: CommentInterface;
   handleCommentsCount: () => void;
   isModalOpen: boolean;
+  top?: boolean;
 }
 
 const ModalComment = ({
@@ -18,6 +19,7 @@ const ModalComment = ({
   elem,
   handleCommentsCount,
   isModalOpen,
+  top = false,
 }: ModalCommentInterface) => {
   const { postDeleteComment, updateStateCommentsThenDelete, commentsState } =
     useAppsStore();
@@ -41,9 +43,10 @@ const ModalComment = ({
         className: 'rounded-lg',
         styles: {
           position: 'absolute',
-          top: '55%',
-          left: '60%',
-
+          top: `${top ? '' : '25px'}`,
+          right: `${top ? '' : '0'}`,
+          left: `${top ? '0' : ''}`,
+          bottom: `${top ? '25px' : ''}`,
           zIndex: 50,
           backgroundColor: 'white',
         },

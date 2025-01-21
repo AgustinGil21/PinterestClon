@@ -76,7 +76,7 @@ const PinCard = () => {
     return 'large';
   })();
 
-  console.log(sizeCategory, imgHeight);
+  // console.log(sizeCategory, imgHeight);
 
   return (
     <div className='bg-white shadow-pinShadow rounded-[30px] w-full p-4 flex flex-col lg:flex-row gap-4  min-h-[466px] sm:max-w-[530px] lg:max-w-[930px] lg:p-5 lg:gap-6 lg:rounded-[30px] '>
@@ -135,7 +135,9 @@ const PinCard = () => {
                   {commentsState.comments.map((elem, index) => (
                     <Comment
                       elem={elem}
-                      key={index}
+                      key={elem.id}
+                      commentIndex={index}
+                      commentsLength={commentsState.comments.length}
                       handleCommentsCount={handleDeleteComment}
                     />
                   ))}

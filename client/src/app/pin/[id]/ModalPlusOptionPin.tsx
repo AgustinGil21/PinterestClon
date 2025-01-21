@@ -1,60 +1,139 @@
 import Modal from '@/app/components/Basic/Modal';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { RefObject } from 'react';
+import { useState, RefObject, useRef } from 'react';
+import ModalReport from './ModalReport';
 
 interface ModalPlusOptionPinInterface {
   btnRef: RefObject<HTMLButtonElement>;
+  isModalOpen: boolean;
+  setModal: () => void;
+  body: string;
 }
 
-const ModalPlusOptionPin = ({ btnRef }: ModalPlusOptionPinInterface) => {
-  const {
-    isThreePointsAccountOpen,
-    openThreePointsAcountModal,
-    pinData,
-    userPublicData,
-  } = useAppsStore();
+const ModalPlusOptionPin = ({
+  btnRef,
+  setModal,
+  isModalOpen,
+  body,
+}: ModalPlusOptionPinInterface) => {
+  const { openReportModal } = useAppsStore();
 
   const handleDownload = () => {
-    if (pinData?.body) {
+    if (body) {
       const link = document.createElement('a');
-      link.href = pinData.body;
-      link.download = pinData.alt_text;
+      link.href = body;
+      link.target = '_blank';
+      link.download = 'pin-image';
       link.click();
     }
   };
 
-  return (
-    <Modal
-      props={{
-        buttonRef: btnRef,
-        isModalOpen: isThreePointsAccountOpen,
-        setModal: openThreePointsAcountModal,
-        styles: {
-          position: 'absolute',
-          top: '15.5%',
-          left: '40%',
+  const handleClick = () => {
+    openReportModal();
+    setModal();
+  };
 
-          zIndex: 50,
-        },
-        className: ' bg-white rounded-lg shadow-lg',
-      }}
-    >
-      <div className='w-full p-1 max-w-[380px]'>
-        <ButtonStyled
-          className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
-          handleClick={handleDownload}
-        >
-          Descargar imagen
-        </ButtonStyled>
-        {pinData.username !== userPublicData?.username && (
-          <ButtonStyled className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'>
+  return (
+    <>
+      <Modal
+        props={{
+          buttonRef: btnRef,
+          isModalOpen: isModalOpen,
+          setModal: setModal,
+          styles: {
+            position: 'absolute',
+            right: '0',
+            bottom: '7px',
+            zIndex: 50,
+          },
+          className: ' bg-white rounded-lg shadow-lg',
+        }}
+      >
+        <div className='w-full p-1 max-w-[380px]'>
+          <ButtonStyled
+            className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
+            handleClick={handleDownload}
+          >
+            Descargar imagen
+          </ButtonStyled>
+          <ButtonStyled
+            className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
+            handleClick={handleClick}
+          >
             Reportar pin
           </ButtonStyled>
-        )}
-      </div>
-    </Modal>
+        </div>
+      </Modal>
+    </>
   );
 };
 
 export default ModalPlusOptionPin;
+
+// import Modal from '@/app/components/Basic/Modal';
+// import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
+// import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+// import { useState, RefObject, useRef } from 'react';
+// import ModalReport from './ModalReport';
+// import { DynamicModal } from '@/app/components/Basic/DynamicModal';
+
+// interface ModalPlusOptionPinInterface {
+//   btnRef: RefObject<HTMLButtonElement>;
+//   isModalOpen: boolean;
+//   setModal: () => void;
+//   body: string;
+// }
+
+// const ModalPlusOptionPin = ({
+//   btnRef,
+//   setModal,
+//   isModalOpen,
+//   body,
+// }: ModalPlusOptionPinInterface) => {
+//   const { openReportModal } = useAppsStore();
+
+//   const handleDownload = () => {
+//     if (body) {
+//       const link = document.createElement('a');
+//       link.href = body;
+//       link.target = '_blank';
+//       link.download = 'pin-image';
+//       link.click();
+//     }
+//   };
+
+//   const handleClick = () => {
+//     openReportModal();
+//     setModal();
+//   };
+
+//   return (
+//     <>
+//       <DynamicModal
+//         btnRef={btnRef}
+//         dynamicModalIsOpen={isModalOpen}
+//         closeDynamicModal={setModal}
+//         width={380}
+//         height={200}
+//       >
+//         <div className='w-full p-1 max-w-[380px]'>
+//           <ButtonStyled
+//             className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
+//             handleClick={handleDownload}
+//           >
+//             Descargar imagen
+//           </ButtonStyled>
+//           <ButtonStyled
+//             className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
+//             handleClick={handleClick}
+//           >
+//             Reportar pin
+//           </ButtonStyled>
+//         </div>
+//       </DynamicModal>
+//     </>
+//   );
+// };
+
+// export default ModalPlusOptionPin;

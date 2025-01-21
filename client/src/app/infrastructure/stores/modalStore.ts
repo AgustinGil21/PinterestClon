@@ -56,6 +56,8 @@ export interface ModalStateInterface {
   openFollowingsModal: () => void;
   isCreateBoardModalOpen: boolean;
   createBoardModalOpen: () => void;
+  isOpenReportModal: boolean;
+  openReportModal: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -82,6 +84,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isCreateBoardModalOpen: false,
   sharePinData: '',
   isOpenMenuAsideSettingsResponsive: false,
+  isOpenReportModal: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -220,6 +223,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     set((state) => ({
       isOpenMenuAsideSettingsResponsive:
         !state.isOpenMenuAsideSettingsResponsive,
+    }));
+  },
+
+  openReportModal: () => {
+    set((state) => ({
+      isOpenReportModal: !state.isOpenReportModal,
     }));
   },
 });

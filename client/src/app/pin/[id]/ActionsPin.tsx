@@ -10,11 +10,14 @@ const ActionsPin = () => {
   const { pinData } = useAppsStore();
 
   return (
-    <div className='flex justify-between flex-row'>
-      <div className='flex flex-row gap-1 items-center relative'>
+    <div className='flex justify-between '>
+      <div className='flex gap-1 items-center relative'>
         <Like />
         <Tooltip tooltipText='Compartir'>
-          <DownloadShare classProps='p-2' dataShare={`pin/${pinData.id}`} />
+          <DownloadShare
+            classProps='p-2 flex items-center'
+            dataShare={`pin/${pinData.id}`}
+          />
         </Tooltip>
 
         <PlusOptionsPins />

@@ -12,9 +12,14 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 interface OptionCommentProps {
   elem: CommentInterface;
   handleCommentsCount: () => void;
+  top?: boolean;
 }
 
-const OptionsComment = ({ elem, handleCommentsCount }: OptionCommentProps) => {
+const OptionsComment = ({
+  elem,
+  handleCommentsCount,
+  top,
+}: OptionCommentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { isAuth, openRegisterModal, postToggleLikeComment } = useAppsStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -79,6 +84,7 @@ const OptionsComment = ({ elem, handleCommentsCount }: OptionCommentProps) => {
             buttonRef={buttonRef}
             elem={elem}
             handleCommentsCount={handleCommentsCount}
+            top={top}
           />
         )}
       </div>
