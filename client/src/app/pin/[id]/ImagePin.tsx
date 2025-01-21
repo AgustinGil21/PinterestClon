@@ -19,7 +19,7 @@ const ImagePin = ({ size }: { size: 'small' | 'medium' | 'large' }) => {
       <img
         src={pinData.body}
         alt={pinData.alt_text}
-        className='w-full h-auto lg:h-full object-cover rounded-xl hover:scale-110 transition-transform duration-300'
+        className='w-full h-full lg:h-full object-cover rounded-xl hover:scale-110 transition-transform duration-300'
       />
     </div>
   );
