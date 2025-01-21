@@ -42,8 +42,7 @@ export default function UserProfile({ params }: Props) {
     console.log(dataOwnerProfile.private_account);
     getSavePins(username, page, 10);
     getUserBoards({ username, page: 1, limit: 100 });
-    console.log(userBoards);
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     const updateFollowingStatus = async () => {

@@ -10,7 +10,7 @@ export const PinSkeleton = () => {
   const direction = 'left';
 
   return (
-    <div className='flex flex-col gap-2 mb-4 mt-4 ml-5 w-full'>
+    <div className='flex flex-col gap-2 w-full mt-4 mb-4'>
       <Skeleton
         height={400}
         angle={angle}

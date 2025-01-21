@@ -35,6 +35,7 @@ export default function RootLayout({
     toastNotificationContent,
     isOpenMenuAsideSettingsResponsive,
     isAuth,
+    dynamicModalIsOpen,
   } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
@@ -90,7 +91,7 @@ export default function RootLayout({
             />
           )}
 
-          <BoardsListModal />
+          {dynamicModalIsOpen && <BoardsListModal />}
           <SharePinModal />
         </main>
       </body>

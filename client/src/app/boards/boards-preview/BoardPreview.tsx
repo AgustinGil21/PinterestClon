@@ -19,7 +19,7 @@ const BoardPreview = ({ props }: BoardsPreviewProps) => {
   const { id, name, created_at, pins_count, cover, collage, its_yours } = props;
 
   return (
-    <section className='w-[247.6px] h-fit'>
+    <section className='w-full h-fit'>
       <BoardPreviewTop
         cover={cover}
         collage={collage}
