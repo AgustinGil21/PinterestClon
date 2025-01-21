@@ -121,11 +121,11 @@ export const Header = () => {
             >
               <AvatarUser
                 data={userPublicData}
-                classProps={`${
+                classProps={` ${
                   userPublicData?.avatar
-                    ? 'w-[20px] h-[20px]'
+                    ? 'w-[30px] h-[30px]'
                     : 'w-[30px] h-[30px] p-3'
-                }  `}
+                } hover:bg-bg-slate-200 `}
                 textSize='text-[12px]'
               />
             </LinkNavigate>

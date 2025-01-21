@@ -11,13 +11,8 @@ import CardCategory from './CardCategory';
 export default function Explore() {
   const [loading, setLoading] = useState(true);
 
-  const {
-    categoriesPin,
-    getCategoriesPin,
-
-    page,
-    updateDataSearch,
-  } = useAppsStore();
+  const { categoriesPin, getCategoriesPin, page, updateDataSearch } =
+    useAppsStore();
   const limit = 25;
 
   const categories = useMemo(
@@ -51,7 +46,6 @@ export default function Explore() {
   const day = `${dayNumber} de ${monthName} de ${yearNumber}`;
 
   useEffect(() => {
-    console.log(page);
     updateDataSearch('page', 1);
     getCategoriesPin();
     setLoading(false);

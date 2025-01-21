@@ -1,12 +1,24 @@
+'use client';
+
+import { useEffect } from 'react';
 import BoardCoverModal from '../boards/board-cover/BoardCoverModal';
 import BoardsList from '../boards/boards-list/BoardsList';
 import BoardsListModal from '../boards/boards-list/BoardsListModal';
+import BoardPreview from '../boards/boards-preview/BoardPreview';
+import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 import CreateBoardModal from '../boards/create-board/CreateBoardModal';
 import DynamicPositioning from '../components/Basic/DynamicPositioningModal';
 import { Skeleton } from '../components/Basic/Skeleton';
 import ToastNotification from '../components/Basic/ToastNotification';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 export default function Test() {
+  const { userBoards, getUserBoards } = useAppsStore();
+
+  useEffect(() => {
+    getUserBoards({ username: 'Invalidinho123' });
+  }, []);
+
   const boards = [
     {
       id: '1',
@@ -41,6 +53,7 @@ export default function Test() {
         direction='bottom'
         color='#e60023'
       />
+      <BoardsGrid boards={userBoards} />
     </>
   );
 }

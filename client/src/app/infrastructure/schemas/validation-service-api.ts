@@ -314,7 +314,7 @@ export const UserBoardsSchema = z.object({
       id: z.string(),
       cover: z.string().optional(),
       collage: z.array(z.string().url()).optional(),
-      created_at: z.string().date(),
+      created_at: z.string(),
       pins_count: z.string(),
       its_yours: z.boolean().optional(),
     })

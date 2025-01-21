@@ -16,22 +16,14 @@ interface BoardsPreviewProps {
 }
 
 const BoardPreview = ({ props }: BoardsPreviewProps) => {
-  const {
-    id,
-    name,
-    created_at,
-    pins_count,
-    cover,
-    collage,
-    its_yours = false,
-  } = props;
+  const { id, name, created_at, pins_count, cover, collage, its_yours } = props;
 
   return (
-    <section className='w-[247.6px]'>
+    <section className='w-[247.6px] h-fit'>
       <BoardPreviewTop
         cover={cover}
         collage={collage}
-        itsYours={its_yours}
+        itsYours={its_yours ? true : false}
         boardID={id}
       />
       <BoardPreviewBottom

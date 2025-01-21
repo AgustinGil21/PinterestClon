@@ -138,7 +138,7 @@ export default class BoardsController {
       } else {
         data = await BoardsModel.getUserBoards({
           username,
-          isAuth: true,
+          isAuth: false,
           page,
           limit,
         });
@@ -150,6 +150,7 @@ export default class BoardsController {
         return res.status(200).json({ boards: filteredData });
       }
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ message: 'Cannot get user’s board' });
     }
   }

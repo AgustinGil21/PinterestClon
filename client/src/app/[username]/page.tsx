@@ -12,9 +12,10 @@ import ButtonsGroup from '../user-profile/ButtonsGroup';
 import CreatesOrSavesLink from '../user-profile/CreatesOrSavesLink';
 import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
+import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 
 interface Props {
-  params: { username?: string };
+  params: { username: string };
 }
 
 export default function UserProfile({ params }: Props) {
@@ -30,11 +31,16 @@ export default function UserProfile({ params }: Props) {
     createdPins,
     savedPins,
     getSavePins,
+    getUserBoards,
+    userBoards,
   } = useAppsStore();
-  const { username }: any = params;
+
+  const { username }: { username: string } = params;
 
   useEffect(() => {
     getSavePins(username, page, 10);
+    getUserBoards({ username, page: 1, limit: 100 });
+    console.log(userBoards);
   }, []);
 
   useEffect(() => {
@@ -142,11 +148,7 @@ export default function UserProfile({ params }: Props) {
           ))}
         </Masonry>
       ) : (
-        <Masonry className='w-full'>
-          {savedPins.map((elem) => (
-            <Pin elem={elem} key={elem.pin_id} className='mb-4 z-10' />
-          ))}
-        </Masonry>
+        <BoardsGrid boards={userBoards} />
       )}
     </section>
   );
