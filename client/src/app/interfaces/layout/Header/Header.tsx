@@ -7,7 +7,7 @@ import { UserLoggedIn } from './LogIn/UserLoggedIn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import AvatarUser from './Avatar/AvatarUser';
 import LinkNavigate from './Nav/LinkNavigate';
-import { FaBars } from 'react-icons/fa';
+import { FaBars, FaBarsStaggered, FaXmark } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation';
 
 export const Header = () => {
@@ -19,6 +19,7 @@ export const Header = () => {
     getLastBoard,
     getBoardsList,
     openMenuAsideSettingsResponsive,
+    isOpenMenuAsideSettingsResponsive,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -100,12 +101,16 @@ export const Header = () => {
         </div>
         {isAuth && (
           <div
-            className={`md:hidden   flex items-center justify-center p-2 cursor-pointer ${
+            className={` md:hidden min-w-[40px] min-h-[40px]  hover:bg-slate-200 rounded-full relative flex justify-center items-center cursor-pointer ${
               pathname !== '/edit-user' && 'hidden'
             }`}
             onClick={openMenuAsideSettingsResponsive}
           >
-            <FaBars size={20} color='black' />
+            {isOpenMenuAsideSettingsResponsive ? (
+              <FaXmark size={25} color='black' />
+            ) : (
+              <FaBarsStaggered size={20} color='black' />
+            )}
           </div>
         )}
       </header>

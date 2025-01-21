@@ -8,8 +8,12 @@ interface ModalPlusOptionPinInterface {
 }
 
 const ModalPlusOptionPin = ({ btnRef }: ModalPlusOptionPinInterface) => {
-  const { isThreePointsAccountOpen, openThreePointsAcountModal, pinData } =
-    useAppsStore();
+  const {
+    isThreePointsAccountOpen,
+    openThreePointsAcountModal,
+    pinData,
+    userPublicData,
+  } = useAppsStore();
 
   const handleDownload = () => {
     if (pinData?.body) {
@@ -43,9 +47,11 @@ const ModalPlusOptionPin = ({ btnRef }: ModalPlusOptionPinInterface) => {
         >
           Descargar imagen
         </ButtonStyled>
-        <ButtonStyled className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'>
-          Reportar pin
-        </ButtonStyled>
+        {pinData.username !== userPublicData?.username && (
+          <ButtonStyled className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'>
+            Reportar pin
+          </ButtonStyled>
+        )}
       </div>
     </Modal>
   );

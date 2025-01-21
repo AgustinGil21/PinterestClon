@@ -15,10 +15,6 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();
 
-  useEffect(() => {
-    getUserBoards({ username: 'Invalidinho123' });
-  }, []);
-
   const boards = [
     {
       id: '1',
@@ -53,7 +49,6 @@ export default function Test() {
         direction='bottom'
         color='#e60023'
       />
-      <BoardsGrid boards={userBoards} />
     </>
   );
 }

@@ -848,6 +848,6 @@
   *::after,
   *::before {
     transition: none !important;
-    animation: none;
+    animation: none !important;
   }
 }

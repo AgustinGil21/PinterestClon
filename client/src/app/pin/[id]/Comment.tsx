@@ -20,7 +20,7 @@ const Comment = ({ elem, handleCommentsCount }: CommentProps) => {
   const createdAt = elem.created_at || new Date().toLocaleDateString();
 
   return (
-    <div className='flex flex-row gap-2 mt-1 h-full'>
+    <div className='flex flex-row gap-2 mt-1 h-fit'>
       <div onClick={handleClickSearchUser}>
         <AvatarUser
           textSize='text-xs'

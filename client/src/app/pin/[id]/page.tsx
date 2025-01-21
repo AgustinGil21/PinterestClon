@@ -102,7 +102,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
           handleClick={handleGoBack}
         >
           <ArrowTwoLeftIcon />
-          {}
+
           <span className='hidden xl:inline'>Para ti</span>
         </ButtonStyled>
       </div>
