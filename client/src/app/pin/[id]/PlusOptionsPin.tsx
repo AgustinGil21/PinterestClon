@@ -12,7 +12,6 @@ const PlusOptionsPin = () => {
     openThreePointsAcountModal,
     pinData,
     isAuth,
-    openReportModal,
     isOpenReportModal,
     openRegisterModal,
     userPublicData,

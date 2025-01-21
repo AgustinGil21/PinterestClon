@@ -4,7 +4,6 @@ import Like from './Like';
 import SavePin from './SavePin';
 import PlusOptionsPins from './PlusOptionsPin';
 import Tooltip from '@/app/components/Header/ToolTip';
-import BoardsButtonPin from './BoardsButtonPin';
 
 const ActionsPin = () => {
   const { pinData } = useAppsStore();
