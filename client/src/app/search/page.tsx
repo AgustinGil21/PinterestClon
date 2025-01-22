@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
-import { PinInterface } from '../domain/types/pins-structure';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { Pin } from '../home-page-components/Pin';
 import Masonry from '../interfaces/components/Basic/Masonry';
+import AsideFilters from './AsideFilters';
 
 const Search = () => {
   const {
@@ -15,8 +15,12 @@ const Search = () => {
     getSearchPinForCategory,
     value,
     getSearchPins,
+    categoriesPin,
     categorySelect,
     updateDataSearch,
+    getCategoriesPin,
+    openFiltersModal,
+    isOpenFiltersModal,
   } = useAppsStore();
   const [loading, setLoading] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
@@ -24,6 +28,7 @@ const Search = () => {
   const limit = 25;
 
   useEffect(() => {
+    getCategoriesPin();
     setLoading(false);
   }, []);
 
@@ -41,26 +46,24 @@ const Search = () => {
   }, [page, categorySelect]);
 
   const handleScroll = () => {
-    const currentScrollTop = window.scrollY; // Obtener la posición actual del scroll
+    const currentScrollTop = window.scrollY;
 
-    // Comprobar si el usuario ha hecho scroll hacia abajo
     if (currentScrollTop > lastScrollTop) {
       if (
         window.innerHeight + currentScrollTop + 1 >=
         document.documentElement.scrollHeight
       ) {
-        setPage(1); // Incrementar la página en 1
+        setPage(1);
       }
     }
 
-    // Actualizar la posición del scroll anterior
     setLastScrollTop(currentScrollTop);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]); // Agregar lastScrollTop como dependencia
+  }, [lastScrollTop]);
 
   if (loading) {
     return (
@@ -71,11 +74,21 @@ const Search = () => {
   }
 
   return (
-    <Masonry>
-      {homePins.map((elem) => (
-        <Pin elem={elem} key={elem.pin_id} />
-      ))}
-    </Masonry>
+    <section className='relative flex flex-col '>
+      <div className='flex flex-row '>
+        <div className=' flex-col hidden md:flex'>
+          {isOpenFiltersModal && <AsideFilters />}
+        </div>
+
+        <div className='flex-1 mt-[50px] '>
+          <Masonry>
+            {homePins.map((elem) => (
+              <Pin elem={elem} key={elem.pin_id} />
+            ))}
+          </Masonry>
+        </div>
+      </div>
+    </section>
   );
 };
 

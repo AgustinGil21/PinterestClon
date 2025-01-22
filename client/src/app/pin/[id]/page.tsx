@@ -98,12 +98,12 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     <section className='flex justify-center items-center w-full p-2 relative min-h-[90vh] flex-col gap-4'>
       <div className='absolute top-0 left-0 m-4  '>
         <ButtonStyled
-          className='font-semibold text-sm flex items-center flex-row gap-2 hover:bg-gray-200 '
+          className='font-semibold text-sm lg:flex items-center flex-row gap-2 hover:bg-gray-200 hidden '
           handleClick={handleGoBack}
         >
           <ArrowTwoLeftIcon />
 
-          <span className='hidden xl:inline'>Para ti</span>
+          <span className='hidden xl:inline '>Para ti</span>
         </ButtonStyled>
       </div>
 

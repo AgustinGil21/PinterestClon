@@ -58,6 +58,8 @@ export interface ModalStateInterface {
   createBoardModalOpen: () => void;
   isOpenReportModal: boolean;
   openReportModal: () => void;
+  openFiltersModal: () => void;
+  isOpenFiltersModal: boolean;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -85,6 +87,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   sharePinData: '',
   isOpenMenuAsideSettingsResponsive: false,
   isOpenReportModal: false,
+  isOpenFiltersModal: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -229,6 +232,11 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   openReportModal: () => {
     set((state) => ({
       isOpenReportModal: !state.isOpenReportModal,
+    }));
+  },
+  openFiltersModal: () => {
+    set((state) => ({
+      isOpenFiltersModal: !state.isOpenFiltersModal,
     }));
   },
 });

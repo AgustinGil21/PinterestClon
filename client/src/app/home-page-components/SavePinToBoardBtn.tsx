@@ -14,10 +14,19 @@ export const SavePinToBoardBtn = ({
   btnRef,
   pinCard = false,
 }: Props) => {
-  const { updateDataOpenBoardModal, lastBoard, setDynamicModal } =
-    useAppsStore();
+  const {
+    updateDataOpenBoardModal,
+    lastBoard,
+    setDynamicModal,
+    isAuth,
+    openRegisterModal,
+  } = useAppsStore();
 
   const handleModalOpen = () => {
+    if (!isAuth) {
+      openRegisterModal();
+      return;
+    }
     if (pinId) updateDataOpenBoardModal(pinId, pinBody);
 
     setDynamicModal(btnRef);

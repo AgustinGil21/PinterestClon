@@ -73,7 +73,7 @@ const ModalSearch = ({
       <div className='fixed inset-0 bg-black opacity-50 z-40 top-[62px]'></div>
       <div
         ref={modalRef}
-        className={` bg-white dark:bg-gray-900 w-[100%]  h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[100] py-2  ${
+        className={` bg-white dark:bg-gray-900 w-[100%]  h-auto min-h-[108px] max-h-[670px] overflow-y-auto rounded-b-xl z-[40] py-2  ${
           isMobile
             ? 'w-full left-0 fixed top-[61px]'
             : 'w-[100%] left-[46%] translate-x-[-46%] absolute top-[45px]'
