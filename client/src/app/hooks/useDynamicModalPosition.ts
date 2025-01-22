@@ -32,6 +32,9 @@ export const useDynamicModalPosition = ({
   useEffect(() => {
     if (!btnRef.current || !modalHeight || !modalWidth) return;
 
+    const scrollY = window.scrollY;
+    const viewportBottom = scrollY + window.innerHeight;
+
     let x = btnLeft;
     let y = btnBottom + btnMargin;
 
@@ -47,13 +50,14 @@ export const useDynamicModalPosition = ({
     }
 
     // Si se sale por abajo
-    if (y + modalHeight > window.innerHeight) {
+    if (y + modalHeight > viewportBottom) {
       y = btnTop - modalHeight - btnMargin;
     }
 
-    // Si se sale por arriba
-    if (y < 0) {
-      y = padding;
+    // Si se sale por arriba o queda fuera
+    // del viewport por el scroll
+    if (y < scrollY + padding) {
+      y = scrollY + padding;
     }
 
     setPosition({ x, y });
@@ -65,6 +69,7 @@ export const useDynamicModalPosition = ({
     modalHeight,
     modalWidth,
     btnMargin,
+    padding,
   ]);
 
   return position;

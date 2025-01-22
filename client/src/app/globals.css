@@ -509,6 +509,12 @@
   }
 }
 
+/* Swiper */
+
+.swiper-navigation-btn-disabled {
+  display: none;
+}
+
 /* Media queries */
 
 @media (max-width: 1270px) {
