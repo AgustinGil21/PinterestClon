@@ -35,6 +35,7 @@ const CreateBoardModal = ({
     setDynamicModal,
     createBoardModalOpen,
     isCreateBoardModalOpen,
+    setToastNotification,
   } = useAppsStore();
 
   const { errors, register, handleSubmit, watch } = useFormHook({
@@ -48,6 +49,11 @@ const CreateBoardModal = ({
     };
     createBoard(dataToSubmit);
     createBoardModalOpen();
+    setToastNotification({
+      status: 'success',
+      action: 'create',
+      type: 'board',
+    });
   };
 
   const handleChange = ({ key, value }: IHandleChange) => {};

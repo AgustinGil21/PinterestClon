@@ -28,7 +28,7 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
       >
         <input
           type='file'
-          accept='image/jpeg'
+          accept='image/jpeg, image/png, image/webp'
           {...register('imagePin', {
             onChange: handleFileChangeWrapper,
           })}

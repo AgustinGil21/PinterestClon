@@ -82,6 +82,7 @@ export const fetchUserLoggedAdapter =
           name: response.name,
           surname: response.surname,
           avatar: response.avatar ?? null,
+          lang: response.lang,
         };
       }
 

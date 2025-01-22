@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface Props {

@@ -4,6 +4,7 @@ import MessengerIcon from '@/app/interfaces/components/icons/MessengerIcon';
 import TwitterIcon from '@/app/interfaces/components/icons/TwitterIcon';
 import WhatsappIcon from '@/app/interfaces/components/icons/WhatsappIcon';
 import CopyUrl from '@/app/interfaces/components/icons/CopyUrl';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface Props {
   data?: string;
@@ -12,6 +13,7 @@ interface Props {
 
 export const ShareComponent = ({ data, endpoint }: Props) => {
   const [copied, setCopied] = useState(false);
+  const { setToastNotification } = useAppsStore();
 
   const openSocialMedia = (url: string) => {
     window.open(url, '_blank');
@@ -24,6 +26,11 @@ export const ShareComponent = ({ data, endpoint }: Props) => {
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    });
+    setToastNotification({
+      status: 'success',
+      type: 'link',
+      action: 'copy',
     });
   };
 

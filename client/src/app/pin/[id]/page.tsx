@@ -22,6 +22,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     getLastBoard,
     getSimilarPins,
     similarPins,
+    getBoardsList,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
 
   useEffect(() => {
     getLastBoard();
+    getBoardsList();
   }, []);
 
   useEffect(() => {

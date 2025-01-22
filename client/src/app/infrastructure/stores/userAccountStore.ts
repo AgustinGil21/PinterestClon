@@ -20,6 +20,7 @@ import { patchProfileVisibilityTypeCase } from '@/app/application/use-cases/user
 import { patchAccountManagementCase } from '@/app/application/use-cases/user-edit/patchAccountManagementPassword';
 import { patchAvatarCase } from '@/app/application/use-cases/user-edit/patchAvatar';
 import { deleteAvatarCase } from '@/app/application/use-cases/user-edit/deleteAvatar';
+import { TLang } from '@/app/global-interfaces/global-interfaces';
 
 export interface UserAccountInterface {
   getUserAccountManagement: () => Promise<void>;
@@ -50,6 +51,7 @@ export interface UserAccountInterface {
   ) => Promise<void>;
   patchAvatar: (data: UserPatchAvatar) => Promise<void>;
   deleteAvatar: () => void;
+  userLang: TLang;
 }
 
 export const createUserAccountStore: StateCreator<UserAccountInterface> = (
@@ -57,6 +59,7 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
   get
 ) => ({
   isAuth: false,
+  userLang: 'en',
 
   userPublicData: {
     avatar_background: '',
@@ -67,6 +70,7 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
     name: '',
     surname: '',
     avatar: null,
+    lang: '',
   },
 
   userSettingsEditProfile: {
@@ -101,6 +105,7 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
       set({
         isAuth: true,
         userPublicData: response,
+        userLang: response.lang,
       });
     } else {
       set({

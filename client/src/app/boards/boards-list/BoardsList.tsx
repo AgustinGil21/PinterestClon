@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import BoardsListHeader from './BoardsListHeader';
 import BoardsListResults, { ListOfBoards } from './BoardsListResults';
 import BoardListProfileCard from './BoardListProfileCard';
@@ -22,12 +22,20 @@ const BoardsList = ({ boards }: Props) => {
     setDynamicModal,
     closeDynamicModal,
     createBoardModalOpen,
+    getBoardsList,
+    getLastBoard,
   } = useAppsStore();
 
   const handleClick = () => {
     createBoardModalOpen();
     closeDynamicModal();
+    getBoardsList();
+    getLastBoard();
   };
+
+  useEffect(() => {
+    getBoardsList();
+  }, []);
 
   return (
     <>

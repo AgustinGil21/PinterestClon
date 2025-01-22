@@ -307,25 +307,28 @@ export default class BoardsModel {
     const response = await pool.query(
       `
     SELECT
-      b.name, 
-      b.id,
-      CASE 
+    b.name, 
+    b.id,
+    CASE 
         WHEN b.cover IS NOT NULL THEN b.cover
         ELSE NULL
-      END AS cover,
-      CASE 
+    END AS cover,
+    CASE 
         WHEN b.cover IS NULL THEN (
-          SELECT p.body
-          FROM board_posts bp 
-          JOIN posts p ON bp.post_id = p.id 
-          WHERE bp.board_id = b.id
-          ORDER BY bp.created_at ASC
-          LIMIT 1
+            SELECT p.body
+            FROM board_posts bp 
+            JOIN posts p ON bp.post_id = p.id 
+            WHERE bp.board_id = b.id
+            ORDER BY bp.created_at DESC
+            LIMIT 1
         )
         ELSE NULL
-      END AS collage
+    END AS collage
     FROM boards b
-    WHERE b.user_id = $1;
+    LEFT JOIN board_posts bp ON b.id = bp.board_id
+    WHERE b.user_id = $1
+    GROUP BY b.id
+    ORDER BY MAX(bp.created_at) DESC, b.created_at ASC;
     `,
       [id]
     );

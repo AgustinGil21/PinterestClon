@@ -84,14 +84,14 @@ export default function RootLayout({
         <main className={`flex pt-16 relative `}>
           {isAuth && routesWithoutAside.includes(pathname) && <AsideConfig />}
           {children}
-          {toastNotificationContent && (
+          {toastNotificationContent?.status && (
             <ToastNotification
-              key={toastNotificationContent}
+              key={`${toastNotificationContent.status}:${toastNotificationContent.type}:${toastNotificationContent.action}`}
               content={toastNotificationContent}
             />
           )}
 
-          {dynamicModalIsOpen && <BoardsListModal />}
+          <BoardsListModal />
           <SharePinModal />
         </main>
       </body>

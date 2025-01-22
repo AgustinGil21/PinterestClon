@@ -1,17 +1,22 @@
-import { TToastNotification } from '@/app/global-interfaces/global-interfaces';
+import { IToastNotificationProps } from '@/app/global-interfaces/global-interfaces';
 import { StateCreator } from 'zustand';
 
 export interface INotificationsStore {
-  toastNotificationContent: TToastNotification;
-  setToastNotification: (value: TToastNotification) => void;
+  toastNotificationContent?: IToastNotificationProps;
+  setToastNotification: (value: IToastNotificationProps) => void;
 }
 
 export const createNotificationsStore: StateCreator<INotificationsStore> = (
   set,
   get
 ) => ({
-  toastNotificationContent: '',
+  toastNotificationContent: undefined,
 
-  setToastNotification: (value: TToastNotification) =>
-    set({ toastNotificationContent: value }),
+  setToastNotification: (value: IToastNotificationProps) => {
+    set({ toastNotificationContent: value });
+
+    setTimeout(() => {
+      set({ toastNotificationContent: undefined });
+    }, 2250);
+  },
 });

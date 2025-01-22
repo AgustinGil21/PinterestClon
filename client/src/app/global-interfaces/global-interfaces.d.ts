@@ -9,17 +9,37 @@ export type TInteraction =
   | 'comments'
   | 'notifications';
 
-type Type = 'message' | 'pin' | 'board' | 'comment' | 'profile' | 'user';
+type TType =
+  | 'message'
+  | 'pin'
+  | 'board'
+  | 'comment'
+  | 'profile'
+  | 'user'
+  | 'link';
 
-type Action =
+type TAction =
   | 'create'
   | 'update'
   | 'delete'
   | 'follow'
   | 'like'
   | 'save'
-  | 'remove';
+  | 'remove'
+  | 'copy'
+  | 'report';
 
-export type TLang = 'es' | 'en' | 'pt';
+export type TStatus = `${'success' | 'error'}`;
 
-export type TToastNotification = `${'?' | '!'}${Type}:${Action}[${Lang}]` | '';
+export interface IToastNotification {
+  lang: TLang;
+  status: TStatus;
+  action: TAction;
+  type: TType;
+}
+
+export interface IToastNotificationProps {
+  status: TStatus;
+  action: TAction;
+  type: TType;
+}

@@ -43,6 +43,7 @@ export const UserDataSchema = z.object({
   name: z.string().min(1).max(50).optional(),
   surname: z.string().min(1).max(50).optional(),
   avatar: z.string().optional(),
+  lang: z.string(),
 });
 
 export const UserSettingsEditProfileSchema = z.object({

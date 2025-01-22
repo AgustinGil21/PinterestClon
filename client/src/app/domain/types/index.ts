@@ -32,6 +32,7 @@ export interface UserPublicData {
   name?: string;
   surname?: string;
   avatar: File | null | any;
+  lang: string;
 }
 
 export interface AvatarData {

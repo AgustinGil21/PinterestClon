@@ -2,10 +2,14 @@ import ClockIcon from '@/app/components/icons/ClockIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const BoardListProfileCard = () => {
-  const { dataOpenBoardModal, savePinToProfile } = useAppsStore();
+  const { dataOpenBoardModal, savePinToProfile, closeDynamicModal } =
+    useAppsStore();
   const { pinId } = dataOpenBoardModal;
 
-  const handleSavePinToProfile = () => savePinToProfile(pinId);
+  const handleSavePinToProfile = () => {
+    savePinToProfile(pinId);
+    closeDynamicModal();
+  };
 
   return (
     <li className='flex items-center p-2 hover:bg-[#e9e9e9] hover:cursor-pointer w-full justify-between rounded-xl gap-2 group '>

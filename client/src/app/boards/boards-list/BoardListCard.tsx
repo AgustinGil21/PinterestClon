@@ -6,7 +6,13 @@ interface Props {
 }
 
 const BoardListCard = ({ board }: Props) => {
-  const { dataOpenBoardModal, addPinToBoard } = useAppsStore();
+  const {
+    dataOpenBoardModal,
+    addPinToBoard,
+    closeDynamicModal,
+    getLastBoard,
+    setToastNotification,
+  } = useAppsStore();
   const { pinId } = dataOpenBoardModal;
 
   let url: string;
@@ -19,8 +25,17 @@ const BoardListCard = ({ board }: Props) => {
     url = '';
   }
 
-  const handleSavePinToBoard = () =>
+  const handleSavePinToBoard = () => {
     addPinToBoard({ pinId, boardId: board.id });
+    closeDynamicModal();
+    getLastBoard();
+    setToastNotification({
+      status: 'success',
+      type: 'pin',
+      action: 'save',
+      lang: 'es',
+    });
+  };
 
   return (
     <li className='flex items-center p-2 hover:bg-[#e9e9e9] hover:cursor-pointer w-full justify-between rounded-xl gap-2 group'>
