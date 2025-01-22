@@ -10,6 +10,12 @@ import LinkNavigate from './Nav/LinkNavigate';
 import { FaBars, FaBarsStaggered, FaXmark } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation';
 
+import ButtonStyled from '../../components/Basic/ButtonStyled';
+import FiltersIcon from '../../components/icons/FiltersIcon';
+
+import CardCategorySlider from '@/app/search/CardCategorySlider';
+import ButtonFilter from '@/app/search/ButtonFilter';
+
 export const Header = () => {
   const {
     isAuth,
@@ -19,6 +25,10 @@ export const Header = () => {
     getLastBoard,
     getBoardsList,
     openMenuAsideSettingsResponsive,
+    isOpenFiltersModal,
+    openFiltersModal,
+    categoriesPin,
+    getCategoriesPin,
     isOpenMenuAsideSettingsResponsive,
   } = useAppsStore();
 
@@ -52,6 +62,7 @@ export const Header = () => {
     fetchData();
     getLastBoard();
     getBoardsList();
+    getCategoriesPin();
   }, [getDataUserLogged, setIsHeaderLoaded]);
 
   useEffect(() => {
@@ -85,32 +96,40 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`w-full h-16 text-white py-3 flex gap-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-[60]  ${
+        className={`w-full h-auto text-white py-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-[60] ${
           shadow ? 'shadow-md' : ''
         }`}
       >
-        <div className='flex items-center gap-2.5'>
-          <div className='hover:bg-slate-200 p-2 rounded-full cursor-pointer mr-1.5'>
-            <PinterestLogo classProps='w-[21px] h-[21px]' />
+        <div className='flex items-center justify-between w-full'>
+          <div className='flex items-center gap-2.5'>
+            <div className='hover:bg-slate-200 p-2 rounded-full cursor-pointer mr-1.5'>
+              <PinterestLogo classProps='w-[21px] h-[21px]' />
+            </div>
+            {!isMobileView && <NavUser loginAuth={isAuth} />}
           </div>
-          {!isMobileView && <NavUser loginAuth={isAuth} />}
+          <SearchInput />
+          <div className='hidden md:block mx-2'>
+            {isAuth ? <UserLoggedIn /> : <HeaderAuth />}
+          </div>
+          {isAuth && (
+            <div
+              className={`md:hidden min-w-[40px] min-h-[40px] hover:bg-slate-200 rounded-full relative flex justify-center items-center cursor-pointer ${
+                pathname !== '/edit-user' && 'hidden'
+              }`}
+              onClick={openMenuAsideSettingsResponsive}
+            >
+              {isOpenMenuAsideSettingsResponsive ? (
+                <FaXmark size={25} color='black' />
+              ) : (
+                <FaBarsStaggered size={20} color='black' />
+              )}
+            </div>
+          )}
         </div>
-        <SearchInput />
-        <div className=' hidden md:block'>
-          {isAuth ? <UserLoggedIn /> : <HeaderAuth />}
-        </div>
-        {isAuth && (
-          <div
-            className={` md:hidden min-w-[40px] min-h-[40px]  hover:bg-slate-200 rounded-full relative flex justify-center items-center cursor-pointer ${
-              pathname !== '/edit-user' && 'hidden'
-            }`}
-            onClick={openMenuAsideSettingsResponsive}
-          >
-            {isOpenMenuAsideSettingsResponsive ? (
-              <FaXmark size={25} color='black' />
-            ) : (
-              <FaBarsStaggered size={20} color='black' />
-            )}
+        {pathname == '/search' && (
+          <div className='w-full gap-3 mt-4 flex flex-row items-center'>
+            <ButtonFilter />
+            <CardCategorySlider />
           </div>
         )}
       </header>

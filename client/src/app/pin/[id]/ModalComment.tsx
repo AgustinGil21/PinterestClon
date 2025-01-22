@@ -21,8 +21,12 @@ const ModalComment = ({
   isModalOpen,
   top = false,
 }: ModalCommentInterface) => {
-  const { postDeleteComment, updateStateCommentsThenDelete, commentsState } =
-    useAppsStore();
+  const {
+    postDeleteComment,
+    updateStateCommentsThenDelete,
+    commentsState,
+    openReportModal,
+  } = useAppsStore();
 
   const handleDelete = () => {
     postDeleteComment(elem.id);
@@ -60,7 +64,10 @@ const ModalComment = ({
           Eliminar
         </ButtonStyled>
       ) : (
-        <ButtonStyled className='text-black p-2 w-full rounded-lg !text-[12px] font-semibold hover:bg-gray-100'>
+        <ButtonStyled
+          className='text-black p-2 w-full rounded-lg !text-[12px] font-semibold hover:bg-gray-100'
+          handleClick={openReportModal}
+        >
           Reportar
         </ButtonStyled>
       )}

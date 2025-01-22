@@ -5,9 +5,19 @@ interface Props {
 }
 
 export const SavePinBtn = ({ pinId }: Props) => {
-  const { lastBoard, addPinToBoard, savePinToProfile } = useAppsStore();
+  const {
+    lastBoard,
+    addPinToBoard,
+    savePinToProfile,
+    isAuth,
+    openRegisterModal,
+  } = useAppsStore();
 
   const handleSavePin = () => {
+    if (!isAuth) {
+      openRegisterModal;
+      return;
+    }
     if (!pinId) return;
 
     if (lastBoard.id) {
