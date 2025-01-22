@@ -1,0 +1,314 @@
+{
+  "header": {
+    "buttons": {
+      "home": "Inicio",
+      "explore": "Explorar",
+      "create": "Crear",
+      "register": "Registrarse",
+      "login": "Iniciar sesión",
+      "logout": "Cerrar sesión",
+      "avatar": "Tu perfil",
+      "arrow-down": "Cuentas y mas opciones"
+    },
+    "modal": {
+      "currently-in": "Actualmente en",
+      "options": "Opciones",
+      "settings": "Configuración",
+      "clone-info": "Información sobre el clon",
+      "logout": "Salir",
+      "version": "Versión"
+    },
+    "search-input": {
+      "placeholder": "Buscar",
+      "modal": {
+        "recent": "Búsquedas recientes",
+        "ideas-for-you": "Ideas para tí",
+        "popular": "Populares en Pinterest"
+      }
+    }
+  },
+  "data-devs": {
+    "text": "Creado por",
+    "tooltip": "Más"
+  },
+  "pin": {
+    "save-btn": "Guardar",
+    "more-options": {
+      "download": "Descargar imagen",
+      "report": "Reportar pin",
+      "tooltip": "Más opciones"
+    },
+    "like": "Reaccionar"
+  },
+  "share": {
+    "text": "Compartir",
+    "copy": "Copiar enlace",
+    "copied": "Enlace copiado"
+  },
+  "comment": {
+    "like": "Me encanta",
+    "more-options": {
+      "report": "Reportar",
+      "delete": "Eliminar"
+    },
+    "show-more": "Ver más",
+    "reply": "Responder",
+    "input-placeholder": "Agregar un comentario"
+  },
+  "user": {
+    "buttons": {
+      "follow": "Seguir",
+      "following": "Siguiendo",
+      "share": "Compartir",
+      "edit": "Editar perfil",
+      "created": "Creados",
+      "saved": "Guardados",
+      "message": "Mensaje",
+      "its-you": "¡Eres tú!"
+    },
+    "profile-options": {
+      "text": "Opciones del perfil",
+      "block": "Bloquear",
+      "report": "Reportar"
+    }
+  },
+  "explore": {
+    "title": "Sigue inspirándote",
+    "footer": {
+      "title": "¡Es todo por hoy!",
+      "subtitle": "Vuelve mañana para encontrar más inspiración",
+      "button": "Ir al feed de inicio"
+    }
+  },
+  "aside-settings": {
+    "edit-profile": "Editar Perfil",
+    "account-management": "Administración de la cuenta",
+    "privacy": "Privacidad y datos",
+    "security": "Seguridad"
+  },
+  "footer-settings": {
+    "reset": "Restablecer",
+    "save": "Guardar"
+  },
+  "edit-profile": {
+    "title": "Editar Perfil",
+    "description": "Mantén privados tus datos personales. Cualquier persona que pueda ver tu perfil podrá ver la información que agregues aquí.",
+    "avatar": {
+      "label": "Foto",
+      "change": "Cambiar"
+    },
+    "name": {
+      "label": "Nombre"
+    },
+    "surname": {
+      "label": "Apellido(s)"
+    },
+    "about": {
+      "label": "Información",
+      "placeholder": "Cuenta tu historia"
+    },
+    "website": {
+      "label": "Sitio web",
+      "description": "Agrega tu web o sitio de contacto para que las personas puedan conocerte mejor y seguir tus actualizaciones. Compartir tu presencia en línea permitirá que otros aprendan más sobre ti."
+    },
+    "username": {
+      "label": "Nombre de usuario"
+    }
+  },
+  "account-management": {
+    "title": "Administración de la cuenta",
+    "description": "Modifica tu información personal o el tipo de cuenta.",
+    "your-account": {
+      "title": "Tu cuenta",
+      "label": {
+        "email-address": "Correo electrónico",
+        "private": "Privado"
+      }
+    },
+    "password": {
+      "title": "Contraseña",
+      "description": "Cambiar la contraseña en Pinterest implica actualizar la clave que utilizas para acceder a tu cuenta.",
+      "change-password": "Cambiar contraseña"
+    },
+    "business-account": {
+      "title": "Convertir en una cuenta para empresa",
+      "description": "Con una cuenta para empresa, tendrás acceso a herramientas como anuncios y analytics para hacer crecer tu negocio en Pinterest.",
+      "convert-account": "Convertir cuenta"
+    },
+    "personal-info": {
+      "title": "Información personal",
+      "label": "Fecha de nacimiento",
+      "gender": {
+        "label": "Género",
+        "female": "Femenino",
+        "male": "Masculino",
+        "non-binary": "No binario"
+      },
+      "country": "País/región",
+      "lang": "Idioma"
+    },
+    "eliminate-account": {
+      "title": "Desactivación y eliminación",
+      "subtitle": "Eliminar datos y tu cuenta",
+      "description": "Elimina permanentemente tus datos y todo lo asociado a tu cuenta",
+      "delete-account": {
+        "button": "Eliminar cuenta",
+        "modal": {
+          "title": "¿Estás seguro de que deseas eliminar tu cuenta?",
+          "description": "Eliminar tu cuenta es una acción irreversible que eliminará todos tus datos y configuraciones asociados con tu perfil.",
+          "confirm": "Confirmar",
+          "cancel": "Cancelar"
+        }
+      }
+    }
+  },
+  "privacy": {
+    "title": "Visibilidad del perfil",
+    "description": "Administra cómo se puede ver tu perfil dentro y fuera de Pinterest.",
+    "private": {
+      "title": "Perfil privado",
+      "description": "Cuando tu perfil es privado, solo las personas que apruebes podrán ver tu perfil, Pines, tableros, seguidores y listas de seguidos. Obtén más información."
+    }
+  },
+  "security": {
+    "title": "Seguridad",
+    "description": "Activa la autenticación de dos factores y controla la lista de dispositivos conectados como medidas de seguridad adicionales para mantener seguros tus Pines, tus tableros y tu cuenta.",
+    "two-factor-authentication": {
+      "title": "Autenticación de dos factores",
+      "description": "Esto hará que tu cuenta sea aún más segura. Junto con la contraseña, deberás ingresar el código secreto que enviaremos por mensaje de texto a tu teléfono cada vez que inicies sesión.",
+      "require-code": "Solicitar código al iniciar sesión"
+    }
+  },
+  "loading": "¡Estamos agregando nuevas ideas a tu feed de inicio!",
+  "create-pin": {
+    "title-create": "Crear pin",
+    "title-edit": "Editar pin",
+    "aside": {
+      "posts": "Publicaciones",
+      "create": "Crear nuevo"
+    },
+    "form": {
+      "publish": "Publicar",
+      "image": {
+        "reset": "Restablecer",
+        "explanation": "Elige un archivo o arrástralo y colócalo aquí",
+        "recommendation": "Recomendamos usar archivos .jpg de alta calidad con un tamaño inferior a 20mb"
+      },
+      "alt-text": {
+        "label": "Texto alternativo",
+        "placeholder": "Agregar un texto alternativo"
+      },
+      "title": {
+        "label": "Título",
+        "placeholder": "Agregar un título"
+      },
+      "description": {
+        "label": "Descripción",
+        "placeholder": "Agregar descripción detallada"
+      },
+      "link": {
+        "label": "Enlace",
+        "placeholder": "Agregar un enlace"
+      },
+      "categories": {
+        "label": "Etiqueta de categoría",
+        "placeholder": "Buscar etiqueta"
+      },
+      "more-options": {
+        "title": "Más opciones",
+        "label": "Contenido adulto",
+        "description": "El contenido adulto incluye materiales, como imágenes, videos o textos, diseñados específicamente para audiencias mayores de edad."
+      }
+    }
+  },
+  "filters": {
+    "main-button": "Filtros",
+    "boards": "Tableros",
+    "pins": "Todos los pines",
+    "users": "Perfiles",
+    "apply": "Aplicar",
+    "reset": "Restablecer"
+  },
+  "categories": {
+    "sports": "Deportes",
+    "health": "Salud",
+    "technology": "Tecnología",
+    "entertainment": "Entretenimiento",
+    "food": "Comida",
+    "desserts": "Postres",
+    "haircuts": "Cortes de pelo",
+    "vehicles": "Vehículos",
+    "beauty": "Belleza",
+    "fashion": "Moda",
+    "travel": "Viajes",
+    "tattoos": "Tatuajes",
+    "art": "Arte",
+    "design": "Diseño",
+    "quotes": "Frases",
+    "home-decoration": "Decoración de Hogares",
+    "animals": "Animales",
+    "nature": "Naturaleza",
+    "funny": "Divertido",
+    "love": "Amor",
+    "wallpapers": "Fondos",
+    "anime": "Anime",
+    "drinks": "Bebidas"
+  },
+  "auth": {
+    "login": {
+      "button": "Iniciar sesión",
+      "title": "Inicia sesión para ver más",
+      "email_address": {
+        "label": "Correo electrónico",
+        "placeholder": "Email"
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Contraseña",
+        "forgot": "¿Olvidaste tu contraseña?"
+      },
+      "about": "Esta web es un clon de Pinterest sin fines de lucro, desarrollado por",
+      "go-to-register": "¿Aún no estás en Pinterest? Regístrate"
+    },
+    "register": {
+      "page-session": {
+        "title": "Acceso gratuito e ilimitado a las mejores ideas del mundo",
+        "subtitle": "Regístrate para ver más",
+        "email_address": {
+          "label": "Correo electrónico",
+          "placeholder": "Email"
+        },
+        "password": {
+          "label": "Contraseña",
+          "placeholder": "Contraseña"
+        },
+        "birthdate": "Fecha de nacimiento",
+        "or": "O",
+        "about": "Esta web es un clon de Pinterest sin fines de lucro, desarrollado por",
+        "go-to-login": "¿Ya eres miembro? Iniciar sesión",
+        "button": "Continuar"
+      },
+      "page-gender": {
+        "title": "¿Cuál es tu género?",
+        "subtitle": "Esto nos ayuda a encontrar contenido mas relevante para ti. No mostraremos esto en tu perfil.",
+        "gender": {
+          "female": "Femenino",
+          "male": "Masculino",
+          "non-binary": "No binario"
+        },
+        "button": "Siguiente"
+      },
+      "page-lang": {
+        "title": "¿Cuál es tu idioma y donde vives?",
+        "subtitle": "Esto nos ayuda a encontrar contenido mas relevante para ti. No mostraremos esto en tu perfil.",
+        "button": "Siguiente"
+      },
+      "page-avatar": {
+        "title": "Foto avatar",
+        "label": "Nombre de usuario",
+        "button": "Finalizar"
+      }
+    }
+  },
+  "errors": {}
+}

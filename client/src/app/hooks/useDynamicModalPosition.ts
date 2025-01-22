@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useGetElementBorderDistance } from './useGetElementBorderDistance';
-import { isSpaceAvailable } from '../libs/isSpaceAvailable';
 
 interface Props {
   btnRef: React.RefObject<HTMLButtonElement>;
