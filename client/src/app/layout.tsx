@@ -36,6 +36,8 @@ export default function RootLayout({
     isOpenMenuAsideSettingsResponsive,
     isAuth,
     dynamicModalIsOpen,
+    userLang,
+    getTranslation,
   } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
@@ -53,6 +55,10 @@ export default function RootLayout({
   const handleHeaderLoaded = () => {
     setIsHeaderLoaded(true);
   };
+
+  useEffect(() => {
+    getTranslation(userLang);
+  }, [userLang]);
 
   useEffect(() => {
     if (userPublicData) {

@@ -18,6 +18,7 @@ const SearchInput = () => {
     previousPin,
     setPage,
     page,
+    t,
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
   const [modalState, setModal] = useState(false);
@@ -99,7 +100,7 @@ const SearchInput = () => {
           className={`w-full p-2 py-[10px] hover:bg-gray-200 ${
             isFocused ? 'px-4' : 'px-8'
           } text-sm rounded-3xl bg-searchBg focus:outline-search focus:ring-[3px] focus:outline-none font-sans`}
-          placeholder='Buscar'
+          placeholder={t?.header['search-input'].placeholder}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onClick={() => setModal(true)}

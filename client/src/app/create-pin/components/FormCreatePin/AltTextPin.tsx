@@ -25,7 +25,8 @@ const AltTextPin = ({
   getValues,
   setValue,
 }: AltTextPinInterface) => {
-  const { dataCreatePin, updateStateCreatePin, imagePreview } = useAppsStore();
+  const { dataCreatePin, updateStateCreatePin, imagePreview, t } =
+    useAppsStore();
   const isReadOnly = !imagePreview;
 
   const altTextRef = watch('alt_text');
@@ -46,9 +47,11 @@ const AltTextPin = ({
     <InputLabelStyled
       value={dataCreatePin.alt_text}
       infoName='alt_text'
-      textLabel='Texto Alt'
+      textLabel={t?.['create-pin'].form['alt-text'].label || 'Texto Alt'}
       type='text'
-      placeHolder='Agregar un texto alt'
+      placeHolder={
+        t?.['create-pin'].form['alt-text'].placeholder || 'Agregar un texto alt'
+      }
       readOnly={isReadOnly}
       register={register}
       errors={errors.alt_text}

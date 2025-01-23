@@ -21,7 +21,7 @@ const ModalPlusOptionPin = ({
   styles,
   its_yours = false,
 }: ModalPlusOptionPinInterface) => {
-  const { openReportModal } = useAppsStore();
+  const { openReportModal, t } = useAppsStore();
 
   const handleDownload = () => {
     if (body) {
@@ -58,14 +58,14 @@ const ModalPlusOptionPin = ({
             className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
             handleClick={handleDownload}
           >
-            Descargar imagen
+            {t?.pin['more-options'].download || 'Descargar imagen'}
           </ButtonStyled>
           {!its_yours && (
             <ButtonStyled
               className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
               handleClick={handleClick}
             >
-              Reportar pin
+              {t?.pin['more-options'].report || 'Reportar pin'}
             </ButtonStyled>
           )}
         </div>

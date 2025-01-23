@@ -10,7 +10,7 @@ interface CardCategoryInterface {
 const CardCategoryModal = ({ elem, setModal }: CardCategoryInterface) => {
   const router = useRouter();
   let limit = 25;
-  const { updateDataSearch, getSearchPinForCategory } = useAppsStore();
+  const { updateDataSearch, getSearchPinForCategory, t } = useAppsStore();
 
   const handleClick = async (elem: CategoriesPin) => {
     updateDataSearch('value', '');
@@ -30,11 +30,11 @@ const CardCategoryModal = ({ elem, setModal }: CardCategoryInterface) => {
         style={{ backgroundImage: `url(${elem.poster})` }}
       >
         <p className='invisible absolute font-bold text-white text-lg z-20 text-border'>
-          {elem.name}
+          {t?.categories?.[`${elem.name}`] || elem.name}
         </p>
       </div>
       <div className='flex-grow p-1 flex justify-start items-center font-semibold py-[43px] h-full'>
-        <p className=''>{elem.name}</p>
+        <p className=''>{t?.categories?.[`${elem.name}`] || elem.name}</p>
       </div>
       <div className='absolute inset-0 bg-black opacity-0 transition duration-100 hover:opacity-20 rounded-xl' />
     </div>

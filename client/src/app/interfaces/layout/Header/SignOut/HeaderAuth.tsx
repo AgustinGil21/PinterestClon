@@ -6,8 +6,10 @@ import SwitchMode from '../../SwitchMode';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 import StartLog from './StartLog';
 import StartRegister from './StartRegister';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const HeaderAuth = () => {
+  const { t } = useAppsStore();
   const [modal, setModal] = useState(false);
   const { modalRef } = useCloseModal({ setModal });
 
@@ -31,7 +33,7 @@ export const HeaderAuth = () => {
                 href={'#'}
                 classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 px-2 rounded-lg cursor-pointer font-semibold'
               >
-                Información sobre el clon
+                {t?.header.modal['clone-info'] || 'Información del clon'}
               </LinkNavigate>
             </div>
             <hr />

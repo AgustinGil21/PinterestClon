@@ -6,12 +6,12 @@ interface LabelsSearchInterface {
 }
 
 const LabelsSearch = ({ handleClick }: LabelsSearchInterface) => {
-  const { valuesSearch, removeValueFromSearch } = useAppsStore();
+  const { valuesSearch, removeValueFromSearch, t } = useAppsStore();
 
   return (
     <>
       <span className='font-semibold text-sm my-4 dark:text-white'>
-        Búsquedas recientes
+        {t?.header['search-input'].modal.recent}
       </span>
       <div className='flex gap-1 flex-row flex-wrap mt-2'>
         {valuesSearch.map((elem, index) => (

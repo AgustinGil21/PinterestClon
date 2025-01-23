@@ -9,7 +9,7 @@ interface SwitchPinAdultContentInterface {
 const SwitchPinAdultContent = ({
   register,
 }: SwitchPinAdultContentInterface) => {
-  const { dataCreatePin, updateStateCreatePin } = useAppsStore();
+  const { dataCreatePin, updateStateCreatePin, t } = useAppsStore();
 
   const handleChange = (checked: boolean) => {
     updateStateCreatePin('adult_content', checked);
@@ -24,11 +24,13 @@ const SwitchPinAdultContent = ({
         />
       </div>
       <div className='flex flex-col gap-1'>
-        <span className='text-[13px] dark:text-white '>Contenido adulto</span>
+        <span className='text-[13px] dark:text-white '>
+          {t?.['create-pin'].form['more-options'].label || 'Contenido adulto'}
+        </span>
 
         <p className='text-[10px] dark:text-white'>
-          El contenido adulto incluye materiales, como imágenes, videos o
-          textos, diseñados específicamente para audiencias mayores de edad.{' '}
+          {t?.['create-pin'].form['more-options'].description ||
+            'El contenido adulto incluye materiales, como imágenes, videos o textos, diseñados específicamente para audiencias mayores de edad.'}
         </p>
       </div>
     </div>

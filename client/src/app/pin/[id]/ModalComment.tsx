@@ -26,6 +26,7 @@ const ModalComment = ({
     updateStateCommentsThenDelete,
     commentsState,
     openReportModal,
+    t,
   } = useAppsStore();
 
   const handleDelete = () => {
@@ -61,14 +62,14 @@ const ModalComment = ({
           handleClick={handleDelete}
           className='text-black p-2 w-full rounded-lg text-sm font-semibold !text-[12px] hover:bg-gray-100'
         >
-          Eliminar
+          {t?.comment['more-options'].delete || 'Eliminar'}
         </ButtonStyled>
       ) : (
         <ButtonStyled
           className='text-black p-2 w-full rounded-lg !text-[12px] font-semibold hover:bg-gray-100'
           handleClick={openReportModal}
         >
-          Reportar
+          {t?.comment['more-options'].report || 'Reportar'}
         </ButtonStyled>
       )}
     </Modal>

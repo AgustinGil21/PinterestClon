@@ -19,7 +19,7 @@ const AsideCreateOpen = ({
   reset,
   onClick,
 }: AsideCreateOpenInterface) => {
-  const { getPreviousPins, previousPin, setImagePreview, shouldReload } =
+  const { getPreviousPins, previousPin, setImagePreview, shouldReload, t } =
     useAppsStore();
 
   const pinsCount = numberFormatter(previousPin.length);
@@ -43,7 +43,7 @@ const AsideCreateOpen = ({
         <div className='flex flex-col gap-5 justify-between h-full'>
           <div className='flex justify-between items-center'>
             <h3 className='font-semibold dark:text-white text-md'>
-              Publicaciones ({pinsCount})
+              {t?.['create-pin'].aside.posts || 'Publicaciones'} ({pinsCount})
             </h3>
             <button
               className='hover:bg-slate-100 dark:hover:bg-black rounded-full p-2.5 cursor-pointer'
@@ -56,7 +56,7 @@ const AsideCreateOpen = ({
             className='bg-buttonGreyBg font-semibold w-full text-[1.1rem] hover:bg-gray-300 py-3.5 max-w-[300px] self-center'
             handleClick={handleClickNewPin}
           >
-            Crear nuevo
+            {t?.['create-pin'].aside.create || 'Crear nuevo'}
           </ButtonStyled>
         </div>
       </div>

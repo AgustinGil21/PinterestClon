@@ -71,7 +71,8 @@
       "text": "Opciones del perfil",
       "block": "Bloquear",
       "report": "Reportar"
-    }
+    },
+    "private": "Esta cuenta es privada"
   },
   "explore": {
     "title": "Sigue inspirándote",
@@ -188,8 +189,22 @@
       "posts": "Publicaciones",
       "create": "Crear nuevo"
     },
+    "prev-pins": {
+      "options": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      }
+    },
+    "delete-modal": {
+      "title": "¿Quieres eliminar la publicación?",
+      "description": "Se perderán todas las interacciones asociadas, como comentarios, me gusta o compartidos.",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
+    },
     "form": {
       "publish": "Publicar",
+      "saving": "Guardando cambios",
+      "creating": "Creando pin",
       "image": {
         "reset": "Restablecer",
         "explanation": "Elige un archivo o arrástralo y colócalo aquí",
@@ -213,7 +228,9 @@
       },
       "categories": {
         "label": "Etiqueta de categoría",
-        "placeholder": "Buscar etiqueta"
+        "placeholder": "Buscar etiqueta",
+        "message": "No te preocupes. Los demás usuarios no verán tus etiquetas.",
+        "results": "Etiquetas coincidentes"
       },
       "more-options": {
         "title": "Más opciones",
@@ -231,29 +248,29 @@
     "reset": "Restablecer"
   },
   "categories": {
-    "sports": "Deportes",
-    "health": "Salud",
-    "technology": "Tecnología",
-    "entertainment": "Entretenimiento",
-    "food": "Comida",
-    "desserts": "Postres",
-    "haircuts": "Cortes de pelo",
-    "vehicles": "Vehículos",
-    "beauty": "Belleza",
-    "fashion": "Moda",
-    "travel": "Viajes",
-    "tattoos": "Tatuajes",
-    "art": "Arte",
-    "design": "Diseño",
-    "quotes": "Frases",
-    "home-decoration": "Decoración de Hogares",
-    "animals": "Animales",
-    "nature": "Naturaleza",
-    "funny": "Divertido",
-    "love": "Amor",
-    "wallpapers": "Fondos",
-    "anime": "Anime",
-    "drinks": "Bebidas"
+    "Sports": "Deportes",
+    "Health": "Salud",
+    "Technology": "Tecnología",
+    "Entertainment": "Entretenimiento",
+    "Food": "Comida",
+    "Desserts": "Postres",
+    "Haircuts": "Cortes de pelo",
+    "Vehicles": "Vehículos",
+    "Beauty": "Belleza",
+    "Fashion": "Moda",
+    "Travel": "Viajes",
+    "Tattoos": "Tatuajes",
+    "Art": "Arte",
+    "Design": "Diseño",
+    "Quotes": "Frases",
+    "Home Decoration": "Decoración de Hogares",
+    "Animals": "Animales",
+    "Nature": "Naturaleza",
+    "Funny": "Divertido",
+    "Love": "Amor",
+    "Wallpapers": "Fondos",
+    "Anime": "Anime",
+    "Drinks": "Bebidas"
   },
   "auth": {
     "login": {
@@ -310,6 +327,15 @@
         "button": "Finalizar"
       }
     }
+  },
+  "boards-list": {
+    "profile": "Perfil",
+    "all-boards": "Todos los tableros",
+    "results": "Resultados",
+    "create-board": "Crear tablero",
+    "save": "Guardar",
+    "empty": "No hay tableros disponibles",
+    "empty-typing": "Crea un tablero primero"
   },
   "errors": {}
 }

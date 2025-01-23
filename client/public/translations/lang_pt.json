@@ -25,36 +25,36 @@
         "ideas-for-you": "Ideias para você",
         "popular": "Popular no Pinterest"
       }
-    },
-    "data-devs": {
-      "text": "Criado por",
-      "tooltip": "Mais"
-    },
-    "pin": {
-      "save-btn": "Salvar",
-      "more-options": {
-        "download": "Baixar imagem",
-        "report": "Denunciar pin",
-        "tooltip": "Mais opções"
-      },
-      "like": "Reagir"
-    },
-    "share": {
-      "text": "Compartilhar",
-      "copy": "Copiar link",
-      "copied": "Link copiado"
-    },
-    "comment": {
-      "like": "Amei",
-      "more-options": {
-        "report": "Denunciar",
-        "delete": "Excluir"
-      },
-      "show-more": "Ver mais",
-      "show-less": "Mostrar menos",
-      "reply": "Responder",
-      "input-placeholder": "Adicionar um comentário"
     }
+  },
+  "data-devs": {
+    "text": "Criado por",
+    "tooltip": "Mais"
+  },
+  "pin": {
+    "save-btn": "Salvar",
+    "more-options": {
+      "download": "Baixar imagem",
+      "report": "Denunciar pin",
+      "tooltip": "Mais opções"
+    },
+    "like": "Reagir"
+  },
+  "share": {
+    "text": "Compartilhar",
+    "copy": "Copiar link",
+    "copied": "Link copiado"
+  },
+  "comment": {
+    "like": "Amei",
+    "more-options": {
+      "report": "Denunciar",
+      "delete": "Excluir"
+    },
+    "show-more": "Ver mais",
+    "show-less": "Mostrar menos",
+    "reply": "Responder",
+    "input-placeholder": "Adicionar um comentário"
   },
   "user": {
     "buttons": {
@@ -71,7 +71,8 @@
       "text": "Opções de perfil",
       "block": "Bloquear",
       "report": "Denunciar"
-    }
+    },
+    "private": "Esta conta é privada"
   },
   "explore": {
     "title": "Continue se inspirando",
@@ -188,8 +189,22 @@
       "posts": "Publicações",
       "create": "Criar novo"
     },
+    "prev-pins": {
+      "options": {
+        "edit": "Editar",
+        "delete": "Excluir"
+      }
+    },
+    "delete-modal": {
+      "title": "Você quer excluir a publicação?",
+      "description": "Todas as interações associadas, como comentários, curtidas ou compartilhamentos, serão perdidas.",
+      "cancel": "Cancelar",
+      "delete": "Excluir"
+    },
     "form": {
       "publish": "Publicar",
+      "saving": "Salvando",
+      "creating": "Criando pin",
       "image": {
         "reset": "Redefinir",
         "explanation": "Escolha um arquivo ou arraste e solte aqui",
@@ -213,7 +228,9 @@
       },
       "categories": {
         "label": "Etiqueta de categoria",
-        "placeholder": "Buscar etiqueta"
+        "placeholder": "Buscar etiqueta",
+        "message": "Não se preocupe. Outros usuários não verão suas tags.",
+        "results": "Tags correspondentes"
       },
       "more-options": {
         "title": "Mais opções",
@@ -231,29 +248,29 @@
     "reset": "Redefinir"
   },
   "categories": {
-    "sports": "Esportes",
-    "health": "Saúde",
-    "technology": "Tecnologia",
-    "entertainment": "Entretenimento",
-    "food": "Comida",
-    "desserts": "Sobremesas",
-    "haircuts": "Cortes de cabelo",
-    "vehicles": "Veículos",
-    "beauty": "Beleza",
-    "fashion": "Moda",
-    "travel": "Viagem",
-    "tattoos": "Tatuagens",
-    "art": "Arte",
-    "design": "Design",
-    "quotes": "Frases",
-    "home-decoration": "Decoração de Casa",
-    "animals": "Animais",
-    "nature": "Natureza",
-    "funny": "Engraçado",
-    "love": "Amor",
-    "wallpapers": "Papéis de parede",
-    "anime": "Anime",
-    "drinks": "Bebidas"
+    "Sports": "Esportes",
+    "Health": "Saúde",
+    "Technology": "Tecnologia",
+    "Entertainment": "Entretenimento",
+    "Food": "Comida",
+    "Desserts": "Sobremesas",
+    "Haircuts": "Cortes de cabelo",
+    "Vehicles": "Veículos",
+    "Beauty": "Beleza",
+    "Fashion": "Moda",
+    "Travel": "Viagem",
+    "Tattoos": "Tatuagens",
+    "Art": "Arte",
+    "Design": "Design",
+    "Quotes": "Frases",
+    "Home Decoration": "Decoração de Casa",
+    "Animals": "Animais",
+    "Nature": "Natureza",
+    "Funny": "Engraçado",
+    "Love": "Amor",
+    "Wallpapers": "Papéis de parede",
+    "Anime": "Anime",
+    "Drinks": "Bebidas"
   },
   "auth": {
     "login": {
@@ -310,6 +327,15 @@
         "button": "Concluir"
       }
     }
+  },
+  "boards-list": {
+    "profile": "Perfil",
+    "all-boards": "Todos os quadros",
+    "results": "Resultados",
+    "create-board": "Criar quadro",
+    "save": "Salvar",
+    "empty": "Nenhum quadro disponível",
+    "empty-typing": "Crie um quadro primeiro"
   },
   "errors": {}
 }

@@ -21,7 +21,8 @@ const OptionsComment = ({
   top,
 }: OptionCommentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { isAuth, openRegisterModal, postToggleLikeComment } = useAppsStore();
+  const { isAuth, openRegisterModal, postToggleLikeComment, t } =
+    useAppsStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const likes = Number(elem.likes_count);
@@ -50,11 +51,14 @@ const OptionsComment = ({
   return (
     <div className='flex flex-row gap-2 items-center'>
       <span className='text-gray-500 text-xs font-semibold cursor-pointer hover:underline'>
-        Responder
+        {t?.comment.reply || 'Responder'}
       </span>
       <div className='flex flex-row-reverse gap-1 items-center'>
         {likes > 0 && <Counter value={likes} className='text-black text-xs' />}
-        <Tooltip tooltipText='Me encanta' className='!top-6'>
+        <Tooltip
+          tooltipText={t?.comment.like || 'Me encanta'}
+          className='!top-6'
+        >
           <ButtonStyled
             className='!px-0 !py-0'
             handleClick={handleToggleLikeComment}

@@ -24,11 +24,11 @@ const InteractionSummary = ({
       {numberFirst ? (
         <>
           <span>{formattedNumber}</span>
-          <SingularOrPlural props={{ lang, type, value }} />
+          <SingularOrPlural props={{ type, value }} />
         </>
       ) : (
         <>
-          <SingularOrPlural props={{ lang, type, value }} />
+          <SingularOrPlural props={{ type, value }} />
           <span>{formattedNumber}</span>
         </>
       )}

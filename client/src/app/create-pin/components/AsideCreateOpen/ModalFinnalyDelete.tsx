@@ -21,6 +21,7 @@ const ModalFinnalyDelete = ({
     closeDeletePinModal,
     setShouldReload,
     setImagePreview,
+    t,
   } = useAppsStore();
   const handleClick = () => {
     setOpenModalId(null);
@@ -44,12 +45,12 @@ const ModalFinnalyDelete = ({
         modalRef={modalRef}
       >
         <div className='text-2xl font-semibold text-center dark:text-white'>
-          ¿Quieres eliminar la publicación?
+          {t?.['create-pin']['delete-modal'].title ||
+            '¿Quieres eliminar la publicación?'}
         </div>
         <p className='text-sm text-center dark:text-white'>
-          {' '}
-          Se perderán todas las interacciones asociadas, como comentarios, me
-          gusta o compartidos.
+          {t?.['create-pin']['delete-modal'].description ||
+            'Se perderán todas las interacciones asociadas, como comentarios, me gusta o compartidos.'}
         </p>
         <div className='flex flex-row gap-3 w-full'>
           <ButtonStyled
@@ -57,14 +58,14 @@ const ModalFinnalyDelete = ({
             handleClick={handleClick}
             className='bg-buttonGreyBg  text-black font-semibold w-full hover:bg-gray-300'
           >
-            Cancelar
+            {t?.['create-pin']['delete-modal'].cancel || 'Cancelar'}
           </ButtonStyled>
           <ButtonStyled
             disabled={false}
             handleClick={() => handleClickDelete(elem.id)}
             className='bg-redPinterestBg text-white font-semibold w-full hover:bg-red-800'
           >
-            Eliminar
+            {t?.['create-pin']['delete-modal'].delete || 'Eliminar'}
           </ButtonStyled>
         </div>
       </ModalStyled>

@@ -1,4 +1,5 @@
 import { CategoriesPin, PinCreate } from '@/app/domain/types/pins-structure';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface ModalSearcherCategoriesInterface {
   imagePreview: string | null;
@@ -13,12 +14,16 @@ const ModalSearcherCategories = ({
   handleClick,
   filterCategories,
 }: ModalSearcherCategoriesInterface) => {
+  const { t } = useAppsStore();
+
   return (
     <>
       {isFocused && imagePreview && (
         <div className='absolute rounded-xl shadow-3xl overflow-scroll list-none h-[170px] w-[86%] bg-white z-[100] top-[80px] left-[40px] py-3'>
           <span className='text-[10px] text-gray-500 px-3 '>
-            Etiquetas coincidentes ({filterCategories.length})
+            {t?.['create-pin'].form.categories.results ||
+              'Etiquetas coincidentes'}{' '}
+            ({filterCategories.length})
           </span>
           {filterCategories.map((elem) => (
             <div key={elem.id} className=''>

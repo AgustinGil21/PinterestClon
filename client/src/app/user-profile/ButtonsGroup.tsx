@@ -12,7 +12,7 @@ interface ButtonGroupInterface {
 }
 
 const ButtonsGroup = ({ username }: ButtonGroupInterface) => {
-  const { openDownloadAccountModal, isDownloadAccountOpen } = useAppsStore();
+  const { openDownloadAccountModal, isDownloadAccountOpen, t } = useAppsStore();
 
   const buttonRef = useRef(null);
 
@@ -33,7 +33,7 @@ const ButtonsGroup = ({ username }: ButtonGroupInterface) => {
         handleClick={openDownloadAccountModal}
         btnRef={buttonRef}
       >
-        Compartir
+        {t?.user.buttons.share || 'Compartir'}
         {isDownloadAccountOpen && (
           <ModalShareAccount
             classProps='bottom-[90px] max-w-[390px] w-full absolute top-14 -left-16 min-w-[325px] share-account-modal'
@@ -48,7 +48,7 @@ const ButtonsGroup = ({ username }: ButtonGroupInterface) => {
           type='button'
           className='bg-buttonGreyBg font-semibold py-[12px] hover:bg-gray-300'
         >
-          Editar perfil
+          {t?.user.buttons.edit || 'Editar perfil'}
         </ButtonStyled>
       </Link>
     </div>

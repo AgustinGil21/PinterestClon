@@ -7,6 +7,7 @@ import ModalStyled from '../components/Basic/ModalStyled';
 import GitHubIcon from '../components/icons/GitHubIcon';
 import LinkedinIcon from '../components/icons/LinkedinIcon';
 import useCloseModal from '../hooks/useCloseModal';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const developers = [
   {
@@ -23,6 +24,7 @@ const developers = [
 
 const DataDevs = () => {
   const [modal, setModal] = useState(false);
+  const { t } = useAppsStore();
 
   const { modalRef } = useCloseModal({ setModal });
 
@@ -32,7 +34,10 @@ const DataDevs = () => {
         className='fixed bottom-20 md:bottom-5 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300  flex justify-center items-center'
         onClick={() => setModal(!modal)}
       >
-        <Tooltip tooltipText='Mas' isVisible={modal}>
+        <Tooltip
+          tooltipText={t?.['data-devs'].tooltip || 'Mas'}
+          isVisible={modal}
+        >
           <AnswerIcon />
         </Tooltip>
       </button>
@@ -44,7 +49,9 @@ const DataDevs = () => {
           }
         >
           <div className='flex flex-col text-sm lg:text-md gap-2'>
-            <p className='px-2 pt-2  dark:text-white'>Developed by</p>
+            <p className='px-2 pt-2  dark:text-white'>
+              {t?.['data-devs'].text || 'Desarrollado por'}
+            </p>
             <hr />
             <div>
               <span className='hover:bg-slate-100 dark:hover:bg-gray-900 dark:text-white px-1 py-2 rounded-lg cursor-cell flex justify-between items-center gap-1'>

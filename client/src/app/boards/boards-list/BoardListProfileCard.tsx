@@ -2,7 +2,7 @@ import ClockIcon from '@/app/components/icons/ClockIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const BoardListProfileCard = () => {
-  const { dataOpenBoardModal, savePinToProfile, closeDynamicModal } =
+  const { dataOpenBoardModal, savePinToProfile, closeDynamicModal, t } =
     useAppsStore();
   const { pinId } = dataOpenBoardModal;
 
@@ -18,14 +18,14 @@ const BoardListProfileCard = () => {
           <ClockIcon svgClassName='size-[1.35rem]' />
         </div>
         <h3 className='font-semibold text-ellipsis whitespace-nowrap overflow-hidden max-w-[175px] text-[0.93rem]'>
-          Perfil
+          {t?.['boards-list'].profile || 'Perfil'}
         </h3>
       </div>
       <button
         className='p-[0.5rem_1rem] bg-[#e60023] rounded-3xl text-white font-bold text-[0.9rem]  hover:bg-[#b60000] transition-colors min-w-[67px]'
         onClick={handleSavePinToProfile}
       >
-        Guardar
+        {t?.['boards-list'].save || 'Guardar'}
       </button>
     </li>
   );

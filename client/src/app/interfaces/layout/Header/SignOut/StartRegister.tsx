@@ -12,6 +12,7 @@ const StartRegister = () => {
     isGenderModalOpen,
     isNationalityModalOpen,
     isAvatarModalOpen,
+    t,
   } = useAppsStore();
 
   return (
@@ -22,7 +23,7 @@ const StartRegister = () => {
         }
         handleClick={openRegisterModal}
       >
-        Registrate
+        {t?.header.buttons.register || 'Registrate'}
       </ButtonStyled>
       {isRegisterModalOpen && <RegisterModal />}
       {isGenderModalOpen && <GenderModal />}

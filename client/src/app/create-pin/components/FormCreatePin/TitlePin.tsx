@@ -15,7 +15,8 @@ interface TitlePinInterface {
 }
 
 const TitlePin = ({ register, errors, watch }: TitlePinInterface) => {
-  const { dataCreatePin, updateStateCreatePin, imagePreview } = useAppsStore();
+  const { dataCreatePin, updateStateCreatePin, imagePreview, t } =
+    useAppsStore();
   const isReadOnly = !imagePreview;
   const titleRef = watch('title');
 
@@ -32,9 +33,11 @@ const TitlePin = ({ register, errors, watch }: TitlePinInterface) => {
       errors={errors.title}
       type='text'
       infoName='title'
-      textLabel='Título'
+      textLabel={t?.['create-pin'].form.title.label || 'Título'}
       id='title'
-      placeHolder='Agregar un título'
+      placeHolder={
+        t?.['create-pin'].form.title.placeholder || 'Agregar un título'
+      }
       readOnly={isReadOnly}
       className={` w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm  ${
         isReadOnly

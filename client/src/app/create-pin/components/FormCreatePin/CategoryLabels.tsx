@@ -1,3 +1,4 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import XCategoryCreateClose from '@/app/interfaces/components/icons/XCategoryCreateClose';
 
 interface Category {
@@ -17,6 +18,8 @@ const CategoryLabels = ({
   handleClickDeleteCategory,
   categoriesSelect,
 }: CategoryLabelsInterface) => {
+  const { t } = useAppsStore();
+
   return (
     <>
       {categoriesSelect.length > 0 && (
@@ -27,7 +30,7 @@ const CategoryLabels = ({
               className='text-[12px] bg-black text-white px-4 py-3 rounded-[26px] font-semibold flex flex-row items-center gap-3'
               style={{ backgroundColor: elem.color }}
             >
-              <span> {elem.name}</span>
+              <span> {t?.categories[`${elem.name}`] || elem.name}</span>
               <button onClick={(e) => handleClickDeleteCategory(e, elem.name)}>
                 <XCategoryCreateClose />
               </button>

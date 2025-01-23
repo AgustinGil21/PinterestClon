@@ -9,7 +9,7 @@ import AvatarUser from '../Avatar/AvatarUser';
 
 export const UserLoggedIn = () => {
   const [modal, setModal] = useState(false);
-  const { userPublicData, getDataUserLogged, avatarBackgroundColor } =
+  const { userPublicData, getDataUserLogged, avatarBackgroundColor, t } =
     useAppsStore();
 
   return (
@@ -23,7 +23,7 @@ export const UserLoggedIn = () => {
           href={`/${userPublicData?.username}`}
           classProps='hover:bg-slate-200 p-1 rounded-full cursor-pointer '
         >
-          <Tooltip tooltipText='Tu perfil'>
+          <Tooltip tooltipText={t?.header.buttons.avatar || 'Tu perfil'}>
             <AvatarUser
               data={userPublicData}
               classProps={`${
@@ -40,7 +40,11 @@ export const UserLoggedIn = () => {
           className='hover:bg-slate-200 p-0.5 rounded-full cursor-pointer relative right-3 '
           onClick={() => setModal(!modal)}
         >
-          <Tooltip tooltipText='Cuentas y mas opciones'>
+          <Tooltip
+            tooltipText={
+              t?.header.buttons['arrow-down'] || 'Cuentas y mas opciones'
+            }
+          >
             <ArrowBottomUser />
           </Tooltip>
         </button>

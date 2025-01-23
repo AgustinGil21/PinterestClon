@@ -4,6 +4,7 @@ import { Switch } from '@headlessui/react';
 import { useEffect, useState } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import SwitchPinAdultContent from './SwitchPinAdultContent';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface PlusOptionsInterface {
   imagePreview: string | null;
@@ -11,6 +12,7 @@ interface PlusOptionsInterface {
 }
 
 const PlusOptions = ({ imagePreview, register }: PlusOptionsInterface) => {
+  const { t } = useAppsStore();
   const [openOptions, setOpenOptions] = useState(false);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const PlusOptions = ({ imagePreview, register }: PlusOptionsInterface) => {
             !imagePreview && 'text-gray-200'
           } `}
         >
-          Más opciones
+          {t?.['create-pin'].form['more-options'].title || 'Más opciones'}
         </span>
         <button onClick={handleClick}>
           {openOptions ? (

@@ -3,6 +3,7 @@ import NotImagePin from './ImagePin/NotImagePin';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import useImagePin from './ImagePin/useImagePin';
 import YesImagePin from './ImagePin/YesImagePin';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface ImagePinInterface {
   register: UseFormRegister<FieldValues>;
@@ -10,6 +11,7 @@ interface ImagePinInterface {
 }
 
 const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
+  const { t } = useAppsStore();
   const {
     handleDivClick,
     handleFileChangeWrapper,
@@ -50,7 +52,7 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
         disabled={false}
         className='bg-buttonGreyBg font-semibold w-full hover:bg-gray-300'
       >
-        Restablecer
+        {t?.['create-pin'].form.image.reset || 'Restablecer'}
       </ButtonStyled>
     </div>
   );

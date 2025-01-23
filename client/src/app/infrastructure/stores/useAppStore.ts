@@ -21,6 +21,10 @@ import {
   createNotificationsStore,
   INotificationsStore,
 } from './notificationsStore';
+import {
+  createTranslationsStore,
+  ITranslationStore,
+} from './translationsStore';
 
 type AppState = ThemeSliceInterface &
   ModalStateInterface &
@@ -31,7 +35,8 @@ type AppState = ThemeSliceInterface &
   UserDataStoreInterface &
   PinViewStoreInterface &
   IBoardsStore &
-  INotificationsStore;
+  INotificationsStore &
+  ITranslationStore;
 
 export const useAppsStore = create<AppState>()(
   devtools((...a) => ({
@@ -45,5 +50,6 @@ export const useAppsStore = create<AppState>()(
     ...createPinViewStore(...a),
     ...boardsStore(...a),
     ...createNotificationsStore(...a),
+    ...createTranslationsStore(...a),
   }))
 );
