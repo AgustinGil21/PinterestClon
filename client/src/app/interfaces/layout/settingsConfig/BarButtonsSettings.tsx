@@ -16,6 +16,7 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
     getValues,
     watch,
   });
+  const { t } = useAppsStore();
 
   return (
     <div className=' bottom-[60px] md:bottom-0 left-0 fixed flex justify-center items-center w-full p-3 lg:p-5 bg-white shadow-top font-semibold dark:bg-slate-800 '>
@@ -29,7 +30,7 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
               : ' hover:bg-gray-300'
           }`}
         >
-          Restablecer
+          {t?.['footer-settings'].reset || 'Restablecer'}
         </ButtonStyled>
         <ButtonStyled
           handleClick={handleClick}
@@ -40,7 +41,7 @@ const BarButtons = ({ getValues, watch, handleClick }: InterfaceBarButtons) => {
               : 'bg-redPinterestBg hover:bg-red-700'
           }`}
         >
-          Guardar
+          {t?.['footer-settings'].save || 'Guardar'}
         </ButtonStyled>
       </div>
     </div>

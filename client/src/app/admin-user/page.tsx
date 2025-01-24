@@ -10,6 +10,7 @@ const AdminProfile = () => {
     getUserAccountManagement,
     userAccountManagment,
     isDeleteUserAccountModalOpen,
+    t,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -44,10 +45,11 @@ const AdminProfile = () => {
       <div className='max-w-[420px] w-full lg:ml-[140px] flex flex-col gap-5 dark:text-white'>
         <div>
           <h2 className='text-[23px] font-semibold'>
-            Administración de la cuenta
+            {t?.['account-management'].title || 'Administración de la cuenta'}
           </h2>
           <p className='text-sm max-w-[440px]'>
-            Modifica tu información personal o el tipo de cuenta.
+            {t?.['account-management'].description ||
+              'Modifica tu información personal o el tipo de cuenta.'}
           </p>
         </div>
         <FormAdminUser />

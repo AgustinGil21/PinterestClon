@@ -4,7 +4,7 @@ import TrashIcon from '@/app/interfaces/components/icons/TrashIcon';
 import React from 'react';
 
 const DeleteAvatar = () => {
-  const { deleteAvatar } = useAppsStore();
+  const { deleteAvatar, t } = useAppsStore();
 
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>
@@ -15,7 +15,11 @@ const DeleteAvatar = () => {
   };
 
   return (
-    <Tooltip tooltipText='Eliminar avatar'>
+    <Tooltip
+      tooltipText={
+        t?.['edit-profile'].avatar['delete-tooltip'] || 'Eliminar avatar'
+      }
+    >
       <button onClick={handleClick}>
         <TrashIcon />
       </button>

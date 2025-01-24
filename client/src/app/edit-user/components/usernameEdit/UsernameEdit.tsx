@@ -8,6 +8,7 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 import useUsernameEdit from './useUsernameEdit';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface UsernameEditInterface {
   register: UseFormRegister<FieldValues>;
@@ -29,13 +30,14 @@ const UsernameEdit = ({
     getValue,
     setValue,
   });
+  const { t } = useAppsStore();
 
   return (
     <div>
       <InputLabelStyled
         type='text'
         infoName='username'
-        textLabel='Nombre de usuario'
+        textLabel={t?.['edit-profile'].username.label || 'Nombre de usuario'}
         register={register}
         errors={errors.username}
         placeHolder=''

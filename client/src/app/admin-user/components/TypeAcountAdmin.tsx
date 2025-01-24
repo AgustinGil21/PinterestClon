@@ -7,6 +7,7 @@ const TypeAcountAdmin = () => {
     getProfileVisibility,
     userProfileVisibility,
     patchProfileTypeVisibility,
+    t,
   } = useAppsStore();
 
   useEffect(() => {
@@ -17,8 +18,8 @@ const TypeAcountAdmin = () => {
     try {
       const newAccountType =
         userProfileVisibility?.account_type === 'Business'
-          ? 'Personal'
-          : 'Business';
+          ? t?.user['account-type'].Personal || 'Personal'
+          : t?.user['account-type'].Business || 'Negocio';
 
       patchProfileTypeVisibility({
         account_type: newAccountType,
@@ -32,11 +33,12 @@ const TypeAcountAdmin = () => {
     <div className='flex flex-col items-start md:items-center mt-4 justify-between md:flex-row'>
       <div>
         <span className='text-sm font-semibold'>
-          Convertir a una cuenta para empresa
+          {t?.['account-management']['business-account'].title ||
+            'Convertir a una cuenta para empresa'}
         </span>
         <p className='text-[12px] max-w-[270px]'>
-          Con una cuenta para empresa, tendrás acceso a herramientas como
-          anuncios y analytics para hacer crecer tu negocio en Pinterest.
+          {t?.['account-management']['business-account'].description ||
+            'Con una cuenta para empresa, tendrás acceso a herramientas como anuncios y analytics para hacer crecer tu negocio en Pinterest.'}
         </p>
       </div>
       <div className='flex flex-col items-center mt-5 gap-1'>
@@ -45,7 +47,8 @@ const TypeAcountAdmin = () => {
           disabled={false}
           className='bg-buttonGreyBg font-semibold hover:bg-gray-300 dark:text-black '
         >
-          Convertir cuenta
+          {t?.['account-management']['business-account']['convert-account'] ||
+            'Convertir cuenta'}
         </ButtonStyled>
         <span className='text-[13px] text-gray-500'>
           {' '}

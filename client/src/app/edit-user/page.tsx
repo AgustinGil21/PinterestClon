@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import Loader from '../interfaces/components/Basic/Loader';
 
 const EditUser = () => {
-  const { userPublicData, getDataUserLogged, getUserSettingsEditProfile } =
+  const { userPublicData, getDataUserLogged, getUserSettingsEditProfile, t } =
     useAppsStore();
   const [loading, setLoading] = useState(true);
 
@@ -35,10 +35,12 @@ const EditUser = () => {
     <section className='p-5 py-8 flex flex-col settings-page'>
       <div className='max-w-[420px] w-full lg:ml-[140px] flex flex-col gap-5 dark:text-white'>
         <div>
-          <h2 className='text-[23px] font-semibold'>Editar Perfil</h2>
+          <h2 className='text-[23px] font-semibold'>
+            {t?.['edit-profile'].title || 'Editar Perfil'}
+          </h2>
           <p className='text-sm max-w-[440px]'>
-            Mantén privados tus datos personales. Cualquier persona que pueda
-            ver tu perfil podrá ver la información que agregues aquí.
+            {t?.['edit-profile'].description ||
+              'Mantén privados tus datos personales. Cualquier persona que pueda ver tu perfil podrá ver la información que agregues aquí.'}
           </p>
         </div>
         <FormEditUser />

@@ -9,7 +9,7 @@ interface PrivacyOrPublicSwitchProps {
 }
 
 const PrivacyOrPublicSwitch = ({ setValue }: PrivacyOrPublicSwitchProps) => {
-  const { userProfileVisibility } = useAppsStore();
+  const { userProfileVisibility, t } = useAppsStore();
   const [enabled, setEnabled] = useState<boolean>(false);
 
   useEffect(() => {
@@ -29,11 +29,12 @@ const PrivacyOrPublicSwitch = ({ setValue }: PrivacyOrPublicSwitchProps) => {
   return (
     <div className='flex items-center'>
       <div>
-        <span className='font-semibold'>Perfil privado</span>
+        <span className='font-semibold'>
+          {t?.privacy.private.title || 'Perfil privado'}
+        </span>
         <p className='text-[13px]'>
-          Cuando tu perfil es privado, solo las personas que apruebes podrán ver
-          tu perfil, Pines, tableros, seguidores y listas de seguidos. Obtén más
-          información.
+          {t?.privacy.private.description ||
+            'Cuando tu perfil es privado, solo las personas que apruebes podrán ver tu perfil, Pines, tableros, seguidores y listas de seguidos. Obtén más información.'}
         </p>
       </div>
       <div>

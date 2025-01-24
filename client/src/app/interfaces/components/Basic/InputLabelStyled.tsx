@@ -8,6 +8,7 @@ import {
   FieldErrorsImpl,
   Merge,
 } from 'react-hook-form';
+import { TLang } from '@/app/global-interfaces/global-interfaces';
 
 interface RegisterInterface {
   register?: UseFormRegister<FieldValues>;
@@ -27,6 +28,7 @@ interface RegisterInterface {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   placeHolder?: string;
+  lang?: TLang;
 }
 
 const InputLabelStyled = ({
@@ -47,6 +49,7 @@ const InputLabelStyled = ({
   onFocus,
   onBlur,
   onClick,
+  lang,
 }: RegisterInterface) => {
   return (
     <div className='w-full flex flex-col'>
@@ -74,6 +77,7 @@ const InputLabelStyled = ({
         disabled={disabled}
         readOnly={readOnly}
         classProps={`${className} ${readOnly ? 'bg-gray-100' : ''}`}
+        lang={lang}
       />
 
       {errors?.message && (

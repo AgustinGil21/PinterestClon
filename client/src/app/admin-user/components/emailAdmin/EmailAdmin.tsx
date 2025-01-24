@@ -8,6 +8,7 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 import useEmailAdmin from './useEmailAdmin';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface EmailAdminInterface {
   register: UseFormRegister<FieldValues>;
@@ -25,13 +26,19 @@ const EmailAdmin = ({
   setValue,
 }: EmailAdminInterface) => {
   useEmailAdmin({ getValues, setValue, watch });
+  const { t } = useAppsStore();
 
   return (
     <div>
-      <span className='px-1.5 font-semibold'>Tu cuenta</span>
+      <span className='px-1.5 font-semibold'>
+        {t?.['account-management']['your-account'].title || 'Tu cuenta'}
+      </span>
       <InputLabelStyled
         register={register}
-        textLabel='Correo electrónico • Privado'
+        textLabel={
+          `${t?.['account-management']['your-account'].label['email-address']} • ${t?.['account-management']['your-account'].label.private}` ||
+          'Correo electrónico • Privado'
+        }
         infoName='email'
         type='email'
         className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '

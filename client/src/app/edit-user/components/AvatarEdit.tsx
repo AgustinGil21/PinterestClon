@@ -13,7 +13,7 @@ interface AvatarInterface {
 }
 
 const AvatarEdit = ({ register, watch }: AvatarInterface) => {
-  const { userPublicData, userSettingsEditProfile } = useAppsStore();
+  const { userPublicData, userSettingsEditProfile, t } = useAppsStore();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const avatarFile = watch('avatar');
@@ -32,7 +32,9 @@ const AvatarEdit = ({ register, watch }: AvatarInterface) => {
   return (
     <div className='mt-2 flex flex-row gap-3 items-center'>
       <div className='flex items-start flex-col'>
-        <label className='text-[10px] mb-1'>Foto</label>
+        <label className='text-[10px] mb-1'>
+          {t?.['edit-profile'].avatar.label || 'Foto'}
+        </label>
         {imagePreview ? (
           <div className='relative w-16 h-16'>
             <Image
@@ -56,7 +58,7 @@ const AvatarEdit = ({ register, watch }: AvatarInterface) => {
           className='bg-buttonGreyBg hover:bg-gray-200 items-center font-semibold w-fit relative cursor-pointer dark:text-black'
           aria-label='Cambiar Avatar'
         >
-          Cambiar
+          {t?.['edit-profile'].avatar.change || 'Cambiar'}
           <InputStyled
             accept='.png, .jpg, .jpeg'
             register={register}

@@ -9,6 +9,7 @@ const AsideConfig = memo(() => {
     userPublicData,
     isOpenMenuAsideSettingsResponsive,
     openMenuAsideSettingsResponsive,
+    t,
   } = useAppsStore();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -58,7 +59,7 @@ const AsideConfig = memo(() => {
                   pathname === '/edit-user' ? 'link-settings-aside-active' : ''
                 } hover:bg-gray-200 px-2 py-1 rounded-md dark:hover:bg-slate-800`}
               >
-                Editar Perfil
+                {t?.['aside-settings']['edit-profile'] || 'Editar Perfil'}
               </div>
             </LinkNavigate>
             <LinkNavigate href='/admin-user' classProps=''>
@@ -67,7 +68,8 @@ const AsideConfig = memo(() => {
                   pathname === '/admin-user' ? 'link-settings-aside-active' : ''
                 } px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-slate-800`}
               >
-                Administración de la cuenta
+                {t?.['aside-settings']['account-management'] ||
+                  'Administración de la cuenta'}
               </div>
             </LinkNavigate>
             <LinkNavigate href='/privacy-info' classProps=''>
@@ -78,7 +80,7 @@ const AsideConfig = memo(() => {
                     : ''
                 } rounded-md hover:bg-gray-200 px-2 py-1 dark:hover:bg-slate-800`}
               >
-                Privacidad y datos
+                {t?.['aside-settings'].privacy || 'Privacidad y datos'}
               </div>
             </LinkNavigate>
             <LinkNavigate href='/security-profile' classProps=''>
@@ -89,7 +91,7 @@ const AsideConfig = memo(() => {
                     : ''
                 } rounded-md hover:bg-gray-200 px-2 py-1 dark:hover:bg-slate-800`}
               >
-                Seguridad
+                {t?.['aside-settings'].security || 'Seguridad'}
               </div>
             </LinkNavigate>
           </ul>

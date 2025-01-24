@@ -8,10 +8,12 @@ import CountriesAdmin from '../countriesAdmin/CountriesAdmin';
 import LanguagesAdmin from '../languagesAdmin/LanguagesAdmin';
 import DeleteAccount from '../DeleteAccount';
 import useFormAdminUser from './useFormAdminUser';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const FormAdminUser = () => {
   const { register, errors, getValues, watch, setValue, handleClick } =
     useFormAdminUser();
+  const { t } = useAppsStore();
 
   return (
     <form>
@@ -49,7 +51,10 @@ const FormAdminUser = () => {
         <LanguagesAdmin register={register} setValue={setValue} />
 
         <div className='mt-4 '>
-          <span className='font-semibold'>Desactivación y eliminación</span>
+          <span className='font-semibold'>
+            {t?.['account-management']['eliminate-account'].title ||
+              'Desactivación y eliminación'}
+          </span>
           <DeleteAccount />
         </div>
       </div>

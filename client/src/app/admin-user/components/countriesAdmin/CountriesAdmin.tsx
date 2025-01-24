@@ -6,6 +6,7 @@ import {
   UseFormSetValue,
 } from 'react-hook-form';
 import useCountriesAdmin from './useCountriesAdmin';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface CountriesAdminInterface {
   register: UseFormRegister<FieldValues>;
@@ -16,10 +17,13 @@ interface CountriesAdminInterface {
 
 const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
   const { countries } = useCountriesAdmin({ setValue });
+  const { t } = useAppsStore();
 
   return (
     <div className='mt-5'>
-      <span className='text-[12px]'>País/región</span>
+      <span className='text-[12px]'>
+        {t?.['account-management']['personal-info'].country || 'País/región'}
+      </span>
       <select
         id='country'
         className='w-full p-2.5 px-4 border-gray-300 border-[1px] rounded-xl text-sm mt-1  outline-outline-search text-black'
@@ -27,7 +31,7 @@ const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
       >
         {countries.map((elem) => (
           <option key={elem.id} value={elem.id}>
-            {elem.name}
+            {t?.countries[elem.name as keyof typeof t.countries] || elem.name}
           </option>
         ))}
       </select>

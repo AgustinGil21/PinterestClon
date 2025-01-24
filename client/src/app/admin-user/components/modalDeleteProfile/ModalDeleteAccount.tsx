@@ -4,7 +4,7 @@ import ModalStyled from '@/app/interfaces/components/Basic/ModalStyled';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 
 const ModalDeleteAccount = () => {
-  const { openDeleteUserAccountModal, deleteUserAccount, postDataLogOut } =
+  const { openDeleteUserAccountModal, deleteUserAccount, postDataLogOut, t } =
     useAppsStore();
   const { modalRef } = useCloseModal({ setModal: openDeleteUserAccountModal });
 
@@ -24,11 +24,13 @@ const ModalDeleteAccount = () => {
       >
         <div>
           <h3 className='font-semibold text-2xl text-center'>
-            ¿Estás seguro de que deseas eliminar tu cuenta?
+            {t?.['account-management']['eliminate-account']['delete-account']
+              .modal.title || '¿Estás seguro de que deseas eliminar tu cuenta?'}
           </h3>
           <p className='text-sm text-center mt-3'>
-            Eliminar tu cuenta es una acción irreversible que eliminará todos
-            tus datos y configuraciones asociados con tu perfil.
+            {t?.['account-management']['eliminate-account']['delete-account']
+              .modal.description ||
+              'Eliminar tu cuenta es una acción irreversible que eliminará todos tus datos y configuraciones asociados con tu perfil.'}
           </p>
           <div className='flex justify-center mt-8 gap-4 '>
             <ButtonStyled
@@ -36,14 +38,16 @@ const ModalDeleteAccount = () => {
               className='bg-redPinterestBg text-white font-semibold w-full hover:bg-red-700'
               disabled={false}
             >
-              Confirmar
+              {t?.['account-management']['eliminate-account']['delete-account']
+                .modal.confirm || 'Confirmar'}
             </ButtonStyled>
             <ButtonStyled
               handleClick={openDeleteUserAccountModal}
               className='bg-buttonGreyBg font-semibold w-full hover:bg-gray-300 dark:text-black'
               disabled={false}
             >
-              Cancelar
+              {t?.['account-management']['eliminate-account']['delete-account']
+                .modal.cancel || 'Cancelar'}
             </ButtonStyled>
           </div>
         </div>

@@ -33,7 +33,7 @@ const ModalSearcherCategories = ({
                 data-name={elem.name}
                 value={elem.name}
               >
-                {elem.name}
+                {t?.categories[`${elem.name}`] || elem.name}
               </button>
             </div>
           ))}

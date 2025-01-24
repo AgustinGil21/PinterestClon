@@ -3,6 +3,7 @@ import EyePasswordStyled from '@/app/interfaces/components/Basic/EyePasswordStyl
 import { useState } from 'react';
 import { FieldValues, FieldErrors, UseFormRegister } from 'react-hook-form';
 import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface OldPasswordInterface {
   errors: FieldErrors<FieldValues>;
@@ -19,14 +20,24 @@ const OldPassword = ({
   const toggleOldPasswordVisibility = () => {
     setShowOldPassword(!showOldPassword);
   };
+  const { t } = useAppsStore();
+
   return (
     <>
       <div className='w-full relative'>
         <InputLabelStyled
-          textLabel='Contraseña actual'
+          textLabel={
+            t?.['account-management'].password['change-password-modal'][
+              'current-password'
+            ] || 'Contraseña actual'
+          }
           type={showOldPassword ? 'text' : 'password'}
           infoName='oldPassword'
-          placeHolder='Contraseña actual'
+          placeHolder={
+            t?.['account-management'].password['change-password-modal'][
+              'current-password'
+            ] || 'Contraseña actual'
+          }
           className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
           errors={errors.oldPassword}
           register={register}

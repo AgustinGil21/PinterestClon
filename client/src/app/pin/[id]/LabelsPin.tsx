@@ -2,7 +2,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useState, useEffect } from 'react';
 
 const LabelsPin = () => {
-  const { categoriesPin, pinData } = useAppsStore();
+  const { categoriesPin, pinData, t } = useAppsStore();
 
   const [categoriesSelect, setCategoriesSelect] = useState(categoriesPin);
 
@@ -23,7 +23,7 @@ const LabelsPin = () => {
           key={elem.id}
           className='text-sm text-blue-600 underline cursor-pointer'
         >
-          #{elem.name}
+          #{t?.categories[`${elem.name}`] || elem.name}
         </span>
       ))}
     </div>

@@ -73,6 +73,10 @@ interface Comment {
 }
 
 interface User {
+  'account-type': {
+    Personal: string;
+    Business: string;
+  };
   buttons: {
     follow: string;
     following: string;
@@ -118,6 +122,7 @@ interface EditProfile {
   avatar: {
     label: string;
     change: string;
+    'delete-tooltip': string;
   };
   name: {
     label: string;
@@ -152,6 +157,13 @@ interface AccountManagement {
     title: string;
     description: string;
     'change-password': string;
+    'change-password-modal': {
+      title: string;
+      save: string;
+      cancel: string;
+      'current-password': string;
+      'new-password': string;
+    };
   };
   'business-account': {
     title: string;
@@ -163,9 +175,9 @@ interface AccountManagement {
     label: string;
     gender: {
       label: string;
-      female: string;
-      male: string;
-      'non-binary': string;
+      Female: string;
+      Male: string;
+      Nonbinary: string;
     };
     country: string;
     lang: string;
@@ -335,6 +347,211 @@ interface Auth {
 
 type Loading = string;
 
+interface ICountries {
+  Afghanistan: string;
+  Albania: string;
+  Algeria: string;
+  'American Samoa': string;
+  Andorra: string;
+  Angola: string;
+  Anguilla: string;
+  Antarctica: string;
+  Antigua: string;
+  Argentina: string;
+  Armenia: string;
+  Australia: string;
+  Austria: string;
+  Azerbaijan: string;
+  Bahamas: string;
+  Bahrain: string;
+  Bangladesh: string;
+  Barbados: string;
+  Belarus: string;
+  Belgium: string;
+  Belize: string;
+  Benin: string;
+  Bermuda: string;
+  Bhutan: string;
+  Bolivia: string;
+  'Bosnia and Herzegovina': string;
+  Botswana: string;
+  Brazil: string;
+  Brunei: string;
+  Bulgaria: string;
+  'Burkina Faso': string;
+  Burundi: string;
+  Cambodia: string;
+  Cameroon: string;
+  Canada: string;
+  'Cape Verde': string;
+  'Cayman Islands': string;
+  Chad: string;
+  Chile: string;
+  China: string;
+  Colombia: string;
+  Comoros: string;
+  Congo: string;
+  'Costa Rica': string;
+  Croatia: string;
+  Cuba: string;
+  Cyprus: string;
+  'Czech Republic': string;
+  Denmark: string;
+  Djibouti: string;
+  Dominica: string;
+  'Dominican Republic': string;
+  Ecuador: string;
+  Egypt: string;
+  'El Salvador': string;
+  'Equatorial Guinea': string;
+  Eritrea: string;
+  Estonia: string;
+  Eswatini: string;
+  Ethiopia: string;
+  Fiji: string;
+  Finland: string;
+  France: string;
+  Gabon: string;
+  Gambia: string;
+  Georgia: string;
+  Germany: string;
+  Ghana: string;
+  Greece: string;
+  Grenada: string;
+  Guatemala: string;
+  Guinea: string;
+  'Guinea-Bissau': string;
+  Guyana: string;
+  Haiti: string;
+  Honduras: string;
+  Hungary: string;
+  Iceland: string;
+  India: string;
+  Indonesia: string;
+  Iran: string;
+  Iraq: string;
+  Ireland: string;
+  Israel: string;
+  Italy: string;
+  Jamaica: string;
+  Japan: string;
+  Jordan: string;
+  Kazakhstan: string;
+  Kenya: string;
+  Kiribati: string;
+  'Korea, North': string;
+  'Korea, South': string;
+  Kosovo: string;
+  Kuwait: string;
+  Kyrgyzstan: string;
+  Laos: string;
+  Latvia: string;
+  Lebanon: string;
+  Lesotho: string;
+  Liberia: string;
+  Libya: string;
+  Liechtenstein: string;
+  Lithuania: string;
+  Luxembourg: string;
+  Madagascar: string;
+  Malawi: string;
+  Malaysia: string;
+  Maldives: string;
+  Mali: string;
+  Malta: string;
+  'Marshall Islands': string;
+  Mauritania: string;
+  Mauritius: string;
+  Mexico: string;
+  Micronesia: string;
+  Moldova: string;
+  Monaco: string;
+  Mongolia: string;
+  Montenegro: string;
+  Morocco: string;
+  Mozambique: string;
+  Myanmar: string;
+  Namibia: string;
+  Nauru: string;
+  Nepal: string;
+  Netherlands: string;
+  'New Zealand': string;
+  Nicaragua: string;
+  Niger: string;
+  Nigeria: string;
+  'North Macedonia': string;
+  Norway: string;
+  Oman: string;
+  Pakistan: string;
+  Palau: string;
+  Panama: string;
+  'Papua New Guinea': string;
+  Paraguay: string;
+  Peru: string;
+  Philippines: string;
+  Poland: string;
+  Portugal: string;
+  Qatar: string;
+  Romania: string;
+  Russia: string;
+  Rwanda: string;
+  'Saint Kitts and Nevis': string;
+  'Saint Lucia': string;
+  'Saint Vincent and the Grenadines': string;
+  Samoa: string;
+  'San Marino': string;
+  'Sao Tome and Principe': string;
+  'Saudi Arabia': string;
+  Senegal: string;
+  Serbia: string;
+  Seychelles: string;
+  'Sierra Leone': string;
+  Singapore: string;
+  Slovakia: string;
+  Slovenia: string;
+  'Solomon Islands': string;
+  Somalia: string;
+  'South Africa': string;
+  Spain: string;
+  'Sri Lanka': string;
+  Sudan: string;
+  Suriname: string;
+  Sweden: string;
+  Switzerland: string;
+  Syria: string;
+  Taiwan: string;
+  Tajikistan: string;
+  Tanzania: string;
+  Thailand: string;
+  Togo: string;
+  Tonga: string;
+  'Trinidad and Tobago': string;
+  Tunisia: string;
+  Turkey: string;
+  Turkmenistan: string;
+  Tuvalu: string;
+  Uganda: string;
+  Ukraine: string;
+  'United Arab Emirates': string;
+  'United Kingdom': string;
+  'United States': string;
+  Uruguay: string;
+  Uzbekistan: string;
+  Vanuatu: string;
+  'Vatican City': string;
+  Venezuela: string;
+  Vietnam: string;
+  Yemen: string;
+  Zambia: string;
+  Zimbabwe: string;
+}
+
+interface ILanguages {
+  Spanish: string;
+  English: string;
+  Portuguese: string;
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -355,6 +572,8 @@ export interface ITranslation {
   comment: Comment;
   share: Share;
   ['boards-list']: BoardsList;
+  countries: ICountries;
+  languages: ILanguages;
   errors: Record<string, unknown>;
 }
 

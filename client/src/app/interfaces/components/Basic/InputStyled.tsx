@@ -1,3 +1,4 @@
+import { TLang } from '@/app/global-interfaces/global-interfaces';
 import React from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 
@@ -23,6 +24,7 @@ interface InputStyledInterface {
   onClick?: React.MouseEventHandler<HTMLInputElement>;
   name?: string;
   autoComplete?: string;
+  lang?: TLang;
 }
 
 const InputStyled = ({
@@ -44,6 +46,7 @@ const InputStyled = ({
   onBlur,
   onFocus,
   onClick,
+  lang = 'en',
 }: InputStyledInterface) => {
   return (
     <input
@@ -63,6 +66,7 @@ const InputStyled = ({
       disabled={disabled}
       className={` w-full p-1 text-black outline-outline-search  ${classProps}`}
       placeholder={placeHolder}
+      lang={lang}
       {...(register ? register(infoName) : {})}
     />
   );

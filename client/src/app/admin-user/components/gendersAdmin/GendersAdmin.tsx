@@ -9,12 +9,6 @@ import {
 } from 'react-hook-form';
 import useGendersAdmin from './useGendersAdmin';
 
-const translations: { [key: string]: string } = {
-  male: 'Masculino',
-  female: 'Femenino',
-  nonbinary: 'No binario',
-};
-
 interface GendersAdminInterface {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
@@ -27,10 +21,13 @@ const GendersAdmin = ({
   getValues,
 }: GendersAdminInterface) => {
   const { genders } = useGendersAdmin({ setValue });
+  const { t } = useAppsStore();
 
   return (
     <div className='flex gap-2 mt-5 flex-col'>
-      <span className='text-[12px]'>Género</span>
+      <span className='text-[12px]'>
+        {t?.['account-management']['personal-info'].gender.label || 'Género'}
+      </span>
       <div className='flex gap-4 md:flex-row flex-col items-start'>
         {genders.map((elem) => (
           <GenderInput
@@ -38,7 +35,14 @@ const GendersAdmin = ({
             key={elem.id}
             id={elem.id}
             value={elem.id}
-            textLabel={translations[elem.name.toLowerCase()]}
+            textLabel={
+              (
+                t?.['account-management']['personal-info'].gender as Record<
+                  string,
+                  string
+                >
+              )[elem.name] || elem.name
+            }
           />
         ))}
       </div>

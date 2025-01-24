@@ -4,6 +4,7 @@ import OldPassword from '../OldPassword';
 import NewPassword from '../NewPassword';
 import React from 'react';
 import useModalChangePassword from './useModalChangePassword';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const ModalChangePassword = () => {
   const {
@@ -14,6 +15,7 @@ const ModalChangePassword = () => {
     passwordError,
     closeChangePasswordModal,
   } = useModalChangePassword();
+  const { t } = useAppsStore();
 
   return (
     <div className='fixed inset-0  flex items-center justify-center  z-[90] p-2'>
@@ -25,7 +27,8 @@ const ModalChangePassword = () => {
         <div>
           <form className='flex justify-center flex-col gap-5 text-2xls'>
             <span className='font-semibold text-center text-2xl '>
-              Establece una contraseña
+              {t?.['account-management'].password['change-password-modal']
+                .title || 'Establece una contraseña'}
             </span>
             <div className='flex flex-col gap-7 px-6'>
               <OldPassword
@@ -43,7 +46,8 @@ const ModalChangePassword = () => {
                 className='bg-buttonGreyBg font-semibold hover:bg-slate-300 dark:text-black'
                 handleClick={closeChangePasswordModal}
               >
-                Cancelar
+                {t?.['account-management'].password['change-password-modal']
+                  .cancel || 'Cancelar'}
               </ButtonStyled>
               <ButtonStyled
                 handleClick={handleClick}
@@ -51,7 +55,8 @@ const ModalChangePassword = () => {
                 type='button'
                 className='bg-buttonGreyBg font-semibold  hover:bg-slate-300 dark:text-black'
               >
-                Guardar
+                {t?.['account-management'].password['change-password-modal']
+                  .save || 'Guardar'}
               </ButtonStyled>
             </div>
           </form>

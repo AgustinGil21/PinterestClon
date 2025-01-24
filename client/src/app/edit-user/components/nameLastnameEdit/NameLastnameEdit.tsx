@@ -32,10 +32,14 @@ const NameLastnameEdit = ({
     setValue,
   });
 
+  const { t } = useAppsStore();
+
   return (
     <div className='flex flex-row gap-3 mt-3'>
       <InputLabelStyled
-        textLabel={`Nombre(s) ${errors.name ? '*' : ''}`}
+        textLabel={`${t?.['edit-profile'].name.label || 'Nombre'}(s) ${
+          errors.name ? '*' : ''
+        }`}
         infoName='name'
         placeHolder=''
         type='text'
@@ -45,7 +49,7 @@ const NameLastnameEdit = ({
         value={userSettingsEditProfile?.name}
       />
       <InputLabelStyled
-        textLabel='Apellido(s)'
+        textLabel={`${t?.['edit-profile'].surname.label || 'Apellido(s)'}`}
         infoName='surname'
         type='text'
         placeHolder=''

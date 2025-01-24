@@ -3,7 +3,7 @@ import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import ModalDeleteAccount from './modalDeleteProfile/ModalDeleteAccount';
 
 const DeleteAccount = () => {
-  const { isDeleteUserAccountModalOpen, openDeleteUserAccountModal } =
+  const { isDeleteUserAccountModalOpen, openDeleteUserAccountModal, t } =
     useAppsStore();
 
   const handleClick = (
@@ -19,10 +19,12 @@ const DeleteAccount = () => {
     <div className='flex mt-3 flex-col md:flex-row items-start md:items-center gap-4'>
       <div>
         <span className='text-sm  font-semibold'>
-          Eliminar tus datos y tu cuenta
+          {t?.['account-management']['eliminate-account'].subtitle ||
+            'Eliminar tus datos y tu cuenta'}
         </span>
         <p className='text-sm'>
-          Elimina permanentemente tus datos y todo lo asociado a tu cuenta
+          {t?.['account-management']['eliminate-account'].description ||
+            'Elimina permanentemente tus datos y todo lo asociado a tu cuenta'}
         </p>
       </div>
       <ButtonStyled
@@ -30,7 +32,8 @@ const DeleteAccount = () => {
         className='py-2.5 bg-redPinterestBg text-white font-semibold hover:bg-red-700 '
         disabled={false}
       >
-        Eliminar cuenta
+        {t?.['account-management']['eliminate-account']['delete-account']
+          .button || 'Eliminar cuenta'}
       </ButtonStyled>
       {isDeleteUserAccountModalOpen && <ModalDeleteAccount />}
     </div>
