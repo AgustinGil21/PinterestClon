@@ -392,28 +392,24 @@ export const GetPossibleCoversSchema = z.object({
 });
 
 const BoardPreviewSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   name: z.string(),
-  created_at: z.string().date(),
+  created_at: z.string(),
   pins_count: z.string(),
   cover: z.string().url().optional(),
-  collage: z.array(z.string().url()).optional(),
-  user: z.object({
-    name: z.string().optional(),
-    surname: z.string().optional(),
-    username: z.string(),
-    id: z.string().uuid(),
-    avatar: z.string().url().optional(),
-    avatar_letter_color: z.string(),
-    avatar_letter: z.string().length(1),
-    avatar_background: z.string(),
-    verified: z.boolean(),
-  }),
+  collage: z.array(z.string().optional()),
+  surname: z.string().optional(),
+  username: z.string(),
+  avatar: z.string().optional(),
+  avatar_letter_color: z.string().optional(),
+  avatar_letter: z.string().length(1).optional(),
+  avatar_background: z.string().optional(),
+  verified: z.boolean(),
 });
 
 export const SearchBoardsSchema = z.object({
   boards: z.array(BoardPreviewSchema),
-  results: z.string().optional(),
+  results: z.number().optional(),
 });
 
 export const HomeBoardsSchema = z.object({

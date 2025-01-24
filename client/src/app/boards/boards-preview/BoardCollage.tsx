@@ -1,6 +1,6 @@
 interface BoardCollageProps {
   className?: string;
-  collage?: string[];
+  collage?: (string | undefined)[];
 }
 
 const BoardCollage = ({ className, collage = [] }: BoardCollageProps) => {

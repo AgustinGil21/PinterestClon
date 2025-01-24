@@ -29,6 +29,9 @@ export interface homePinsStoreInterface {
   categorySelect: string;
   setPage: (value: number) => void;
   resetPage: () => void;
+  setFiltersState: (valueFilter: string) => void;
+  filterState: string;
+  itsOpenModalFilter: boolean;
 }
 
 const loadValuesFromLocalStorage = () => {
@@ -48,6 +51,9 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   homePins: [],
   suggestions: [],
   valuesSearch: loadValuesFromLocalStorage(),
+  filterState: 'pines',
+  itsOpenModalFilter: false,
+
   getHomePins: async (page: number, limit: number) => {
     const response = await getHomePinsCase(page, limit);
 
@@ -185,6 +191,11 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
         ...state,
         valuesSearch: updatedValues,
       };
+    });
+  },
+  setFiltersState: (valueFilter: string) => {
+    set({
+      filterState: valueFilter,
     });
   },
 });

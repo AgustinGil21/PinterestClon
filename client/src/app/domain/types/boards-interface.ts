@@ -34,6 +34,8 @@ export interface ISearchByID extends IPaging {
 
 export interface ISearchByValue extends IPaging {
   value: string;
+  page: number;
+  limit: number;
 }
 
 export interface IBoardsList {
@@ -82,13 +84,18 @@ export interface IBoard {
 }
 
 export interface IBoardPreview {
-  id: string;
   name: string;
   created_at: CustomDate;
   pins_count: string;
   cover?: string;
-  collage?: Collage;
-  user: IUserData;
+  collage?: (string | undefined)[];
+  id: string;
+  surname?: string;
+  username: string;
+  avatar?: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
+  avatar_background?: string;
 }
 
 export interface IUserBoard {

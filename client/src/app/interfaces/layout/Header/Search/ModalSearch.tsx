@@ -28,8 +28,10 @@ const ModalSearch = ({
     value,
     categoriesPin,
     page,
-    resetPage,
     getSearchPins,
+    searchBoards,
+    searchedBoards,
+    filterState,
     getCategoriesPin,
     updateDataSearch,
   } = useAppsStore();
@@ -55,17 +57,19 @@ const ModalSearch = ({
   const router = useRouter();
 
   const handleClick = async (elem: string) => {
-    console.log(elem);
-    console.log(value);
-
-    await getSearchPins(elem, 1, limit);
-
     updateDataSearch('value', elem);
-    console.log(page);
-    router.push(`/search?query=${elem}`);
-
     updateValueSearchInput(elem);
+    localStorage.setItem('searchInputValue', elem);
     setModal(false);
+    if (filterState === 'pines') {
+      router.push(`/search?query=${elem}`);
+      await getSearchPins(elem, 1, limit);
+    }
+
+    if (filterState === 'tableros') {
+      router.push(`/search?query=${elem}`);
+      await searchBoards({ value: elem, page: 1, limit: limit });
+    }
   };
 
   return (

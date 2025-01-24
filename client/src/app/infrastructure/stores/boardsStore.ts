@@ -142,6 +142,8 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
 
     const response = await searchBoardsUseCase({ value, page, limit });
 
+    console.log(response);
+
     if (response?.boards) {
       const boardsData = response.boards;
 

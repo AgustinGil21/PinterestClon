@@ -7,7 +7,7 @@ interface Board {
   created_at: Date | string;
   pins_count: number;
   cover?: string;
-  collage?: string[];
+  collage?: (string | undefined)[];
   its_yours?: boolean;
 }
 

@@ -87,7 +87,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   sharePinData: '',
   isOpenMenuAsideSettingsResponsive: false,
   isOpenReportModal: false,
-  isOpenFiltersModal: false,
+  isOpenFiltersModal: JSON.parse(
+    localStorage.getItem('isOpenFilterModal') || 'false'
+  ),
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -238,5 +240,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     set((state) => ({
       isOpenFiltersModal: !state.isOpenFiltersModal,
     }));
+    localStorage.setItem(
+      'isOpenFilterModal',
+      JSON.stringify(get().isOpenFiltersModal)
+    );
   },
 });

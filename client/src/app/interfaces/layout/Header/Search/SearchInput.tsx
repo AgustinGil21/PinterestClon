@@ -17,6 +17,10 @@ const SearchInput = () => {
     getSuggestions,
     previousPin,
     setPage,
+    searchedBoards,
+    searchBoards,
+    filterState,
+    setFiltersState,
     page,
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
@@ -27,32 +31,63 @@ const SearchInput = () => {
   const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
+  const initialized = useRef(false);
 
   const { modalRef } = useCloseModal({ setModal, inputRef });
+
+  useEffect(() => {
+    const savedValue = localStorage.getItem('searchInputValue');
+    if (savedValue && !initialized.current) {
+      initialized.current = true;
+      updateDataSearch('value', savedValue);
+
+      if (filterState === 'tableros') {
+        searchBoards({ value: savedValue, page: 1, limit: limit });
+        router.push(`/search?query=${savedValue}`);
+      } else if (filterState === 'pines') {
+        getSearchPins(savedValue, 1, limit);
+        router.push(`/search?query=${savedValue}`);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     getSuggestions();
   }, [previousPin]);
 
   const handleChange = async (e: any) => {
-    updateDataSearch('value', e.target.value);
+    const newValue = e.target.value;
+    updateDataSearch('value', newValue);
+
+    localStorage.setItem('searchInputValue', newValue);
   };
 
   const handleClick = () => {
     setModal(false);
     updateDataSearch('value', '');
+    localStorage.removeItem('searchInputValue');
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (value === '') return;
-
     updateDataSearch('categorySelect', '');
 
     updateValueSearchInput(value);
-    await getSearchPins(value, 1, limit);
-    router.push(`/search?query=${value}`);
+
     setModal(false);
+
+    if (filterState === 'tableros') {
+      searchBoards({ value: value, page: 1, limit: limit });
+      router.push(`/search?query=${value}`);
+      return;
+    }
+
+    if (filterState === 'pines') {
+      await getSearchPins(value, 1, limit);
+      router.push(`/search?query=${value}`);
+      return;
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -85,6 +120,7 @@ const SearchInput = () => {
   useEffect(() => {
     if (!pathname.startsWith('/search')) {
       updateDataSearch('value', '');
+      localStorage.removeItem('searchInputValue');
     }
   }, [pathname]);
 

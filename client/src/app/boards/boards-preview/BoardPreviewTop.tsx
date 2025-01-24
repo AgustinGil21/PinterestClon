@@ -4,7 +4,7 @@ import BoardPreviewEditButton from './BoardPreviewEditButton';
 
 interface Props {
   cover?: string;
-  collage?: string[];
+  collage?: (string | undefined)[];
   itsYours?: boolean;
   boardID: string;
 }
