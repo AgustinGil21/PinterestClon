@@ -13,7 +13,7 @@ interface Props {
 
 export const ShareComponent = ({ data, endpoint }: Props) => {
   const [copied, setCopied] = useState(false);
-  const { setToastNotification } = useAppsStore();
+  const { setToastNotification, t } = useAppsStore();
 
   const openSocialMedia = (url: string) => {
     window.open(url, '_blank');
@@ -66,7 +66,7 @@ export const ShareComponent = ({ data, endpoint }: Props) => {
   return (
     <div>
       <h4 className='text-center text-black text-[16px] font-semibold dark:text-white'>
-        Compartir
+        {t?.share.text || 'Compartir'}
       </h4>
       <div className='grid grid-cols-4 items-center mt-2 gap-1 max-w-[300px]'>
         <div
@@ -77,7 +77,9 @@ export const ShareComponent = ({ data, endpoint }: Props) => {
             <CopyUrl />
           </div>
           <span className='text-[11px] text-black text-center text-nowrap'>
-            {copied ? 'Enlace copiado' : 'Copiar enlace'}
+            {copied
+              ? t?.share.copied || 'Enlace copiado'
+              : t?.share.copy || 'Copiar enlace'}
           </span>
         </div>
 

@@ -141,7 +141,7 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/languages/:id`
 
 [Error:] Mensaje de error y status 404 (NOT FOUND)
 
-## Settings (PRÓXIMAMENTE)
+## Settings
 
 ### Edit profile
 
@@ -840,8 +840,6 @@ _:id_: UUID
   }
 }
 ```
-
-## Rooms (PRÓXIMAMENTE)
 
 ## User
 

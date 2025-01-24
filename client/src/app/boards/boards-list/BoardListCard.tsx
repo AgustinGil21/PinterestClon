@@ -12,6 +12,7 @@ const BoardListCard = ({ board }: Props) => {
     closeDynamicModal,
     getLastBoard,
     setToastNotification,
+    t,
   } = useAppsStore();
   const { pinId } = dataOpenBoardModal;
 
@@ -33,7 +34,6 @@ const BoardListCard = ({ board }: Props) => {
       status: 'success',
       type: 'pin',
       action: 'save',
-      lang: 'es',
     });
   };
 
@@ -57,7 +57,7 @@ const BoardListCard = ({ board }: Props) => {
         className='p-[0.5rem_1rem] bg-[#e60023] rounded-3xl text-white font-bold text-[0.9rem]  hover:bg-[#b60000] transition-colors min-w-[67px]'
         onClick={handleSavePinToBoard}
       >
-        Guardar
+        {t?.['boards-list'].save || 'Guardar'}
       </button>
     </li>
   );

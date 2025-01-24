@@ -22,6 +22,7 @@ const SearchInput = () => {
     filterState,
     setFiltersState,
     page,
+    t,
   } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
   const [modalState, setModal] = useState(false);
@@ -36,26 +37,25 @@ const SearchInput = () => {
   const { modalRef } = useCloseModal({ setModal, inputRef });
 
   useEffect(() => {
-    const savedValue = localStorage.getItem('searchInputValue');
+    const savedValue = localStorage.getItem('searchInputValue') || value;
     if (savedValue && !initialized.current) {
       initialized.current = true;
       updateDataSearch('value', savedValue);
 
       if (filterState === 'tableros') {
         searchBoards({ value: savedValue, page: 1, limit: limit });
-        router.push(`/search?query=${savedValue}`);
       } else if (filterState === 'pines') {
         getSearchPins(savedValue, 1, limit);
-        router.push(`/search?query=${savedValue}`);
       }
+      router.push(`/search?query=${savedValue}`);
     }
-  }, []);
+  }, [filterState]);
 
   useEffect(() => {
     getSuggestions();
   }, [previousPin]);
 
-  const handleChange = async (e: any) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     updateDataSearch('value', newValue);
 
@@ -135,7 +135,7 @@ const SearchInput = () => {
           className={`w-full p-2 py-[10px] hover:bg-gray-200 ${
             isFocused ? 'px-4' : 'px-8'
           } text-sm rounded-3xl bg-searchBg focus:outline-search focus:ring-[3px] focus:outline-none font-sans`}
-          placeholder='Buscar'
+          placeholder={t?.header['search-input'].placeholder}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           onClick={() => setModal(true)}

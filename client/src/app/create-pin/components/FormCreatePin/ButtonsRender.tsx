@@ -27,14 +27,16 @@ const ButtonsRender = ({
   handleClickEdit,
   handleClickAside,
 }: ButtonsRender) => {
-  const { dataCreatePin, imagePreview } = useAppsStore();
+  const { dataCreatePin, imagePreview, t } = useAppsStore();
 
   return (
     <div
       className={`border-b-[1px] w-full h-[70px]  border-b-gray-300 py-4 px-8 flex justify-between items-center create-pin-header`}
     >
       <h3 className='font-semibold text-[1.3rem] dark:text-white create-pin-aside'>
-        {dataCreatePin.id ? 'Editar Pin' : 'Crear Pin'}
+        {dataCreatePin.id
+          ? t?.['create-pin']['title-edit'] || 'Editar Pin'
+          : t?.['create-pin']['title-create'] || 'Crear Pin'}
       </h3>
 
       <div
@@ -51,27 +53,35 @@ const ButtonsRender = ({
 
       {imagePreview && dataCreatePin.body instanceof File && (
         <div className='flex flex-row items-center gap-3'>
-          {savePin && <p className='text-sm'>Creando pin...</p>}
+          {savePin && (
+            <p className='text-sm'>
+              {t?.['create-pin'].form.creating || 'Creando pin'}...
+            </p>
+          )}
           <ButtonStyled
             handleClick={handleSubmit(onSubmit)}
             disabled={dataCreatePin.alt_text === ''}
             className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white  disabled:bg-gray-500'
             type='submit'
           >
-            Publicar
+            {t?.['create-pin'].form.publish || 'Publicar'}
           </ButtonStyled>
         </div>
       )}
       {imagePreview && typeof dataCreatePin.body === 'string' && (
         <div className='flex flex-row items-center gap-3'>
-          {savePin && <p className='text-sm'>Guardando cambios...</p>}
+          {savePin && (
+            <p className='text-sm'>
+              {t?.['create-pin'].form.saving || 'Guardando cambios'}...
+            </p>
+          )}
           <ButtonStyled
             className='bg-redPinterestBg font-semibold hover:bg-red-700 text-white disabled:bg-gray-500'
             type='button'
             handleClick={handleSubmit(handleClickEdit)}
             disabled={isValuesEqual || !isValid}
           >
-            Guardar
+            {t?.pin['save-btn'] || 'Guardar'}
           </ButtonStyled>
         </div>
       )}

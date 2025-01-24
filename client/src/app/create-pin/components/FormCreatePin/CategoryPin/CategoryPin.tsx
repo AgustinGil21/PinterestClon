@@ -10,6 +10,7 @@ import {
 import CategoryLabels from '../CategoryLabels';
 import ModalSearcherCategories from '../ModalSearcherCategories';
 import useCategoryPin from './useCategoryPin';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface CategoryPinInterface {
   register: UseFormRegister<FieldValues>;
@@ -25,6 +26,7 @@ const CategoryPin = ({
   getValues,
   setValue,
 }: CategoryPinInterface) => {
+  const { t } = useAppsStore();
   const {
     handleClickDeleteCategory,
     handleClick,
@@ -41,9 +43,13 @@ const CategoryPin = ({
       <InputLabelStyled
         value={watch('category')}
         register={register}
-        textLabel='Etiqueta de categoria'
+        textLabel={
+          t?.['create-pin'].form.categories.label || 'Etiqueta de categoría'
+        }
         infoName='category'
-        placeHolder='Buscar una etiqueta'
+        placeHolder={
+          t?.['create-pin'].form.categories.placeholder || 'Buscar una etiqueta'
+        }
         type='text'
         onFocus={handleFocus}
         readOnly={!imagePreview}
@@ -57,7 +63,8 @@ const CategoryPin = ({
           !imagePreview && 'hidden'
         }`}
       >
-        No te preocupes. Los demás usuarios no verán tus etiquetas.
+        {t?.['create-pin'].form.categories.message ||
+          'No te preocupes. Los demás usuarios no verán tus etiquetas.'}
       </span>
       <ModalSearcherCategories
         handleClick={handleClick}

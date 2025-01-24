@@ -15,7 +15,7 @@ const Follow = ({
   classPropsTrueIsFollowing,
   classPropsFalseIsFollowing,
 }: FollowingInterface) => {
-  const { postFollowUser, openRegisterModal, isAuth } = useAppsStore();
+  const { postFollowUser, openRegisterModal, isAuth, t } = useAppsStore();
 
   const [isFollowing, setFollowing] = useState(following);
 
@@ -38,7 +38,9 @@ const Follow = ({
       }  `}
       handleClick={handleClick}
     >
-      {isFollowing ? 'Siguiendo' : 'Seguir'}
+      {isFollowing
+        ? t?.user.buttons.following || 'Siguiendo'
+        : t?.user.buttons.follow || 'Seguir'}
     </ButtonStyled>
   );
 };

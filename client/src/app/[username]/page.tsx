@@ -34,6 +34,7 @@ export default function UserProfile({ params }: Props) {
     getSavePins,
     getUserBoards,
     userBoards,
+    t,
   } = useAppsStore();
 
   const { username }: { username: string } = params;
@@ -149,7 +150,7 @@ export default function UserProfile({ params }: Props) {
 
       {dataSearchUserProfile.private_account &&
       dataSearchUserProfile.username !== dataOwnerProfile.username ? (
-        <p>Esta cuenta es privada</p>
+        <p>{t?.user.private || 'Esta cuenta es privada'}</p>
       ) : savesOrCreates ? (
         <Masonry className='w-full'>
           {createdPins.map((elem) => (

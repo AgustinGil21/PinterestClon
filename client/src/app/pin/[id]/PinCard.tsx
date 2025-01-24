@@ -7,6 +7,7 @@ import InputComment from './InputComment';
 import { ArrowDownIcon } from '@/app/icons/ArrowDown';
 import Comment from './Comment';
 import CreateBoardModal from '@/app/boards/create-board/CreateBoardModal';
+import InteractionSummary from '@/app/components/Basic/InteractionSummary';
 
 const PinCard = () => {
   const {
@@ -18,6 +19,7 @@ const PinCard = () => {
     isCreateBoardModalOpen,
     dataOpenBoardModal,
     getLastBoard,
+    t,
   } = useAppsStore();
 
   const [imgHeight, setImgHeight] = useState(0);
@@ -101,11 +103,12 @@ const PinCard = () => {
                   }`}
                   onClick={handleClick}
                 >
-                  <span className='font-semibold'>
-                    {commentsCount === 1
-                      ? `${commentsCount} Comentario `
-                      : `${commentsCount} comentarios`}
-                  </span>
+                  <InteractionSummary
+                    value={commentsCount}
+                    className='font-semibold flex gap-1'
+                    type='comments'
+                    numberFirst
+                  />
 
                   <ArrowDownIcon
                     classProps={`w-[24px] h-[24px] cursor-pointer arrow-icon arrow-icon-rotate ${

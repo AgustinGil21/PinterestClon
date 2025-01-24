@@ -1,17 +1,14 @@
 import SearchIcon from '@/app/components/icons/SearchIcon';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import CloseSearchIcon from '@/app/interfaces/components/icons/CloseSearchIcon';
 import { useState } from 'react';
 
 interface Props {
-  lang?: 'en' | 'es' | 'pt';
   setValue: (value: string) => void;
 }
 
-type Translations = {
-  title: Record<'en' | 'es' | 'pt', string>;
-};
-
-const BoardsListHeader = ({ lang = 'en', setValue }: Props) => {
+const BoardsListHeader = ({ setValue }: Props) => {
+  const { t } = useAppsStore();
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
@@ -26,17 +23,11 @@ const BoardsListHeader = ({ lang = 'en', setValue }: Props) => {
     setInputValue('');
   };
 
-  const translations: Translations = {
-    title: {
-      es: 'Guardar',
-      en: 'Save',
-      pt: 'Salvar',
-    },
-  };
-
   return (
     <header className='flex flex-col items-center w-full gap-6 px-4 py-2'>
-      <h2 className='font-semibold text-lg'>{translations.title[lang]}</h2>
+      <h2 className='font-semibold text-lg'>
+        {t?.['boards-list'].save || 'Guardar'}
+      </h2>
       <div className='w-full relative text-black group group-hover:fill-gray-500 '>
         <input
           type='text'

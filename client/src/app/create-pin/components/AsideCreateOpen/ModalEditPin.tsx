@@ -29,6 +29,7 @@ const ModalEditPin = ({
     getPinEditId,
     closeDeletePinModal,
     setImagePreview,
+    t,
   } = useAppsStore();
 
   const handleClickDeletePin = () => {
@@ -57,14 +58,14 @@ const ModalEditPin = ({
             disabled={false}
             className='hover:bg-gray-200 rounded-lg text-xs w-full text-start'
           >
-            Editar
+            {t?.['create-pin']['prev-pins'].options.edit || 'Editar'}
           </ButtonStyled>
           <ButtonStyled
             disabled={false}
             handleClick={handleClickDeletePin}
             className='hover:bg-gray-200 rounded-lg  text-xs w-full text-start'
           >
-            Eliminar
+            {t?.['create-pin']['prev-pins'].options.delete || 'Eliminar'}
           </ButtonStyled>
         </div>
       </div>

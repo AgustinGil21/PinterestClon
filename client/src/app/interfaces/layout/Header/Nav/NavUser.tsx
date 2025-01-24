@@ -9,7 +9,7 @@ interface NavUserProps {
 }
 
 const NavUser = ({ loginAuth }: NavUserProps) => {
-  const { userPublicData } = useAppsStore();
+  const { userPublicData, t } = useAppsStore();
   const pathname = usePathname();
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
 
@@ -42,7 +42,8 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
                 </LinkNavigate>
                 <LinkNavigate
                   classProps={`p-2 rounded-full transition-colors ${
-                    pathname === '/explore'
+                    pathname === '/explore' ||
+                    pathname.startsWith('/searchcategory')
                       ? 'active-mobile'
                       : 'hover:bg-slate-200'
                   }`}
@@ -67,19 +68,24 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
                   classProps={`${pathname === '/' ? 'active' : ''}`}
                   href={'/'}
                 >
-                  Inicio
+                  {t?.header.buttons.home || 'Inicio'}
                 </LinkNavigate>
                 <LinkNavigate
-                  classProps={`${pathname === '/explore' ? 'active' : ''}`}
+                  classProps={`${
+                    pathname === '/explore' ||
+                    pathname.startsWith('/searchcategory')
+                      ? 'active'
+                      : ''
+                  }`}
                   href={'/explore'}
                 >
-                  Explorar
+                  {t?.header.buttons.explore || 'Explorar'}
                 </LinkNavigate>
                 <LinkNavigate
                   classProps={`${pathname === '/create-pin' ? 'active' : ''}`}
                   href={'/create-pin'}
                 >
-                  Crear
+                  {t?.header.buttons.create || 'Crear'}
                 </LinkNavigate>
               </>
             )}
@@ -98,7 +104,8 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
                 </LinkNavigate>
                 <LinkNavigate
                   classProps={`p-2 rounded-full transition-colors ${
-                    pathname === '/explore'
+                    pathname === '/explore' ||
+                    pathname.startsWith('/searchcategory')
                       ? 'active-mobile'
                       : 'hover:bg-slate-200'
                   }`}
@@ -113,13 +120,18 @@ const NavUser = ({ loginAuth }: NavUserProps) => {
                   classProps={`${pathname === '/' ? 'active' : ''}`}
                   href={'/'}
                 >
-                  Inicio
+                  {t?.header.buttons.home || 'Inicio'}
                 </LinkNavigate>
                 <LinkNavigate
-                  classProps={`${pathname === '/explore' ? 'active' : ''}`}
+                  classProps={`${
+                    pathname === '/explore' ||
+                    pathname.startsWith('/searchcategory')
+                      ? 'active'
+                      : ''
+                  }`}
                   href={'/explore'}
                 >
-                  Explorar
+                  {t?.header.buttons.explore || 'Explorar'}
                 </LinkNavigate>
               </>
             )}

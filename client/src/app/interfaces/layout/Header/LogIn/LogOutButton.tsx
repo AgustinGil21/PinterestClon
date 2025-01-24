@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 const LogOutButton = () => {
   const router = useRouter();
-  const { postDataLogOut } = useAppsStore();
+  const { postDataLogOut, t } = useAppsStore();
 
   const handleLogOut = async () => {
     try {
@@ -23,7 +23,7 @@ const LogOutButton = () => {
       className='flex p-1 px-2 hover:bg-gray-200 dark:hover:bg-gray-900 rounded-lg mb-2 font-semibold'
       onClick={handleLogOut}
     >
-      <span>Salir</span>
+      <span>{t?.header.modal.logout || 'Salir'}</span>
     </button>
   );
 };

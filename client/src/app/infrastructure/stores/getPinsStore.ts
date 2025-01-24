@@ -32,6 +32,7 @@ export interface homePinsStoreInterface {
   setFiltersState: (valueFilter: string) => void;
   filterState: string;
   itsOpenModalFilter: boolean;
+  categoryPinsData: PinInterface[];
 }
 
 const loadValuesFromLocalStorage = () => {
@@ -46,6 +47,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   page: 1,
   red: '',
   value: '',
+  categoryPinsData: [],
   categorySelect: '',
   prevCategory: '',
   homePins: [],
@@ -112,7 +114,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     limit: number
   ) => {
     // Reinicia los pins al filtrar por categoría
-    set({ homePins: [] });
+    set({ categoryPinsData: [] });
 
     if (get().prevCategory !== category) {
       page = 1;
@@ -122,10 +124,12 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
     const response = await getPinSearchCategoriesCase(category, page, limit);
 
+    console.log(response);
+
     if (Array.isArray(response)) {
       const uniqueSearchPinsForCategory = response.filter(
         (newPin: PinInterface) =>
-          !get().homePins.some(
+          !get().categoryPinsData.some(
             (existingPin: PinInterface) => existingPin.pin_id === newPin.pin_id
           )
       );
@@ -133,7 +137,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       // Almacena los resultados filtrados por categoría sin duplicados
       set({
         // Sobrescribe en lugar de concatenar
-        homePins: uniqueSearchPinsForCategory,
+        categoryPinsData: uniqueSearchPinsForCategory,
       });
     }
   },

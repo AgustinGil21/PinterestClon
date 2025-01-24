@@ -3,7 +3,7 @@ import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import FiltersIcon from '../interfaces/components/icons/FiltersIcon';
 
 const ButtonFilter = () => {
-  const { isOpenFiltersModal, openFiltersModal } = useAppsStore();
+  const { isOpenFiltersModal, openFiltersModal, t } = useAppsStore();
 
   const handleClick = () => {
     openFiltersModal();
@@ -18,7 +18,7 @@ const ButtonFilter = () => {
           : 'bg-buttonGreyBg text-black hover:bg-gray-300'
       }`}
     >
-      Filtros
+      {t?.filters['main-button'] || 'Filtros'}
       <FiltersIcon isOpenFiltersModal={isOpenFiltersModal} />
     </ButtonStyled>
   );

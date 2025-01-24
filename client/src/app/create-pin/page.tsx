@@ -64,7 +64,7 @@ const CreatePin = () => {
   }
 
   return (
-    <section className='w-full border-t-gray-300 border-t-[1px] flex flex-row min-h-[140vh] md:min-h-[100vh]  overflow-hidden '>
+    <section className='w-full border-t-gray-300 border-t-[1px] flex flex-row min-h-[150vh] md:min-h-[135vh] lg:min-h-[100vh] relative top-[5px]  overflow-hidden '>
       {isOpen ? (
         <AsideCreateClose
           handleClick={handleClick}

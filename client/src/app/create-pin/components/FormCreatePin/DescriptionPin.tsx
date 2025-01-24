@@ -19,7 +19,8 @@ const DescriptionPin = ({
   errors,
   watch,
 }: DescriptionPinInterface) => {
-  const { updateStateCreatePin, dataCreatePin, imagePreview } = useAppsStore();
+  const { updateStateCreatePin, dataCreatePin, imagePreview, t } =
+    useAppsStore();
   const isReadOnly = !imagePreview;
   const descriptionRef = watch('description');
 
@@ -40,7 +41,7 @@ const DescriptionPin = ({
           !imagePreview && 'text-gray-300'
         }`}
       >
-        Descripción
+        {t?.['create-pin'].form.description.label || 'Descripción'}
       </label>
       <textarea
         value={dataCreatePin.description}
@@ -50,7 +51,10 @@ const DescriptionPin = ({
             ? 'opacity-75 bg-transparent border-gray-300  outline-none outline-transparent cursor-default'
             : ''
         }`}
-        placeholder='Agregar una descripción detallada'
+        placeholder={
+          t?.['create-pin'].form.description.placeholder ||
+          'Agregar una descripción detallada'
+        }
         id='description'
         {...register('description')}
       ></textarea>

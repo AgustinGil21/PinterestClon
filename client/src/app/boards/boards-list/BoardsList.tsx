@@ -24,6 +24,7 @@ const BoardsList = ({ boards }: Props) => {
     createBoardModalOpen,
     getBoardsList,
     getLastBoard,
+    t,
   } = useAppsStore();
 
   const handleClick = () => {
@@ -40,14 +41,20 @@ const BoardsList = ({ boards }: Props) => {
   return (
     <>
       <section className='w-full pt-4 flex flex-col items-center'>
-        <BoardsListHeader setValue={setValue} lang='es' />
+        <BoardsListHeader setValue={setValue} />
         <section className='w-full flex flex-col text-[0.8rem] gap-4 max-h-[290px] min-h-[290px] overflow-y-auto p-2'>
           <div className='flex w-full flex-col gap-2'>
             {!value && <BoardListProfileCard />}
           </div>
           {boards.length ? (
             <div className='flex w-full flex-col gap-2'>
-              {!value ? <h3>Todos los tableros</h3> : <h3>Resultados</h3>}
+              {!value ? (
+                <h3>
+                  {t?.['boards-list']['all-boards'] || 'Todos los tableros'}
+                </h3>
+              ) : (
+                <h3>{t?.['boards-list'].results || 'Resultados'}</h3>
+              )}
               {boards.length && (
                 <BoardsListResults value={value} boards={boards} />
               )}
@@ -64,7 +71,9 @@ const BoardsList = ({ boards }: Props) => {
             <div className='size-[48px] rounded-md flex justify-center items-center bg-[#e9e9e9] '>
               <PlusIcon />
             </div>
-            <span className=''>Crear tablero</span>
+            <span className=''>
+              {t?.['boards-list']['create-board'] || 'Crear tablero'}
+            </span>
           </ButtonStyled>
         </footer>
       </section>

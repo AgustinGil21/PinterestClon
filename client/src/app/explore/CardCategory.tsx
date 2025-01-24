@@ -11,14 +11,14 @@ interface CardCategoryInterface {
 }
 
 const CardCategory = ({ elem, page = 1, limit }: CardCategoryInterface) => {
-  const { getSearchPinForCategory, updateDataSearch } = useAppsStore();
+  const { getSearchPinForCategory, updateDataSearch, t } = useAppsStore();
   const router = useRouter();
 
   const handleClick = async (elem: CategoriesPin) => {
     updateDataSearch('value', '');
     updateDataSearch('categorySelect', elem.id);
     await getSearchPinForCategory(elem.id, page, limit);
-    router.push(`/search?query=${elem.name}`);
+    router.push(`/searchcategory/${elem.name}`);
   };
 
   return (
@@ -38,7 +38,7 @@ const CardCategory = ({ elem, page = 1, limit }: CardCategoryInterface) => {
         <div className='flex justify-center items-end w-full h-full'>
           <div className='relative'>
             <p className='font-bold text-2xl text-white text-border transition-transform transform group-hover:translate-y-[-10px] group-hover:rotateX-15 group-hover:scale-110 group-hover:rotateY-10'>
-              {elem.name}
+              {t?.categories[`${elem.name}`] || elem.name}
             </p>
           </div>
         </div>

@@ -40,11 +40,6 @@ const Search = () => {
   const limit = 25;
 
   useEffect(() => {
-    getCategoriesPin();
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
     console.log(page);
     if (page === 1 || value.length === 0) return;
     getSearchPins(value, page, limit);
@@ -77,6 +72,11 @@ const Search = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollTop]);
 
+  useEffect(() => {
+    getCategoriesPin();
+    setLoading(false);
+  }, []);
+
   if (loading) {
     return (
       <section className='w-full flex justify-center '>
@@ -86,12 +86,12 @@ const Search = () => {
   }
 
   return (
-    <section className='relative flex flex-col min-h-screen'>
+    <section className='relative flex flex-col min-h-screen '>
       <div className='flex flex-row'>
-        <div className='flex-col hidden md:flex'>
+        <div className='flex-col hidden md:flex '>
           {isOpenFiltersModal && <AsideFilters />}
         </div>
-        <div className='flex-1 mt-[50px] '>
+        <div className='flex-1 mt-[50px]'>
           <>
             {filterState === 'pines' &&
               (homePins.length > 0 ? (
@@ -101,32 +101,34 @@ const Search = () => {
                   ))}
                 </Masonry>
               ) : (
-                <div className='fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]'>
-                  <p className='text-[15px] text-black text-center'>
-                    Lo sentimos, no encontramos ningún pin sobre{' '}
-                    <strong className='font-semibold'>
-                      {' '}
-                      {valueErrorSearch}
-                    </strong>
-                    . Prueba con otra búsqueda.
-                  </p>
-                </div>
+                !loading && (
+                  <div className='fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]'>
+                    <p className='text-[15px] text-black text-center'>
+                      Lo sentimos, no encontramos ningún pin sobre{' '}
+                      <strong className='font-semibold'>
+                        {valueErrorSearch}
+                      </strong>
+                      . Prueba con otra búsqueda.
+                    </p>
+                  </div>
+                )
               ))}
 
             {filterState === 'tableros' &&
               (searchedBoards.length > 0 ? (
                 <BoardsGrid boards={searchedBoards} />
               ) : (
-                <div className='fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]'>
-                  <p className='text-[15px] text-black text-center'>
-                    Lo sentimos, no encontramos ningún tablero sobre{' '}
-                    <strong className='font-semibold'>
-                      {' '}
-                      {valueErrorSearch}
-                    </strong>
-                    . Prueba con otra búsqueda.
-                  </p>
-                </div>
+                !loading && (
+                  <div className='fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]'>
+                    <p className='text-[15px] text-black text-center'>
+                      Lo sentimos, no encontramos ningún tablero sobre{' '}
+                      <strong className='font-semibold'>
+                        {valueErrorSearch}
+                      </strong>
+                      . Prueba con otra búsqueda.
+                    </p>
+                  </div>
+                )
               ))}
           </>
         </div>

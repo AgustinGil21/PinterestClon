@@ -1,9 +1,9 @@
 import { TInteraction } from '@/app/global-interfaces/global-interfaces';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface Props {
   value: number | string;
   type: TInteraction;
-  lang?: 'en' | 'es' | 'pt';
   className?: string;
 }
 
@@ -12,7 +12,8 @@ interface SingularOrPluralProps {
 }
 
 const SingularOrPlural = ({ props }: SingularOrPluralProps) => {
-  const { className, lang = 'en', value, type } = props;
+  const { className, value, type } = props;
+  const { userLang } = useAppsStore();
 
   const translations = {
     pins: {
@@ -52,7 +53,7 @@ const SingularOrPlural = ({ props }: SingularOrPluralProps) => {
     },
   };
 
-  let content: string = translations[type][lang];
+  let content: string = translations[type][userLang];
 
   return <span className={className}>{content}</span>;
 };

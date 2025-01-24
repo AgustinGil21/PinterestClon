@@ -7,7 +7,7 @@ interface CategoryGroupsInterface {
 }
 
 const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
-  const { userPublicData, categoriesPin } = useAppsStore();
+  const { userPublicData, categoriesPin, t } = useAppsStore();
 
   const categories = useMemo(
     () => categoriesPin.sort(() => Math.random() - 0.5).slice(0, 8),
@@ -24,7 +24,8 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
       {userPublicData?.username && (
         <>
           <h3 className='text-sm font-semibold my-2 dark:text-white'>
-            Ideas para ti
+            {t?.header['search-input'].modal['ideas-for-you'] ||
+              'Ideas para tí'}
           </h3>
           <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-1 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
             {categories.map((elem) => (
@@ -40,7 +41,7 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
       )}
 
       <h3 className='text-sm font-semibold my-3 mt-6 dark:text-white'>
-        Populares en Pinterest
+        {t?.header['search-input'].modal.popular || 'Populares en Pinterest'}
       </h3>
       <div className='grid grid-cols-[repeat(auto-fit,_minmax(178px,_1fr))] gap-1 min-w-[770px] grid-auto-rows-[minmax(200px,_1fr)] overflow-hidden'>
         {categories2.map((elem) => (

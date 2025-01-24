@@ -10,14 +10,14 @@ import { SavePinBtn } from '@/app/home-page-components/SavePinBtn';
 import { SavePinToBoardBtn } from '@/app/home-page-components/SavePinToBoardBtn';
 
 const ActionsPin = () => {
-  const { pinData } = useAppsStore();
+  const { pinData, t } = useAppsStore();
   const btnRef = useRef(null);
 
   return (
     <div className='flex justify-between items-center'>
       <div className='flex gap-1 items-center relative'>
         <Like />
-        <Tooltip tooltipText='Compartir'>
+        <Tooltip tooltipText={t?.share.text || 'Compartir'}>
           <DownloadShare
             classProps='p-2 flex items-center'
             dataShare={`pin/${pinData.id}`}

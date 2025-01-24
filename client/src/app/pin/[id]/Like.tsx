@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const Like = () => {
-  const { pinData, isAuth, postLikeOrUnlike, openRegisterModal } =
+  const { pinData, isAuth, postLikeOrUnlike, openRegisterModal, t } =
     useAppsStore();
 
   const [likes, setLikes] = useState(Number(pinData.likes));
@@ -27,7 +27,7 @@ const Like = () => {
 
   return (
     <div className='flex flex-row items-center'>
-      <Tooltip tooltipText='Reaccionar'>
+      <Tooltip tooltipText={t?.pin.like || 'Reaccionar'}>
         <div
           className='p-2 hover:bg-gray-200 rounded-full cursor-pointer h-[35px] w-[35px] flex justify-center items-center'
           onClick={toggleLike}

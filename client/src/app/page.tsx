@@ -21,6 +21,7 @@ export default function Home() {
     isHeaderLoaded,
     setIsHeaderLoaded,
     updateDataSearch,
+    t,
   } = useAppsStore();
 
   useEffect(() => {
@@ -70,7 +71,8 @@ export default function Home() {
         <div className=' max-w-[400px] flex justify-center flex-col items-center dark:text-white'>
           <Loader />
           <p className='text-center font-bold text-2xl   mt-2'>
-            ¡Estamos agregando nuevas ideas a tu feed de inicio!
+            {t?.loading ||
+              '¡Estamos agregando nuevas ideas a tu feed de inicio!'}
           </p>
         </div>
       </section>

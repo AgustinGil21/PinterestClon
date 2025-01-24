@@ -17,7 +17,8 @@ interface ImagePreviewInterface {
 }
 
 const UrlPin = ({ register, errors, watch }: ImagePreviewInterface) => {
-  const { updateStateCreatePin, dataCreatePin, imagePreview } = useAppsStore();
+  const { updateStateCreatePin, dataCreatePin, imagePreview, t } =
+    useAppsStore();
   const isReadOnly = !imagePreview;
 
   const urlRef = watch('url');
@@ -36,8 +37,10 @@ const UrlPin = ({ register, errors, watch }: ImagePreviewInterface) => {
       type='text'
       readOnly={isReadOnly}
       infoName='url'
-      textLabel='Enlace'
-      placeHolder='Agrega un enlace'
+      textLabel={t?.['create-pin'].form.link.label || 'Enlace'}
+      placeHolder={
+        t?.['create-pin'].form.link.placeholder || 'Agrega un enlace'
+      }
       className={` w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm  ${
         isReadOnly
           ? 'opacity-75 bg-transparent   outline-none outline-transparent cursor-default   '

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { CategorySlideSkeleton } from '../skeletons/CategorySlideSkeleton';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface PropsElemCategory {
   poster?: string;
@@ -12,6 +13,7 @@ interface CategorySlideInterface {
 }
 
 const CategorySlide = ({ elem, color }: CategorySlideInterface) => {
+  const { t } = useAppsStore();
   const [loading, setLoading] = useState(!!elem?.poster);
 
   const handleOnLoad = () => setLoading(false);
@@ -36,7 +38,7 @@ const CategorySlide = ({ elem, color }: CategorySlideInterface) => {
             onLoad={handleOnLoad}
           />
           <span className='text-white text-[12px] text-balance text-ellipsis'>
-            {elem?.name}
+            {t?.categories[`${elem?.name}`] || elem?.name}
           </span>
         </div>
       )}

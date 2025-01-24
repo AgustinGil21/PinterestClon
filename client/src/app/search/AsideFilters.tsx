@@ -1,22 +1,10 @@
-import React, { useState } from 'react';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import InputStyled from '../interfaces/components/Basic/InputStyled';
-import { useAppsStore } from '../infrastructure/stores/useAppStore';
-import { useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
-interface InterfaceAsideFilters {}
-
-const AsideFilters = ({}: InterfaceAsideFilters) => {
-  const {
-    searchBoards,
-    searchedBoards,
-    value,
-    setFiltersState,
-    filterState,
-    getSearchPins,
-  } = useAppsStore();
-  const pathname = usePathname();
+const AsideFilters = () => {
+  const { t, filterState, setFiltersState } = useAppsStore();
   const [selectedFilter, setSelectedFilter] = useState<string>(filterState);
 
   const handleFilterClick = (filter: string) => {
@@ -25,14 +13,6 @@ const AsideFilters = ({}: InterfaceAsideFilters) => {
 
   const handleClick = () => {
     setFiltersState(selectedFilter);
-    localStorage.setItem('filterState', selectedFilter);
-    if (selectedFilter === 'tableros') {
-      searchBoards({ value: value, page: 1, limit: 25 });
-    }
-
-    if (selectedFilter === 'pines') {
-      getSearchPins(value, 1, 25);
-    }
   };
 
   const handleReset = () => {
@@ -40,12 +20,14 @@ const AsideFilters = ({}: InterfaceAsideFilters) => {
   };
 
   return (
-    <aside className='h-[92vh] sticky top-20 w-[270px] p-3 border-r-2'>
+    <aside className='sticky  h-screen w-[270px] p-3 border-r-2'>
       <div className='mt-2 dark:text-white'>
-        <h4 className='font-semibold text-sm'>Filtros</h4>
+        <h4 className='font-semibold text-sm'>
+          {t?.filters['main-button'] || 'Filtros'}
+        </h4>
         <div className='flex flex-col gap-3 px-4 mt-6'>
           <div className='flex items-center justify-between text-sm'>
-            <span>Todos los pines</span>
+            <span>{t?.filters.pins || 'Todos los pines'}</span>
             <InputStyled
               infoName='pines'
               type='radio'
@@ -56,7 +38,7 @@ const AsideFilters = ({}: InterfaceAsideFilters) => {
             />
           </div>
           <div className='flex items-center justify-between text-sm'>
-            <span>Tableros</span>
+            <span>{t?.filters.boards || 'Tableros'}</span>
             <InputStyled
               infoName='tableros'
               type='radio'
@@ -67,7 +49,7 @@ const AsideFilters = ({}: InterfaceAsideFilters) => {
             />
           </div>
           <div className='flex items-center justify-between text-sm'>
-            <span>Perfiles</span>
+            <span>{t?.filters.users || 'Perfiles'}</span>
             <InputStyled
               infoName='perfiles'
               type='radio'
@@ -79,23 +61,20 @@ const AsideFilters = ({}: InterfaceAsideFilters) => {
           </div>
         </div>
       </div>
-      <div className='absolute bottom-12 flex flex-row gap-2 justify-center items-center pl-4'>
+      <div className='flex flex-row gap-2 pl-2 mt-5 items-start justify-start w-full'>
         <ButtonStyled
-          className='bg-redPinterestBg text-white font-semibold hover:bg-red-700'
+          className='bg-redPinterestBg text-white font-semibold hover:bg-red-700 w-full'
           handleClick={handleClick}
         >
-          Aplicar
+          {t?.filters.apply || 'Aplicar'}
         </ButtonStyled>
         <ButtonStyled
-          className='bg-buttonGreyBg font-semibold hover:bg-gray-300'
+          className='bg-buttonGreyBg font-semibold hover:bg-gray-300 w-full'
           handleClick={handleReset}
         >
-          Restablecer
+          {t?.filters.reset || 'Restablecer'}
         </ButtonStyled>
       </div>
-      {/* <p className='mt-4 text-sm text-gray-500'>
-        Filtro seleccionado: {selectedFilter}
-      </p> */}
     </aside>
   );
 };

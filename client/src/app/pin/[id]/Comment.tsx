@@ -45,7 +45,6 @@ const Comment = ({
             <RelativeTime
               props={{
                 date: createdAt,
-                lang: 'es',
                 className: 'text-[#b3b3b3] text-[11px]',
               }}
             />

@@ -25,36 +25,36 @@
         "ideas-for-you": "Ideas for you",
         "popular": "Popular on Pinterest"
       }
-    },
-    "data-devs": {
-      "text": "Created by",
-      "tooltip": "More"
-    },
-    "pin": {
-      "save-btn": "Save",
-      "more-options": {
-        "download": "Download image",
-        "report": "Report pin",
-        "tooltip": "More options"
-      },
-      "like": "React"
-    },
-    "share": {
-      "text": "Share",
-      "copy": "Copy link",
-      "copied": "Link copied"
-    },
-    "comment": {
-      "like": "Love",
-      "more-options": {
-        "report": "Report",
-        "delete": "Delete"
-      },
-      "show-more": "Show more",
-      "show-less": "Show less",
-      "reply": "Reply",
-      "input-placeholder": "Add a comment"
     }
+  },
+  "data-devs": {
+    "text": "Created by",
+    "tooltip": "More"
+  },
+  "pin": {
+    "save-btn": "Save",
+    "more-options": {
+      "download": "Download image",
+      "report": "Report pin",
+      "tooltip": "More options"
+    },
+    "like": "React"
+  },
+  "share": {
+    "text": "Share",
+    "copy": "Copy link",
+    "copied": "Link copied"
+  },
+  "comment": {
+    "like": "Love",
+    "more-options": {
+      "report": "Report",
+      "delete": "Delete"
+    },
+    "show-more": "Show more",
+    "show-less": "Show less",
+    "reply": "Reply",
+    "input-placeholder": "Add a comment"
   },
   "user": {
     "buttons": {
@@ -71,7 +71,8 @@
       "text": "Profile options",
       "block": "Block",
       "report": "Report"
-    }
+    },
+    "private": "This account is private"
   },
   "explore": {
     "title": "Keep getting inspired",
@@ -188,8 +189,22 @@
       "posts": "Posts",
       "create": "Create new"
     },
+    "prev-pins": {
+      "options": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "delete-modal": {
+      "title": "Do you want to delete the post?",
+      "description": "All associated interactions, such as comments, likes, or shares, will be lost.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
     "form": {
       "publish": "Publish",
+      "saving": "Saving",
+      "creating": "Creating pin",
       "image": {
         "reset": "Reset",
         "explanation": "Choose a file or drag and drop it here",
@@ -213,7 +228,9 @@
       },
       "categories": {
         "label": "Category tag",
-        "placeholder": "Search tag"
+        "placeholder": "Search tag",
+        "message": "Don't worry. Other users won't see your tags.",
+        "results": "Matching tags"
       },
       "more-options": {
         "title": "More options",
@@ -231,29 +248,29 @@
     "reset": "Reset"
   },
   "categories": {
-    "sports": "Sports",
-    "health": "Health",
-    "technology": "Technology",
-    "entertainment": "Entertainment",
-    "food": "Food",
-    "desserts": "Desserts",
-    "haircuts": "Haircuts",
-    "vehicles": "Vehicles",
-    "beauty": "Beauty",
-    "fashion": "Fashion",
-    "travel": "Travel",
-    "tattoos": "Tattoos",
-    "art": "Art",
-    "design": "Design",
-    "quotes": "Quotes",
-    "home-decoration": "Home Decoration",
-    "animals": "Animals",
-    "nature": "Nature",
-    "funny": "Funny",
-    "love": "Love",
-    "wallpapers": "Wallpapers",
-    "anime": "Anime",
-    "drinks": "Drinks"
+    "Sports": "Sports",
+    "Health": "Health",
+    "Technology": "Technology",
+    "Entertainment": "Entertainment",
+    "Food": "Food",
+    "Desserts": "Desserts",
+    "Haircuts": "Haircuts",
+    "Vehicles": "Vehicles",
+    "Beauty": "Beauty",
+    "Fashion": "Fashion",
+    "Travel": "Travel",
+    "Tattoos": "Tattoos",
+    "Art": "Art",
+    "Design": "Design",
+    "Quotes": "Quotes",
+    "Home Decoration": "Home Decoration",
+    "Animals": "Animals",
+    "Nature": "Nature",
+    "Funny": "Funny",
+    "Love": "Love",
+    "Wallpapers": "Wallpapers",
+    "Anime": "Anime",
+    "Drinks": "Drinks"
   },
   "auth": {
     "login": {
@@ -310,6 +327,15 @@
         "button": "Finish"
       }
     }
+  },
+  "boards-list": {
+    "profile": "Profile",
+    "all-boards": "All boards",
+    "results": "Results",
+    "create-board": "Create board",
+    "save": "Save",
+    "empty": "No boards available",
+    "empty-typing": "Create a board first"
   },
   "errors": {}
 }

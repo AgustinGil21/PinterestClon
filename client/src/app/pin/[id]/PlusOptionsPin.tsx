@@ -15,6 +15,7 @@ const PlusOptionsPin = () => {
     isOpenReportModal,
     openRegisterModal,
     userPublicData,
+    t,
   } = useAppsStore();
   const btnRef = useRef<HTMLButtonElement>(null);
 
@@ -28,7 +29,7 @@ const PlusOptionsPin = () => {
 
   return (
     <>
-      <Tooltip tooltipText='Más opciones'>
+      <Tooltip tooltipText={t?.pin['more-options'].tooltip || 'Más opciones'}>
         <ButtonStyled btnRef={btnRef} className='!p-0'>
           <div
             onClick={handleClick}

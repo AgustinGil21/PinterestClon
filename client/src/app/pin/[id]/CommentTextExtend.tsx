@@ -1,3 +1,4 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useState } from 'react';
 
 interface CommentTextExtendInterface {
@@ -5,6 +6,7 @@ interface CommentTextExtendInterface {
 }
 
 export const CommentTextExtend = ({ text }: CommentTextExtendInterface) => {
+  const { t } = useAppsStore();
   const [isExpanded, setIsExpanded] = useState(false);
 
   if (text?.length <= 100) {
@@ -18,7 +20,9 @@ export const CommentTextExtend = ({ text }: CommentTextExtendInterface) => {
         className='text-blue-500 hover:underline'
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        {isExpanded ? 'Ver menos' : 'Ver más'}
+        {isExpanded
+          ? t?.comment['show-less'] || 'Ver menos'
+          : t?.comment['show-more'] || 'Ver más'}
       </button>
     </p>
   );

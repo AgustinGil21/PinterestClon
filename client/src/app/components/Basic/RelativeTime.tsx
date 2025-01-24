@@ -1,7 +1,8 @@
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+
 interface Props {
   className?: string;
   date: Date | string;
-  lang?: 'es' | 'en' | 'pt';
 }
 
 interface RelativeTimeProps {
@@ -9,7 +10,8 @@ interface RelativeTimeProps {
 }
 
 const RelativeTime = ({ props }: RelativeTimeProps) => {
-  const { date, className, lang = 'en' } = props;
+  const { date, className } = props;
+  const { userLang } = useAppsStore();
 
   const now = new Date();
 
@@ -91,7 +93,7 @@ const RelativeTime = ({ props }: RelativeTimeProps) => {
     },
   };
 
-  const formattedTime = translations[unit][lang];
+  const formattedTime = translations[unit][userLang];
 
   return <span className={className}>{formattedTime}</span>;
 };
