@@ -4,7 +4,7 @@ import InputStyled from '../interfaces/components/Basic/InputStyled';
 import { useState } from 'react';
 
 const AsideFilters = () => {
-  const { t, filterState, setFiltersState } = useAppsStore();
+  const { t, filterState, setFiltersState, openFiltersModal } = useAppsStore();
   const [selectedFilter, setSelectedFilter] = useState<string>(filterState);
 
   const handleFilterClick = (filter: string) => {
@@ -13,6 +13,7 @@ const AsideFilters = () => {
 
   const handleClick = () => {
     setFiltersState(selectedFilter);
+    openFiltersModal();
   };
 
   const handleReset = () => {
@@ -20,7 +21,10 @@ const AsideFilters = () => {
   };
 
   return (
-    <aside className='sticky  h-screen w-[270px] p-3 border-r-2'>
+    <aside
+      className='sticky h-screen w-[270px] p-3 border-r-2'
+      style={{ animation: `ease aside-filters-open 500ms` }}
+    >
       <div className='mt-2 dark:text-white'>
         <h4 className='font-semibold text-sm'>
           {t?.filters['main-button'] || 'Filtros'}

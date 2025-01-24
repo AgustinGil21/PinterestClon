@@ -736,6 +736,15 @@
   }
 }
 
+@keyframes aside-filters-open {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::after,

@@ -9,6 +9,7 @@ import AsideFilters from './AsideFilters';
 import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 import { usePathname } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
+import { EmptyMsg } from './EmptyMsg';
 
 const Search = () => {
   const {
@@ -86,12 +87,12 @@ const Search = () => {
   }
 
   return (
-    <section className='relative flex flex-col min-h-screen '>
+    <section className='flex flex-col min-h-screen '>
       <div className='flex flex-row'>
         <div className='flex-col hidden md:flex '>
           {isOpenFiltersModal && <AsideFilters />}
         </div>
-        <div className='flex-1 mt-[50px]'>
+        <div className='flex-1 mt-[50px] w-full'>
           <>
             {filterState === 'pines' &&
               (homePins.length > 0 ? (
@@ -102,15 +103,7 @@ const Search = () => {
                 </Masonry>
               ) : (
                 !loading && (
-                  <div className='fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]'>
-                    <p className='text-[15px] text-black text-center'>
-                      Lo sentimos, no encontramos ningún pin sobre{' '}
-                      <strong className='font-semibold'>
-                        {valueErrorSearch}
-                      </strong>
-                      . Prueba con otra búsqueda.
-                    </p>
-                  </div>
+                  <EmptyMsg searchValue={valueErrorSearch} type='pin' />
                 )
               ))}
 
@@ -119,15 +112,7 @@ const Search = () => {
                 <BoardsGrid boards={searchedBoards} />
               ) : (
                 !loading && (
-                  <div className='fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]'>
-                    <p className='text-[15px] text-black text-center'>
-                      Lo sentimos, no encontramos ningún tablero sobre{' '}
-                      <strong className='font-semibold'>
-                        {valueErrorSearch}
-                      </strong>
-                      . Prueba con otra búsqueda.
-                    </p>
-                  </div>
+                  <EmptyMsg searchValue={valueErrorSearch} type='board' />
                 )
               ))}
           </>

@@ -15,15 +15,6 @@ export default class BoardsModel {
           b.name, 
           b.created_at, 
           (SELECT COUNT(1) FROM board_posts WHERE board_id = b.id) AS pins_count, 
-          u.name, 
-          u.surname, 
-          u.username, 
-          u.id, 
-          u.avatar, 
-          u.avatar_letter, 
-          u.avatar_letter_color, 
-          u.avatar_background, 
-          u.verified,
           CASE 
             WHEN b.cover IS NOT NULL THEN b.cover
             ELSE NULL
@@ -42,8 +33,6 @@ export default class BoardsModel {
           END AS collage
       FROM 
           boards b
-      JOIN 
-          users u ON u.id = b.user_id
       CROSS JOIN 
           search_input
       WHERE 

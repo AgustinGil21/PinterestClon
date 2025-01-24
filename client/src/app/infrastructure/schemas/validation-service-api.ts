@@ -398,13 +398,6 @@ const BoardPreviewSchema = z.object({
   pins_count: z.string(),
   cover: z.string().url().optional(),
   collage: z.array(z.string().optional()),
-  surname: z.string().optional(),
-  username: z.string(),
-  avatar: z.string().optional(),
-  avatar_letter_color: z.string().optional(),
-  avatar_letter: z.string().length(1).optional(),
-  avatar_background: z.string().optional(),
-  verified: z.boolean(),
 });
 
 export const SearchBoardsSchema = z.object({
