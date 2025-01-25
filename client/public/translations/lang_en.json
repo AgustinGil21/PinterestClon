@@ -601,5 +601,30 @@
     "English": "English",
     "Portuguese": "Portuguese (br)"
   },
+  "explore-categories": {
+    "Sports": "Discover the latest in sports.",
+    "Health": "Explore the latest advancements in health.",
+    "Technology": "Stay up to date with technological innovations.",
+    "Entertainment": "Get the latest entertainment news.",
+    "Food": "Find delicious recipes and culinary tips.",
+    "Desserts": "Discover irresistible desserts for every occasion.",
+    "Haircuts": "Get inspired by the latest haircuts.",
+    "Vehicles": "Dive into the world of automobiles.",
+    "Beauty": "Discover beauty tips and products.",
+    "Fashion": "Stay fashionable with the latest trends.",
+    "Travel": "Find amazing destinations for your next vacation.",
+    "Tattoos": "Get inspired by unique tattoo designs.",
+    "Art": "Explore artworks and creative techniques.",
+    "Design": "Discover innovative design ideas.",
+    "Quotes": "Find inspiring and motivational quotes.",
+    "Home Decoration": "Get inspired with home decoration ideas.",
+    "Animals": "Discover the wonderful world of animals.",
+    "Nature": "Explore the beauty of nature.",
+    "Funny": "Laugh with the funniest content.",
+    "Love": "Find inspiration about love and relationships.",
+    "Wallpapers": "Discover stunning wallpapers.",
+    "Anime": "Explore the fascinating world of anime.",
+    "Drinks": "Discover refreshing drink recipes and exquisite cocktails."
+  },
   "errors": {}
 }
