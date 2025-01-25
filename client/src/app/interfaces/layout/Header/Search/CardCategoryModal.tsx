@@ -16,7 +16,7 @@ const CardCategoryModal = ({ elem, setModal }: CardCategoryInterface) => {
     updateDataSearch('value', '');
     updateDataSearch('categorySelect', elem.id);
     await getSearchPinForCategory(elem.id, 1, limit);
-    router.push(`/search?query=${elem.name}`);
+    router.push(`/searchcategory/${elem.name}`);
     setModal(false);
   };
 

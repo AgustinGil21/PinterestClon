@@ -25,7 +25,7 @@ const CategorySlide = ({ elem, color }: CategorySlideInterface) => {
   return (
     <>
       {loading ? (
-        <CategorySlideSkeleton color={color} />
+        <CategorySlideSkeleton />
       ) : (
         <div
           className='cursor-pointer bg-black py-1.5 px-3 flex flex-row gap-2 items-center rounded-[30px]'
