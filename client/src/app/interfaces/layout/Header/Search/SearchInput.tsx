@@ -133,7 +133,7 @@ const SearchInput = () => {
           value={value}
           type='text'
           className={`w-full p-2 py-[10px] hover:bg-gray-200 ${
-            isFocused ? 'px-4' : 'px-8'
+            isFocused ? 'pl-4 pr-12' : 'px-8'
           } text-sm rounded-3xl bg-searchBg focus:outline-search focus:ring-[3px] focus:outline-none font-sans`}
           placeholder={t?.header['search-input'].placeholder}
           onFocus={() => setIsFocused(true)}

@@ -7,6 +7,7 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import CategorySlide from './CategorySlide';
 import { ArrowLeftIcon } from '../components/icons/ArrowLeftIcon';
 import { useState, useEffect } from 'react';
+import { CategorySlideSkeleton } from '../skeletons/CategorySlideSkeleton';
 
 const CardCategorySlider = () => {
   const { categoriesPin } = useAppsStore();
@@ -48,7 +49,7 @@ const CardCategorySlider = () => {
         {isLoading
           ? Array.from({ length: 18 }).map((_, index) => (
               <SwiperSlide key={index} className='!w-auto'>
-                <div className='animate-pulse bg-gray-300 rounded-[30px] w-[80px] h-[40px]'></div>
+                <CategorySlideSkeleton />
               </SwiperSlide>
             ))
           : categoriesPin.map((elem, index) => (

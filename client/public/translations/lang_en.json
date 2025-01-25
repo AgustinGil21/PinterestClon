@@ -626,5 +626,21 @@
     "Anime": "Explore the fascinating world of anime.",
     "Drinks": "Discover refreshing drink recipes and exquisite cocktails."
   },
+  "search": {
+    "empty": {
+      "pin": {
+        "pt1": "Sorry, we couldn't find any pins related to",
+        "pt2": ". Try another search."
+      },
+      "board": {
+        "pt1": "Sorry, we couldn't find any boards related to",
+        "pt2": ". Try another search."
+      },
+      "user": {
+        "pt1": "Sorry, we couldn't find any users related to",
+        "pt2": ". Try another search."
+      }
+    }
+  },
   "errors": {}
 }
