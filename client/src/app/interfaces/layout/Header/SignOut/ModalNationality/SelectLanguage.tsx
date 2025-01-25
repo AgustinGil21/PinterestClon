@@ -3,6 +3,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const SelectLanguage = () => {
   const getDataLanguages = useAppsStore((state) => state.getDataLanguages);
+  const { t } = useAppsStore();
   const updateStateRegister = useAppsStore(
     (state) => state.updateStateRegisterUser
   );
@@ -32,7 +33,7 @@ const SelectLanguage = () => {
     >
       {languages.map((elem) => (
         <option key={elem.id} value={elem.id}>
-          {elem.name}
+          {t?.languages[`${elem.name}`] || elem.name}
         </option>
       ))}
     </select>

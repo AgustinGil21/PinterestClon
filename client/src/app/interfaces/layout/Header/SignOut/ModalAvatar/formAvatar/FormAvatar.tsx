@@ -17,6 +17,7 @@ const FormAvatar = () => {
     handleSubmit,
     handleClick,
   } = useFormAvatar();
+  const { t } = useAppsStore();
 
   return (
     <form className='flex justify-center flex-col items-center'>
@@ -40,7 +41,7 @@ const FormAvatar = () => {
       <InputLabelStyled
         type='text'
         className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm mt-2'
-        textLabel='Nombre de usuario'
+        textLabel={t?.auth.register['page-avatar'].label || 'Nombre de usuario'}
         errors={errors.username}
         register={register}
         infoName='username'
@@ -51,7 +52,7 @@ const FormAvatar = () => {
         className='w-full text-white bg-redPinterestBg mt-3 hover:bg-red-700 cursor-pointer'
         handleClick={handleSubmit(handleClick)}
       >
-        Finalizar
+        {t?.auth.register['page-avatar'].button || 'Finalizar'}
       </ButtonStyled>
     </form>
   );

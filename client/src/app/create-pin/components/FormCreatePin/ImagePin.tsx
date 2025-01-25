@@ -25,7 +25,7 @@ const ImagePin = ({ register, clearErrors }: ImagePinInterface) => {
       <div
         className={`${
           !imagePreview && 'p-5'
-        } max-w-[310px] w-full h-[380px] bg-[#e9e9e9] border-[1px] border-gray-300  rounded-3xl flex justify-center flex-col items-center cursor-pointer relative`}
+        } min-w-[310px] max-w-[310px] w-full h-[380px] bg-[#e9e9e9] border-[1px] border-gray-300  rounded-3xl flex justify-center flex-col items-center cursor-pointer relative`}
         onClick={handleDivClick}
       >
         <input

@@ -18,8 +18,13 @@ const FormGender = () => {
     formState: { isValid },
   } = useForm();
 
-  const { closeGenderModal, getDataGender, genders, updateStateRegisterUser } =
-    useAppsStore();
+  const {
+    closeGenderModal,
+    getDataGender,
+    genders,
+    updateStateRegisterUser,
+    t,
+  } = useAppsStore();
 
   useEffect(() => {
     getDataGender();
@@ -39,7 +44,10 @@ const FormGender = () => {
           key={elem.id}
           register={register}
           value={elem.id}
-          textLabel={translations[elem.name.toLowerCase()]}
+          textLabel={
+            t?.['account-management']['personal-info'].gender[`${elem.name}`] ||
+            elem.name
+          }
           id={elem.id}
         />
       ))}
@@ -49,7 +57,7 @@ const FormGender = () => {
         disabled={false}
         handleClick={handleSubmit(handleClick)}
       >
-        Siguiente
+        {t?.auth.register['page-gender'].button || 'Siguiente'}
       </ButtonStyled>
     </form>
   );

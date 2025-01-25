@@ -4,6 +4,7 @@ import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import EyePasswordStyled from '@/app/interfaces/components/Basic/EyePasswordStyled';
 import ErrorStyled from '@/app/interfaces/components/Basic/ErrorStyled';
 import useFormRegister from './useFormRegister';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const FormRegister = () => {
   const {
@@ -14,6 +15,7 @@ const FormRegister = () => {
     handleClick,
     togglePasswordVisibility,
   } = useFormRegister();
+  const { t } = useAppsStore();
 
   return (
     <form className='w-full max-w-[220px] flex flex-col items-center'>
@@ -22,19 +24,30 @@ const FormRegister = () => {
           register={register}
           errors={errors.email}
           type='email'
-          placeHolder='Email'
-          textLabel='Correo electrónico'
+          placeHolder={
+            t?.auth.register['page-session'].email_address.placeholder ||
+            'Email'
+          }
+          textLabel={
+            t?.auth.register['page-session'].email_address.label ||
+            'Correo electrónico'
+          }
           infoName='email'
           className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         />
         {serverError && <ErrorStyled>{serverError}</ErrorStyled>}
         <div className='w-full mt-2 relative'>
           <InputLabelStyled
-            placeHolder='Contraseña'
+            placeHolder={
+              t?.auth.register['page-session'].password.placeholder ||
+              'Contraseña'
+            }
             register={register}
             errors={errors.password}
             type={showPassword ? 'text' : 'password'}
-            textLabel='Contraseña'
+            textLabel={
+              t?.auth.register['page-session'].password.label || 'Contraseña'
+            }
             infoName='password'
             className=' w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
           />
@@ -51,7 +64,9 @@ const FormRegister = () => {
           register={register}
           errors={errors.date}
           type='date'
-          textLabel='Fecha de nacimiento'
+          textLabel={
+            t?.auth.register['page-session'].birthdate || 'Fecha de nacimiento'
+          }
           infoName='date'
           className='w-full rounded-[13px] py-2 px-3 border-gray-300 border-[1px] text-sm '
         />
@@ -62,10 +77,10 @@ const FormRegister = () => {
         className='bg-redPinterestBg w-full text-sm mt-2 hover:bg-red-800 text-white'
         disabled={false}
       >
-        Continuar
+        {t?.auth.register['page-session'].button || 'Continuar'}
       </ButtonStyled>
-      <span className='text-black my-0.5 text-[16px] text-center dark:text-white'>
-        o
+      <span className='text-black my-0.5 text-[12px] text-center dark:text-white'>
+        {t?.auth.register['page-session'].or || 'o'}
       </span>
       {/* <ButtonGoogleSession /> */}
     </form>

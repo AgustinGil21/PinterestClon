@@ -312,7 +312,7 @@
           "label": "Password",
           "placeholder": "Password"
         },
-        "birthdate": "Date of birth",
+        "birthdate": "Birthdate",
         "or": "Or",
         "about": "This website is a non-profit Pinterest clone, developed by",
         "go-to-login": "Already a member? Log in",
