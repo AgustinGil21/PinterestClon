@@ -87,7 +87,7 @@ const Search = () => {
   }
 
   return (
-    <section className='flex flex-col min-h-screen '>
+    <section className='flex flex-col min-h-screen w-full'>
       <div className='flex flex-row'>
         <div className='flex-col hidden md:flex '>
           {isOpenFiltersModal && <AsideFilters />}
