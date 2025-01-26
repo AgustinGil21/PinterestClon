@@ -796,7 +796,7 @@ _username_: User username
       "avatar_background": "String<Hex>",
       "avatar_letter_color": "String<Hex>",
       "avatar_letter": "String<Char>",
-      "its_your": "Boolean"
+      "its_yours": "Boolean"
     }
   ]
 }
