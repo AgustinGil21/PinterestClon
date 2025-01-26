@@ -2,18 +2,51 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import InputStyled from '../interfaces/components/Basic/InputStyled';
 import { useState } from 'react';
+import useSearchData from '../interfaces/hooks/useSearchData';
+import { useEffect } from 'react';
+import Filter from './Filter';
 
 const AsideFilters = () => {
-  const { t, filterState, setFiltersState, openFiltersModal } = useAppsStore();
+  const {
+    t,
+    filterState,
+    setFiltersState,
+    searchBoards,
+    getSearchPins,
+    updateDataSearch,
+    value,
+    updateStateBoards,
+  } = useAppsStore();
+  const { handleSearch } = useSearchData({
+    getSearchBoards: searchBoards,
+    getSearchPins: getSearchPins,
+  });
   const [selectedFilter, setSelectedFilter] = useState<string>(filterState);
+  const [isExecute, setIsExecute] = useState(false);
+
+  useEffect(() => {
+    if (!value || !isExecute) return;
+    const executeSearch = async () => {
+      await handleSearch(value);
+    };
+
+    if (filterState) {
+      executeSearch();
+    }
+  }, [filterState]);
 
   const handleFilterClick = (filter: string) => {
     setSelectedFilter(filter);
   };
 
   const handleClick = () => {
+    if (selectedFilter === filterState) return;
+    localStorage.setItem('valueFilter', selectedFilter);
+    setIsExecute(true);
     setFiltersState(selectedFilter);
-    openFiltersModal();
+
+    updateDataSearch('searchPins', []);
+    updateStateBoards('searchedBoards', []);
   };
 
   const handleReset = () => {
@@ -30,39 +63,24 @@ const AsideFilters = () => {
           {t?.filters['main-button'] || 'Filtros'}
         </h4>
         <div className='flex flex-col gap-3 px-4 mt-6'>
-          <div className='flex items-center justify-between text-sm'>
-            <span>{t?.filters.pins || 'Todos los pines'}</span>
-            <InputStyled
-              infoName='pines'
-              type='radio'
-              value='pines'
-              classProps='form-radio h-3 w-3 text-black focus:ring-blue-500 custom-radio'
-              onClick={() => handleFilterClick('pines')}
-              checked={selectedFilter === 'pines'}
-            />
-          </div>
-          <div className='flex items-center justify-between text-sm'>
-            <span>{t?.filters.boards || 'Tableros'}</span>
-            <InputStyled
-              infoName='tableros'
-              type='radio'
-              value='tableros'
-              classProps='form-radio h-3 w-3 text-black focus:ring-blue-500 custom-radio'
-              onClick={() => handleFilterClick('tableros')}
-              checked={selectedFilter === 'tableros'}
-            />
-          </div>
-          <div className='flex items-center justify-between text-sm'>
-            <span>{t?.filters.users || 'Perfiles'}</span>
-            <InputStyled
-              infoName='perfiles'
-              type='radio'
-              value='perfiles'
-              classProps='form-radio h-3 w-3 text-black focus:ring-blue-500 custom-radio'
-              onClick={() => handleFilterClick('perfiles')}
-              checked={selectedFilter === 'perfiles'}
-            />
-          </div>
+          <Filter
+            value={'pines'}
+            selectedFilter={selectedFilter}
+            handleFilterClick={handleFilterClick}
+            labelFilter='Todos los pines'
+          />
+          <Filter
+            labelFilter='Tableros'
+            value={'tableros'}
+            selectedFilter={selectedFilter}
+            handleFilterClick={handleFilterClick}
+          />
+          <Filter
+            labelFilter='Perfiles'
+            value='perfiles'
+            selectedFilter={selectedFilter}
+            handleFilterClick={handleFilterClick}
+          />
         </div>
       </div>
       <div className='flex flex-row gap-2 pl-2 mt-5 items-start justify-start w-full'>

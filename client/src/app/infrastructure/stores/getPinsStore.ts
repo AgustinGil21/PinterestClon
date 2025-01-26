@@ -15,7 +15,10 @@ export interface homePinsStoreInterface {
   getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
   value: string;
   valuesSearch: string[];
-  updateDataSearch: (store: string, value: string | number) => void;
+  updateDataSearch: (
+    store: string,
+    value: string | number | [] | boolean
+  ) => void;
   suggestions: SuggestionsInterface[];
   getSuggestions: () => Promise<void>;
   updateValueSearchInput: (value: string) => void;
@@ -33,11 +36,17 @@ export interface homePinsStoreInterface {
   filterState: string;
   itsOpenModalFilter: boolean;
   categoryPinsData: PinInterface[];
+  searchPins: PinInterface[];
 }
 
 const loadValuesFromLocalStorage = () => {
   const storedValues = localStorage.getItem('valuesSearch');
   return storedValues ? JSON.parse(storedValues) : [];
+};
+
+const loadValueFilterFromLocalStorage = () => {
+  const storedValues = localStorage.getItem('valueFilter');
+  return storedValues ? storedValues : 'pines';
 };
 
 export const homePinsStore: StateCreator<homePinsStoreInterface> = (
@@ -51,9 +60,10 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   categorySelect: '',
   prevCategory: '',
   homePins: [],
+  searchPins: [],
   suggestions: [],
   valuesSearch: loadValuesFromLocalStorage(),
-  filterState: 'pines',
+  filterState: loadValueFilterFromLocalStorage(),
   itsOpenModalFilter: false,
 
   getHomePins: async (page: number, limit: number) => {
@@ -81,13 +91,14 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     // Limpiar los pins si es una nueva búsqueda (página 1)
     if (page === 1) {
       // Reinicia los pins solo en la primera página (nueva búsqueda)
-      set({ homePins: [] });
+      set({ searchPins: [] });
     }
 
     const response = await getSearchPinsCase(value, page, limit);
+    console.log(response);
 
     if (Array.isArray(response)) {
-      const prevHomePins = get().homePins;
+      const prevHomePins = get().searchPins;
 
       const uniqueSearchPins = response.filter(
         (newPin: PinInterface) =>
@@ -98,7 +109,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
       // Si es una nueva búsqueda (página 1), no concatenamos, solo asignamos los nuevos pins
       set({
-        homePins:
+        searchPins:
           page === 1
             ? uniqueSearchPins
             : [...prevHomePins, ...uniqueSearchPins],
@@ -152,7 +163,10 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     });
   },
 
-  updateDataSearch: async (store: string, value: string | number) => {
+  updateDataSearch: async (
+    store: string,
+    value: string | number | [] | boolean
+  ) => {
     set((state) => ({
       ...state,
       [store]: value,

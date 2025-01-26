@@ -42,6 +42,7 @@ export interface IBoardsStore {
   possibleCovers: ICover[];
   searchedBoards: IBoardPreview[];
   boardPins: IPin[];
+  updateStateBoards: (store: string, value: []) => void;
 
   createBoard: (data: ICreateBoard) => void;
   editBoard: (data: IEditBoard) => void;
@@ -231,5 +232,12 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
         });
       }
     }
+  },
+
+  updateStateBoards: (store: string, value: []) => {
+    set((state) => ({
+      ...state,
+      [store]: value,
+    }));
   },
 });

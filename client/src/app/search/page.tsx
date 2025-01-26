@@ -7,66 +7,29 @@ import { Pin } from '../home-page-components/Pin';
 import Masonry from '../interfaces/components/Basic/Masonry';
 import AsideFilters from './AsideFilters';
 import BoardsGrid from '../boards/boards-preview/BoardsGrid';
-import { usePathname } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { EmptyMsg } from './EmptyMsg';
+import useInfiniteScroll from '../interfaces/hooks/useInfiniteScroll';
 
 const Search = () => {
   const {
-    homePins,
-    setPage,
-    page,
-    getSearchPinForCategory,
+    searchPins,
     value,
     filterState,
-    getSearchPins,
     searchedBoards,
-    categorySelect,
     getCategoriesPin,
-    searchBoards,
-    openFiltersModal,
     isOpenFiltersModal,
   } = useAppsStore();
+
   const [loading, setLoading] = useState(true);
-  const [lastScrollTop, setLastScrollTop] = useState(0);
-  const pathname = usePathname();
+
+  let limit: 25;
+
   const [valueErrorSearch, setValueErrorSearch] = useState(value);
   const searchParams = useSearchParams();
   const queryValue: string | null = searchParams.get('query');
 
-  useEffect(() => {
-    if (queryValue) setValueErrorSearch(queryValue);
-  }, [queryValue]);
-
-  const limit = 25;
-
-  useEffect(() => {
-    console.log(page);
-    if (page === 1 || value.length === 0) return;
-    getSearchPins(value, page, limit);
-  }, [page]);
-
-  useEffect(() => {
-    console.log(page);
-    if (page === 1 || categorySelect.length === 0) return;
-
-    getSearchPinForCategory(categorySelect, page, limit);
-  }, [page, categorySelect]);
-
-  const handleScroll = () => {
-    const currentScrollTop = window.scrollY;
-
-    if (currentScrollTop > lastScrollTop) {
-      if (
-        window.innerHeight + currentScrollTop + 1 >=
-        document.documentElement.scrollHeight
-      ) {
-        setPage(1);
-      }
-    }
-
-    setLastScrollTop(currentScrollTop);
-  };
+  const { handleScroll, lastScrollTop } = useInfiniteScroll();
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -74,7 +37,12 @@ const Search = () => {
   }, [lastScrollTop]);
 
   useEffect(() => {
+    if (queryValue) setValueErrorSearch(queryValue);
+  }, [queryValue]);
+
+  useEffect(() => {
     getCategoriesPin();
+
     setLoading(false);
   }, []);
 
@@ -95,9 +63,9 @@ const Search = () => {
         <div className='flex-1 mt-[50px] w-full'>
           <>
             {filterState === 'pines' &&
-              (homePins.length > 0 ? (
+              (searchPins.length > 0 ? (
                 <Masonry>
-                  {homePins.map((elem) => (
+                  {searchPins.map((elem) => (
                     <Pin elem={elem} key={elem.pin_id} />
                   ))}
                 </Masonry>
@@ -113,6 +81,15 @@ const Search = () => {
               ) : (
                 !loading && (
                   <EmptyMsg searchValue={valueErrorSearch} type='board' />
+                )
+              ))}
+
+            {filterState === 'perfiles' &&
+              (searchedBoards.length > 0 ? (
+                <BoardsGrid boards={searchedBoards} />
+              ) : (
+                !loading && (
+                  <EmptyMsg searchValue={valueErrorSearch} type='user' />
                 )
               ))}
           </>

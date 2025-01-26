@@ -6,6 +6,7 @@ import CloseSearchIcon from '@/app/interfaces/components/icons/CloseSearchIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
+import useSearchData from '@/app/interfaces/hooks/useSearchData';
 
 const SearchInput = () => {
   const {
@@ -16,40 +17,24 @@ const SearchInput = () => {
     updateValueSearchInput,
     getSuggestions,
     previousPin,
-    setPage,
-    searchedBoards,
     searchBoards,
-    filterState,
-    setFiltersState,
     page,
     t,
   } = useAppsStore();
+  const { handleSearch } = useSearchData({
+    getSearchBoards: searchBoards,
+    getSearchPins: getSearchPins,
+  });
   const [isFocused, setIsFocused] = useState(false);
+  const [valueCurrent, setValueCurrent] = useState('');
   const [modalState, setModal] = useState(false);
   const [pinsSuggestions, setPinsSuggestions] = useState(suggestions);
 
   const limit = 25;
-  const router = useRouter();
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
-  const initialized = useRef(false);
 
   const { modalRef } = useCloseModal({ setModal, inputRef });
-
-  useEffect(() => {
-    const savedValue = localStorage.getItem('searchInputValue') || value;
-    if (savedValue && !initialized.current) {
-      initialized.current = true;
-      updateDataSearch('value', savedValue);
-
-      if (filterState === 'tableros') {
-        searchBoards({ value: savedValue, page: 1, limit: limit });
-      } else if (filterState === 'pines') {
-        getSearchPins(savedValue, 1, limit);
-      }
-      router.push(`/search?query=${savedValue}`);
-    }
-  }, [filterState]);
 
   useEffect(() => {
     getSuggestions();
@@ -58,7 +43,6 @@ const SearchInput = () => {
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     updateDataSearch('value', newValue);
-
     localStorage.setItem('searchInputValue', newValue);
   };
 
@@ -68,35 +52,25 @@ const SearchInput = () => {
     localStorage.removeItem('searchInputValue');
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.KeyboardEvent<HTMLInputElement>
+  ) => {
     event.preventDefault();
-    if (value === '') return;
-    updateDataSearch('categorySelect', '');
 
+    if (value === '' || valueCurrent === value) return;
+    setValueCurrent(value);
     updateValueSearchInput(value);
-
+    handleSearch(value);
     setModal(false);
-
-    if (filterState === 'tableros') {
-      searchBoards({ value: value, page: 1, limit: limit });
-      router.push(`/search?query=${value}`);
-      return;
-    }
-
-    if (filterState === 'pines') {
-      await getSearchPins(value, 1, limit);
-      router.push(`/search?query=${value}`);
-      return;
-    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (value) {
-        handleSubmit(
-          new Event('submit') as unknown as React.FormEvent<HTMLFormElement>
-        );
+        handleSubmit(event);
       }
     }
   };

@@ -10,7 +10,7 @@ interface SearchUserInterface {
 }
 
 const SearchUser = ({ elem, index, setModal }: SearchUserInterface) => {
-  const { getSearchUserProfile, updateDataSearch } = useAppsStore();
+  const { updateDataSearch } = useAppsStore();
   const router = useRouter();
 
   const handleClick = (username: string = 'username') => {

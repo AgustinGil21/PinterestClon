@@ -7,6 +7,7 @@ import SearchUser from './SearchUser';
 import SavePinsButton from './SavePinsButton';
 import CategoryGroups from './CategoryGroups';
 import LabelsSearch from './LabelsSearch';
+import useSearchData from '@/app/interfaces/hooks/useSearchData';
 
 interface ModalStateProps {
   modalRef: RefObject<HTMLDivElement>;
@@ -27,15 +28,18 @@ const ModalSearch = ({
     updateValueSearchInput,
     value,
     categoriesPin,
-    page,
     getSearchPins,
     searchBoards,
-    searchedBoards,
-    filterState,
     getCategoriesPin,
     updateDataSearch,
   } = useAppsStore();
 
+  const { handleSearch } = useSearchData({
+    getSearchBoards: searchBoards,
+    getSearchPins: getSearchPins,
+  });
+
+  const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -48,28 +52,18 @@ const ModalSearch = ({
       setIsMobile(window.innerWidth < 750);
     };
 
-    handleResize(); // Set the initial state
+    handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const router = useRouter();
-
   const handleClick = async (elem: string) => {
-    updateDataSearch('value', elem);
-    updateValueSearchInput(elem);
     localStorage.setItem('searchInputValue', elem);
-    setModal(false);
-    if (filterState === 'pines') {
-      router.push(`/search?query=${elem}`);
-      await getSearchPins(elem, 1, limit);
-    }
+    updateValueSearchInput(elem);
 
-    if (filterState === 'tableros') {
-      router.push(`/search?query=${elem}`);
-      await searchBoards({ value: elem, page: 1, limit: limit });
-    }
+    handleSearch(elem);
+    setModal(false);
   };
 
   return (
