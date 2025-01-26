@@ -5,17 +5,19 @@ import SingularOrPlural from './SingularOrPlural';
 interface Props {
   value: number | string;
   type: TInteraction;
-  lang?: TLang;
   className?: string;
   numberFirst?: boolean;
+  numberClassName?: string;
+  textClassName?: string;
 }
 
 const InteractionSummary = ({
   value,
   type,
-  lang = 'en',
   className,
   numberFirst,
+  numberClassName,
+  textClassName,
 }: Props) => {
   const formattedNumber = numberFormatter(value);
 
@@ -23,13 +25,13 @@ const InteractionSummary = ({
     <span className={className}>
       {numberFirst ? (
         <>
-          <span>{formattedNumber}</span>
-          <SingularOrPlural props={{ type, value }} />
+          <span className={numberClassName}>{formattedNumber}</span>
+          <SingularOrPlural props={{ type, value, className: textClassName }} />
         </>
       ) : (
         <>
-          <SingularOrPlural props={{ type, value }} />
-          <span>{formattedNumber}</span>
+          <SingularOrPlural props={{ type, value, className: textClassName }} />
+          <span className={numberClassName}>{formattedNumber}</span>
         </>
       )}
     </span>

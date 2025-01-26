@@ -1,13 +1,19 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useGetLimit } from '@/app/hooks/useGetLimit';
 
 interface InterfaceUseSearch {
   getHomePins?: any;
 }
 
 const useSearchHome = ({ getHomePins }: InterfaceUseSearch) => {
-  const limit = 25;
+  // const limit = 25;
+  const limit = useGetLimit({
+    parentPadding: 16,
+    elementMaxWidth: 236,
+    elementMinHeight: 239,
+  });
 
   const pathname = usePathname();
   const { page } = useAppsStore();

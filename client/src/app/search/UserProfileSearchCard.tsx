@@ -1,20 +1,57 @@
-interface IUser {
-  name?: string;
-  surname?: string;
-  username: string;
-  followers_count: string;
-  following?: boolean;
-  id: string;
-  avatar?: string;
-  avatar_background: string;
-  avatar_letter: string;
-  avatar_letter_color: string;
-}
+import Follow from '../account-search/Follow';
+import InteractionSummary from '../components/Basic/InteractionSummary';
+import LinkNavigate from '../components/Header/LinkNavigate';
+import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
+import { IUser } from './interfaces/user-interface';
 
 interface Props {
   user: IUser;
 }
 
 export const UserProfileSearchCard = ({ user }: Props) => {
-  return <section></section>;
+  const handleButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  return (
+    <LinkNavigate
+      href={`/${user.username}`}
+      classProps='hover:cursor-pointer w-full flex justify-center'
+    >
+      <section className='h-[72px] max-w-[390px] min-w-[360px] py-2 px-1.5 hover:bg-searchBg  flex justify-around items-center gap-2 overflow-hidden transition-colors rounded-lg group w-full'>
+        <AvatarUser
+          data={{
+            avatar: user.avatar,
+            avatar_letter: user.avatar_letter,
+            avatar_background: user.avatar_background,
+            avatar_letter_color: user.avatar_letter_color,
+          }}
+          classProps='w-[48px] h-[48px] min-w-[48px] min-h-[48px] rounded-full'
+          textSize='text-base'
+        />
+        <article className='flex items-center gap-1 w-full overflow-hidden justify-between'>
+          <div className='flex justify-center flex-col w-full overflow-hidden pr-2'>
+            <p className='text-base text-ellipsis font-semibold'>
+              {user.name
+                ? `${user.name}${user.surname ? ` ${user.surname}` : ''}`
+                : user.username}
+            </p>
+            <InteractionSummary
+              type='followers'
+              value={user.followers_count}
+              numberFirst
+              className='flex gap-1 text-xs'
+            />
+          </div>
+          <Follow
+            id={user.id}
+            following={user.following}
+            classPropsFalseIsFollowing=' text-black bg-searchBg group-hover:bg-[#e0e0e0] hover:bg-[#d6d6d6] px-5 py-3 flex justify-center items-center '
+            classPropsTrueIsFollowing='bg-black text-white px-5 py-3 flex justify-center items-center'
+          />
+        </article>
+      </section>
+    </LinkNavigate>
+  );
 };

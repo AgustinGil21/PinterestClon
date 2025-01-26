@@ -13,6 +13,8 @@ import ToastNotification from '../components/Basic/ToastNotification';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { PinSkeleton } from '../skeletons/PinSkeleton';
 import { CategoryCardSkeleton } from '../skeletons/CategoryCardSkeleton';
+import { UserProfileSearchCard } from '../search/UserProfileSearchCard';
+import { UserProfileSearchContainer } from '../search/UserProfileSearchContainer';
 
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();
@@ -39,6 +41,33 @@ export default function Test() {
     },
   ];
 
+  const users = [
+    {
+      name: 'Lucaquinho',
+      surname: 'Usal',
+      username: 'Lucaco1234',
+      followers_count: '1',
+      following: true,
+      id: '43157551-a4fe-4be2-b122-3ca7c409660a',
+      // avatar: 'https://example.com/avatar.jpg',
+      avatar_background: '#a59d5f',
+      avatar_letter: 'L',
+      avatar_letter_color: '#ffffff',
+    },
+    {
+      name: 'Lucaquinho',
+      surname: 'Usal',
+      username: 'Lucaco1234',
+      followers_count: '1',
+      following: true,
+      id: '43157551-a4fe-4be2-b122-3ca7c409660a',
+      // avatar: 'https://example.com/avatar.jpg',
+      avatar_background: '#a59d5f',
+      avatar_letter: 'L',
+      avatar_letter_color: '#ffffff',
+    },
+  ];
+
   return (
     <>
       {/* <BoardCoverModal /> */}
@@ -51,8 +80,9 @@ export default function Test() {
         direction='bottom'
         color='#e60023'
       /> */}
-      <PinSkeleton />
-      <CategoryCardSkeleton />
+      {/* <PinSkeleton />
+      <CategoryCardSkeleton /> */}
+      <UserProfileSearchContainer users={users} />
     </>
   );
 }

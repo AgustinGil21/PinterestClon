@@ -33,6 +33,7 @@ const AvatarUser = ({
             className={`text-black font-bold ${
               !isClickable ? 'hover:cursor-default' : 'hover:cursor-pointer'
             } ${textSize}`}
+            style={{ color: data.avatar_letter_color || 'black' }}
           >
             {data?.avatar_letter}
           </span>

@@ -19,12 +19,14 @@ const Follow = ({
 
   const [isFollowing, setFollowing] = useState(following);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!isAuth) {
       openRegisterModal();
       return;
     }
-    console.log(id);
     postFollowUser(id);
     setFollowing(!isFollowing);
   };
@@ -36,7 +38,7 @@ const Follow = ({
           ? `${classPropsTrueIsFollowing}  `
           : `${classPropsFalseIsFollowing} `
       }  `}
-      handleClick={handleClick}
+      handleClick={(e: React.MouseEvent) => handleClick(e)}
     >
       {isFollowing
         ? t?.user.buttons.following || 'Siguiendo'

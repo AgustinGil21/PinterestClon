@@ -49,7 +49,6 @@ const DataUserPinCard = () => {
                 <InteractionSummary
                   value={pinData.followers}
                   className='text-[13px] flex gap-1'
-                  lang='es'
                   type='followers'
                   numberFirst
                 />

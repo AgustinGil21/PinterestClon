@@ -2,6 +2,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ISearchByValue } from '@/app/domain/types/boards-interface';
+import { useGetLimit } from '@/app/hooks/useGetLimit';
 
 interface InterfaceUseSearchData {
   getSearchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
@@ -13,6 +14,18 @@ const useSearchData = ({
   getSearchPins,
 }: InterfaceUseSearchData) => {
   const limit = 25;
+  const pinsLimit = useGetLimit({
+    parentPadding: 16,
+    elementMaxWidth: 236,
+    elementMinHeight: 239,
+  });
+  const boardsLimit = useGetLimit({
+    parentPadding: 16,
+    elementMaxWidth: 248,
+    elementMinHeight: 212,
+  });
+  // const usersLimit = useGetLimit();
+
   const router = useRouter();
   const {
     page,
@@ -35,9 +48,9 @@ const useSearchData = ({
       updateDataSearch('value', localSearchValue);
 
       if (value) {
-        if (filterState === 'pines') getSearchPins(value, page, limit);
+        if (filterState === 'pines') getSearchPins(value, page, pinsLimit);
         if (filterState === 'tableros')
-          getSearchBoards({ value: value, page: page, limit: limit });
+          getSearchBoards({ value: value, page: page, limit: boardsLimit });
         // if (filterState === 'perfiles') getSearchBoards(value, page, limit);
         setIsSearching(true);
       }
@@ -48,12 +61,12 @@ const useSearchData = ({
     if (page === 1) return;
 
     if (filterState === 'tableros') {
-      getSearchBoards({ value: value, page: page, limit: limit });
+      getSearchBoards({ value: value, page: page, limit: boardsLimit });
       return;
     }
 
     if (filterState === 'pines') {
-      getSearchPins(value, page, limit);
+      getSearchPins(value, page, pinsLimit);
       return;
     }
 

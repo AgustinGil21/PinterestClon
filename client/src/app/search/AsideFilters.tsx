@@ -67,16 +67,16 @@ const AsideFilters = () => {
             value={'pines'}
             selectedFilter={selectedFilter}
             handleFilterClick={handleFilterClick}
-            labelFilter='Todos los pines'
+            labelFilter={t?.filters.pins || 'Todos los pines'}
           />
           <Filter
-            labelFilter='Tableros'
+            labelFilter={t?.filters.boards || 'Tableros'}
             value={'tableros'}
             selectedFilter={selectedFilter}
             handleFilterClick={handleFilterClick}
           />
           <Filter
-            labelFilter='Perfiles'
+            labelFilter={t?.filters.users || 'Perfiles'}
             value='perfiles'
             selectedFilter={selectedFilter}
             handleFilterClick={handleFilterClick}
