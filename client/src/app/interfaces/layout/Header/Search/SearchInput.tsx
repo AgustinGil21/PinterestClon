@@ -58,10 +58,8 @@ const SearchInput = () => {
       | React.KeyboardEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-
     if (value === '' || valueCurrent === value) return;
     setValueCurrent(value);
-    updateValueSearchInput(value);
     handleSearch(value);
     setModal(false);
   };

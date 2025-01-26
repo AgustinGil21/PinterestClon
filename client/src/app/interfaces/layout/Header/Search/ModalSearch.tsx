@@ -23,29 +23,14 @@ const ModalSearch = ({
   limit,
   setModal,
 }: ModalStateProps) => {
-  const {
-    valuesSearch,
-    updateValueSearchInput,
-    value,
-    categoriesPin,
-    getSearchPins,
-    searchBoards,
-    getCategoriesPin,
-    updateDataSearch,
-  } = useAppsStore();
+  const { valuesSearch, value, getSearchPins, searchBoards } = useAppsStore();
 
   const { handleSearch } = useSearchData({
     getSearchBoards: searchBoards,
     getSearchPins: getSearchPins,
   });
 
-  const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    getCategoriesPin();
-    console.log(categoriesPin);
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,9 +44,6 @@ const ModalSearch = ({
   }, []);
 
   const handleClick = async (elem: string) => {
-    localStorage.setItem('searchInputValue', elem);
-    updateValueSearchInput(elem);
-
     handleSearch(elem);
     setModal(false);
   };

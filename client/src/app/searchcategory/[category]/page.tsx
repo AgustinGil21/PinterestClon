@@ -4,6 +4,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import Masonry from '@/app/interfaces/components/Basic/Masonry';
 import { CategoriesPin } from '@/app/domain/types/pins-structure';
 import { Pin } from '@/app/home-page-components/Pin';
+import { IExploreCategories } from '@/app/global-interfaces/translation-interface';
 interface Props {
   params: { explore: string };
 }
@@ -36,9 +37,10 @@ const exploreSearch = ({ params }: Props) => {
                 className='w-full h-full object-cover rounded-3xl'
               />
             </div>
-            <p>
-              {t?.['explore-categories'][`${categoryMain[0].name}`] ||
-                categoryMain[0].name}
+            <p className='text-sm'>
+              {t?.['explore-categories']?.[
+                categoryMain[0]?.name as keyof IExploreCategories
+              ] || categoryMain[0]?.name}
             </p>
           </div>
           <Masonry>

@@ -22,9 +22,6 @@ const Search = () => {
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
-
-  let limit: 25;
-
   const [valueErrorSearch, setValueErrorSearch] = useState(value);
   const searchParams = useSearchParams();
   const queryValue: string | null = searchParams.get('query');
@@ -60,7 +57,7 @@ const Search = () => {
         <div className='flex-col hidden md:flex '>
           {isOpenFiltersModal && <AsideFilters />}
         </div>
-        <div className='flex-1 mt-[50px] w-full'>
+        <div className='flex-1 mt-[50px] w-full relative'>
           <>
             {filterState === 'pines' &&
               (searchPins.length > 0 ? (

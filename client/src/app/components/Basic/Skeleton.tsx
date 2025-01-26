@@ -51,8 +51,6 @@ export const Skeleton = ({
 }: Props) => {
   let skeletonColor = color || '#f0f0f0';
 
-  // Regula la velocidad de la animación según
-  // parámetro.
   const animationSpeed = {
     slow: '2.5s',
     default: '1.5s',
@@ -66,7 +64,6 @@ export const Skeleton = ({
     diagonalLeft: '125deg',
   }[angle || 'vertical'];
 
-  // Alturas de línea definidas para cada tamaño.
   const fonts = {
     xs: 'h-[16px]',
     sm: 'h-[20px]',
@@ -130,7 +127,7 @@ export const Skeleton = ({
           minHeight: minHeight,
           minWidth: minWidth,
           borderRadius: borderRadius,
-          background: animation === 'pulse' ? skeletonColor : '',
+          backgroundColor: animation === 'pulse' ? skeletonColor : undefined,
           backgroundImage:
             animation !== 'pulse'
               ? `linear-gradient(
@@ -143,8 +140,8 @@ export const Skeleton = ({
           } 50%,
           ${skeletonColor} 75%
           )`
-              : '',
-          backgroundSize: animation === 'pulse' ? '' : backgroundSize,
+              : undefined,
+          backgroundSize: animation === 'pulse' ? undefined : backgroundSize,
           animation: `${animationName} ${animationSpeed} ${timingFunction} infinite`,
           animationDirection: animationDirection,
           animationDelay: delay,

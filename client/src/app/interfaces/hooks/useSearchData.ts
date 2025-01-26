@@ -1,10 +1,11 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { ISearchByValue } from '@/app/domain/types/boards-interface';
 
 interface InterfaceUseSearchData {
-  getSearchBoards: any;
-  getSearchPins: any;
+  getSearchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
+  getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
 }
 
 const useSearchData = ({
@@ -13,8 +14,14 @@ const useSearchData = ({
 }: InterfaceUseSearchData) => {
   const limit = 25;
   const router = useRouter();
-  const { page, value, filterState, updateDataSearch, searchPins } =
-    useAppsStore();
+  const {
+    page,
+    value,
+    filterState,
+    updateDataSearch,
+    searchPins,
+    updateValueSearchInput,
+  } = useAppsStore();
   const [localSearchValue, setLocalSearchValue] = useState<string | null>(null);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -28,7 +35,10 @@ const useSearchData = ({
       updateDataSearch('value', localSearchValue);
 
       if (value) {
-        getSearchPins(value, page, limit);
+        if (filterState === 'pines') getSearchPins(value, page, limit);
+        if (filterState === 'tableros')
+          getSearchBoards({ value: value, page: page, limit: limit });
+        // if (filterState === 'perfiles') getSearchBoards(value, page, limit);
         setIsSearching(true);
       }
     }
@@ -54,7 +64,9 @@ const useSearchData = ({
   }, [page, filterState, value, limit, getSearchBoards, getSearchPins]);
 
   const handleSearch = async (query: string) => {
+    localStorage.setItem('searchInputValue', query);
     updateDataSearch('value', query);
+    updateValueSearchInput(value);
 
     if (filterState === 'tableros') {
       await getSearchBoards({ value: query, page: page, limit: limit });

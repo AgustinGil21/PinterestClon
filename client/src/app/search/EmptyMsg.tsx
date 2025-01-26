@@ -9,9 +9,7 @@ export const EmptyMsg = ({ searchValue, type }: Props) => {
   const { t } = useAppsStore();
 
   return (
-    <div
-      className={`fixed top-[220px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-4 max-w-[700px]`}
-    >
+    <div className={`absolute top-[160px]    w-full p-1 text-wrap`}>
       <p className='text-[15px] text-black text-center'>
         {t?.search.empty[type].pt1 ||
           'Lo sentimos, no encontramos ningún {`${type}`} relacionado con'}{' '}
