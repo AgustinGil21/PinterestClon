@@ -1,6 +1,7 @@
 import {
   CreatedPinsInterface,
   FollowingsListInterface,
+  IUsersProfileCard,
   OwnerProfileInterface,
 } from '@/app/domain/types/data-users';
 import { SearchUserProfileInterface } from '@/app/domain/types/data-users';
@@ -14,8 +15,10 @@ import {
   PinCreatedDataSchema,
   PinSchema,
   SearchUserProfileSchema,
+  SearchUsersSchema,
 } from '../schemas/validation-service-api';
 import { PinInterface } from '@/app/domain/types/pins-structure';
+import { ISearchByValue } from '@/app/domain/types/boards-interface';
 
 export const serviceGetUserOwnerProfile =
   async (): Promise<OwnerProfileInterface | null> => {
@@ -211,7 +214,25 @@ export const serviceRemovePinFromProfile = async (id: string) => {
 
     return response.status;
   } catch (err) {
-    console.log(err);
+    return null;
+  }
+};
+
+export const serviceSearchUsers = async ({
+  page,
+  limit,
+  value,
+}: ISearchByValue): Promise<IUsersProfileCard | null> => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/users/search/${value}?page=${page}&limit=${limit}`,
+      { withCredentials: true }
+    );
+
+    const result = SearchUsersSchema.safeParse(response.data);
+
+    return result.success ? result.data.users : null;
+  } catch (err) {
     return null;
   }
 };

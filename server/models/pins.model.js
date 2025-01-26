@@ -67,6 +67,49 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
+  static async getSavedPins({ username, isAuth, userID, page, limit }) {
+    const offset = getOffset({ page, limit });
+
+    const response = await pool.query(
+      `SELECT 
+        posts.body, 
+        posts.title, 
+        posts.url, 
+        posts.adult_content, 
+        posts.id AS pin_id, 
+        posts.alt_text,
+        users.id AS user_id,
+        users.name, 
+        users.surname, 
+        users.username, 
+        users.avatar, 
+        users.avatar_background, 
+        users.avatar_letter_color, 
+        users.avatar_letter,
+        CASE 
+          WHEN $1 = TRUE THEN 
+            CASE 
+              WHEN posts.user_id = $2 THEN TRUE 
+              ELSE FALSE 
+            END 
+          ELSE NULL 
+        END AS its_yours
+    FROM saved_posts sp
+    INNER JOIN posts ON sp.post_id = posts.id
+    INNER JOIN users ON posts.user_id = users.id
+    WHERE sp.user_id = $2
+    ORDER BY sp.created_at ASC
+    LIMIT $4 OFFSET $5; 
+      ;`,
+      [isAuth, userID, username, limit, offset]
+    );
+
+    const data = response.rows;
+
+    if (data) return { response: data, ok: true };
+    return { response, ok: false };
+  }
+
   // Trae los valores previos de un pin en concreto
   // para ser usados en la edición de pines.
   static async pinPreviousValues({ id }) {

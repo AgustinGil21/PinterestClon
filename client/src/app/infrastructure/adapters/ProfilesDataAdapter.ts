@@ -2,6 +2,7 @@ import {
   CreatedPinsInterface,
   FollowersListInterface,
   FollowingsListInterface,
+  IUsersProfileCard,
   OwnerProfileInterface,
   SearchUserProfileInterface,
 } from '@/app/domain/types/data-users';
@@ -14,7 +15,9 @@ import {
   servicePostFollowUser,
   serviceRemovePinFromProfile,
   serviceSavePinToProfile,
+  serviceSearchUsers,
 } from '../services/service-users-data';
+import { ISearchByValue } from '@/app/domain/types/boards-interface';
 
 export const getUserOwnerProfileAdapter =
   async (): Promise<OwnerProfileInterface | null> => {
@@ -188,3 +191,10 @@ export const savePinToProfileAdapter = async (id: string) =>
 
 export const removePinFromProfileAdapter = async (id: string) =>
   await serviceRemovePinFromProfile(id);
+
+export const searchUsersAdapter = async ({
+  page,
+  limit,
+  value,
+}: ISearchByValue): Promise<IUsersProfileCard | null> =>
+  await serviceSearchUsers({ page, limit, value });

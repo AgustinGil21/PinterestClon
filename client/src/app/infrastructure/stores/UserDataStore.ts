@@ -3,6 +3,7 @@ import {
   CreatedPinsInterface,
   FollowersListInterface,
   FollowingsListInterface,
+  IUsersProfileCard,
   OwnerProfileInterface,
   SearchUserProfileInterface,
 } from '@/app/domain/types/data-users';
@@ -17,6 +18,8 @@ import { getSavePinsCase } from '@/app/application/use-cases/profile-data/getSav
 import { PinInterface } from '@/app/domain/types/pins-structure';
 import { removePinFromProfileUseCase } from '@/app/application/use-cases/profile-data/removePinFromProfile';
 import { savePinToProfileUseCase } from '@/app/application/use-cases/profile-data/savePinToProfile';
+import { ISearchByValue } from '@/app/domain/types/boards-interface';
+import { searchUsersCase } from '@/app/application/use-cases/profile-data/searchUsers';
 
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
@@ -40,6 +43,8 @@ export interface UserDataStoreInterface {
   getSavePins: (username: string, page: number, limit: number) => Promise<void>;
   savePinToProfile: (id: string) => void;
   removePinFromProfile: (id: string) => void;
+  usersProfile: IUsersProfileCard | [];
+  searchUsers: ({ page, limit, value }: ISearchByValue) => void;
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -96,6 +101,14 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
 
   createdPins: [],
   savedPins: [],
+
+  usersProfile: [],
+
+  searchUsers: async ({ page, limit, value }: ISearchByValue) => {
+    const response = await searchUsersCase({ page, limit, value });
+
+    if (response) set({ usersProfile: response });
+  },
 
   getUserOwnerProfile: async () => {
     const response = await getUserOwnerProfileCase();

@@ -770,6 +770,38 @@ _username_: User username
 }
 ```
 
+### Get saved pins
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/pins/saved/:username?page=Number&limit=Number`
+
+_username_: User username
+
+[RESPONSE]
+
+```json
+{
+  "pins": [
+    {
+      "body": "String",
+      "title": "String?",
+      "url": "String?",
+      "adult_content": "Boolean",
+      "pin_id": "String<UUID>",
+      "alt_text": "String",
+      "user_id": "String<UUID>",
+      "name": "String?",
+      "surname": "String?",
+      "username": "String",
+      "avatar": "String?",
+      "avatar_background": "String<Hex>",
+      "avatar_letter_color": "String<Hex>",
+      "avatar_letter": "String<Char>",
+      "its_your": "Boolean"
+    }
+  ]
+}
+```
+
 ## Categories
 
 ### Search all
@@ -842,6 +874,32 @@ _:id_: UUID
 ```
 
 ## User
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/users/search/value:String?page=Number&limit=Number`
+
+[RESPONSE]
+
+```json
+{
+  "users": [
+    {
+      "id": "String",
+      "name": "String?",
+      "surname": "String?",
+      "username": "String?",
+      "avatar": "String<URL>?",
+      "verified": "Boolean",
+      "avatar_background": "String<Hex>",
+      "avatar_letter_color": "String<Hex>",
+      "avatar_letter": "String<Char>",
+      "followers_count": "String<Number>",
+      "following": "Boolean",
+      "its_you": "Boolean?"
+    }
+  ],
+  "results": "Number"
+}
+```
 
 ### Follow/Unfollow user
 
@@ -1179,7 +1237,10 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/boards/last-board`
 
 ```json
 {
-  "board": "String"
+  "board": {
+    "name": "String",
+    "id": "String<UUID>"
+  }
 }
 ```
 

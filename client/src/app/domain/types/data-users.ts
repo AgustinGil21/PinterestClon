@@ -85,3 +85,22 @@ export interface CreatedPinsInterface {
   its_yours?: boolean;
   created_at: string;
 }
+
+export interface ISingleUserProfileCard {
+  id: string;
+  name?: string;
+  surname?: string;
+  username: string;
+  avatar?: string;
+  verified: boolean;
+  avatar_background: string;
+  avatar_letter_color: string;
+  avatar_letter: string;
+  followers_count: string;
+  following: boolean;
+  its_you?: boolean;
+}
+
+export interface IUsersProfileCard {
+  users: ISingleUserProfileCard;
+}

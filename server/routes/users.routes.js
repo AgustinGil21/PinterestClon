@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares/isAuthenticated.js';
 
 const router = Router();
 
-router.get('/search', UsersController.searchUsers);
+router.get('/search/:value', isAuthenticated, UsersController.searchUsers);
 router.get('/profile/', authRequired, UsersController.getUserOwnerProfile);
 router.get(
   '/profile/:username',

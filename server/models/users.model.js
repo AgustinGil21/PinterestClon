@@ -2,8 +2,8 @@ import { pool } from '../dbpool.js';
 import { getOffset } from '../libs/getOffset.js';
 
 export default class UsersModel {
-  static async searchUsers({ value, page, limit }) {
-    const offset = (page - 1) * limit;
+  static async searchUsers({ value, page, limit, isAuth, id }) {
+    const offset = getOffset({ page, limit });
 
     const searchValue = value
       .split(' ')
@@ -11,13 +11,28 @@ export default class UsersModel {
       .join(' & ');
 
     const response = await pool.query(
-      `SELECT name, surname, users.id AS user_id, username, avatar, verified, avatar_background, avatar_letter_color, avatar_letter
+      `SELECT 
+        name, 
+        surname, 
+        id, 
+        username, 
+        avatar, 
+        verified, 
+        avatar_background, 
+        avatar_letter_color, 
+        avatar_letter,
+        (SELECT COUNT(1) FROM following_accounts WHERE following_id = id) AS followers_count,
+        (CASE WHEN $4 = TRUE THEN
+          (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE follower_id = $5 AND following_id = id))
+          ELSE FALSE
+        END) AS following,
+        (CASE WHEN $4 = TRUE AND id = $5 THEN TRUE ELSE FALSE END) AS its_you
       FROM users
       WHERE to_tsvector('simple', coalesce(name, '') || ' ' || coalesce(surname, '') || ' ' || coalesce(username, ''))
       @@ to_tsquery($1)
-      ORDER BY users.id
+      ORDER BY id
       LIMIT $2 OFFSET $3;`,
-      [searchValue, limit, offset]
+      [searchValue, limit, offset, isAuth, id]
     );
 
     const data = response.rows;

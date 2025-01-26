@@ -16,6 +16,7 @@ router.get(
   isAuthenticated,
   PinsController.getCreatedPins
 );
+router.get('/saved/:username', isAuthenticated, PinsController.getSavedPins);
 router.get('/search', PinsController.searchPins);
 router.get('/search-by-category', PinsController.searchByCategory);
 router.get('/search/suggestions', PinsController.searchAutocompleteSuggestions);

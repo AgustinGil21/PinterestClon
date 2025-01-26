@@ -117,6 +117,40 @@ export default class PinsController {
     }
   }
 
+  static async getSavedPins(req, res) {
+    const { username } = req.params;
+    const { page, limit } = req.query;
+
+    try {
+      let data;
+
+      if (req.isAuthenticated) {
+        data = await PinsModel.getSavedPins({
+          username,
+          userID: req.user.id,
+          isAuth: true,
+          page,
+          limit,
+        });
+      } else {
+        data = await PinsModel.getSavedPins({
+          username,
+          isAuth: false,
+          page,
+          limit,
+        });
+      }
+
+      if (data.ok) {
+        const { response: pins } = data;
+
+        return res.status(200).json({ pins });
+      }
+    } catch (err) {
+      return res.status(400).json({ message: 'Error fetching saved pins' });
+    }
+  }
+
   static async createPin(req, res) {
     const { id } = req.user;
     const { title, adultContent, altText, description, url } = req.body;

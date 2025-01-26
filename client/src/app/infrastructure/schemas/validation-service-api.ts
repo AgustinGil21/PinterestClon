@@ -452,3 +452,23 @@ export const PinSimilarSchema = z.object({
   user_id: z.string(),
   similarity_score: z.number(),
 });
+
+export const SearchUsersSchema = z.object({
+  users: z.array(
+    z.object({
+      id: z.string().uuid(),
+      name: z.string().optional(),
+      surname: z.string().optional(),
+      username: z.string(),
+      avatar: z.string().url().optional(),
+      verified: z.boolean(),
+      avatar_background: z.string(),
+      avatar_letter_color: z.string(),
+      avatar_letter: z.string(),
+      followers_count: z.string(),
+      following: z.boolean(),
+      its_you: z.boolean().optional(),
+    })
+  ),
+  results: z.number().optional(),
+});

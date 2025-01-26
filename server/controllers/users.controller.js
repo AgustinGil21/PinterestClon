@@ -6,13 +6,30 @@ import UsersModel from '../models/users.model.js';
 
 export default class UsersController {
   static async searchUsers(req, res) {
-    const { value, page: strPage, limit: strLimit } = req.query;
+    const { page, limit } = req.query;
+    const { value } = req.params;
 
-    const page = Number(strPage);
-    const limit = Number(strLimit);
+    let data;
 
     try {
-      const data = await UsersModel.searchUsers({ value, page, limit });
+      if (req.isAuthenticated) {
+        const { id } = req.user;
+
+        data = await UsersModel.searchUsers({
+          value,
+          page,
+          limit,
+          isAuth: true,
+          id,
+        });
+      } else {
+        data = await UsersModel.searchUsers({
+          value,
+          page,
+          limit,
+          isAuth: false,
+        });
+      }
 
       if (data.ok) {
         const { data: users, results } = data.response;
