@@ -100,7 +100,7 @@ export const Header = () => {
           shadow ? 'shadow-md' : ''
         }`}
       >
-        <div className='flex items-center justify-between w-full'>
+        <div className='flex items-center justify-between w-full gap-3'>
           <div className='flex items-center gap-2.5'>
             <div className='hover:bg-slate-200 p-2 rounded-full cursor-pointer mr-1.5'>
               <PinterestLogo classProps='w-[21px] h-[21px]' />

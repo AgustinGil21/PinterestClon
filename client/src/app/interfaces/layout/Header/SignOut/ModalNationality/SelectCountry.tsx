@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 const SelectCountry = () => {
   const Countries = useAppsStore((state) => state.countries);
+  const { t } = useAppsStore();
   const getDataCountries = useAppsStore((state) => state.getDataCountries);
   const updateStateRegister = useAppsStore(
     (state) => state.updateStateRegisterUser
@@ -31,7 +32,7 @@ const SelectCountry = () => {
     >
       {Countries.map((elem) => (
         <option key={elem.id} value={elem.id}>
-          {elem.name}
+          {t?.countries[`${elem.name}`] || elem.name}
         </option>
       ))}
     </select>

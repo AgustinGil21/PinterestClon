@@ -552,6 +552,49 @@ interface ILanguages {
   Portuguese: string;
 }
 
+interface IExploreCategories {
+  Sports: string;
+  Health: string;
+  Technology: string;
+  Entertainment: string;
+  Food: string;
+  Desserts: string;
+  Haircuts: string;
+  Vehicles: string;
+  Beauty: string;
+  Fashion: string;
+  Travel: string;
+  Tattoos: string;
+  Art: string;
+  Design: string;
+  Quotes: string;
+  'Home Decoration': string;
+  Animals: string;
+  Nature: string;
+  Funny: string;
+  Love: string;
+  Wallpapers: string;
+  Anime: string;
+  Drinks: string;
+}
+
+interface ISearch {
+  empty: {
+    pin: {
+      pt1: string;
+      pt2: string;
+    };
+    board: {
+      pt1: string;
+      pt2: string;
+    };
+    user: {
+      pt1: string;
+      pt2: string;
+    };
+  };
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -574,6 +617,8 @@ export interface ITranslation {
   ['boards-list']: BoardsList;
   countries: ICountries;
   languages: ILanguages;
+  'explore-categories': IExploreCategories;
+  search: ISearch;
   errors: Record<string, unknown>;
 }
 

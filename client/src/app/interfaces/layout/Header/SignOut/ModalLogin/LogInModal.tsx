@@ -8,7 +8,7 @@ import InfoModalLogin from '../BothModals/InfoModal';
 import useCloseModalModalForLoginAndRegister from '@/app/interfaces/hooks/useCloseModalForLoginAndRegister';
 
 export const LogInModal = () => {
-  const { openRegisterModal, closeBothModal } = useAppsStore();
+  const { openRegisterModal, closeBothModal, t } = useAppsStore();
 
   const { modalRef } = useCloseModalModalForLoginAndRegister({
     setModal: closeBothModal,
@@ -22,11 +22,14 @@ export const LogInModal = () => {
         classProps='relative z-50 max-w-[395px]  px-6 bg-white py-7 bottom-5 shadow-lg rounded-[30px] flex flex-col items-center'
       >
         <CloseX />
-        <TextLogo>Inicia sesión para ver más</TextLogo>
+        <TextLogo>
+          {t?.auth.login.title || 'Inicia sesión para ver más'}
+        </TextLogo>
         <FormLogin />
         <InfoModalLogin />
         <ButtonInverse openModal={openRegisterModal}>
-          ¿Aún no estás en Pinterest? Regístrate
+          {t?.auth.login['go-to-register'] ||
+            '¿Aún no estás en Pinterest? Regístrate'}
         </ButtonInverse>
       </ModalStyled>
     </div>

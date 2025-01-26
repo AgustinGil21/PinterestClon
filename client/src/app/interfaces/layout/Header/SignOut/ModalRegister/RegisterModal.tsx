@@ -11,6 +11,7 @@ import useCloseModalModalForLoginAndRegister from '@/app/interfaces/hooks/useClo
 export const RegisterModal = () => {
   const closeBothModal = useAppsStore((state) => state.closeBothModal);
   const openLoginModal = useAppsStore((state) => state.openLoginModal);
+  const { t } = useAppsStore();
   const { modalRef } = useCloseModalModalForLoginAndRegister({
     setModal: closeBothModal,
   });
@@ -24,16 +25,19 @@ export const RegisterModal = () => {
       >
         <CloseX />
         <TextLogo>
-          Acceso gratuito e ilimitado a las mejores ideas del mundo
+          {t?.auth.register['page-session'].title ||
+            'Acceso gratuito e ilimitado a las mejores ideas del mundo'}
         </TextLogo>
         <p className='text-black text-[13px] mt-[-9px] mb-2 dark:text-white'>
-          Regístrate para ver más
+          {t?.auth.register['page-session'].subtitle ||
+            'Regístrate para ver más'}
         </p>
         <FormRegister />
         <InfoModalLogin />
         <ButtonInverse openModal={openLoginModal}>
           {' '}
-          Ya eres miembro? Iniciar sesión{' '}
+          {t?.auth.register['page-session']['go-to-login'] ||
+            'Ya eres miembro? Iniciar sesión'}
         </ButtonInverse>
       </ModalStyled>
     </div>

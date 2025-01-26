@@ -7,6 +7,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const NationalityModal = () => {
   const openAvatarModal = useAppsStore((state) => state.openAvatarModal);
+  const { t } = useAppsStore();
   const handleClick = () => {
     openAvatarModal();
   };
@@ -18,11 +19,12 @@ const NationalityModal = () => {
         <div className='text-black text-center max-w-[380px] dark:text-white flex flex-col'>
           <ButtonReverse />
           <h3 className='font-bold text-2xl'>
-            ¿Cuál es tu idioma y donde vives?
+            {t?.auth.register['page-lang'].title ||
+              '¿Cuál es tu idioma y donde vives?'}
           </h3>
           <p className='text-[15px] mt-2 dark:text-white'>
-            Esto nos ayuda a encontrar contenido mas relevante para ti. No
-            mostraremos esto en tu perfil.
+            {t?.auth.register['page-lang'].subtitle ||
+              'Esto nos ayuda a encontrar contenido mas relevante para ti. No mostraremos esto en tu perfil.'}
           </p>
           <div className='mt-5 mb-[120px]'>
             <SelectCountry />
@@ -33,7 +35,7 @@ const NationalityModal = () => {
             disabled={false}
             handleClick={handleClick}
           >
-            Siguiente
+            {t?.auth.register['page-lang'].button || 'Siguiente'}
           </ButtonStyled>
         </div>
       </ModalStyled>

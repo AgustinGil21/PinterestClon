@@ -1,7 +1,10 @@
 import { Skeleton } from '../components/Basic/Skeleton';
+import { useGetDarkColor } from '../hooks/useGetDarkColor';
 import { adjustColorBrightness } from '../libs/adjustColorBrightness';
 
-export const CategorySlideSkeleton = ({ color }: { color: string }) => {
+export const CategorySlideSkeleton = () => {
+  const color = useGetDarkColor();
+
   return (
     <Skeleton
       borderRadius='30px'
