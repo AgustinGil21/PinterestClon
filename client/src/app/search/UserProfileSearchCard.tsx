@@ -1,6 +1,8 @@
 import Follow from '../account-search/Follow';
 import InteractionSummary from '../components/Basic/InteractionSummary';
 import LinkNavigate from '../components/Header/LinkNavigate';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
 import { IUser } from './interfaces/user-interface';
 
@@ -9,10 +11,7 @@ interface Props {
 }
 
 export const UserProfileSearchCard = ({ user }: Props) => {
-  const handleButtonClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+  const { t } = useAppsStore();
 
   return (
     <LinkNavigate
@@ -44,12 +43,21 @@ export const UserProfileSearchCard = ({ user }: Props) => {
               className='flex gap-1 text-xs'
             />
           </div>
-          <Follow
-            id={user.id}
-            following={user.following}
-            classPropsFalseIsFollowing=' text-black bg-searchBg group-hover:bg-[#e0e0e0] hover:bg-[#d6d6d6] px-5 py-3 flex justify-center items-center '
-            classPropsTrueIsFollowing='bg-black text-white px-5 py-3 flex justify-center items-center'
-          />
+          {user.its_you ? (
+            <ButtonStyled
+              className='bg-gray-200 font-semibold text-[9.8px] cursor-pointer text-gray-400'
+              disabled={true}
+            >
+              {t?.['followers-&-following-list'].its_you || '¡Eres tú!'}
+            </ButtonStyled>
+          ) : (
+            <Follow
+              id={user.id}
+              following={user.following}
+              classPropsFalseIsFollowing=' text-black bg-searchBg group-hover:bg-[#e0e0e0] hover:bg-[#d6d6d6] px-5 py-3 flex justify-center items-center '
+              classPropsTrueIsFollowing='bg-black text-white px-5 py-3 flex justify-center items-center'
+            />
+          )}
         </article>
       </section>
     </LinkNavigate>

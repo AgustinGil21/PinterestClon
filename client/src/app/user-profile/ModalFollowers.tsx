@@ -4,6 +4,7 @@ import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import UserFollowFollowingCard from './UserFollowFollwingCard';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import useCloseModal from '../hooks/useCloseModal';
+import InteractionSummary from '../components/Basic/InteractionSummary';
 
 const ModalFollowers = () => {
   const { followersList, openFollowersModal } = useAppsStore();
@@ -19,8 +20,12 @@ const ModalFollowers = () => {
         <div className='p-3 '>
           <div className='flex flex-row items-center justify-between gap-5'>
             <h4 className='font-bold text-[22px]'>
-              {followersList.followersCount} {''}
-              {followersList.followersCount > 1 ? 'seguidores' : 'seguidor'}
+              <InteractionSummary
+                type='followers'
+                value={followersList.followersCount}
+                className=' flex gap-2'
+                numberFirst
+              />
             </h4>
             <ButtonStyled handleClick={openFollowersModal} className=''>
               <Xcomponent />

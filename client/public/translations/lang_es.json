@@ -633,5 +633,8 @@
       }
     }
   },
+  "followers-&-following-list": {
+    "its_you": "¡Eres tú!"
+  },
   "errors": {}
 }

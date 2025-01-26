@@ -53,6 +53,7 @@ export default function Test() {
       avatar_background: '#a59d5f',
       avatar_letter: 'L',
       avatar_letter_color: '#ffffff',
+      its_you: true,
     },
     {
       name: 'Lucaquinho',

@@ -595,6 +595,10 @@ interface ISearch {
   };
 }
 
+interface IFollowersAndFollowingList {
+  its_you: 'É você!';
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -619,6 +623,7 @@ export interface ITranslation {
   languages: ILanguages;
   'explore-categories': IExploreCategories;
   search: ISearch;
+  'followers-&-following-list': IFollowersAndFollowingList;
   errors: Record<string, unknown>;
 }
 

@@ -611,5 +611,8 @@
       }
     }
   },
+  "followers-&-following-list": {
+    "its_you": "É você!"
+  },
   "errors": {}
 }

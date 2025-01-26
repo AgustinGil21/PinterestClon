@@ -642,5 +642,8 @@
       }
     }
   },
+  "followers-&-following-list": {
+    "its_you": "That's you!"
+  },
   "errors": {}
 }

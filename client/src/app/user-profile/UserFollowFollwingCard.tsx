@@ -14,7 +14,7 @@ const UserFollowFollowingCard = ({
   elem,
   openFollowersModal,
 }: UserFollowCardInterface) => {
-  const { getSearchUserProfile, updateDataSearch } = useAppsStore();
+  const { getSearchUserProfile, updateDataSearch, t } = useAppsStore();
   const router = useRouter();
 
   const handleClick = () => {
@@ -56,7 +56,7 @@ const UserFollowFollowingCard = ({
             className='bg-gray-200 font-semibold text-[9.8px] cursor-pointer text-gray-400'
             disabled={true}
           >
-            ¡Eres tú!
+            {t?.['followers-&-following-list'].its_you || '¡Eres tú!'}
           </ButtonStyled>
         ) : (
           <Follow
