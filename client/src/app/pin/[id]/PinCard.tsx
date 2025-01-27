@@ -8,6 +8,7 @@ import { ArrowDownIcon } from '@/app/icons/ArrowDown';
 import Comment from './Comment';
 import CreateBoardModal from '@/app/boards/create-board/CreateBoardModal';
 import InteractionSummary from '@/app/components/Basic/InteractionSummary';
+import { useGetScreenSize } from '@/app/hooks/useGetScreenSize';
 
 const PinCard = () => {
   const {
@@ -22,6 +23,7 @@ const PinCard = () => {
     t,
   } = useAppsStore();
 
+  const { width } = useGetScreenSize();
   const [imgHeight, setImgHeight] = useState(0);
   const [openComments, setOpenComments] = useState(true);
   const [commentsCount, setCommentsCount] = useState(Number(pinData.comments));
@@ -95,7 +97,12 @@ const PinCard = () => {
           <div className='max-h-[100%] overflow-hidden'>
             <ActionsPin />
             <DataUserPinCard />
-            <div className='flex flex-col justify-between py-2 h-fit max-h-[510px] min-h-[180px]'>
+            <div
+              className='flex flex-col justify-between py-2 h-fit max-h-[510px] min-h-[180px]'
+              style={{
+                minHeight: width <= 1022 ? '346px' : '',
+              }}
+            >
               <div className='sm:max-h-[330px]'>
                 <div
                   className={`flex flex-row justify-between px-1 cursor-pointer h-full max-h-full ${
@@ -123,23 +130,30 @@ const PinCard = () => {
                     onScroll={handleScroll}
                     style={{
                       maxHeight:
-                        sizeCategory === 'small'
-                          ? '183px'
-                          : sizeCategory === 'medium'
-                          ? '295px'
-                          : '460px',
+                        width > 1022
+                          ? sizeCategory === 'small'
+                            ? '183px'
+                            : sizeCategory === 'medium'
+                            ? '295px'
+                            : '460px'
+                          : '300px',
                       minHeight:
-                        sizeCategory === 'small'
-                          ? '183px'
-                          : sizeCategory === 'medium'
-                          ? '295px'
-                          : '460px',
+                        width > 1022
+                          ? sizeCategory === 'small'
+                            ? '183px'
+                            : sizeCategory === 'medium'
+                            ? '295px'
+                            : '460px'
+                          : '300px',
+
                       height:
-                        sizeCategory === 'small'
-                          ? '183px'
-                          : sizeCategory === 'medium'
-                          ? '295px'
-                          : '460px',
+                        width > 1022
+                          ? sizeCategory === 'small'
+                            ? '183px'
+                            : sizeCategory === 'medium'
+                            ? '295px'
+                            : '460px'
+                          : '300px',
                     }}
                   >
                     {commentsState.comments.map((elem, index) => (

@@ -36,6 +36,7 @@ export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
   const handleClickOpenModalThreePoints = () => {
     if (!isAuth) {
       openRegisterModal();
+      return;
     }
     setOpenModalThreePoints(!openModalThreePoints);
   };

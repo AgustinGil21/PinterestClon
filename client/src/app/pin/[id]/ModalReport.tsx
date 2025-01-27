@@ -34,13 +34,13 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
           </p>
           <div className='flex justify-center gap-4'>
             <ButtonStyled
-              className='bg-redPinterestBg text-white px-4 py-2 rounded-lg font-semibold'
+              className='bg-redPinterestBg text-white px-4 py-2 rounded-3xl font-semibold'
               handleClick={confirmReport}
             >
               Confirmar
             </ButtonStyled>
             <ButtonStyled
-              className='bg-gray-300 text-black px-4 py-2 rounded-lg font-semibold'
+              className='bg-gray-300 text-black px-4 py-2 rounded-3xl font-semibold'
               handleClick={confirmReport}
             >
               Cancelar
