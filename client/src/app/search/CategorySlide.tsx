@@ -28,16 +28,16 @@ const CategorySlide = ({ elem, color }: CategorySlideInterface) => {
         <CategorySlideSkeleton />
       ) : (
         <div
-          className='cursor-pointer bg-black py-1.5 px-3 flex flex-row gap-2 items-center rounded-[30px]'
+          className='cursor-pointer bg-black  pr-3 flex flex-row gap-2 items-center rounded-[30px] h-[44px] hover:opacity-90 transition-opacity'
           style={{ backgroundColor: color }}
         >
           <img
             src={elem?.poster}
             alt={`${elem?.name} category`}
-            className='rounded-full w-7 h-7 object-cover'
+            className='rounded-l-full w-11 h-full object-cover'
             onLoad={handleOnLoad}
           />
-          <span className='text-white text-[12px] text-balance text-ellipsis'>
+          <span className='text-white text-[12px] text-balance text-ellipsis py-1.5'>
             {t?.categories[`${elem?.name}`] || elem?.name}
           </span>
         </div>

@@ -40,7 +40,7 @@ export const useDynamicModalPosition = ({
     // Si se sale por la derecha
     if (x + modalWidth > window.innerWidth) {
       // Para considerar el scrollbar
-      x = window.innerWidth - modalWidth - padding - 14;
+      x = window.innerWidth - modalWidth - padding - 24;
     }
 
     // Si se sale por la izquierda
