@@ -55,7 +55,7 @@ const AsideFilters = () => {
 
   return (
     <aside
-      className='sticky h-screen w-[270px] p-3 border-r-2'
+      className='sticky h-screen w-[270px] p-3 top-16'
       style={{ animation: `ease aside-filters-open 500ms` }}
     >
       <div className='mt-2 dark:text-white'>

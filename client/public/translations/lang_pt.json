@@ -32,6 +32,8 @@
     "tooltip": "Mais"
   },
   "pin": {
+    "for-you": "Para você",
+    "no-comments": "O que você acha?",
     "save-btn": "Salvar",
     "more-options": {
       "download": "Baixar imagem",
@@ -613,6 +615,22 @@
   },
   "followers-&-following-list": {
     "its_you": "É você!"
+  },
+  "report": {
+    "buttons": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar"
+    },
+    "message": {
+      "pt1": "Você tem certeza de que deseja denunciar este ",
+      "pt2": "? Um administrador irá analisá-lo.",
+      "type": {
+        "pin": "pin",
+        "board": "quadro",
+        "user": "usuário",
+        "comment": "comentário"
+      }
+    }
   },
   "errors": {}
 }

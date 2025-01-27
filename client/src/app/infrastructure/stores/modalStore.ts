@@ -4,6 +4,7 @@ import {
   bloqScroll,
 } from '@/app/interfaces/helpers/BlockOrActiveScroll';
 import { createRef } from 'react';
+import { TReportType } from '@/app/global-interfaces/translation-interface';
 
 export interface ModalStateInterface {
   isLoginModalOpen: boolean;
@@ -57,9 +58,19 @@ export interface ModalStateInterface {
   isCreateBoardModalOpen: boolean;
   createBoardModalOpen: () => void;
   isOpenReportModal: boolean;
-  openReportModal: () => void;
+  reportType: TReportType;
+  openReportModal: (type?: TReportType) => void;
   openFiltersModal: () => void;
   isOpenFiltersModal: boolean;
+
+  isPinMoreOptionModalOpen: boolean;
+  setPinMoreOptionsModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    body: string
+  ) => void;
+  closePinMoreOptionsModal: () => void;
+  pinMoreOptionsBtnRef: React.RefObject<HTMLButtonElement>;
+  pinMoreOptionsBody: string;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -90,6 +101,10 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isOpenFiltersModal: JSON.parse(
     localStorage.getItem('isOpenFilterModal') || 'false'
   ),
+  isPinMoreOptionModalOpen: false,
+  pinMoreOptionsBtnRef: createRef(),
+  pinMoreOptionsBody: '',
+  reportType: 'pin',
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -231,9 +246,10 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  openReportModal: () => {
+  openReportModal: (type?: TReportType) => {
     set((state) => ({
       isOpenReportModal: !state.isOpenReportModal,
+      reportType: type,
     }));
   },
   openFiltersModal: () => {
@@ -244,5 +260,20 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       'isOpenFilterModal',
       JSON.stringify(get().isOpenFiltersModal)
     );
+  },
+  setPinMoreOptionsModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    body: string
+  ) => {
+    set((state) => ({
+      isPinMoreOptionModalOpen: !state.isPinMoreOptionModalOpen,
+      pinMoreOptionsBtnRef: ref,
+      pinMoreOptionsBody: body,
+    }));
+  },
+  closePinMoreOptionsModal: () => {
+    set({
+      isPinMoreOptionModalOpen: false,
+    });
   },
 });

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { PinInterface } from '../domain/types/pins-structure';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ArrowUrlPin from '../interfaces/components/icons/ArrowUrlPin';
@@ -8,7 +8,11 @@ import LinkNavigate from '../components/Header/LinkNavigate';
 import { FaPen } from 'react-icons/fa';
 import { FaEllipsis } from 'react-icons/fa6';
 
-export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
+interface Props {
+  elem: PinInterface;
+}
+
+export const PinBodyControlsBottom = ({ elem }: Props) => {
   const {
     setDynamicSharePinModalIsOpen,
     isAuth,
@@ -16,10 +20,10 @@ export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
     userPublicData,
     setImagePreview,
     getPinEditId,
+    setPinMoreOptionsModal,
   } = useAppsStore();
-  const btnThreePoints = useRef(null);
+  const ellipsisBtnRef = useRef(null);
   const shareBtnRef = useRef(null);
-  const [openModalThreePoints, setOpenModalThreePoints] = useState(false);
   const buttonURL = getDomain(elem.url);
 
   const handleClickEditPin = async () => {
@@ -38,7 +42,7 @@ export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
       openRegisterModal();
       return;
     }
-    setOpenModalThreePoints(!openModalThreePoints);
+    setPinMoreOptionsModal(ellipsisBtnRef, elem.body);
   };
 
   return (
@@ -54,7 +58,7 @@ export const PinBodyControlsBottom = ({ elem }: { elem: PinInterface }) => {
           </LinkNavigate>
         ) : (
           <button
-            ref={btnThreePoints}
+            ref={ellipsisBtnRef}
             className='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
             onClick={handleClickOpenModalThreePoints}
           >

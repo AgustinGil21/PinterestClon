@@ -174,7 +174,7 @@ const PinCard = () => {
           <footer className='w-full relative h-14 flex self-end bg-white items-end'>
             {!commentsState.comments.length && (
               <span className='absolute -top-7 font-semibold'>
-                ¿Qué te parece?
+                {t?.pin['no-comments'] || '¿Qué te parece?'}
               </span>
             )}
             <InputComment handleCommentsCount={handleCommentsCount} />

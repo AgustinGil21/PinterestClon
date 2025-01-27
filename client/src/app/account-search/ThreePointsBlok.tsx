@@ -10,6 +10,7 @@ const ThreePointsBlok = () => {
     openThreePointsAcountModal,
     isAuth,
     openRegisterModal,
+    t,
   } = useAppsStore();
   const { modalRef } = useCloseModal({
     setModal: openThreePointsAcountModal,
@@ -42,13 +43,15 @@ const ThreePointsBlok = () => {
             modalRef={modalRef}
           >
             <div className='dark:text-white'>
-              <span className='text-[11px] px-2'>Opciones de perfil</span>
+              <span className='text-[11px] px-2'>
+                {t?.user['profile-options'].text || 'Opciones de perfil'}
+              </span>
               <div className='flex flex-col items-start mt-2'>
                 <ButtonStyled className='text-sm font-semibold hover:bg-gray-200 dark:hover:bg-slate-900 w-full text-start rounded-lg'>
-                  Bloquear
+                  {t?.user['profile-options'].block || 'Bloquear'}
                 </ButtonStyled>
                 <ButtonStyled className='text-sm font-semibold hover:bg-gray-200 dark:hover:bg-slate-900 w-full text-start rounded-lg'>
-                  Reportar
+                  {t?.user['profile-options'].report || 'Reportar'}
                 </ButtonStyled>
               </div>
             </div>

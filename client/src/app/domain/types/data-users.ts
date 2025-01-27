@@ -102,5 +102,5 @@ export interface ISingleUserProfileCard {
 }
 
 export interface IUsersProfileCard {
-  users: ISingleUserProfileCard;
+  users: ISingleUserProfileCard[];
 }

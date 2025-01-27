@@ -14,7 +14,7 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { PinSkeleton } from '../skeletons/PinSkeleton';
 import { CategoryCardSkeleton } from '../skeletons/CategoryCardSkeleton';
 import { UserProfileSearchCard } from '../search/UserProfileSearchCard';
-import { UserProfileSearchContainer } from '../search/UserProfileSearchContainer';
+import { UserProfileSearchContainer } from '../search/UsersProfileSearchContainer';
 
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();

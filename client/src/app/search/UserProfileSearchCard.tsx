@@ -1,13 +1,16 @@
 import Follow from '../account-search/Follow';
 import InteractionSummary from '../components/Basic/InteractionSummary';
 import LinkNavigate from '../components/Header/LinkNavigate';
+import {
+  ISingleUserProfileCard,
+  IUsersProfileCard,
+} from '../domain/types/data-users';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
-import { IUser } from './interfaces/user-interface';
 
 interface Props {
-  user: IUser;
+  user: ISingleUserProfileCard;
 }
 
 export const UserProfileSearchCard = ({ user }: Props) => {
