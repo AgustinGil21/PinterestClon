@@ -22,6 +22,7 @@ export const Pin = ({ elem, className }: PinProps) => {
     isPinMoreOptionModalOpen,
     closePinMoreOptionsModal,
     pinMoreOptionsBtnRef,
+    activePin,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
   const [isLoaded, setIsLoaded] = useState(false);
@@ -46,7 +47,11 @@ export const Pin = ({ elem, className }: PinProps) => {
         {!isLoaded && elem.username ? (
           <PinSkeleton />
         ) : (
-          <article className='card hover:cursor-pointer'>
+          <article
+            className={`card ${
+              activePin === elem.pin_id && 'pin-active'
+            } hover:cursor-pointer`}
+          >
             <PinBody elem={elem} />
             {elem.username && <PinFooter elem={elem} />}
           </article>

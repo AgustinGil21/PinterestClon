@@ -632,5 +632,37 @@
       }
     }
   },
+  "board": {
+    "create": {
+      "title": "Criar quadro",
+      "name": {
+        "label": "Nome",
+        "placeholder": "Nome do quadro"
+      },
+      "description": {
+        "label": "Descrição",
+        "placeholder": "Descrição do quadro"
+      },
+      "buttons": {
+        "cancel": "Cancelar",
+        "create": "Criar"
+      }
+    },
+    "edit": {
+      "title": "Editar quadro",
+      "name": {
+        "label": "Nome",
+        "placeholder": "Nome do quadro"
+      },
+      "description": {
+        "label": "Descrição",
+        "placeholder": "Descrição do quadro"
+      },
+      "buttons": {
+        "cancel": "Cancelar",
+        "save": "Salvar"
+      }
+    }
+  },
   "errors": {}
 }

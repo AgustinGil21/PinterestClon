@@ -34,7 +34,7 @@ export const PinBodyControlsBottom = ({ elem }: Props) => {
   };
 
   const handleSharePinModal = () => {
-    setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id);
+    setDynamicSharePinModalIsOpen(shareBtnRef, elem.pin_id || '');
   };
 
   const handleClickOpenModalThreePoints = () => {
@@ -42,7 +42,7 @@ export const PinBodyControlsBottom = ({ elem }: Props) => {
       openRegisterModal();
       return;
     }
-    setPinMoreOptionsModal(ellipsisBtnRef, elem.body);
+    setPinMoreOptionsModal(ellipsisBtnRef, elem.body, elem.pin_id || '');
   };
 
   return (

@@ -663,5 +663,37 @@
       }
     }
   },
+  "board": {
+    "create": {
+      "title": "Create board",
+      "name": {
+        "label": "Name",
+        "placeholder": "Board name"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Board description"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "create": "Create"
+      }
+    },
+    "edit": {
+      "title": "Edit board",
+      "name": {
+        "label": "Name",
+        "placeholder": "Board name"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Board description"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save"
+      }
+    }
+  },
   "errors": {}
 }

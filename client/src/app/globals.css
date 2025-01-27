@@ -189,7 +189,17 @@
   filter: brightness(0.7);
 }
 
+.card.pin-active .card-body {
+  filter: brightness(0.7);
+}
+
 .card:hover .card-controls {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.card.pin-active .card-controls {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;

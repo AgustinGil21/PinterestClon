@@ -28,7 +28,7 @@ export const SavePinToBoardBtn = ({
     }
     if (pinId) updateDataOpenBoardModal(pinId, pinBody);
 
-    setDynamicModal(btnRef);
+    setDynamicModal(btnRef, pinId || '');
   };
 
   return (

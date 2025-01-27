@@ -34,9 +34,14 @@ export interface ModalStateInterface {
   isOpenMenuAsideSettingsResponsive: boolean;
   isShareAccountOpen: boolean;
 
+  activePin: string;
+
   dynamicModalIsOpen: boolean;
   btnRef: React.RefObject<HTMLButtonElement>;
-  setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) => void;
+  setDynamicModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    pinID: string
+  ) => void;
   closeDynamicModal: () => void;
 
   sharePinData?: string;
@@ -44,7 +49,7 @@ export interface ModalStateInterface {
   sharePinBtnRef: React.RefObject<HTMLButtonElement>;
   setDynamicSharePinModalIsOpen: (
     ref: React.RefObject<HTMLButtonElement>,
-    data?: string
+    data: string
   ) => void;
   closeDynamicSharePinModal: () => void;
   isDownloadAccountOpen: boolean;
@@ -66,7 +71,8 @@ export interface ModalStateInterface {
   isPinMoreOptionModalOpen: boolean;
   setPinMoreOptionsModal: (
     ref: React.RefObject<HTMLButtonElement>,
-    body: string
+    body: string,
+    pinID: string
   ) => void;
   closePinMoreOptionsModal: () => void;
   pinMoreOptionsBtnRef: React.RefObject<HTMLButtonElement>;
@@ -105,6 +111,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   pinMoreOptionsBtnRef: createRef(),
   pinMoreOptionsBody: '',
   reportType: 'pin',
+  activePin: '',
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -112,30 +119,34 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  setDynamicModal: (ref: React.RefObject<HTMLButtonElement>) =>
+  setDynamicModal: (ref: React.RefObject<HTMLButtonElement>, pinID: string) =>
     set((state) => ({
       btnRef: ref,
-      dynamicModalIsOpen: true,
+      dynamicModalIsOpen: !state.dynamicModalIsOpen,
+      activePin: pinID,
     })),
 
   closeDynamicModal: () =>
     set({
       dynamicModalIsOpen: false,
+      activePin: '',
     }),
 
   setDynamicSharePinModalIsOpen: (
     ref: React.RefObject<HTMLButtonElement>,
-    data?: string
+    data: string
   ) =>
     set((state) => ({
       sharePinBtnRef: ref,
       dynamicSharePinModalIsOpen: !state.dynamicSharePinModalIsOpen,
       sharePinData: data,
+      activePin: data,
     })),
 
   closeDynamicSharePinModal: () =>
     set({
       dynamicSharePinModalIsOpen: false,
+      activePin: '',
     }),
 
   openLoginModal: () =>
@@ -263,17 +274,20 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   },
   setPinMoreOptionsModal: (
     ref: React.RefObject<HTMLButtonElement>,
-    body: string
+    body: string,
+    pinID: string
   ) => {
     set((state) => ({
       isPinMoreOptionModalOpen: !state.isPinMoreOptionModalOpen,
       pinMoreOptionsBtnRef: ref,
       pinMoreOptionsBody: body,
+      activePin: pinID,
     }));
   },
   closePinMoreOptionsModal: () => {
     set({
       isPinMoreOptionModalOpen: false,
+      activePin: '',
     });
   },
 });

@@ -620,6 +620,39 @@ interface IReport {
   };
 }
 
+interface IBoard {
+  create: {
+    title: string;
+    name: {
+      label: string;
+      placeholder: string;
+    };
+    description: {
+      label: string;
+      placeholder: string;
+    };
+    buttons: {
+      cancel: string;
+      create: string;
+    };
+  };
+  edit: {
+    title: string;
+    name: {
+      label: string;
+      placeholder: string;
+    };
+    description: {
+      label: string;
+      placeholder: string;
+    };
+    buttons: {
+      cancel: string;
+      save: string;
+    };
+  };
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -646,6 +679,7 @@ export interface ITranslation {
   search: ISearch;
   'followers-&-following-list': IFollowersAndFollowingList;
   report: IReport;
+  board: IBoard;
   errors: Record<string, unknown>;
 }
 
