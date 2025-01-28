@@ -2,6 +2,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useGetLimit } from '@/app/hooks/useGetLimit';
+import useInfiniteScroll from './useInfiniteScroll';
 
 interface InterfaceUseSearch {
   getHomePins?: any;
@@ -17,6 +18,13 @@ const useSearchHome = ({ getHomePins }: InterfaceUseSearch) => {
 
   const pathname = usePathname();
   const { page } = useAppsStore();
+
+  const { handleScroll, lastScrollTop } = useInfiniteScroll();
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollTop]);
 
   useEffect(() => {
     if (page === 1) {

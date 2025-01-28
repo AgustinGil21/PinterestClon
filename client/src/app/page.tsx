@@ -21,13 +21,7 @@ export default function Home() {
     updateDataSearch,
   } = useAppsStore();
 
-  const { handleScroll, lastScrollTop } = useInfiniteScroll();
   const { handleSearchHome } = useSearchHome({ getHomePins: getHomePins });
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]);
 
   useEffect(() => {
     updateDataSearch('page', 1);

@@ -34,7 +34,7 @@ const ModalSearch = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 750);
+      setIsMobile(window.innerWidth < 768);
     };
 
     handleResize();

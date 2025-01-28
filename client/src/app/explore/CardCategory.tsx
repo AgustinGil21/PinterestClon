@@ -7,11 +7,9 @@ import useSearchCategory from '../interfaces/hooks/useSearchCategory';
 
 interface CardCategoryInterface {
   elem: CategoriesPin;
-  page: number;
-  limit: number;
 }
 
-const CardCategory = ({ elem, page = 1, limit }: CardCategoryInterface) => {
+const CardCategory = ({ elem }: CardCategoryInterface) => {
   const { getSearchPinForCategory, t } = useAppsStore();
   const router = useRouter();
 

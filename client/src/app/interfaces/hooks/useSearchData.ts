@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ISearchByValue } from '@/app/domain/types/boards-interface';
 import { useGetLimit } from '@/app/hooks/useGetLimit';
+import useInfiniteScroll from './useInfiniteScroll';
 
 interface InterfaceUseSearchData {
   getSearchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
@@ -35,8 +36,14 @@ const useSearchData = ({
     searchPins,
     updateValueSearchInput,
   } = useAppsStore();
+  const { handleScroll, lastScrollTop } = useInfiniteScroll();
   const [localSearchValue, setLocalSearchValue] = useState<string | null>(null);
   const [isSearching, setIsSearching] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollTop]);
 
   useEffect(() => {
     const storedValue = localStorage.getItem('searchInputValue');

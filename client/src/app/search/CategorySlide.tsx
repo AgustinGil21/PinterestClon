@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CategorySlideSkeleton } from '../skeletons/CategorySlideSkeleton';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import useSearchCategory from '../interfaces/hooks/useSearchCategory';
 
 interface PropsElemCategory {
   poster?: string;
@@ -13,10 +14,17 @@ interface CategorySlideInterface {
 }
 
 const CategorySlide = ({ elem, color }: CategorySlideInterface) => {
-  const { t } = useAppsStore();
+  const { t, getSearchPinForCategory } = useAppsStore();
   const [loading, setLoading] = useState(!!elem?.poster);
+  const { handleSearchCategory } = useSearchCategory({
+    getSearchPinForCategory: getSearchPinForCategory,
+  });
 
   const handleOnLoad = () => setLoading(false);
+
+  const handleClick = () => {
+    if (elem?.id) handleSearchCategory(elem?.id, elem?.name);
+  };
 
   useEffect(() => {
     if (elem?.poster) setLoading(false);
@@ -29,6 +37,7 @@ const CategorySlide = ({ elem, color }: CategorySlideInterface) => {
       ) : (
         <div
           className='cursor-pointer bg-black  pr-3 flex flex-row gap-2 items-center rounded-[30px] h-[44px] hover:opacity-90 transition-opacity'
+          onClick={handleClick}
           style={{ backgroundColor: color }}
         >
           <img

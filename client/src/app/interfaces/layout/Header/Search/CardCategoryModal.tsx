@@ -1,5 +1,6 @@
 import { CategoriesPin } from '@/app/domain/types/pins-structure';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import useSearchCategory from '@/app/interfaces/hooks/useSearchCategory';
 import { useRouter } from 'next/navigation';
 
 interface CardCategoryInterface {
@@ -10,13 +11,13 @@ interface CardCategoryInterface {
 const CardCategoryModal = ({ elem, setModal }: CardCategoryInterface) => {
   const router = useRouter();
   let limit = 25;
-  const { updateDataSearch, getSearchPinForCategory, t } = useAppsStore();
+  const { getSearchPinForCategory, t } = useAppsStore();
+  const { handleSearchCategory } = useSearchCategory({
+    getSearchPinForCategory: getSearchPinForCategory,
+  });
 
   const handleClick = async (elem: CategoriesPin) => {
-    updateDataSearch('value', '');
-    updateDataSearch('categorySelect', elem.id);
-    await getSearchPinForCategory(elem.id, 1, limit);
-    router.push(`/searchcategory/${elem.name}`);
+    handleSearchCategory(elem.id, elem.name);
     setModal(false);
   };
 

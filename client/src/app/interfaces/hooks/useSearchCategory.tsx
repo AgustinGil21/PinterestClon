@@ -1,6 +1,7 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import useInfiniteScroll from './useInfiniteScroll';
 
 interface InterfaceUseSearchCategory {
   getSearchPinForCategory: any;
@@ -14,7 +15,13 @@ const useSearchCategory = ({
   const router = useRouter();
   const [idCategory, setIdCategory] = useState<string | null>('');
   const [queryValue, setQueryValue] = useState<string | null>('');
+  const { handleScroll, lastScrollTop } = useInfiniteScroll();
   const pathname = usePathname();
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollTop]);
 
   useEffect(() => {
     const idCategoryStorage = localStorage.getItem('idCategory');
@@ -34,6 +41,14 @@ const useSearchCategory = ({
       }
     }
   }, [idCategory, queryValue]);
+
+  useEffect(() => {
+    if (page === 1) return;
+
+    if (categorySelect) {
+      getSearchPinForCategory(idCategory, page, limit);
+    }
+  }, [page]);
 
   const handleSearchCategory = async (
     idCategory: string,

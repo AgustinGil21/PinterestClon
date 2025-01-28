@@ -61,12 +61,7 @@ export default function Explore() {
 
           <div className='flex justify-center flex-wrap gap-4'>
             {categories.map((elem) => (
-              <CardCategory
-                key={elem.id}
-                elem={elem}
-                page={page}
-                limit={limit}
-              />
+              <CardCategory key={elem.id} elem={elem} />
             ))}
           </div>
 
