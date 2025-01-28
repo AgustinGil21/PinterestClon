@@ -12,6 +12,7 @@ export const SavePinBtn = ({ pinId }: Props) => {
     isAuth,
     openRegisterModal,
     t,
+    setToastNotification,
   } = useAppsStore();
 
   const handleSavePin = () => {
@@ -26,6 +27,11 @@ export const SavePinBtn = ({ pinId }: Props) => {
     } else {
       savePinToProfile(pinId);
     }
+    setToastNotification({
+      status: 'success',
+      type: 'pin',
+      action: 'save',
+    });
   };
 
   return (

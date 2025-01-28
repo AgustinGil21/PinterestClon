@@ -2,13 +2,23 @@ import ClockIcon from '@/app/components/icons/ClockIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const BoardListProfileCard = () => {
-  const { dataOpenBoardModal, savePinToProfile, closeDynamicModal, t } =
-    useAppsStore();
+  const {
+    dataOpenBoardModal,
+    savePinToProfile,
+    closeDynamicModal,
+    t,
+    setToastNotification,
+  } = useAppsStore();
   const { pinId } = dataOpenBoardModal;
 
   const handleSavePinToProfile = () => {
     savePinToProfile(pinId);
     closeDynamicModal();
+    setToastNotification({
+      status: 'success',
+      type: 'pin',
+      action: 'save',
+    });
   };
 
   return (

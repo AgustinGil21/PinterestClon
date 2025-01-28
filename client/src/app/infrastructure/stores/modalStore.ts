@@ -65,6 +65,7 @@ export interface ModalStateInterface {
   isOpenReportModal: boolean;
   reportType: TReportType;
   openReportModal: (type?: TReportType) => void;
+  closeReportModal: () => void;
   openFiltersModal: () => void;
   isOpenFiltersModal: boolean;
 
@@ -262,6 +263,11 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       isOpenReportModal: !state.isOpenReportModal,
       reportType: type,
     }));
+  },
+  closeReportModal: () => {
+    set({
+      isOpenReportModal: false,
+    });
   },
   openFiltersModal: () => {
     set((state) => ({

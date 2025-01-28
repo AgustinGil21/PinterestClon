@@ -19,6 +19,7 @@ export const SavePinToBoardBtn = ({
     setDynamicModal,
     isAuth,
     openRegisterModal,
+    t,
   } = useAppsStore();
 
   const handleModalOpen = () => {
@@ -42,7 +43,9 @@ export const SavePinToBoardBtn = ({
       ref={btnRef}
     >
       <span className='text-sm overflow-hidden whitespace-nowrap text-ellipsis'>
-        {lastBoard.name || 'Perfil'}
+        {lastBoard.name
+          ? lastBoard.name
+          : t?.['boards-list'].profile || 'Perfil'}
       </span>
       <svg
         fill='none'

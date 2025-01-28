@@ -8,10 +8,24 @@ interface ModalReportInterface {
 }
 
 const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
-  const { openReportModal, isOpenReportModal, t, reportType } = useAppsStore();
+  const {
+    openReportModal,
+    isOpenReportModal,
+    t,
+    reportType,
+    setToastNotification,
+    closeReportModal,
+  } = useAppsStore();
   const confirmReport = () => {
     openReportModal(reportType);
+    setToastNotification({
+      status: 'success',
+      type: reportType,
+      action: 'report',
+    });
   };
+
+  const cancelReport = () => closeReportModal();
 
   return (
     <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] p-2'>
@@ -44,7 +58,7 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
             </ButtonStyled>
             <ButtonStyled
               className='bg-gray-300 text-black px-4 py-2 rounded-3xl font-semibold'
-              handleClick={confirmReport}
+              handleClick={cancelReport}
             >
               {t?.report.buttons.cancel || 'Cancelar'}
             </ButtonStyled>
