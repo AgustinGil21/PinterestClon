@@ -124,7 +124,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     set((state) => ({
       btnRef: ref,
       dynamicModalIsOpen: !state.dynamicModalIsOpen,
-      activePin: pinID,
+      activePin: !state.dynamicModalIsOpen ? pinID : '',
     })),
 
   closeDynamicModal: () =>
@@ -141,7 +141,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       sharePinBtnRef: ref,
       dynamicSharePinModalIsOpen: !state.dynamicSharePinModalIsOpen,
       sharePinData: data,
-      activePin: data,
+      activePin: !state.dynamicSharePinModalIsOpen ? data : '',
     })),
 
   closeDynamicSharePinModal: () =>
@@ -287,7 +287,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       isPinMoreOptionModalOpen: !state.isPinMoreOptionModalOpen,
       pinMoreOptionsBtnRef: ref,
       pinMoreOptionsBody: body,
-      activePin: pinID,
+      activePin: !state.isPinMoreOptionModalOpen ? pinID : '',
     }));
   },
   closePinMoreOptionsModal: () => {

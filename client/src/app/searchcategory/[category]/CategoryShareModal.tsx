@@ -21,7 +21,7 @@ export const CategoryShareModal = ({
         setModal: setModal,
         isModalOpen: modalIsOpen,
         buttonRef: btnRef,
-        className: `p-4 rounded-lg absolute -bottom-[110px] z-50 bg-white w-[277px] right-0 translate-x-[calc(100%-280px)] sm:-translate-x-0 sm:left-1/2`,
+        className: `p-4 rounded-lg absolute top-[160px] md:top-[310px] z-50 bg-white w-[277px] right-0 translate-x-[calc(100%-280px)] sm:-translate-x-0 sm:left-1/2`,
       }}
     >
       <ShareComponent endpoint='/searchcategory' data={category} />
