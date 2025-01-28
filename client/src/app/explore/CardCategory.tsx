@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import Atropos from 'atropos/react';
 import 'atropos/css';
+import useSearchCategory from '../interfaces/hooks/useSearchCategory';
 
 interface CardCategoryInterface {
   elem: CategoriesPin;
@@ -11,14 +12,15 @@ interface CardCategoryInterface {
 }
 
 const CardCategory = ({ elem, page = 1, limit }: CardCategoryInterface) => {
-  const { getSearchPinForCategory, updateDataSearch, t } = useAppsStore();
+  const { getSearchPinForCategory, t } = useAppsStore();
   const router = useRouter();
 
+  const { handleSearchCategory } = useSearchCategory({
+    getSearchPinForCategory: getSearchPinForCategory,
+  });
+
   const handleClick = async (elem: CategoriesPin) => {
-    updateDataSearch('value', '');
-    updateDataSearch('categorySelect', elem.id);
-    await getSearchPinForCategory(elem.id, page, limit);
-    router.push(`/searchcategory/${elem.name}`);
+    handleSearchCategory(elem.id, elem.name);
   };
 
   return (

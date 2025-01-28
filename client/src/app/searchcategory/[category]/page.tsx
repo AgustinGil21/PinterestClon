@@ -1,25 +1,36 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import Masonry from '@/app/interfaces/components/Basic/Masonry';
 import { CategoriesPin } from '@/app/domain/types/pins-structure';
 import { Pin } from '@/app/home-page-components/Pin';
 import { IExploreCategories } from '@/app/global-interfaces/translation-interface';
+import useSearchCategory from '@/app/interfaces/hooks/useSearchCategory';
+
 interface Props {
   params: { explore: string };
 }
 
-const exploreSearch = ({ params }: Props) => {
+const ExploreSearch = ({ params }: Props) => {
   const [categoryMain, setCategoryMain] = useState<CategoriesPin[]>();
-  const { categoriesPin, categorySelect, categoryPinsData, t } = useAppsStore();
-  const { explore }: { explore: string } = params;
+  const {
+    categoriesPin,
+    categorySelect,
+    categoryPinsData,
+    t,
+    value,
+    getSearchPinForCategory,
+  } = useAppsStore();
+  const {} = useSearchCategory({
+    getSearchPinForCategory: getSearchPinForCategory,
+  });
 
   useEffect(() => {
     const response = categoriesPin.filter((elem) => elem.id === categorySelect);
-    console.log(response);
 
     setCategoryMain(response);
-  }, [categorySelect]);
+  }, [categoriesPin, categorySelect]);
 
   return (
     <>
@@ -28,12 +39,12 @@ const exploreSearch = ({ params }: Props) => {
           <div className='flex justify-center items-center flex-col gap-2 w-full'>
             <div className='min-w-[250px] min-h-[150px] max-w-[500px] max-h-[300px] relative shadow-uniform rounded-3xl w-full h-[150px] md:h-[300px]'>
               <h2 className='absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-border text-center'>
-                {categoryMain[0].name}
+                {categoryMain[0]?.name}
               </h2>
 
               <img
-                src={categoryMain[0].poster}
-                alt={categoryMain[0].name}
+                src={categoryMain[0]?.poster}
+                alt={categoryMain[0]?.name}
                 className='w-full h-full object-cover rounded-3xl'
               />
             </div>
@@ -54,4 +65,4 @@ const exploreSearch = ({ params }: Props) => {
   );
 };
 
-export default exploreSearch;
+export default ExploreSearch;

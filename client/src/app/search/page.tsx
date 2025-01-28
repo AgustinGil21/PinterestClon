@@ -39,7 +39,6 @@ const Search = () => {
 
   useEffect(() => {
     getCategoriesPin();
-
     setLoading(false);
   }, []);
 
