@@ -1,6 +1,6 @@
 'use client';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import Masonry from '@/app/interfaces/components/Basic/Masonry';
 import { CategoriesPin } from '@/app/domain/types/pins-structure';
@@ -9,6 +9,8 @@ import { IExploreCategories } from '@/app/global-interfaces/translation-interfac
 import useSearchCategory from '@/app/interfaces/hooks/useSearchCategory';
 import { useRouter } from 'next/navigation';
 import ArrowTwoLeftIcon from '@/app/interfaces/components/icons/ArrowTwoLeftIcon';
+import DownloadIcon from '@/app/interfaces/components/icons/DownloadIcon';
+import { CategoryShareModal } from './CategoryShareModal';
 import useInfiniteScroll from '@/app/interfaces/hooks/useInfiniteScroll';
 
 interface Props {
@@ -17,7 +19,8 @@ interface Props {
 
 const ExploreSearch = ({ params }: Props) => {
   const router = useRouter();
-  const { handleScroll, lastScrollTop } = useInfiniteScroll();
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
+  const shareBtnRef = useRef(null);
   const [categoryMain, setCategoryMain] = useState<CategoriesPin[]>();
   const {
     categoriesPin,
@@ -27,6 +30,7 @@ const ExploreSearch = ({ params }: Props) => {
     value,
     getSearchPinForCategory,
   } = useAppsStore();
+  const { handleScroll, lastScrollTop } = useInfiniteScroll();
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -36,6 +40,8 @@ const ExploreSearch = ({ params }: Props) => {
   const {} = useSearchCategory({
     getSearchPinForCategory: getSearchPinForCategory,
   });
+
+  const handleOpenShareModal = () => setShareModalIsOpen(!shareModalIsOpen);
 
   const handleGoBack = () => {
     router.back();
@@ -64,7 +70,7 @@ const ExploreSearch = ({ params }: Props) => {
             </ButtonStyled>
           </div>
           <div className='flex justify-center items-center flex-col gap-2 w-full'>
-            <div className='min-w-[250px] min-h-[150px] max-w-[500px] max-h-[300px] relative shadow-uniform rounded-3xl w-full h-[150px] md:h-[300px]'>
+            <div className='min-w-[250px] min-h-[150px] max-w-[600px] max-h-[300px] relative shadow-uniform rounded-3xl w-full h-[150px] md:h-[300px]'>
               <h2 className='absolute text-white text-3xl font-bold top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-border text-center'>
                 {categoryMain[0]?.name}
               </h2>
@@ -74,12 +80,32 @@ const ExploreSearch = ({ params }: Props) => {
                 alt={categoryMain[0]?.name}
                 className='w-full h-full object-cover rounded-3xl'
               />
+              <button
+                className={`p-2 rounded-full absolute bottom-2 right-2 group duration-300 transition-colors ${
+                  shareModalIsOpen ? 'bg-black ' : 'bg-white hover:bg-gray-200'
+                }`}
+                ref={shareBtnRef}
+                onClick={handleOpenShareModal}
+              >
+                <DownloadIcon
+                  classProps='w-5 h-5'
+                  isDownloadAccountOpen={shareModalIsOpen}
+                />
+              </button>
             </div>
             <p className='text-sm'>
               {t?.['explore-categories']?.[
                 categoryMain[0]?.name as keyof IExploreCategories
               ] || categoryMain[0]?.name}
             </p>
+            {shareModalIsOpen && (
+              <CategoryShareModal
+                setModal={handleOpenShareModal}
+                modalIsOpen={shareModalIsOpen}
+                btnRef={shareBtnRef}
+                category={categoryMain[0]?.name || ''}
+              />
+            )}
           </div>
           <Masonry>
             {categoryPinsData.map((elem) => (
