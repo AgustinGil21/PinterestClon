@@ -189,7 +189,17 @@
   filter: brightness(0.7);
 }
 
+.card.pin-active .card-body {
+  filter: brightness(0.7);
+}
+
 .card:hover .card-controls {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.card.pin-active .card-controls {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -405,6 +415,11 @@
   animation: go-up 300ms ease-in, go-down 100ms ease-out 2.2s forwards;
 }
 
+.toast-notification-mobile {
+  animation: show-element 300ms ease-in,
+    hide-element 150ms ease-out 2.2s forwards;
+}
+
 @keyframes go-up {
   from {
     transform: translateX(-50%) translateY(100%);
@@ -422,6 +437,24 @@
   to {
     transform: translateX(-50%) translateY(100%);
     display: none;
+  }
+}
+
+@keyframes hide-element {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes show-element {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

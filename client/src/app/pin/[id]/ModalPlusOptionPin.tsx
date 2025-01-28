@@ -34,7 +34,7 @@ const ModalPlusOptionPin = ({
   };
 
   const handleClick = () => {
-    openReportModal();
+    openReportModal('pin');
     setModal();
   };
 

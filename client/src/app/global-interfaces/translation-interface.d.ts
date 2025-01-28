@@ -1,5 +1,7 @@
 // interface ITranslationBody {}
 
+export type TReportType = 'pin' | 'user' | 'comment' | 'board';
+
 interface Header {
   buttons: {
     home: string;
@@ -45,6 +47,8 @@ interface DataDevs {
 }
 
 interface Pin {
+  'for-you': string;
+  'no-comments': string;
   'save-btn': string;
   'more-options': {
     download: string;
@@ -596,7 +600,57 @@ interface ISearch {
 }
 
 interface IFollowersAndFollowingList {
-  its_you: 'É você!';
+  its_you: string;
+}
+
+interface IReport {
+  buttons: {
+    confirm: string;
+    cancel: string;
+  };
+  message: {
+    pt1: string;
+    pt2: string;
+    type: {
+      pin: string;
+      board: string;
+      user: string;
+      comment: string;
+    };
+  };
+}
+
+interface IBoard {
+  create: {
+    title: string;
+    name: {
+      label: string;
+      placeholder: string;
+    };
+    description: {
+      label: string;
+      placeholder: string;
+    };
+    buttons: {
+      cancel: string;
+      create: string;
+    };
+  };
+  edit: {
+    title: string;
+    name: {
+      label: string;
+      placeholder: string;
+    };
+    description: {
+      label: string;
+      placeholder: string;
+    };
+    buttons: {
+      cancel: string;
+      save: string;
+    };
+  };
 }
 
 export interface ITranslation {
@@ -624,6 +678,8 @@ export interface ITranslation {
   'explore-categories': IExploreCategories;
   search: ISearch;
   'followers-&-following-list': IFollowersAndFollowingList;
+  report: IReport;
+  board: IBoard;
   errors: Record<string, unknown>;
 }
 

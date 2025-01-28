@@ -40,6 +40,11 @@ export const getToastNotification = (content?: IToastNotification) => {
           en: 'Comment deleted successfully.',
           pt: 'Comentário excluído com sucesso.',
         },
+        report: {
+          es: 'Comentario reportado correctamente.',
+          en: 'Comment reported successfully.',
+          pt: 'Comentário reportado com sucesso.',
+        },
       },
       user: {
         report: {

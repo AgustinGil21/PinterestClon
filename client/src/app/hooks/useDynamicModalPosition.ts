@@ -28,7 +28,7 @@ export const useDynamicModalPosition = ({
     right: btnRight,
   } = useGetElementBorderDistance(btnRef);
 
-  useEffect(() => {
+  const calculatePosition = () => {
     if (!btnRef.current || !modalHeight || !modalWidth) return;
 
     const scrollY = window.scrollY;
@@ -37,10 +37,10 @@ export const useDynamicModalPosition = ({
     let x = btnLeft;
     let y = btnBottom + btnMargin;
 
-    // Si se sale por la derecha. El -14 del final
-    // es para contemplar el scrollbar
+    // Si se sale por la derecha
     if (x + modalWidth > window.innerWidth) {
-      x = window.innerWidth - modalWidth - padding - 14;
+      // Para considerar el scrollbar
+      x = window.innerWidth - modalWidth - padding - 24;
     }
 
     // Si se sale por la izquierda
@@ -53,13 +53,23 @@ export const useDynamicModalPosition = ({
       y = btnTop - modalHeight - btnMargin;
     }
 
-    // Si se sale por arriba o queda fuera
-    // del viewport por el scroll
+    // Si se sale por arriba o queda fuera del viewport por el scroll
     if (y < scrollY + padding) {
       y = scrollY + padding;
     }
 
     setPosition({ x, y });
+  };
+
+  useEffect(() => {
+    // Posición inicial
+    calculatePosition();
+
+    const handleScroll = () => calculatePosition();
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [
     btnLeft,
     btnTop,

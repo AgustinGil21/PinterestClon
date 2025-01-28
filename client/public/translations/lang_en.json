@@ -32,6 +32,8 @@
     "tooltip": "More"
   },
   "pin": {
+    "for-you": "For you",
+    "no-comments": "What do you think?",
     "save-btn": "Save",
     "more-options": {
       "download": "Download image",
@@ -644,6 +646,54 @@
   },
   "followers-&-following-list": {
     "its_you": "That's you!"
+  },
+  "report": {
+    "buttons": {
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "message": {
+      "pt1": "Are you sure you want to report this ",
+      "pt2": "? An administrator will review it.",
+      "type": {
+        "pin": "pin",
+        "board": "board",
+        "user": "user",
+        "comment": "comment"
+      }
+    }
+  },
+  "board": {
+    "create": {
+      "title": "Create board",
+      "name": {
+        "label": "Name",
+        "placeholder": "Board name"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Board description"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "create": "Create"
+      }
+    },
+    "edit": {
+      "title": "Edit board",
+      "name": {
+        "label": "Name",
+        "placeholder": "Board name"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Board description"
+      },
+      "buttons": {
+        "cancel": "Cancel",
+        "save": "Save"
+      }
+    }
   },
   "errors": {}
 }

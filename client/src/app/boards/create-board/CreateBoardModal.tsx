@@ -36,6 +36,7 @@ const CreateBoardModal = ({
     createBoardModalOpen,
     isCreateBoardModalOpen,
     setToastNotification,
+    t,
   } = useAppsStore();
 
   const { errors, register, handleSubmit, watch } = useFormHook({
@@ -78,7 +79,7 @@ const CreateBoardModal = ({
               className={`bg-white shadow-uniform flex flex-col p-4 gap-4 rounded-lg justify-center items-center sm:min-w-[300px] min-h-[400px]`}
             >
               <h2 className='text-md font-semibold text-center'>
-                Crear tablero
+                {t?.board.create.title || 'Crear tablero'}
               </h2>
               <section className='w-full flex flex-col sm:flex-row gap-3 h-auto'>
                 {pinBody && (
@@ -98,7 +99,7 @@ const CreateBoardModal = ({
                   <label className='text-xs hover:cursor-pointer flex flex-col'>
                     <div className='flex'>
                       <span className='text-[0.6rem] font-medium mr-[2px]'>
-                        Nombre
+                        {t?.board.create.name.label || 'Nombre'}
                       </span>
                       <span
                         className='text-[#e60023] font-bold text-[0.6rem]'
@@ -109,7 +110,9 @@ const CreateBoardModal = ({
                     </div>
                     <CustomInput
                       type='text'
-                      placeholder='Nombre del tablero'
+                      placeholder={
+                        t?.board.create.name.placeholder || 'Nombre del tablero'
+                      }
                       infoName='name'
                       register={register}
                       errors={errors.name}
@@ -120,12 +123,15 @@ const CreateBoardModal = ({
                   </label>
                   <label className='text-xs hover:cursor-pointer'>
                     <span className='text-[0.6rem] font-medium'>
-                      Descripción
+                      {t?.board.create.description.label || 'Descripción'}
                     </span>
                     <CustomTextArea
                       className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-[0.6rem] sm:min-h-[150px]'
                       infoName='description'
-                      placeholder='Descripción del tablero'
+                      placeholder={
+                        t?.board.create.description.placeholder ||
+                        'Descripción del tablero'
+                      }
                       maxLength={500}
                       register={register}
                       errors={errors.description}
@@ -140,14 +146,14 @@ const CreateBoardModal = ({
                   className='p-2 bg-[#e9e9e9] rounded-2xl text-black font-bold text-[0.7rem] hover:bg-gray-300 transition-colors min-w-[67px]'
                   onClick={handleCancel}
                 >
-                  Cancelar
+                  {t?.board.create.buttons.cancel || 'Cancelar'}
                 </button>
                 <button
                   className='p-2 bg-[#e60023] rounded-2xl text-white font-bold text-[0.7rem] hover:bg-[#b60000] transition-colors min-w-[67px]'
                   type='submit'
                   form='createBoardForm'
                 >
-                  Crear
+                  {t?.board.create.buttons.create || 'Crear'}
                 </button>
               </footer>
             </div>

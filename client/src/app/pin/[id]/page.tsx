@@ -23,6 +23,7 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
     getSimilarPins,
     similarPins,
     getBoardsList,
+    t,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -98,14 +99,16 @@ const PinPreviewPage = ({ params }: PinPreviewPageInterface) => {
 
   return (
     <section className='flex justify-center items-center w-full p-2 relative min-h-[90vh] flex-col gap-4'>
-      <div className='absolute top-0 left-0 m-4  '>
+      <div className='absolute top-0 left-0 m-4  md:inline-block hidden'>
         <ButtonStyled
-          className='font-semibold text-sm lg:flex items-center flex-row gap-2 hover:bg-gray-200 hidden '
+          className='font-semibold text-sm lg:flex items-center flex-row gap-2 hover:bg-gray-200 '
           handleClick={handleGoBack}
         >
           <ArrowTwoLeftIcon />
 
-          <span className='hidden xl:inline '>Para ti</span>
+          <span className='hidden xl:inline '>
+            {t?.pin['for-you'] || 'Para ti'}
+          </span>
         </ButtonStyled>
       </div>
 

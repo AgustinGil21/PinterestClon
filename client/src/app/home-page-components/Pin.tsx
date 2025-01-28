@@ -19,9 +19,12 @@ export const Pin = ({ elem, className }: PinProps) => {
     isAuth,
     openRegisterModal,
     userPublicData,
+    isPinMoreOptionModalOpen,
+    closePinMoreOptionsModal,
+    pinMoreOptionsBtnRef,
+    activePin,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
-  const btnThreePoints = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [openModalThreePoints, setOpenModalThreePoints] = useState(false);
 
@@ -40,27 +43,18 @@ export const Pin = ({ elem, className }: PinProps) => {
 
   return (
     <>
-      <section className={`${elem.className} ${className} relative`}>
+      <section className={`${elem.className} ${className}`}>
         {!isLoaded && elem.username ? (
           <PinSkeleton />
         ) : (
-          <article className='card hover:cursor-pointer'>
+          <article
+            className={`card ${
+              activePin === elem.pin_id && 'pin-active'
+            } hover:cursor-pointer`}
+          >
             <PinBody elem={elem} />
             {elem.username && <PinFooter elem={elem} />}
           </article>
-        )}
-        {openModalThreePoints && (
-          <ModalPlusOptionPin
-            body={elem.body}
-            btnRef={btnThreePoints}
-            setModal={handleClickOpenModalThreePoints}
-            isModalOpen={openModalThreePoints}
-            styles={{
-              right: '0',
-              bottom: '7px',
-            }}
-            its_yours={elem.username === userPublicData?.username}
-          />
         )}
       </section>
       {isCreateBoardModalOpen && elem.pin_id === pinId && (

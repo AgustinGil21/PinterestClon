@@ -22,7 +22,7 @@ export const SharePinModal = () => {
           height={230}
           className='z-50 bg-white py-5 px-4 rounded-xl shadow-uniform'
         >
-          <ShareComponent endpoint='pins' data={sharePinData} />
+          <ShareComponent endpoint='/pin' data={sharePinData} />
         </DynamicModal>
       )}
     </>

@@ -2,7 +2,11 @@ import { useRouter } from 'next/navigation';
 import { PinInterface } from '../domain/types/pins-structure';
 import { PinBodyControls } from './PinBodyControls';
 
-export const PinBody = ({ elem }: { elem: PinInterface }) => {
+interface Props {
+  elem: PinInterface;
+}
+
+export const PinBody = ({ elem }: Props) => {
   const router = useRouter();
 
   const handleClick = () => {

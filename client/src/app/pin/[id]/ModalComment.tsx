@@ -39,6 +39,8 @@ const ModalComment = ({
     onClose();
   };
 
+  const handleReportModal = () => openReportModal('comment');
+
   return (
     <Modal
       props={{
@@ -67,7 +69,7 @@ const ModalComment = ({
       ) : (
         <ButtonStyled
           className='text-black p-2 w-full rounded-lg !text-[12px] font-semibold hover:bg-gray-100'
-          handleClick={openReportModal}
+          handleClick={handleReportModal}
         >
           {t?.comment['more-options'].report || 'Reportar'}
         </ButtonStyled>

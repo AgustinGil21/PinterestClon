@@ -23,15 +23,15 @@ export const PinBodyControlsTop = ({ elem }: { elem: PinInterface }) => {
   //   setDynamicModal(btnRef);
   // };
 
-  const handleSavePin = () => {
-    if (!elem.pin_id) return;
+  // const handleSavePin = () => {
+  //   if (!elem.pin_id) return;
 
-    if (lastBoard.id) {
-      addPinToBoard({ pinId: elem.pin_id, boardId: lastBoard.id });
-    } else {
-      savePinToProfile(elem.pin_id);
-    }
-  };
+  //   if (lastBoard.id) {
+  //     addPinToBoard({ pinId: elem.pin_id, boardId: lastBoard.id });
+  //   } else {
+  //     savePinToProfile(elem.pin_id);
+  //   }
+  // };
 
   return (
     <article

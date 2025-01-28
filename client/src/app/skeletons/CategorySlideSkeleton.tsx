@@ -8,7 +8,7 @@ export const CategorySlideSkeleton = () => {
   return (
     <Skeleton
       borderRadius='30px'
-      height={40}
+      height={44}
       width={107}
       color={color}
       animation='pulse'

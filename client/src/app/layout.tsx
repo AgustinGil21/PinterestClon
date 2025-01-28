@@ -12,6 +12,7 @@ import { changeDocTitle } from './libs/changeDocTitle';
 import ToastNotification from './components/Basic/ToastNotification';
 import BoardsListModal from './boards/boards-list/BoardsListModal';
 import { SharePinModal } from './home-page-components/SharePinModal';
+import PinMoreOptionsModal from './home-page-components/PinMoreOptionsModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +39,7 @@ export default function RootLayout({
     dynamicModalIsOpen,
     userLang,
     getTranslation,
+    isPinMoreOptionModalOpen,
   } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
@@ -99,6 +101,7 @@ export default function RootLayout({
 
           <BoardsListModal />
           <SharePinModal />
+          {isPinMoreOptionModalOpen && <PinMoreOptionsModal />}
         </main>
       </body>
     </html>

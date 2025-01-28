@@ -10,6 +10,7 @@ import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 import { useSearchParams } from 'next/navigation';
 import { EmptyMsg } from './EmptyMsg';
 import useInfiniteScroll from '../interfaces/hooks/useInfiniteScroll';
+import { UsersProfileSearchContainer } from './UsersProfileSearchContainer';
 
 const Search = () => {
   const {
@@ -19,6 +20,7 @@ const Search = () => {
     searchedBoards,
     getCategoriesPin,
     isOpenFiltersModal,
+    usersProfile,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -82,7 +84,7 @@ const Search = () => {
 
             {filterState === 'perfiles' &&
               (searchedBoards.length > 0 ? (
-                <BoardsGrid boards={searchedBoards} />
+                <UsersProfileSearchContainer users={usersProfile} />
               ) : (
                 !loading && (
                   <EmptyMsg searchValue={valueErrorSearch} type='user' />
