@@ -107,6 +107,8 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
   searchUsers: async ({ page, limit, value }: ISearchByValue) => {
     const response = await searchUsersCase({ page, limit, value });
 
+    console.log(response);
+
     if (response) set({ usersProfile: response });
   },
 

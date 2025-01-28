@@ -93,9 +93,9 @@ export interface ISingleUserProfileCard {
   username: string;
   avatar?: string;
   verified: boolean;
-  avatar_background: string;
-  avatar_letter_color: string;
-  avatar_letter: string;
+  avatar_background?: string;
+  avatar_letter_color?: string;
+  avatar_letter?: string;
   followers_count: string;
   following: boolean;
   its_you?: boolean;
@@ -103,4 +103,5 @@ export interface ISingleUserProfileCard {
 
 export interface IUsersProfileCard {
   users: ISingleUserProfileCard[];
+  results: number;
 }

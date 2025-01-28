@@ -23,6 +23,13 @@ export default function Home() {
 
   const { handleSearchHome } = useSearchHome({ getHomePins: getHomePins });
 
+  const { handleScroll } = useInfiniteScroll();
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
   useEffect(() => {
     updateDataSearch('page', 1);
   }, [pathname]);

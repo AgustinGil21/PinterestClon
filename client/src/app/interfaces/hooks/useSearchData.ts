@@ -8,11 +8,13 @@ import useInfiniteScroll from './useInfiniteScroll';
 interface InterfaceUseSearchData {
   getSearchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
   getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
+  getSearchUsers: any;
 }
 
 const useSearchData = ({
   getSearchBoards,
   getSearchPins,
+  getSearchUsers,
 }: InterfaceUseSearchData) => {
   const limit = 25;
   const pinsLimit = useGetLimit({
@@ -25,7 +27,6 @@ const useSearchData = ({
     elementMaxWidth: 248,
     elementMinHeight: 212,
   });
-  // const usersLimit = useGetLimit();
 
   const router = useRouter();
   const {
@@ -36,14 +37,9 @@ const useSearchData = ({
     searchPins,
     updateValueSearchInput,
   } = useAppsStore();
-  const { handleScroll, lastScrollTop } = useInfiniteScroll();
+
   const [localSearchValue, setLocalSearchValue] = useState<string | null>(null);
   const [isSearching, setIsSearching] = useState(false);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]);
 
   useEffect(() => {
     const storedValue = localStorage.getItem('searchInputValue');
@@ -58,7 +54,8 @@ const useSearchData = ({
         if (filterState === 'pines') getSearchPins(value, page, pinsLimit);
         if (filterState === 'tableros')
           getSearchBoards({ value: value, page: page, limit: boardsLimit });
-        // if (filterState === 'perfiles') getSearchBoards(value, page, limit);
+        if (filterState === 'perfiles')
+          getSearchUsers({ value: value, page: page, limit: boardsLimit });
         setIsSearching(true);
       }
     }
@@ -78,7 +75,7 @@ const useSearchData = ({
     }
 
     if (filterState === 'perfiles') {
-      // getSearchPins(value, page, limit);
+      getSearchUsers({ value: value, page: page, limit: boardsLimit });
       return;
     }
   }, [page, filterState, value, limit, getSearchBoards, getSearchPins]);
@@ -101,7 +98,7 @@ const useSearchData = ({
     }
 
     if (filterState === 'perfiles') {
-      // await getSearchPins(query, page, limit);
+      await getSearchUsers({ value: value, page: page, limit: boardsLimit });
       router.push(`/search?query=${query}`);
       return;
     }

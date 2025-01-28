@@ -15,13 +15,8 @@ const useSearchCategory = ({
   const router = useRouter();
   const [idCategory, setIdCategory] = useState<string | null>('');
   const [queryValue, setQueryValue] = useState<string | null>('');
-  const { handleScroll, lastScrollTop } = useInfiniteScroll();
-  const pathname = usePathname();
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]);
+  const pathname = usePathname();
 
   useEffect(() => {
     const idCategoryStorage = localStorage.getItem('idCategory');
@@ -32,7 +27,12 @@ const useSearchCategory = ({
   }, []);
 
   useEffect(() => {
-    if (idCategory && queryValue && !pathname.includes('explore')) {
+    if (
+      idCategory &&
+      queryValue &&
+      !pathname.includes('explore') &&
+      pathname.includes('searchcategory')
+    ) {
       updateDataSearch('categorySelect', idCategory);
       updateDataSearch('value', '');
 

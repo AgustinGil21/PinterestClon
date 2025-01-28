@@ -15,6 +15,7 @@ const SearchInput = () => {
     getSearchPins,
     suggestions,
     updateValueSearchInput,
+    searchUsers,
     getSuggestions,
     previousPin,
     searchBoards,
@@ -24,6 +25,7 @@ const SearchInput = () => {
   const { handleSearch } = useSearchData({
     getSearchBoards: searchBoards,
     getSearchPins: getSearchPins,
+    getSearchUsers: searchUsers,
   });
   const [isFocused, setIsFocused] = useState(false);
   const [valueCurrent, setValueCurrent] = useState('');

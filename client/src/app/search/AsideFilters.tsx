@@ -15,11 +15,13 @@ const AsideFilters = () => {
     getSearchPins,
     updateDataSearch,
     value,
+    searchUsers,
     updateStateBoards,
   } = useAppsStore();
   const { handleSearch } = useSearchData({
     getSearchBoards: searchBoards,
     getSearchPins: getSearchPins,
+    getSearchUsers: searchUsers,
   });
   const [selectedFilter, setSelectedFilter] = useState<string>(filterState);
   const [isExecute, setIsExecute] = useState(false);

@@ -27,7 +27,6 @@ const Search = () => {
   const [valueErrorSearch, setValueErrorSearch] = useState(value);
   const searchParams = useSearchParams();
   const queryValue: string | null = searchParams.get('query');
-
   const { handleScroll, lastScrollTop } = useInfiniteScroll();
 
   useEffect(() => {
@@ -83,7 +82,7 @@ const Search = () => {
               ))}
 
             {filterState === 'perfiles' &&
-              (searchedBoards.length > 0 ? (
+              (usersProfile.length > 0 ? (
                 <UsersProfileSearchContainer users={usersProfile} />
               ) : (
                 !loading && (

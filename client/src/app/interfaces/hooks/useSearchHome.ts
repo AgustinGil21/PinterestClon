@@ -19,13 +19,6 @@ const useSearchHome = ({ getHomePins }: InterfaceUseSearch) => {
   const pathname = usePathname();
   const { page } = useAppsStore();
 
-  const { handleScroll, lastScrollTop } = useInfiniteScroll();
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollTop]);
-
   useEffect(() => {
     if (page === 1) {
       return;

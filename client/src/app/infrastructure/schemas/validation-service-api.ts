@@ -456,19 +456,19 @@ export const PinSimilarSchema = z.object({
 export const SearchUsersSchema = z.object({
   users: z.array(
     z.object({
-      id: z.string().uuid(),
+      id: z.string(),
       name: z.string().optional(),
       surname: z.string().optional(),
       username: z.string(),
-      avatar: z.string().url().optional(),
+      avatar: z.string().optional(),
       verified: z.boolean(),
-      avatar_background: z.string(),
-      avatar_letter_color: z.string(),
-      avatar_letter: z.string(),
+      avatar_background: z.string().optional(),
+      avatar_letter_color: z.string().optional(),
+      avatar_letter: z.string().optional(),
       followers_count: z.string(),
       following: z.boolean(),
       its_you: z.boolean().optional(),
     })
   ),
-  results: z.number().optional(),
+  results: z.number(),
 });

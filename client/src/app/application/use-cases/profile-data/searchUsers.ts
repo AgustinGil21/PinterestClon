@@ -6,5 +6,6 @@ export const searchUsersCase = async ({
   page,
   limit,
   value,
-}: ISearchByValue): Promise<IUsersProfileCard | null> =>
-  await searchUsersAdapter({ page, limit, value });
+}: ISearchByValue): Promise<IUsersProfileCard | null> => {
+  return await searchUsersAdapter({ page, limit, value });
+};

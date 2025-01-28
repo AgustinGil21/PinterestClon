@@ -196,5 +196,6 @@ export const searchUsersAdapter = async ({
   page,
   limit,
   value,
-}: ISearchByValue): Promise<IUsersProfileCard | null> =>
-  await serviceSearchUsers({ page, limit, value });
+}: ISearchByValue): Promise<IUsersProfileCard | null> => {
+  return await serviceSearchUsers({ page, limit, value });
+};

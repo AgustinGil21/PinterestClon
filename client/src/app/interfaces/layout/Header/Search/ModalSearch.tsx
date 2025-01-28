@@ -23,11 +23,13 @@ const ModalSearch = ({
   limit,
   setModal,
 }: ModalStateProps) => {
-  const { valuesSearch, value, getSearchPins, searchBoards } = useAppsStore();
+  const { valuesSearch, value, getSearchPins, searchBoards, searchUsers } =
+    useAppsStore();
 
   const { handleSearch } = useSearchData({
     getSearchBoards: searchBoards,
     getSearchPins: getSearchPins,
+    getSearchUsers: searchUsers,
   });
 
   const [isMobile, setIsMobile] = useState(false);

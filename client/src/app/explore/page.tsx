@@ -8,23 +8,12 @@ import ButtonStyled from '../interfaces/components/Basic/ButtonStyled';
 import Link from 'next/link';
 import CardCategory from './CardCategory';
 import { FullDate } from '../components/Basic/FullDate';
-import Masonry from '../interfaces/components/Basic/Masonry';
-import { Pin } from '../home-page-components/Pin';
-import { CategoriesPin } from '../domain/types/pins-structure';
 
 export default function Explore() {
   const [loading, setLoading] = useState(true);
 
-  const {
-    categoriesPin,
-    getCategoriesPin,
-    page,
-    updateDataSearch,
-    t,
-    categoryPinsData,
-    userLang,
-    categorySelect,
-  } = useAppsStore();
+  const { categoriesPin, getCategoriesPin, updateDataSearch, t, userLang } =
+    useAppsStore();
   const limit = 25;
 
   const categories = useMemo(

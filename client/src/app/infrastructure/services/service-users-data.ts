@@ -229,7 +229,11 @@ export const serviceSearchUsers = async ({
       { withCredentials: true }
     );
 
+    console.log(response);
+
     const result = SearchUsersSchema.safeParse(response.data);
+
+    console.log(result);
 
     return result.success ? result.data.users : null;
   } catch (err) {

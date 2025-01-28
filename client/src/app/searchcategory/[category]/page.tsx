@@ -9,6 +9,7 @@ import { IExploreCategories } from '@/app/global-interfaces/translation-interfac
 import useSearchCategory from '@/app/interfaces/hooks/useSearchCategory';
 import { useRouter } from 'next/navigation';
 import ArrowTwoLeftIcon from '@/app/interfaces/components/icons/ArrowTwoLeftIcon';
+import useInfiniteScroll from '@/app/interfaces/hooks/useInfiniteScroll';
 
 interface Props {
   params: { explore: string };
@@ -16,6 +17,7 @@ interface Props {
 
 const ExploreSearch = ({ params }: Props) => {
   const router = useRouter();
+  const { handleScroll, lastScrollTop } = useInfiniteScroll();
   const [categoryMain, setCategoryMain] = useState<CategoriesPin[]>();
   const {
     categoriesPin,
@@ -25,6 +27,12 @@ const ExploreSearch = ({ params }: Props) => {
     value,
     getSearchPinForCategory,
   } = useAppsStore();
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollTop]);
+
   const {} = useSearchCategory({
     getSearchPinForCategory: getSearchPinForCategory,
   });
