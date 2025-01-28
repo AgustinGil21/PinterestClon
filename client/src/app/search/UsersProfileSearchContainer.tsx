@@ -11,7 +11,7 @@ interface Props {
 
 export const UsersProfileSearchContainer = ({ users }: Props) => {
   return (
-    <ul className='w-full h-fit flex flex-col items-center'>
+    <ul className='w-full h-fit flex flex-col items-center mt-5'>
       {users.map((user: ISingleUserProfileCard) => (
         <UserProfileSearchCard user={user} key={user.id} />
       ))}
