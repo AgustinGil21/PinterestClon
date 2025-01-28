@@ -8,6 +8,18 @@ import { getSearchPinsCase } from '@/app/application/use-cases/home/getSearchPin
 import { getSuggestionsCase } from '@/app/application/use-cases/header/getSuggestions';
 import { getPinSearchCategoriesCase } from '@/app/application/use-cases/home/getSearchForCategoryPins';
 
+// Utilidad para obtener elementos únicos
+export const getUniqueItems = <T extends Record<string, any>>(
+  newItems: T[],
+  existingItems: T[],
+  key: keyof T
+): T[] => {
+  return newItems.filter(
+    (newItem) =>
+      !existingItems.some((existingItem) => existingItem[key] === newItem[key])
+  );
+};
+
 export interface homePinsStoreInterface {
   homePins: PinInterface[];
   prevCategory: string;
@@ -37,6 +49,9 @@ export interface homePinsStoreInterface {
   itsOpenModalFilter: boolean;
   categoryPinsData: PinInterface[];
   searchPins: PinInterface[];
+  noMoreHomePins: boolean;
+  noMoreSearchPins: boolean;
+  noMoreCategoryPins: boolean;
 }
 
 const loadValuesFromLocalStorage = () => {
@@ -54,7 +69,6 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   get
 ) => ({
   page: 1,
-  red: '',
   value: '',
   categoryPinsData: [],
   categorySelect: '',
@@ -65,58 +79,59 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   valuesSearch: loadValuesFromLocalStorage(),
   filterState: loadValueFilterFromLocalStorage(),
   itsOpenModalFilter: false,
+  noMoreHomePins: false,
+  noMoreSearchPins: false,
+  noMoreCategoryPins: false,
 
   getHomePins: async (page: number, limit: number) => {
+    const { homePins } = get();
+
+    if (homePins.length > 0 && page > 1 && get().noMoreHomePins) {
+      console.log('No hay más pins para cargar.');
+      return;
+    }
+
     const response = await getHomePinsCase(page, limit);
 
-    if (Array.isArray(response)) {
-      const prevHomePins = get().homePins;
+    if (Array.isArray(response) && response.length > 0) {
+      const uniqueHomePins = getUniqueItems(response, homePins, 'pin_id');
 
-      const uniqueHomePins = response.filter(
-        (newPin: PinInterface) =>
-          !prevHomePins.some(
-            (existingPin: PinInterface) => existingPin.pin_id === newPin.pin_id
-          )
-      );
-
-      // Combina ambos grupos de pins sin duplicados
-      set({
-        homePins: [...prevHomePins, ...uniqueHomePins],
-      });
+      if (uniqueHomePins.length > 0) {
+        set({
+          homePins: [...homePins, ...uniqueHomePins],
+          noMoreHomePins: false,
+        });
+      } else {
+        set({ noMoreHomePins: true });
+      }
     }
   },
 
-  // Función para buscar pins por valor
   getSearchPins: async (value: string, page: number, limit: number) => {
-    // Limpiar los pins si es una nueva búsqueda (página 1)
-    if (page === 1) {
-      // Reinicia los pins solo en la primera página (nueva búsqueda)
-      set({ searchPins: [] });
+    const { searchPins } = get();
+
+    if (searchPins.length > 0 && page > 1 && get().noMoreSearchPins) {
+      console.log('No hay más resultados para esta búsqueda.');
+      return;
     }
 
     const response = await getSearchPinsCase(value, page, limit);
-    console.log(response);
 
-    if (Array.isArray(response)) {
-      const prevHomePins = get().searchPins;
+    if (Array.isArray(response) && response.length > 0) {
+      const uniqueSearchPins = getUniqueItems(response, searchPins, 'pin_id');
 
-      const uniqueSearchPins = response.filter(
-        (newPin: PinInterface) =>
-          !prevHomePins.some(
-            (existingPin: PinInterface) => existingPin.pin_id === newPin.pin_id
-          )
-      );
-
-      // Si es una nueva búsqueda (página 1), no concatenamos, solo asignamos los nuevos pins
-      set({
-        searchPins:
-          page === 1
-            ? uniqueSearchPins
-            : [...prevHomePins, ...uniqueSearchPins],
-      });
+      if (uniqueSearchPins.length > 0) {
+        set({
+          searchPins:
+            page === 1
+              ? uniqueSearchPins
+              : [...searchPins, ...uniqueSearchPins],
+          noMoreSearchPins: false,
+        });
+      } else {
+        set({ noMoreSearchPins: true });
+      }
     }
-
-    set({ page: 1 });
   },
 
   getSearchPinForCategory: async (
@@ -124,10 +139,20 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     page: number = 1,
     limit: number
   ) => {
-    // Reinicia los pins al filtrar por categoría
-    set({ categoryPinsData: [] });
+    const { categoryPinsData, prevCategory } = get();
 
-    if (get().prevCategory !== category) {
+    if (
+      categoryPinsData.length > 0 &&
+      page > 1 &&
+      get().noMoreCategoryPins &&
+      prevCategory === category
+    ) {
+      console.log('No hay más resultados para esta categoría.');
+      return;
+    }
+
+    if (prevCategory !== category) {
+      set({ categoryPinsData: [], noMoreCategoryPins: false });
       page = 1;
     }
 
@@ -135,21 +160,24 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
     const response = await getPinSearchCategoriesCase(category, page, limit);
 
-    console.log(response);
-
-    if (Array.isArray(response)) {
-      const uniqueSearchPinsForCategory = response.filter(
-        (newPin: PinInterface) =>
-          !get().categoryPinsData.some(
-            (existingPin: PinInterface) => existingPin.pin_id === newPin.pin_id
-          )
+    if (Array.isArray(response) && response.length > 0) {
+      const uniqueSearchPinsForCategory = getUniqueItems(
+        response,
+        categoryPinsData,
+        'pin_id'
       );
 
-      // Almacena los resultados filtrados por categoría sin duplicados
-      set({
-        // Sobrescribe en lugar de concatenar
-        categoryPinsData: uniqueSearchPinsForCategory,
-      });
+      if (uniqueSearchPinsForCategory.length > 0) {
+        set({
+          categoryPinsData: [
+            ...categoryPinsData,
+            ...uniqueSearchPinsForCategory,
+          ],
+          noMoreCategoryPins: false,
+        });
+      } else {
+        set({ noMoreCategoryPins: true });
+      }
     }
   },
 
@@ -172,6 +200,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       [store]: value,
     }));
   },
+
   setPage: (increment: number) => {
     set((state) => ({
       ...state,
@@ -211,6 +240,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       };
     });
   },
+
   setFiltersState: (valueFilter: string) => {
     set({
       filterState: valueFilter,

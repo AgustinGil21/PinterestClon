@@ -17,7 +17,7 @@ const useSearchHome = ({ getHomePins }: InterfaceUseSearch) => {
   });
 
   const pathname = usePathname();
-  const { page } = useAppsStore();
+  const { page, resetPage } = useAppsStore();
 
   useEffect(() => {
     if (page === 1) {
@@ -32,6 +32,7 @@ const useSearchHome = ({ getHomePins }: InterfaceUseSearch) => {
   }, [page]);
 
   const handleSearchHome = async () => {
+    resetPage();
     if (getHomePins && page === 1) {
       if (pathname === '/') {
         await getHomePins(page, limit);

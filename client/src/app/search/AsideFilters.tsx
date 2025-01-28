@@ -15,8 +15,10 @@ const AsideFilters = () => {
     getSearchPins,
     updateDataSearch,
     value,
+    page,
     searchUsers,
     updateStateBoards,
+    resetPage,
   } = useAppsStore();
   const { handleSearch } = useSearchData({
     getSearchBoards: searchBoards,
@@ -43,12 +45,13 @@ const AsideFilters = () => {
 
   const handleClick = () => {
     if (selectedFilter === filterState) return;
+    resetPage();
     localStorage.setItem('valueFilter', selectedFilter);
     setIsExecute(true);
     setFiltersState(selectedFilter);
-
     updateDataSearch('searchPins', []);
     updateStateBoards('searchedBoards', []);
+    updateStateBoards('usersProfile', []);
   };
 
   const handleReset = () => {

@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ISearchByValue } from '@/app/domain/types/boards-interface';
 import { useGetLimit } from '@/app/hooks/useGetLimit';
-import useInfiniteScroll from './useInfiniteScroll';
 
 interface InterfaceUseSearchData {
   getSearchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
@@ -92,7 +91,7 @@ const useSearchData = ({
     }
 
     if (filterState === 'pines') {
-      await getSearchPins(query, page, limit);
+      await getSearchPins(query, page, pinsLimit);
       router.push(`/search?query=${query}`);
       return;
     }

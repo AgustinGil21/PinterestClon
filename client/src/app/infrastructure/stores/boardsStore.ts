@@ -29,7 +29,20 @@ import {
   ISearchByValue,
   IUserBoard,
 } from '@/app/domain/types/boards-interface';
+
 import { StateCreator } from 'zustand';
+
+// Utilidad para obtener elementos únicos
+export const getUniqueItems = <T extends Record<string, any>>(
+  newItems: T[],
+  existingItems: T[],
+  key: keyof T
+): T[] => {
+  return newItems.filter(
+    (newItem) =>
+      !existingItems.some((existingItem) => existingItem[key] === newItem[key])
+  );
+};
 
 export interface IBoardsStore {
   createBoardData: ICreateBoard;
@@ -42,36 +55,35 @@ export interface IBoardsStore {
   possibleCovers: ICover[];
   searchedBoards: IBoardPreview[];
   boardPins: IPin[];
-  updateStateBoards: (store: string, value: []) => void;
+  noMoreHomeBoards: boolean;
+  noMoreSearchedBoards: boolean;
+  noMoreBoardPins: boolean;
+  noMoreUserBoards: boolean;
 
-  createBoard: (data: ICreateBoard) => void;
-  editBoard: (data: IEditBoard) => void;
-  deleteBoard: (id: string) => void;
+  createBoard: (data: ICreateBoard) => Promise<void>;
+  editBoard: (data: IEditBoard) => Promise<void>;
+  deleteBoard: (id: string) => Promise<void>;
   getLastBoard: () => Promise<void>;
   getBoardsList: () => Promise<void>;
   getHomeBoards: ({ page, limit }: IPaging) => Promise<void>;
   searchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
   getBoard: ({ id, page, limit }: ISearchByID) => Promise<void>;
   getCovers: ({ id, page, limit }: ISearchByID) => Promise<void>;
-  addPinToBoard: ({ boardId, pinId }: IBoardPinsInteractions) => void;
-  removePinFromBoard: ({ boardId, pinId }: IBoardPinsInteractions) => void;
-  getUserBoards: ({ page, limit, username }: IGetUserBoards) => Promise<void>;
+  addPinToBoard: ({ boardId, pinId }: IBoardPinsInteractions) => Promise<void>;
+  removePinFromBoard: ({
+    boardId,
+    pinId,
+  }: IBoardPinsInteractions) => Promise<void>;
+  getUserBoards: ({ username, page, limit }: IGetUserBoards) => Promise<void>;
+  updateStateBoards: (store: string, value: any[]) => void;
 }
 
 export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
-  createBoardData: {
-    name: '',
-    pinID: '',
-  },
-  editBoardData: {
-    id: '',
-    name: '',
-  },
-
+  createBoardData: { name: '', pinID: '' },
+  editBoardData: { id: '', name: '' },
   lastBoard: { name: '', id: '' },
   boardsList: [],
   userBoards: [],
-
   board: {
     id: '',
     name: '',
@@ -89,152 +101,195 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     },
     pins: [],
   },
-
   boardPins: [],
   homeBoards: [],
   possibleCovers: [],
   searchedBoards: [],
+  noMoreHomeBoards: false,
+  noMoreSearchedBoards: false,
+  noMoreBoardPins: false,
+  noMoreUserBoards: false,
 
-  createBoard: async (data: ICreateBoard) => await createBoardUseCase(data),
+  createBoard: async (data: ICreateBoard) => {
+    await createBoardUseCase(data);
+  },
 
-  editBoard: async (data: IEditBoard) => await editBoardUseCase(data),
+  editBoard: async (data: IEditBoard) => {
+    await editBoardUseCase(data);
+  },
 
-  deleteBoard: async (id: string) => await deleteBoardUseCase(id),
+  deleteBoard: async (id: string) => {
+    await deleteBoardUseCase(id);
+  },
 
   getLastBoard: async () => {
     const response = await lastBoardUseCase();
-
     if (response) set({ lastBoard: response });
   },
 
   getBoardsList: async () => {
     const response = await boardsListUseCase();
-
     if (response) set({ boardsList: response.boards });
   },
 
   getHomeBoards: async ({ page, limit }: IPaging) => {
-    const response = await homeBoardsUseCase({ page, limit });
+    const { homeBoards, noMoreHomeBoards } = get();
 
-    if (response?.boards) {
-      const boardsData = response.boards;
+    if (noMoreHomeBoards && page > 1) {
+      console.log('No hay más tableros en la sección de inicio.');
+      return;
+    }
 
-      if (Array.isArray(boardsData)) {
-        const prevHomeBoards = get().homeBoards;
+    if (page === 1) {
+      set({ homeBoards: [], noMoreHomeBoards: false });
+    }
 
-        const uniqueHomeBoards = boardsData.filter(
-          (newBoard: IBoardPreview) =>
-            !prevHomeBoards.some(
-              (existingBoard: IBoardPreview) => existingBoard.id === newBoard.id
-            )
+    try {
+      const response = await homeBoardsUseCase({ page, limit });
+
+      if (response?.boards && Array.isArray(response.boards)) {
+        const uniqueHomeBoards = getUniqueItems(
+          response.boards,
+          homeBoards,
+          'id'
         );
 
-        set({
-          homeBoards: [...prevHomeBoards, ...uniqueHomeBoards],
-        });
+        if (uniqueHomeBoards.length > 0) {
+          set({
+            homeBoards: [...homeBoards, ...uniqueHomeBoards],
+          });
+        } else {
+          set({ noMoreHomeBoards: true });
+          console.log('No hay más tableros en la sección de inicio.');
+        }
+      } else {
+        set({ noMoreHomeBoards: true });
+        console.log(
+          'No hay más tableros en la sección de inicio o la respuesta fue inválida.'
+        );
       }
+    } catch (error) {
+      console.error('Error al obtener los tableros de inicio:', error);
+      set({ noMoreHomeBoards: true });
     }
   },
 
   searchBoards: async ({ value, page, limit }: ISearchByValue) => {
-    if (page === 1) {
-      set({ searchedBoards: [] });
+    const { searchedBoards, noMoreSearchedBoards } = get();
+
+    if (noMoreSearchedBoards && page > 1) {
+      console.log('No hay más resultados para esta búsqueda.');
+      return;
     }
 
-    const response = await searchBoardsUseCase({ value, page, limit });
+    if (page === 1) {
+      set({ searchedBoards: [], noMoreSearchedBoards: false });
+    }
 
-    console.log(response);
+    try {
+      const response = await searchBoardsUseCase({ value, page, limit });
 
-    if (response?.boards) {
-      const boardsData = response.boards;
-
-      if (Array.isArray(boardsData)) {
-        const prevSearchedBoards = get().searchedBoards;
-
-        const uniqueSearchedBoards = boardsData.filter(
-          (newBoard: IBoardPreview) =>
-            !prevSearchedBoards.some(
-              (existingBoard: IBoardPreview) => existingBoard.id === newBoard.id
-            )
+      if (response?.boards && Array.isArray(response.boards)) {
+        const uniqueSearchedBoards = getUniqueItems(
+          response.boards,
+          searchedBoards,
+          'id'
         );
 
-        set({
-          searchedBoards:
-            page === 1
-              ? uniqueSearchedBoards
-              : [...prevSearchedBoards, ...uniqueSearchedBoards],
-        });
+        if (uniqueSearchedBoards.length > 0) {
+          set({
+            searchedBoards: [...searchedBoards, ...uniqueSearchedBoards],
+          });
+        } else {
+          set({ noMoreSearchedBoards: true });
+          console.log('No hay más resultados para esta búsqueda.');
+        }
+      } else {
+        set({ noMoreSearchedBoards: true });
+        console.log(
+          'No hay más resultados para esta búsqueda o la respuesta fue inválida.'
+        );
       }
+    } catch (error) {
+      console.error('Error al buscar tableros:', error);
+      set({ noMoreSearchedBoards: true });
     }
   },
 
   getBoard: async ({ id, page, limit }: ISearchByID) => {
-    const response = await getBoardUseCase({ page, limit, id });
+    if (get().noMoreBoardPins) {
+      console.log('No hay más pines en este tablero.');
+      return;
+    }
 
-    // Board dentro tiene pins los cuales usan
-    // paging para evitar cargarlos todos juntos
-    // y que hay un impacto en el rendimiento.
+    const response = await getBoardUseCase({ id, page, limit });
 
     if (response) {
-      const pinsData = response.pins;
+      const prevPins = get().boardPins;
+      const uniquePins = getUniqueItems(response.pins, prevPins, 'pin_id');
 
-      if (Array.isArray(pinsData)) {
-        const prevPins = get().boardPins;
-
-        const uniquePins = pinsData.filter(
-          (newPin: IPin) =>
-            !prevPins.some(
-              (existingPin: IPin) => existingPin.pin_id === newPin.pin_id
-            )
-        );
-
+      if (uniquePins.length > 0) {
         set({
           boardPins: page === 1 ? uniquePins : [...prevPins, ...uniquePins],
         });
+      } else {
+        set({ noMoreBoardPins: true });
+        console.log('No hay más pines en este tablero.');
       }
+    } else {
+      set({ noMoreBoardPins: true });
+      console.log('No hay más pines en este tablero.');
     }
   },
 
   getCovers: async ({ id, page, limit }: ISearchByID) => {
-    const response = await getPossibleCoversUseCase({ page, limit, id });
-
-    if (response) set({ possibleCovers: response.pins });
-  },
-
-  addPinToBoard: async ({ pinId, boardId }: IBoardPinsInteractions) =>
-    await addPinToBoardUseCase({ pinId, boardId }),
-
-  removePinFromBoard: async ({ pinId, boardId }: IBoardPinsInteractions) =>
-    await removePinFromBoardUseCase({ pinId, boardId }),
-
-  getUserBoards: async ({ username, page, limit }: IGetUserBoards) => {
-    set({
-      userBoards: [],
-    });
-
-    const response = await userBoardsUseCase({ page, limit, username });
-
-    if (response?.boards) {
-      const boardsData = response.boards;
-
-      if (Array.isArray(boardsData)) {
-        const prevUserBoards = get().userBoards;
-
-        const uniqueUserBoards = boardsData.filter(
-          (newBoard: IUserBoard) =>
-            !prevUserBoards.some(
-              (existingBoard: IUserBoard) => existingBoard.id === newBoard.id
-            )
-        );
-
-        set({
-          userBoards: [...prevUserBoards, ...uniqueUserBoards],
-        });
+    const response = await getPossibleCoversUseCase({ id, page, limit });
+    if (response) {
+      if (response.pins.length > 0) {
+        set({ possibleCovers: response.pins });
+      } else {
+        console.log('No hay más posibles portadas para este tablero.');
       }
     }
   },
 
-  updateStateBoards: (store: string, value: []) => {
+  addPinToBoard: async ({ pinId, boardId }: IBoardPinsInteractions) => {
+    await addPinToBoardUseCase({ pinId, boardId });
+  },
+
+  removePinFromBoard: async ({ pinId, boardId }: IBoardPinsInteractions) => {
+    await removePinFromBoardUseCase({ pinId, boardId });
+  },
+
+  getUserBoards: async ({ username, page, limit }: IGetUserBoards) => {
+    if (get().noMoreUserBoards) {
+      console.log('No hay más tableros de este usuario.');
+      return;
+    }
+
+    const response = await userBoardsUseCase({ username, page, limit });
+
+    if (response?.boards) {
+      const prevUserBoards = get().userBoards;
+      const uniqueUserBoards = getUniqueItems(
+        response.boards,
+        prevUserBoards,
+        'id'
+      );
+
+      if (uniqueUserBoards.length > 0) {
+        set({ userBoards: [...prevUserBoards, ...uniqueUserBoards] });
+      } else {
+        set({ noMoreUserBoards: true });
+        console.log('No hay más tableros de este usuario.');
+      }
+    } else {
+      set({ noMoreUserBoards: true });
+      console.log('No hay más tableros de este usuario.');
+    }
+  },
+
+  updateStateBoards: (store: string, value: any[]) => {
     set((state) => ({
       ...state,
       [store]: value,

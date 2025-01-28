@@ -18,6 +18,7 @@ const SearchInput = () => {
     searchUsers,
     getSuggestions,
     previousPin,
+    resetPage,
     searchBoards,
     page,
     t,
@@ -63,6 +64,7 @@ const SearchInput = () => {
     if (value === '' || valueCurrent === value) return;
     setValueCurrent(value);
     handleSearch(value);
+    resetPage();
     setModal(false);
   };
 

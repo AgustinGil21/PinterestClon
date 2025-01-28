@@ -24,27 +24,36 @@ import { searchUsersCase } from '@/app/application/use-cases/profile-data/search
 export interface UserDataStoreInterface {
   dataOwnerProfile: OwnerProfileInterface;
   dataSearchUserProfile: SearchUserProfileInterface;
+  followersList: FollowersListInterface;
+  followingList: FollowingsListInterface;
+  createdPins: CreatedPinsInterface[];
+  savedPins: PinInterface[];
+  usersProfile: IUsersProfileCard[];
+  isFollowing: boolean;
+  noMoreUsers: boolean;
+  noMoreCreatedPins: boolean;
+  noMoreSavedPins: boolean;
+
+  searchUsers: (params: ISearchByValue) => Promise<void>;
   getUserOwnerProfile: () => Promise<void>;
   getSearchUserProfile: (username: string) => Promise<void>;
   postFollowUser: (id: string) => Promise<void>;
-  isFollowing: boolean;
-  followersList: FollowersListInterface;
-  followingList: FollowingsListInterface;
   getFollowersList: (username: string) => Promise<void>;
   getFollowingsList: (username: string) => Promise<void>;
   getCreatedPins: (
     username: string,
     page: number,
     limit: number,
-    reset: boolean
+    reset?: boolean
   ) => Promise<void>;
-  createdPins: CreatedPinsInterface[];
-  savedPins: PinInterface[];
-  getSavePins: (username: string, page: number, limit: number) => Promise<void>;
-  savePinToProfile: (id: string) => void;
-  removePinFromProfile: (id: string) => void;
-  usersProfile: IUsersProfileCard | [];
-  searchUsers: ({ page, limit, value }: ISearchByValue) => void;
+  getSavePins: (
+    username: string,
+    page: number,
+    limit: number,
+    reset?: boolean
+  ) => Promise<void>;
+  savePinToProfile: (id: string) => Promise<void>;
+  removePinFromProfile: (id: string) => Promise<void>;
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -98,18 +107,49 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
   },
 
   isFollowing: false,
-
   createdPins: [],
   savedPins: [],
-
   usersProfile: [],
+  noMoreUsers: false,
+  noMoreCreatedPins: false,
+  noMoreSavedPins: false,
 
   searchUsers: async ({ page, limit, value }: ISearchByValue) => {
-    const response = await searchUsersCase({ page, limit, value });
+    const { noMoreUsers, usersProfile } = get();
 
-    console.log(response);
+    if (noMoreUsers && page > 1) {
+      console.log('No hay más usuarios disponibles.');
+      return;
+    }
 
-    if (response) set({ usersProfile: response });
+    if (page === 1) {
+      set({ usersProfile: [], noMoreUsers: false });
+    }
+
+    try {
+      const response = await searchUsersCase({ page, limit, value });
+
+      if (response && Array.isArray(response)) {
+        const newUsers = getUniqueItems(response, usersProfile, 'id');
+
+        if (newUsers.length > 0) {
+          set({
+            usersProfile: [...usersProfile, ...newUsers],
+          });
+        } else {
+          set({ noMoreUsers: true });
+          console.log('No hay más usuarios disponibles.');
+        }
+      } else {
+        set({ noMoreUsers: true });
+        console.log(
+          'No hay más usuarios disponibles o la respuesta fue inválida.'
+        );
+      }
+    } catch (error) {
+      console.error('Error al buscar usuarios:', error);
+      set({ noMoreUsers: true });
+    }
   },
 
   getUserOwnerProfile: async () => {
@@ -119,6 +159,7 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
       set({ dataOwnerProfile: response });
     }
   },
+
   getSearchUserProfile: async (username: string) => {
     const response = await getSearchUserProfileCase(username);
 
@@ -130,7 +171,7 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
   },
 
   postFollowUser: async (id: string) => {
-    const response = await postFollowUserCase(id);
+    await postFollowUserCase(id);
     set((state) => ({
       isFollowing: !state.isFollowing,
     }));
@@ -158,18 +199,41 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     limit: number,
     reset: boolean = false
   ) => {
-    if (reset) {
-      set({ createdPins: [] });
+    const { createdPins, noMoreCreatedPins } = get();
+
+    if (noMoreCreatedPins && !reset && page > 1) {
+      console.log('No hay más pines creados disponibles.');
+      return;
     }
-    const response = await getCreatedPinsCase(username, page, limit);
 
-    const { createdPins } = get();
+    if (reset || page === 1) {
+      set({ createdPins: [], noMoreCreatedPins: false });
+    }
 
-    const newPins = getUniqueItems(response, createdPins, 'pin_id');
+    try {
+      const response = await getCreatedPinsCase(username, page, limit);
 
-    set({
-      createdPins: [...createdPins, ...newPins],
-    });
+      if (response && Array.isArray(response)) {
+        const newPins = getUniqueItems(response, createdPins, 'pin_id');
+
+        if (newPins.length > 0) {
+          set({
+            createdPins: [...createdPins, ...newPins],
+          });
+        } else {
+          set({ noMoreCreatedPins: true });
+          console.log('No hay más pines creados disponibles.');
+        }
+      } else {
+        set({ noMoreCreatedPins: true });
+        console.log(
+          'No hay más pines creados disponibles o la respuesta es inválida.'
+        );
+      }
+    } catch (error) {
+      console.error('Error al obtener pines creados:', error);
+      set({ noMoreCreatedPins: true });
+    }
   },
 
   getSavePins: async (
@@ -178,25 +242,48 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     limit: number,
     reset: boolean = false
   ) => {
-    if (reset) {
-      set({ savedPins: [] });
+    const { savedPins, noMoreSavedPins } = get();
+
+    if (noMoreSavedPins && !reset && page > 1) {
+      console.log('No hay más pines guardados disponibles.');
+      return;
     }
-    const response = await getSavePinsCase(username, page, limit);
 
-    const { savedPins } = get();
+    if (reset || page === 1) {
+      set({ savedPins: [], noMoreSavedPins: false });
+    }
 
-    const newPins = getUniqueItems(response, savedPins, 'pin_id');
+    try {
+      const response = await getSavePinsCase(username, page, limit);
 
-    set({
-      savedPins: [...savedPins, ...newPins],
-    });
+      if (response && Array.isArray(response)) {
+        const newPins = getUniqueItems(response, savedPins, 'pin_id');
+
+        if (newPins.length > 0) {
+          set({
+            savedPins: [...savedPins, ...newPins],
+          });
+        } else {
+          set({ noMoreSavedPins: true });
+          console.log('No hay más pines guardados disponibles.');
+        }
+      } else {
+        set({ noMoreSavedPins: true });
+        console.log(
+          'No hay más pines guardados disponibles o la respuesta es inválida.'
+        );
+      }
+    } catch (error) {
+      console.error('Error al obtener pines guardados:', error);
+      set({ noMoreSavedPins: true });
+    }
   },
 
-  savePinToProfile: async (id: string) => {
-    return await savePinToProfileUseCase(id);
+  savePinToProfile: async (id: string): Promise<void> => {
+    const response = await savePinToProfileUseCase(id);
   },
 
-  removePinFromProfile: async (id: string) => {
-    return await removePinFromProfileUseCase(id);
+  removePinFromProfile: async (id: string): Promise<void> => {
+    const response = await removePinFromProfileUseCase(id);
   },
 });

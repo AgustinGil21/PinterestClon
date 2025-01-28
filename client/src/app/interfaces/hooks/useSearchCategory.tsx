@@ -1,7 +1,7 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import useInfiniteScroll from './useInfiniteScroll';
+import { useGetLimit } from '@/app/hooks/useGetLimit';
 
 interface InterfaceUseSearchCategory {
   getSearchPinForCategory: any;
@@ -10,8 +10,13 @@ interface InterfaceUseSearchCategory {
 const useSearchCategory = ({
   getSearchPinForCategory,
 }: InterfaceUseSearchCategory) => {
-  const { page, updateDataSearch, categorySelect } = useAppsStore();
-  const limit = 25;
+  const pinsLimit = useGetLimit({
+    parentPadding: 16,
+    elementMaxWidth: 236,
+    elementMinHeight: 239,
+  });
+
+  const { page, updateDataSearch, categorySelect, resetPage } = useAppsStore();
   const router = useRouter();
   const [idCategory, setIdCategory] = useState<string | null>('');
   const [queryValue, setQueryValue] = useState<string | null>('');
@@ -37,7 +42,7 @@ const useSearchCategory = ({
       updateDataSearch('value', '');
 
       if (!categorySelect) {
-        getSearchPinForCategory(idCategory, page, limit);
+        getSearchPinForCategory(idCategory, page, pinsLimit);
       }
     }
   }, [idCategory, queryValue]);
@@ -46,7 +51,7 @@ const useSearchCategory = ({
     if (page === 1) return;
 
     if (categorySelect) {
-      getSearchPinForCategory(idCategory, page, limit);
+      getSearchPinForCategory(idCategory, page, pinsLimit);
     }
   }, [page]);
 
@@ -54,13 +59,14 @@ const useSearchCategory = ({
     idCategory: string,
     queryValue: string | undefined
   ) => {
+    resetPage();
     if (idCategory && queryValue) {
       localStorage.setItem('idCategory', idCategory);
       localStorage.setItem('queryValueCateogry', queryValue);
     }
     updateDataSearch('value', '');
     updateDataSearch('categorySelect', idCategory);
-    await getSearchPinForCategory(idCategory, page, limit);
+    await getSearchPinForCategory(idCategory, page, pinsLimit);
 
     router.push(`/searchcategory/${queryValue}`);
   };
