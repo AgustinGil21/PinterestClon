@@ -5,11 +5,6 @@ export default class UsersModel {
   static async searchUsers({ value, page, limit, isAuth, id }) {
     const offset = getOffset({ page, limit });
 
-    const searchValue = value
-      .split(' ')
-      .map((term) => `${term}:*`)
-      .join(' & ');
-
     const response = await pool.query(
       `SELECT 
         name, 
@@ -28,11 +23,14 @@ export default class UsersModel {
         END) AS following,
         (CASE WHEN $4 = TRUE AND id = $5 THEN TRUE ELSE FALSE END) AS its_you
       FROM users
-      WHERE to_tsvector('simple', coalesce(name, '') || ' ' || coalesce(surname, '') || ' ' || coalesce(username, ''))
-      @@ to_tsquery($1)
+      WHERE (to_tsvector('simple', coalesce(name, '') || ' ' || coalesce(surname, '') || ' ' || coalesce(username, ''))
+      @@ plainto_tsquery($1))
+   OR (username ILIKE '%' || $1 || '%')
+   OR (name ILIKE '%' || $1 || '%')
+   OR (surname ILIKE '%' || $1 || '%')
       ORDER BY id
       LIMIT $2 OFFSET $3;`,
-      [searchValue, limit, offset, isAuth, id]
+      [value, limit, offset, isAuth, id]
     );
 
     const data = response.rows;
