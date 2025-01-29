@@ -7,6 +7,7 @@ import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 import StartLog from './StartLog';
 import StartRegister from './StartRegister';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { CloneVersion } from '../CloneVersion';
 
 export const HeaderAuth = () => {
   const { t } = useAppsStore();
@@ -37,14 +38,7 @@ export const HeaderAuth = () => {
               </LinkNavigate>
             </div>
             <hr />
-            <div className='flex items-center justify-between mt-2'>
-              <span className='text-black dark:text-white text-sm  px-2 font-semibold'>
-                {' '}
-                Light/Dark mode
-              </span>
-
-              <SwitchMode />
-            </div>
+            <CloneVersion />
           </div>
         </ModalStyled>
       )}

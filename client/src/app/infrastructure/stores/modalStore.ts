@@ -78,6 +78,35 @@ export interface ModalStateInterface {
   closePinMoreOptionsModal: () => void;
   pinMoreOptionsBtnRef: React.RefObject<HTMLButtonElement>;
   pinMoreOptionsBody: string;
+
+  shareBoardID: string;
+  shareBoardBtnRef: React.RefObject<HTMLButtonElement>;
+  shareBoardModalIsOpen: boolean;
+  setShareBoardModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    id: string
+  ) => void;
+  closeShareBoardModal: () => void;
+
+  boardMoreOptionsBoardID: string;
+  boardMoreOptionsUserID: string;
+  boardMoreOptionsBtnRef: React.RefObject<HTMLButtonElement>;
+  boardMoreOptionsModalIsOpen: boolean;
+  boardItsYours: boolean;
+  setBoardMoreOptionsModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    userID: string,
+    boardID: string,
+    its_yours: boolean
+  ) => void;
+  closeBoardMoreOptionsModal: () => void;
+
+  deleteBoardModalIsOpen: boolean;
+  setDeleteBoardModal: () => void;
+
+  editBoardModalIsOpen: boolean;
+  editBoardID: string;
+  setEditBoardModal: (id: string) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -113,6 +142,21 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   pinMoreOptionsBody: '',
   reportType: 'pin',
   activePin: '',
+
+  shareBoardID: '',
+  shareBoardBtnRef: createRef(),
+  shareBoardModalIsOpen: false,
+
+  boardMoreOptionsUserID: '',
+  boardMoreOptionsBoardID: '',
+  boardMoreOptionsBtnRef: createRef(),
+  boardMoreOptionsModalIsOpen: false,
+  boardItsYours: false,
+
+  deleteBoardModalIsOpen: false,
+
+  editBoardID: '',
+  editBoardModalIsOpen: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -295,5 +339,51 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       isPinMoreOptionModalOpen: false,
       activePin: '',
     });
+  },
+
+  setShareBoardModal: (ref: React.RefObject<HTMLButtonElement>, id: string) => {
+    set((state) => ({
+      shareBoardID: id,
+      shareBoardModalIsOpen: !state.shareBoardModalIsOpen,
+      shareBoardBtnRef: ref,
+    }));
+  },
+  closeShareBoardModal: () => {
+    set({
+      shareBoardModalIsOpen: false,
+    });
+  },
+
+  setBoardMoreOptionsModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    userID: string,
+    boardID: string,
+    its_yours: boolean
+  ) => {
+    set((state) => ({
+      boardMoreOptionsBtnRef: ref,
+      boardMoreOptionsUserID: userID,
+      boardMoreOptionsBoardID: boardID,
+      boardMoreOptionsModalIsOpen: !state.boardMoreOptionsModalIsOpen,
+      boardItsYours: its_yours,
+    }));
+  },
+  closeBoardMoreOptionsModal: () => {
+    set({
+      boardMoreOptionsModalIsOpen: false,
+    });
+  },
+
+  setDeleteBoardModal: () => {
+    set((state) => ({
+      deleteBoardModalIsOpen: !state.deleteBoardModalIsOpen,
+    }));
+  },
+
+  setEditBoardModal: (id: string) => {
+    set((state) => ({
+      editBoardID: id,
+      editBoardModalIsOpen: !state.editBoardModalIsOpen,
+    }));
   },
 });

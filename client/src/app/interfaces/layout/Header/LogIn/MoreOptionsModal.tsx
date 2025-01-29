@@ -6,6 +6,7 @@ import SwitchMode from '../../SwitchMode';
 import LogOutButton from './LogOutButton';
 import UserData from './UserData';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { CloneVersion } from '../CloneVersion';
 
 interface MoreOptionsModalInterface {
   setModal: Dispatch<SetStateAction<boolean>>;
@@ -48,13 +49,7 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
           <LogOutButton />
         </div>
         <hr />
-        <div className='flex items-center justify-between mt-2'>
-          <span className='text-black dark:text-white text-sm  px-2 font-semibold'>
-            Cambiar tema
-          </span>
-
-          <SwitchMode />
-        </div>
+        <CloneVersion />
       </div>
     </ModalStyled>
   );

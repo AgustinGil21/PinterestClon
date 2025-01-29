@@ -45,7 +45,7 @@ export interface IBoardsList {
   collage?: string;
 }
 
-interface IUserData {
+export interface IUserData {
   id: string;
   name?: string;
   surname?: string;

@@ -13,6 +13,8 @@ import ToastNotification from './components/Basic/ToastNotification';
 import BoardsListModal from './boards/boards-list/BoardsListModal';
 import { SharePinModal } from './home-page-components/SharePinModal';
 import PinMoreOptionsModal from './home-page-components/PinMoreOptionsModal';
+import { DynamicShareBoardModal } from './board/DynamicShareBoardModal';
+import { DynamicMoreOptionsBoardModal } from './board/DynamicMoreOptionsBoardModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -40,6 +42,8 @@ export default function RootLayout({
     userLang,
     getTranslation,
     isPinMoreOptionModalOpen,
+    shareBoardModalIsOpen,
+    boardMoreOptionsModalIsOpen,
   } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
@@ -102,6 +106,8 @@ export default function RootLayout({
           <BoardsListModal />
           <SharePinModal />
           {isPinMoreOptionModalOpen && <PinMoreOptionsModal />}
+          {shareBoardModalIsOpen && <DynamicShareBoardModal />}
+          {boardMoreOptionsModalIsOpen && <DynamicMoreOptionsBoardModal />}
         </main>
       </body>
     </html>

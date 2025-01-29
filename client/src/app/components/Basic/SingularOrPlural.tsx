@@ -5,6 +5,7 @@ interface Props {
   value: number | string;
   type: TInteraction;
   className?: string;
+  sentenceCase?: boolean;
 }
 
 interface SingularOrPluralProps {
@@ -12,7 +13,7 @@ interface SingularOrPluralProps {
 }
 
 const SingularOrPlural = ({ props }: SingularOrPluralProps) => {
-  const { className, value, type } = props;
+  const { className, value, type, sentenceCase = false } = props;
   const { userLang } = useAppsStore();
 
   const translations = {
@@ -54,6 +55,10 @@ const SingularOrPlural = ({ props }: SingularOrPluralProps) => {
   };
 
   let content: string = translations[type][userLang];
+
+  if (sentenceCase) {
+    content = content.charAt(0).toUpperCase() + content.slice(1).toLowerCase();
+  }
 
   return <span className={className}>{content}</span>;
 };
