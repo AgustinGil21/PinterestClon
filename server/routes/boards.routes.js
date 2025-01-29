@@ -13,6 +13,11 @@ router.get('/boards-list', authRequired, BoardsController.getCreatedBoardsList);
 router.get('/:id', isAuthenticated, BoardsController.getSingleBoard);
 router.get('/user/:username', isAuthenticated, BoardsController.getUserBoards);
 router.post('/create', authRequired, BoardsController.createBoard);
+router.get(
+  '/edit/prev-data/:id',
+  authRequired,
+  BoardsController.getBoardPreviousData
+);
 router.put('/edit', authRequired, BoardsController.editBoard);
 router.delete('/delete/:id', authRequired, BoardsController.deleteBoard);
 router.post('/add-pin', authRequired, BoardsController.addPinToBoard);

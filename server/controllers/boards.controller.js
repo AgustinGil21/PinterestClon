@@ -193,6 +193,29 @@ export default class BoardsController {
     }
   }
 
+  static async getBoardPreviousData(req, res) {
+    const { id: userID } = req.user;
+    const { id: boardID } = req.params;
+
+    try {
+      const data = await BoardsModel.getBoardPreviousData({
+        boardID,
+        userID,
+      });
+
+      if (data.ok) {
+        const boardData = data.response;
+        const filteredData = filterFalsyValues(boardData);
+
+        return res.status(200).json({ board: filteredData });
+      }
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: 'Could not get board previous data' });
+    }
+  }
+
   static async editBoard(req, res) {
     const { name, cover, description, id } = req.body;
 
