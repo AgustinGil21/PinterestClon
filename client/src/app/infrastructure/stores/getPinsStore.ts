@@ -104,33 +104,50 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       } else {
         set({ noMoreHomePins: true });
       }
+    } else {
+      set({ noMoreHomePins: true });
     }
   },
 
   getSearchPins: async (value: string, page: number, limit: number) => {
-    const { searchPins } = get();
+    const { searchPins, noMoreSearchPins } = get();
 
-    if (searchPins.length > 0 && page > 1 && get().noMoreSearchPins) {
+    // Si es la primera búsqueda, limpiamos los resultados previos y restablecemos noMoreSearchPins
+    if (page === 1) {
+      set({ searchPins: [], noMoreSearchPins: false });
+    }
+
+    // Si ya no hay más datos y no estamos en la primera búsqueda, evitamos más llamadas
+    if (noMoreSearchPins && page > 1) {
       console.log('No hay más resultados para esta búsqueda.');
       return;
     }
 
-    const response = await getSearchPinsCase(value, page, limit);
+    try {
+      const response = await getSearchPinsCase(value, page, limit);
 
-    if (Array.isArray(response) && response.length > 0) {
-      const uniqueSearchPins = getUniqueItems(response, searchPins, 'pin_id');
+      if (Array.isArray(response) && response.length > 0) {
+        const uniqueSearchPins = getUniqueItems(response, searchPins, 'pin_id');
 
-      if (uniqueSearchPins.length > 0) {
-        set({
-          searchPins:
-            page === 1
-              ? uniqueSearchPins
-              : [...searchPins, ...uniqueSearchPins],
-          noMoreSearchPins: false,
-        });
+        if (uniqueSearchPins.length > 0) {
+          set({
+            searchPins:
+              page === 1
+                ? uniqueSearchPins
+                : [...searchPins, ...uniqueSearchPins],
+            noMoreSearchPins: false,
+          });
+        } else {
+          set({ noMoreSearchPins: true });
+          console.log('No hay más resultados para esta búsqueda.');
+        }
       } else {
         set({ noMoreSearchPins: true });
+        console.log('No hay más resultados disponibles.');
       }
+    } catch (error) {
+      console.error('Error en la búsqueda de pines:', error);
+      set({ noMoreSearchPins: true });
     }
   },
 
@@ -178,6 +195,8 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       } else {
         set({ noMoreCategoryPins: true });
       }
+    } else {
+      set({ noMoreCategoryPins: true });
     }
   },
 

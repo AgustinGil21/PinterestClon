@@ -146,6 +146,8 @@ export const serviceGetSearchPin = async (
       }
     );
 
+    console.log(response);
+
     const result = getPinsSchema.safeParse(response.data);
 
     return result.success ? result.data.pins : [];

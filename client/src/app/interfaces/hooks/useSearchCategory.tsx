@@ -42,7 +42,7 @@ const useSearchCategory = ({
       updateDataSearch('value', '');
 
       if (!categorySelect) {
-        getSearchPinForCategory(idCategory, page, pinsLimit);
+        getSearchPinForCategory(idCategory, 1, pinsLimit);
       }
     }
   }, [idCategory, queryValue]);
@@ -66,7 +66,7 @@ const useSearchCategory = ({
     }
     updateDataSearch('value', '');
     updateDataSearch('categorySelect', idCategory);
-    await getSearchPinForCategory(idCategory, page, pinsLimit);
+    await getSearchPinForCategory(idCategory, 1, pinsLimit);
 
     router.push(`/searchcategory/${queryValue}`);
   };

@@ -47,14 +47,14 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
           </LinkNavigate>
           <LogOutButton />
         </div>
-        <hr />
+        {/* <hr />
         <div className='flex items-center justify-between mt-2'>
           <span className='text-black dark:text-white text-sm  px-2 font-semibold'>
             Cambiar tema
           </span>
 
           <SwitchMode />
-        </div>
+        </div> */}
       </div>
     </ModalStyled>
   );

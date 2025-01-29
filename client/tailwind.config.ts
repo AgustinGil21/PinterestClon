@@ -29,6 +29,9 @@ const config: Config = {
 
         pinShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
       },
+      screens: {
+        responsivePx: '768px',
+      },
     },
   },
   plugins: [],

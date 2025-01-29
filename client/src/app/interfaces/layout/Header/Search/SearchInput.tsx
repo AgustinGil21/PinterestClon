@@ -29,7 +29,7 @@ const SearchInput = () => {
     getSearchUsers: searchUsers,
   });
   const [isFocused, setIsFocused] = useState(false);
-  const [valueCurrent, setValueCurrent] = useState('');
+  const [valueCurrent, setValueCurrent] = useState(value);
   const [modalState, setModal] = useState(false);
   const [pinsSuggestions, setPinsSuggestions] = useState(suggestions);
 
@@ -62,9 +62,10 @@ const SearchInput = () => {
   ) => {
     event.preventDefault();
     if (value === '' || valueCurrent === value) return;
+    resetPage();
     setValueCurrent(value);
     handleSearch(value);
-    resetPage();
+
     setModal(false);
   };
 
