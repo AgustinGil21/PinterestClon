@@ -875,6 +875,8 @@ _:id_: UUID
 
 ## User
 
+### Search users
+
 _*GET*_ `http://localhost:1234/pinterest-clon-api/users/search/value:String?page=Number&limit=Number`
 
 [RESPONSE]
@@ -1120,18 +1122,6 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/users/remove-pin`
 ```json
 {
   "id": "String<UUID>"
-}
-```
-
-### Get user's pin
-
-_*GET*_ `http://localhost:1234/pinterest-clon-api/users/saved-pins/:username?page=Number&limit=Number`
-
-[RESPONSE]
-
-```json
-{
-  "pins": [{}]
 }
 ```
 

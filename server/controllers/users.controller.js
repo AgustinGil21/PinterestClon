@@ -196,40 +196,40 @@ export default class UsersController {
     }
   }
 
-  static async savedPins(req, res) {
-    const { username } = req.params;
-    const { limit, page } = req.query;
-    let data;
+  // static async savedPins(req, res) {
+  //   const { username } = req.params;
+  //   const { limit, page } = req.query;
+  //   let data;
 
-    try {
-      if (req.isAuthenticated) {
-        const { id } = req.user;
+  //   try {
+  //     if (req.isAuthenticated) {
+  //       const { id } = req.user;
 
-        data = await UsersModel.savedPins({
-          username,
-          id,
-          isAuth: true,
-          page,
-          limit,
-        });
-      } else {
-        data = await UsersModel.savedPins({
-          username,
-          isAuth: true,
-          page,
-          limit,
-        });
-      }
+  //       data = await UsersModel.savedPins({
+  //         username,
+  //         id,
+  //         isAuth: true,
+  //         page,
+  //         limit,
+  //       });
+  //     } else {
+  //       data = await UsersModel.savedPins({
+  //         username,
+  //         isAuth: true,
+  //         page,
+  //         limit,
+  //       });
+  //     }
 
-      if (data.ok) {
-        const pins = data.response;
+  //     if (data.ok) {
+  //       const pins = data.response;
 
-        const filteredData = filterArrFalsyValues(pins);
+  //       const filteredData = filterArrFalsyValues(pins);
 
-        return res.status(200).json({ pins: filteredData });
-      }
-    } catch (err) {
-      return res.status(400).json({ message: 'Could not get pins' });
-    }
-  }
+  //       return res.status(200).json({ pins: filteredData });
+  //     }
+  //   } catch (err) {
+  //     return res.status(400).json({ message: 'Could not get pins' });
+  //   }
+  // }
 }

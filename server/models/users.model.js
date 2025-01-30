@@ -379,14 +379,14 @@ ORDER BY
     return { response, ok: false };
   }
 
-  static async savedPins({ username, id = '', isAuth, page, limit }) {
-    const offset = getOffset({ page, limit });
+  // static async savedPins({ username, id = '', isAuth, page, limit }) {
+  //   const offset = getOffset({ page, limit });
 
-    const response = await pool.query(`SELECT id FROM posts `, []);
+  //   const response = await pool.query(`SELECT id FROM posts `, []);
 
-    const data = response.rows;
+  //   const data = response.rows;
 
-    if (data) return { response: data, ok: true };
-    return { response, ok: false };
-  }
+  //   if (data) return { response: data, ok: true };
+  //   return { response, ok: false };
+  // }
 }
