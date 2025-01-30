@@ -191,9 +191,9 @@ export const serviceGetSavesPins = async (
       }
     );
 
-    console.log(response);
+    const result = PinSchema.array().safeParse(response.data.pins);
 
-    const result = PinSchema.array().safeParse(response.data);
+    console.log(result.data);
 
     return result.success ? result.data : [];
   } catch (error) {

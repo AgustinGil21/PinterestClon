@@ -94,10 +94,10 @@ export default class PinsModel {
             END 
           ELSE NULL 
         END AS its_yours
-    FROM saved_posts sp
+    FROM saved_profile_posts sp
     INNER JOIN posts ON sp.post_id = posts.id
     INNER JOIN users ON posts.user_id = users.id
-    WHERE sp.user_id = $2
+    WHERE sp.user_id = (SELECT id FROM users WHERE username = $3)
     ORDER BY sp.created_at ASC
     LIMIT $4 OFFSET $5; 
       ;`,
