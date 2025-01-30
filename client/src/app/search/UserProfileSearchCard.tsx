@@ -21,7 +21,7 @@ export const UserProfileSearchCard = ({ user }: Props) => {
       href={`/${user.username}`}
       classProps='hover:cursor-pointer w-full flex justify-center'
     >
-      <section className='h-[72px] max-w-[390px] min-w-[360px] py-2 px-1.5 hover:bg-searchBg  flex justify-around items-center gap-2 overflow-hidden transition-colors rounded-lg group w-full'>
+      <section className='h-[72px] max-w-[390px] min-w-[350px] py-2 px-1.5 hover:bg-searchBg  flex justify-around items-center gap-2 overflow-hidden transition-colors rounded-lg group w-full'>
         <AvatarUser
           data={{
             avatar: user.avatar,

@@ -104,7 +104,7 @@ const AsideFilters = () => {
         </div>
       </div>
       <div className='relative h-full '>
-        <div className='absolute top-[420px] responsivePx:top-[0px] h-full md:flex flex-row gap-2 pl-2 mt-5 items-start justify-start w-full'>
+        <div className='absolute top-5 responsivePx:top-[0px] h-full md:flex flex-row gap-2 pl-2 mt-5 items-start justify-start w-full'>
           <ButtonStyled
             className='bg-redPinterestBg text-white font-semibold hover:bg-red-700 w-full'
             handleClick={handleClick}

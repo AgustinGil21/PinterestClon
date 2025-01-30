@@ -12,7 +12,7 @@ const ButtonFilter = () => {
   return (
     <ButtonStyled
       handleClick={handleClick}
-      className={` md:flex flex-row-reverse flex-nowrap text-start max-w-[90px] !p-4 responsivePx:!p-3 sticky items-center gap-2 font-semibold mx-1 responsivePx:mx-2 text-nowrap ${
+      className={` md:flex flex-row-reverse flex-nowrap text-start max-w-[90px] !p-3.5 responsivePx:!p-3 sticky items-center gap-2 font-semibold mx-1 responsivePx:mx-2 text-nowrap ${
         isOpenFiltersModal
           ? 'bg-black text-white'
           : 'bg-buttonGreyBg text-black hover:bg-gray-300'
