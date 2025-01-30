@@ -185,7 +185,7 @@ export const serviceGetSavesPins = async (
 ): Promise<PinInterface[]> => {
   try {
     const response = await axios.get(
-      `${URLDOMAIN}/users/saved-pins/${username}?page=${page}&limit=${limit}`,
+      `${URLDOMAIN}/pins/saved/${username}?page=${page}&limit=${limit}`,
       {
         withCredentials: true,
       }

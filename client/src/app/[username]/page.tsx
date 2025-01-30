@@ -41,7 +41,8 @@ export default function UserProfile({ params }: Props) {
 
   useEffect(() => {
     console.log(dataOwnerProfile.private_account);
-    getSavePins(username, page, 10);
+    console.log(username);
+    getSavePins(username, 1, 10);
     getUserBoards({ username, page: 1, limit: 100 });
   }, [username]);
 
