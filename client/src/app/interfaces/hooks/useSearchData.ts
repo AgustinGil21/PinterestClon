@@ -39,21 +39,18 @@ const useSearchData = ({
 
   const [localSearchValue, setLocalSearchValue] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!localSearchValue) {
-      const storedValue = localStorage.getItem('searchInputValue');
-      setLocalSearchValue(storedValue);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!localSearchValue) {
+  //     const storedValue = localStorage.getItem('searchInputValue');
+  //     setLocalSearchValue(storedValue);
+  //   }
+  // }, []);
 
   // useEffect(() => {
   //   if (!searchPins.length && localSearchValue) {
   //     updateDataSearch('value', localSearchValue);
 
   //     if (value) {
-  //       if (filterState === 'pines') {
-  //         getSearchPins(value, 1, pinsLimit);
-  //       }
   //       if (filterState === 'tableros') {
   //         getSearchBoards({ value: value, page: 1, limit: boardsLimit });
   //       }
@@ -63,7 +60,7 @@ const useSearchData = ({
   //       }
   //     }
   //   }
-  // }, []);
+  // }, [localSearchValue]);
 
   useEffect(() => {
     if (page === 1) return;
