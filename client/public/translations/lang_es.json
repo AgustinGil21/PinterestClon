@@ -684,7 +684,18 @@
         "cancel": "Cancelar",
         "save": "Guardar"
       }
+    },
+    "view": {
+      "by": "de",
+      "more-options": {
+        "its-yours": {
+          "title": "Opciones de tablero",
+          "edit": "Editar",
+          "delete": "Eliminar"
+        }
+      }
     }
   },
+  "required": "Obligatorio",
   "errors": {}
 }

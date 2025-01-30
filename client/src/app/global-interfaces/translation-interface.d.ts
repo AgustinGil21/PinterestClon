@@ -651,7 +651,19 @@ interface IBoard {
       save: string;
     };
   };
+  view: {
+    by: string;
+    'more-options': {
+      'its-yours': {
+        title: string;
+        edit: string;
+        delete: string;
+      };
+    };
+  };
 }
+
+type TRequired = string;
 
 export interface ITranslation {
   header: Header;
@@ -680,6 +692,7 @@ export interface ITranslation {
   'followers-&-following-list': IFollowersAndFollowingList;
   report: IReport;
   board: IBoard;
+  required: TRequired;
   errors: Record<string, unknown>;
 }
 

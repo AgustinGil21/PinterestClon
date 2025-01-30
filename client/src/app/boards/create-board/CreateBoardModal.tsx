@@ -6,6 +6,7 @@ import { CreateBoardDataSchema } from '@/app/infrastructure/schemas/validation-s
 import { CustomTextArea } from '@/app/components/Basic/CustomTextArea';
 import { CustomInput } from '@/app/components/Basic/CustomInput';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { Required } from '@/app/interfaces/components/Basic/Required';
 
 interface IntefaceCreateBoardModal {
   setOpenModalCreate?: (state: boolean) => void;
@@ -101,12 +102,7 @@ const CreateBoardModal = ({
                       <span className='text-[0.6rem] font-medium mr-[2px]'>
                         {t?.board.create.name.label || 'Nombre'}
                       </span>
-                      <span
-                        className='text-[#e60023] font-bold text-[0.6rem]'
-                        title='Obligatorio'
-                      >
-                        *
-                      </span>
+                      <Required />
                     </div>
                     <CustomInput
                       type='text'

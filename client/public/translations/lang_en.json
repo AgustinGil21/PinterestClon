@@ -693,7 +693,18 @@
         "cancel": "Cancel",
         "save": "Save"
       }
+    },
+    "view": {
+      "by": "by",
+      "more-options": {
+        "its-yours": {
+          "title": "Board options",
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      }
     }
   },
+  "required": "Required",
   "errors": {}
 }

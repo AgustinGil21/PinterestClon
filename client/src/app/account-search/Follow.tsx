@@ -33,7 +33,7 @@ const Follow = ({
 
   return (
     <ButtonStyled
-      className={` min-w-[76px] follow-btn font-semibold  py-2 px-4 transition-colors ${
+      className={`w-fit min-w-[76px] follow-btn font-semibold  py-2 px-4 transition-colors ${
         isFollowing
           ? `${classPropsTrueIsFollowing}  `
           : `${classPropsFalseIsFollowing} `

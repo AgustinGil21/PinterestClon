@@ -662,7 +662,18 @@
         "cancel": "Cancelar",
         "save": "Salvar"
       }
+    },
+    "view": {
+      "by": "por",
+      "more-options": {
+        "its-yours": {
+          "title": "Opções do quadro",
+          "edit": "Editar",
+          "delete": "Excluir"
+        }
+      }
     }
   },
+  "required": "Obrigatório",
   "errors": {}
 }

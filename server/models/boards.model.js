@@ -118,6 +118,32 @@ export default class BoardsModel {
     return { response, ok: false };
   }
 
+  static async getBoardPreviousData({ boardID, userID }) {
+    const prevValues = await pool.query(
+      `SELECT 
+      b.name, 
+      b.description, 
+      b.cover, 
+      p.body AS collage
+    FROM boards b
+    LEFT JOIN LATERAL (
+        SELECT p.body
+        FROM board_posts bp
+        JOIN posts p ON bp.post_id = p.id
+        WHERE bp.board_id = b.id
+        ORDER BY bp.created_at ASC
+        LIMIT 1
+    ) p ON true
+    WHERE b.id = $1 AND b.user_id = $2;`,
+      [boardID, userID]
+    );
+
+    const [prevData] = prevValues.rows;
+
+    if (prevData) return { response: prevData, ok: true };
+    return { response, ok: false };
+  }
+
   static async editBoard({ name, description, id, cover }) {
     const boardSkeleton = {
       name: '',

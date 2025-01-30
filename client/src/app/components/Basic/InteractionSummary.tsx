@@ -9,6 +9,7 @@ interface Props {
   numberFirst?: boolean;
   numberClassName?: string;
   textClassName?: string;
+  sentenceCase?: boolean;
 }
 
 const InteractionSummary = ({
@@ -18,6 +19,7 @@ const InteractionSummary = ({
   numberFirst,
   numberClassName,
   textClassName,
+  sentenceCase,
 }: Props) => {
   const formattedNumber = numberFormatter(value);
 
@@ -26,11 +28,15 @@ const InteractionSummary = ({
       {numberFirst ? (
         <>
           <span className={numberClassName}>{formattedNumber}</span>
-          <SingularOrPlural props={{ type, value, className: textClassName }} />
+          <SingularOrPlural
+            props={{ type, value, className: textClassName, sentenceCase }}
+          />
         </>
       ) : (
         <>
-          <SingularOrPlural props={{ type, value, className: textClassName }} />
+          <SingularOrPlural
+            props={{ type, value, className: textClassName, sentenceCase }}
+          />
           <span className={numberClassName}>{formattedNumber}</span>
         </>
       )}

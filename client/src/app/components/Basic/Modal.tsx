@@ -47,7 +47,7 @@ const Modal = ({ props, children }: ModalComponentProps) => {
               style={styles}
               className={`${className} ${
                 center
-                  ? `absolute shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-40 ${className} modal`
+                  ? `absolute shadow-uniform left-[50%] bottom-[50%] translate-x-[-50%] translate-y-[50%] z-[80] ${className} modal`
                   : 'z-40 shadow-uniform'
               }`}
             >
