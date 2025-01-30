@@ -22,7 +22,7 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
   return (
     <div className='mt-5 category-groups overflow-hidden'>
       {userPublicData?.username && (
-        <>
+        <div>
           <h3 className='text-sm font-semibold my-2 dark:text-white'>
             {t?.header['search-input'].modal['ideas-for-you'] ||
               'Ideas para tí'}
@@ -37,7 +37,7 @@ const CategoryGroups = ({ setModal }: CategoryGroupsInterface) => {
               </div>
             ))}
           </div>
-        </>
+        </div>
       )}
 
       <h3 className='text-sm font-semibold my-3 mt-6 dark:text-white'>

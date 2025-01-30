@@ -74,17 +74,23 @@ const ModalSearch = ({
         {value.length > 0 && (
           <div className='mt-1.5 dark:text-white'>
             {pinsSuggestions.map((elem, index) => (
-              <>
+              <div>
                 {elem.user_username ? (
-                  <SearchUser elem={elem} index={index} setModal={setModal} />
+                  <SearchUser
+                    elem={elem}
+                    index={index}
+                    setModal={setModal}
+                    key={elem.user_username}
+                  />
                 ) : (
                   <SearchTitle
                     elem={elem}
                     index={index}
                     handleClick={handleClick}
+                    key={`${elem.pin_alt_text}-${index}`}
                   />
                 )}
-              </>
+              </div>
             ))}
           </div>
         )}

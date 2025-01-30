@@ -25,6 +25,7 @@ interface InputStyledInterface {
   name?: string;
   autoComplete?: string;
   lang?: TLang;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const InputStyled = ({
@@ -46,6 +47,7 @@ const InputStyled = ({
   onBlur,
   onFocus,
   onClick,
+  onChange,
   lang = 'en',
 }: InputStyledInterface) => {
   return (
@@ -60,7 +62,6 @@ const InputStyled = ({
       defaultValue={defaultValue}
       max={max}
       id={id}
-      defaultChecked
       value={value}
       type={type}
       disabled={disabled}

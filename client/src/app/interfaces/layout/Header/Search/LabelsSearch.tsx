@@ -17,7 +17,7 @@ const LabelsSearch = ({ handleClick }: LabelsSearchInterface) => {
         {valuesSearch.map((elem, index) => (
           <div
             onClick={() => handleClick(elem)}
-            key={index}
+            key={`${elem}-${index}`}
             className='bg-gray-200 rounded-2xl p-1 px-3 flex flex-row items-center gap-3 hover:bg-gray-300 cursor-pointer'
           >
             <span className='text-[14px]'>{elem}</span>
