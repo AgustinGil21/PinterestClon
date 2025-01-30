@@ -54,10 +54,10 @@ const Search = () => {
   return (
     <section className='flex flex-col min-h-screen w-full'>
       <div className='flex flex-row'>
-        <div className='flex-col hidden md:flex '>
+        <div className='flex-col  md:flex relative '>
           {isOpenFiltersModal && <AsideFilters />}
         </div>
-        <div className='flex-1 mt-[50px] w-full relative'>
+        <div className='flex-1 mt-[70px] responsivePx:mt-[50px] w-full relative'>
           <>
             {filterState === 'pines' &&
               (searchPins.length > 0 ? (

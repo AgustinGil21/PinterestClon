@@ -38,27 +38,29 @@ const useSearchData = ({
   } = useAppsStore();
 
   const [localSearchValue, setLocalSearchValue] = useState<string | null>(null);
-  const [isSearching, setIsSearching] = useState(false);
 
-  useEffect(() => {
-    const storedValue = localStorage.getItem('searchInputValue');
-    setLocalSearchValue(storedValue);
-  }, []);
+  // useEffect(() => {
+  //   if (!localSearchValue) {
+  //     const storedValue = localStorage.getItem('searchInputValue');
+  //     setLocalSearchValue(storedValue);
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (!searchPins.length && localSearchValue && !isSearching) {
-      updateDataSearch('value', localSearchValue);
+  // useEffect(() => {
+  //   if (!searchPins.length && localSearchValue) {
+  //     updateDataSearch('value', localSearchValue);
 
-      if (value) {
-        if (filterState === 'pines') getSearchPins(value, page, pinsLimit);
-        if (filterState === 'tableros')
-          getSearchBoards({ value: value, page: page, limit: boardsLimit });
-        if (filterState === 'perfiles')
-          getSearchUsers({ value: value, page: page, limit: boardsLimit });
-        setIsSearching(true);
-      }
-    }
-  }, [localSearchValue]);
+  //     if (value) {
+  //       if (filterState === 'tableros') {
+  //         getSearchBoards({ value: value, page: 1, limit: boardsLimit });
+  //       }
+
+  //       if (filterState === 'perfiles') {
+  //         getSearchUsers({ value: value, page: 1, limit: 25 });
+  //       }
+  //     }
+  //   }
+  // }, [localSearchValue]);
 
   useEffect(() => {
     if (page === 1) return;
@@ -85,19 +87,20 @@ const useSearchData = ({
     updateValueSearchInput(value);
 
     if (filterState === 'tableros') {
-      await getSearchBoards({ value: query, page: page, limit: limit });
+      await getSearchBoards({ value: query, page: 1, limit: limit });
       router.push(`/search?query=${query}`);
       return;
     }
 
     if (filterState === 'pines') {
-      await getSearchPins(query, page, pinsLimit);
+      console.log(query, page, pinsLimit);
+      await getSearchPins(query, 1, pinsLimit);
       router.push(`/search?query=${query}`);
       return;
     }
 
     if (filterState === 'perfiles') {
-      await getSearchUsers({ value: value, page: page, limit: boardsLimit });
+      await getSearchUsers({ value: value, page: 1, limit: boardsLimit });
       router.push(`/search?query=${query}`);
       return;
     }
