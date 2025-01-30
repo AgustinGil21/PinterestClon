@@ -334,7 +334,7 @@ export default class BoardsModel {
             FROM board_posts bp 
             JOIN posts p ON bp.post_id = p.id 
             WHERE bp.board_id = b.id
-            ORDER BY bp.created_at DESC
+            ORDER BY bp.created_at ASC
             LIMIT 1
         )
         ELSE NULL
