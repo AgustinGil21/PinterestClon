@@ -279,14 +279,28 @@ export default class PinsController {
 
   static async youMightAlsoLike(req, res) {
     const { page, limit } = req.query;
-    const { id } = req.params;
+    const { id: pinID } = req.params;
+    let data;
 
     try {
-      const data = await PinsModel.youMightAlsoLike({
-        page,
-        limit,
-        pinID: id,
-      });
+      if (req.isAuthenticated) {
+        const { id: userID } = req.user;
+
+        data = await PinsModel.youMightAlsoLike({
+          page,
+          limit,
+          pinID,
+          isAuth: true,
+          userID,
+        });
+      } else {
+        data = await PinsModel.youMightAlsoLike({
+          page,
+          limit,
+          pinID,
+          isAuth: false,
+        });
+      }
 
       if (data.ok) {
         const { pins, results } = data.response;
@@ -344,10 +358,8 @@ export default class PinsController {
   }
 
   static async getHomePins(req, res) {
-    const { page: strPage, limit: strLimit } = req.query;
-
-    const page = Number(strPage);
-    const limit = Number(strLimit);
+    const { page, limit } = req.query;
+    let data;
 
     // try {
     //   const result = getHomePinsSchema.safeParse({ page, limit });
@@ -360,7 +372,22 @@ export default class PinsController {
     // }
 
     try {
-      const data = await PinsModel.getHomePins({ page, limit });
+      if (req.isAuthenticated) {
+        const { id } = req.user;
+
+        data = await PinsModel.getHomePins({
+          page,
+          limit,
+          isAuth: true,
+          userID: id,
+        });
+      } else {
+        data = await PinsModel.getHomePins({
+          page,
+          limit,
+          isAuth: false,
+        });
+      }
 
       if (data.ok) {
         const { data: pins, results } = data.response;
@@ -368,15 +395,14 @@ export default class PinsController {
         return res.status(200).json({ pins, results });
       }
     } catch (err) {
+      console.log(err);
       return res.status(400).json({ message: 'Error' });
     }
   }
 
   static async searchPins(req, res) {
-    const { value, page: strPage, limit: strLimit } = req.query;
-
-    const page = Number(strPage);
-    const limit = Number(strLimit);
+    const { value, page, limit } = req.query;
+    let data;
 
     // try {
     //   const result = searchPinsSchema.safeParse({ page, limit, value });
@@ -389,7 +415,24 @@ export default class PinsController {
     // }
 
     try {
-      const data = await PinsModel.searchPins({ value, page, limit });
+      if (req.isAuthenticated) {
+        const { id } = req.user;
+
+        data = await PinsModel.searchPins({
+          value,
+          page,
+          limit,
+          isAuth: true,
+          userID: id,
+        });
+      } else {
+        data = await PinsModel.searchPins({
+          value,
+          page,
+          limit,
+          isAuth: false,
+        });
+      }
 
       if (data.ok) {
         const { data: pins, results } = data.response;
@@ -402,10 +445,8 @@ export default class PinsController {
   }
 
   static async searchByCategory(req, res) {
-    const { category, page: strPage, limit: strLimit } = req.query;
-
-    const page = Number(strPage);
-    const limit = Number(strLimit);
+    const { category, page, limit } = req.query;
+    let data;
 
     // try {
     //   const result = searchByCategorySchema.safeParse({
@@ -422,7 +463,25 @@ export default class PinsController {
     // }
 
     try {
-      const data = await PinsModel.searchByCategory({ category, page, limit });
+      if (req.isAuthenticated) {
+        const { id } = req.user;
+
+        data = await PinsModel.searchByCategory({
+          category,
+          page,
+          limit,
+          isAuth: true,
+          userID: id,
+        });
+      } else {
+        data = await PinsModel.searchByCategory({
+          category,
+          page,
+          limit,
+          isAuth: false,
+        });
+      }
+
       const { data: pins, results } = data.response;
 
       if (data.ok) {

@@ -317,7 +317,7 @@ export const UserBoardsSchema = z.object({
       collage: z.array(z.string().url()).optional(),
       created_at: z.string(),
       pins_count: z.string(),
-      its_yours: z.boolean().optional(),
+      its_yours: z.boolean(),
     })
   ),
 });
@@ -398,6 +398,7 @@ const BoardPreviewSchema = z.object({
   pins_count: z.string(),
   cover: z.string().url().optional(),
   collage: z.array(z.string().optional()),
+  its_yours: z.boolean(),
 });
 
 export const SearchBoardsSchema = z.object({

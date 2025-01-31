@@ -7,9 +7,27 @@ import {
 export default class BoardsController {
   static async searchBoards(req, res) {
     const { value, page, limit } = req.query;
+    let data;
 
     try {
-      const data = await BoardsModel.searchBoards({ value, page, limit });
+      if (req.isAuthenticated) {
+        const { id } = req.user;
+
+        data = await BoardsModel.searchBoards({
+          value,
+          page,
+          limit,
+          isAuth: true,
+          userID: id,
+        });
+      } else {
+        data = await BoardsModel.searchBoards({
+          value,
+          limit,
+          page,
+          isAuth: false,
+        });
+      }
 
       if (data.ok) {
         const { data: boards, results } = data.response;

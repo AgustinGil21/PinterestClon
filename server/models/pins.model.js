@@ -33,32 +33,44 @@ export default class PinsModel {
     return { response, ok: false };
   }
 
-  static async getCreatedPins({ username, isAuth, userID = '', page, limit }) {
+  static async getCreatedPins({ username, isAuth, userID, page, limit }) {
     const offset = getOffset({ page, limit });
 
     const response = await pool.query(
       `SELECT 
-        body, 
-        title, 
-        url, 
-        adult_content, 
-        alt_text, 
-        id, 
-        created_at,
-        CASE 
-          WHEN $1 = TRUE THEN 
-            CASE 
-              WHEN user_id = $2 THEN TRUE 
-              ELSE FALSE 
-            END 
-          ELSE NULL 
-        END AS its_yours
-      FROM posts 
-      WHERE user_id = (SELECT id FROM users WHERE username = $3) 
-      ORDER BY created_at ASC
-      LIMIT $4 OFFSET $5 
-      ;`,
-      [isAuth, userID, username, limit, offset]
+      p.body, 
+      p.title, 
+      p.url, 
+      p.adult_content, 
+      p.alt_text, 
+      p.id, 
+      p.created_at,
+      CASE WHEN $1 = TRUE 
+        THEN EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = p.id AND sp.user_id = $2) 
+        ELSE FALSE 
+      END AS saved_in_profile,
+      CASE 
+          WHEN $1 = TRUE THEN p.user_id = $2
+          ELSE FALSE 
+      END AS its_yours,
+      CASE 
+          WHEN $1 = TRUE AND $2 IS NOT NULL THEN (
+              SELECT json_build_object(
+                  'id', b.id,
+                  'name', b.name
+              )
+              FROM boards b
+              JOIN board_posts bp ON b.id = bp.board_id
+              WHERE bp.post_id = p.id AND b.user_id = $2
+              LIMIT 1
+          )
+          ELSE NULL
+      END AS board
+  FROM posts p
+  WHERE p.user_id = (SELECT id FROM users WHERE username = $3)
+  ORDER BY p.created_at ASC
+  LIMIT $4 OFFSET $5;`,
+      [isAuth, isAuth ? userID : null, username, limit, offset]
     );
 
     const data = response.rows;
@@ -71,37 +83,48 @@ export default class PinsModel {
     const offset = getOffset({ page, limit });
 
     const response = await pool.query(
-      `SELECT 
-        posts.body, 
-        posts.title, 
-        posts.url, 
-        posts.adult_content, 
-        posts.id AS pin_id, 
-        posts.alt_text,
-        users.id AS user_id,
-        users.name, 
-        users.surname, 
-        users.username, 
-        users.avatar, 
-        users.avatar_background, 
-        users.avatar_letter_color, 
-        users.avatar_letter,
-        CASE 
-          WHEN $1 = TRUE THEN 
-            CASE 
-              WHEN posts.user_id = $2 THEN TRUE 
-              ELSE FALSE 
-            END 
-          ELSE NULL 
-        END AS its_yours
-    FROM saved_profile_posts sp
-    INNER JOIN posts ON sp.post_id = posts.id
-    INNER JOIN users ON posts.user_id = users.id
-    WHERE sp.user_id = (SELECT id FROM users WHERE username = $3)
-    ORDER BY sp.created_at ASC
-    LIMIT $4 OFFSET $5; 
-      ;`,
-      [isAuth, userID, username, limit, offset]
+      `
+  SELECT 
+      posts.body, 
+      posts.title, 
+      posts.url, 
+      posts.adult_content, 
+      posts.id AS pin_id, 
+      posts.alt_text,
+      (EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = posts.id AND sp.user_id = $2)) AS saved_in_profile,
+      CASE 
+          WHEN $1 = TRUE THEN (
+              SELECT json_build_object(
+                  'id', b.id,
+                  'name', b.name
+              )
+              FROM boards b
+              JOIN board_posts bp ON bp.board_id = b.id
+              WHERE bp.post_id = posts.id AND b.user_id = $2
+              LIMIT 1
+          )
+          ELSE NULL
+      END AS board,
+      users.id AS user_id,
+      users.name, 
+      users.surname, 
+      users.username, 
+      users.avatar, 
+      users.avatar_background, 
+      users.avatar_letter_color, 
+      users.avatar_letter,
+      CASE 
+          WHEN $1 = TRUE THEN posts.user_id = $2
+          ELSE FALSE 
+      END AS its_yours
+  FROM saved_profile_posts sp
+  INNER JOIN posts ON sp.post_id = posts.id
+  INNER JOIN users ON posts.user_id = users.id
+  WHERE sp.user_id = (SELECT id FROM users WHERE username = $3)
+  ORDER BY sp.created_at ASC
+  LIMIT $4 OFFSET $5;
+  `,
+      [isAuth, isAuth ? userID : null, username, limit, offset]
     );
 
     const data = response.rows;
@@ -197,6 +220,7 @@ export default class PinsModel {
     p.body, 
     p.url, 
     p.alt_text,
+    (EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = p.id AND sp.user_id = $2)) AS saved_in_profile,
     (SELECT COUNT(1) FROM likes WHERE post_id = p.id) AS likes,
     (SELECT EXISTS(SELECT 1 FROM likes WHERE post_id = p.id AND user_id = $2)) AS already_liked,
     (SELECT COUNT(1) FROM comments WHERE post_id = p.id) AS comments,
@@ -209,6 +233,13 @@ export default class PinsModel {
     u.avatar_letter_color, 
     u.avatar_letter, 
     u.verified,
+    CASE 
+    WHEN b.id IS NULL AND b.name IS NULL THEN NULL
+    ELSE json_build_object(
+        'id', b.id,
+        'name', b.name
+    )
+    END AS board,
     (u.id = $2) AS its_you,
     (CASE 
         WHEN (u.id = $2) THEN NULL 
@@ -219,20 +250,19 @@ export default class PinsModel {
         ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = u.id AND follower_id = $2)) 
      END) AS following,
     (SELECT COUNT(1) FROM following_accounts WHERE following_id = u.id) AS followers
-FROM 
-    posts AS p
-JOIN 
-    users AS u ON p.user_id = u.id
-WHERE 
-    p.id = $1;
+FROM posts AS p
+
+JOIN users AS u ON p.user_id = u.id
+LEFT JOIN board_posts bp ON bp.post_id = p.id
+LEFT JOIN boards b ON b.id = bp.board_id AND b.user_id = $2  
+
+WHERE p.id = $1;
 
   `,
       [pinID, userID]
     );
 
     const [data] = response.rows;
-
-    console.log(data);
 
     if (data) return { response: data, ok: true };
     return { response, ok: false };
@@ -265,55 +295,74 @@ WHERE
   // Al entrar a la vista de un pin, debajo
   // aparecerán pins similares a la publicación
   // actual.
-  static async youMightAlsoLike({ pinID, page, limit }) {
+  static async youMightAlsoLike({ pinID, page, limit, isAuth, userID }) {
     const offset = getOffset({ limit, page });
 
     const response = await pool.query(
       `
   WITH current_pin AS (
-        SELECT 
-            title AS search_title, 
-            description AS search_description, 
-            alt_text AS search_alt_text, 
-            topics AS search_topics
-        FROM posts
-        WHERE id = $1
-    )
     SELECT 
-        posts.body, 
-        posts.title, 
-        posts.url, 
-        posts.adult_content, 
-        posts.id AS pin_id, 
-        posts.alt_text,
-        users.id AS user_id,
-        users.name, 
-        users.surname, 
-        users.username, 
-        users.avatar, 
-        users.avatar_background, 
-        users.avatar_letter_color, 
-        users.avatar_letter,
-        GREATEST(
-            CASE WHEN posts.topics && current_pin.search_topics THEN 1 ELSE 0 END, 
-            similarity(posts.title, current_pin.search_title),
-            similarity(posts.description, current_pin.search_description),
-            similarity(posts.alt_text, current_pin.search_alt_text)
-        ) AS similarity_score
+        title AS search_title, 
+        description AS search_description, 
+        alt_text AS search_alt_text, 
+        topics AS search_topics
     FROM posts
-    INNER JOIN users ON users.id = posts.user_id
-    CROSS JOIN current_pin
-    WHERE posts.id != $1
-    AND (
-        posts.topics && current_pin.search_topics
-        OR similarity(posts.title, current_pin.search_title) > 0.1 
-        OR similarity(posts.description, current_pin.search_description) > 0.1
-        OR similarity(posts.alt_text, current_pin.search_alt_text) > 0.1
-    )
-    ORDER BY similarity_score DESC
-    LIMIT $2 OFFSET $3;
+    WHERE id = $1
+)
+SELECT 
+    posts.body, 
+    posts.title, 
+    posts.url, 
+    posts.adult_content, 
+    posts.id AS pin_id, 
+    posts.alt_text,
+    CASE WHEN $4 = TRUE 
+        THEN EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = posts.id AND sp.user_id = $5) 
+        ELSE FALSE 
+    END AS saved_in_profile,
+    CASE WHEN $4 = TRUE THEN (posts.user_id = $5) ELSE FALSE END AS its_yours,
+    CASE 
+        WHEN $4 = TRUE THEN (
+            SELECT json_build_object(
+                'id', b.id,
+                'name', b.name
+            )
+            FROM boards b
+            JOIN board_posts bp ON bp.board_id = b.id
+            WHERE bp.post_id = posts.id AND b.user_id = $5
+            LIMIT 1
+        )
+        ELSE NULL
+    END AS board,
+    users.id AS user_id,
+    users.name, 
+    users.surname, 
+    users.username, 
+    users.avatar, 
+    users.avatar_background, 
+    users.avatar_letter_color, 
+    users.avatar_letter,
+    GREATEST(
+        CASE WHEN posts.topics && current_pin.search_topics THEN 1 ELSE 0 END, 
+        similarity(posts.title, current_pin.search_title),
+        similarity(posts.description, current_pin.search_description),
+        similarity(posts.alt_text, current_pin.search_alt_text)
+    ) AS similarity_score
+FROM posts
+INNER JOIN users ON users.id = posts.user_id
+CROSS JOIN current_pin
+WHERE posts.id != $1
+AND (
+    posts.topics && current_pin.search_topics
+    OR similarity(posts.title, current_pin.search_title) > 0.1 
+    OR similarity(posts.description, current_pin.search_description) > 0.1
+    OR similarity(posts.alt_text, current_pin.search_alt_text) > 0.1
+)
+ORDER BY similarity_score DESC
+LIMIT $2 OFFSET $3;
+
       `,
-      [pinID, limit, offset]
+      [pinID, limit, offset, isAuth, isAuth ? userID : null]
     );
 
     const pins = response.rows;
@@ -350,12 +399,34 @@ WHERE
   }
 
   // Pins de la home page
-  static async getHomePins({ page, limit }) {
-    const offset = (page - 1) * limit;
+  static async getHomePins({ page, limit, isAuth, userID }) {
+    const offset = getOffset({ limit, page });
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id ORDER BY posts.id LIMIT $1 OFFSET $2;',
-      [limit, offset]
+      `SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter,
+      CASE 
+          WHEN $3 = TRUE AND $4::UUID IS NOT NULL THEN (
+              SELECT json_build_object(
+                  'id', b.id,
+                  'name', b.name
+              )
+              FROM boards b
+              JOIN board_posts bp ON b.id = bp.board_id
+              WHERE bp.post_id = posts.id AND b.user_id = $4
+              LIMIT 1
+          )
+          ELSE NULL
+      END AS board,
+      CASE WHEN $3 = TRUE 
+        THEN EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = posts.id AND sp.user_id = $4) 
+        ELSE FALSE 
+      END AS saved_in_profile,
+      CASE 
+          WHEN $3 = TRUE THEN posts.user_id = $4
+          ELSE FALSE 
+      END AS its_yours
+      FROM posts INNER JOIN users ON users.id = user_id ORDER BY posts.id LIMIT $1 OFFSET $2;`,
+      [limit, offset, isAuth, isAuth ? userID : null]
     );
 
     const data = response.rows;
@@ -371,13 +442,29 @@ WHERE
   // un sistema mas eficiente para esos casos,
   // de lo contrario, buscará por nivel de
   // similitud.
-  static async searchPins({ value, page, limit }) {
-    const offset = (page - 1) * limit;
+  static async searchPins({ value, page, limit, isAuth, userID }) {
+    const offset = getOffset({ limit, page });
 
     const response = await pool.query(
       `
       WITH search_input AS (SELECT $1::text AS search_value)
-  SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter 
+  SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter,
+  CASE WHEN $4 = TRUE THEN (users.id = $5)
+  ELSE FALSE END AS its_yours,
+  (EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = posts.id AND sp.user_id = $5)) AS saved_in_profile,
+  CASE 
+          WHEN $4 = TRUE THEN (
+              SELECT json_build_object(
+                  'id', b.id,
+                  'name', b.name
+              )
+              FROM boards b
+              JOIN board_posts bp ON bp.board_id = b.id
+              WHERE bp.post_id = posts.id AND b.user_id = $5
+              LIMIT 1
+          )
+          ELSE NULL
+      END AS board
   FROM posts 
   INNER JOIN users ON users.id = posts.user_id
   CROSS JOIN search_input
@@ -404,7 +491,7 @@ WHERE
           ELSE 0
       END DESC 
   LIMIT $2 OFFSET $3`,
-      [value, limit, offset]
+      [value, limit, offset, isAuth, isAuth ? userID : null]
     );
 
     const data = response.rows;
@@ -415,12 +502,31 @@ WHERE
   }
 
   // Busca pines por categoría.
-  static async searchByCategory({ category, page, limit }) {
-    const offset = (page - 1) * limit;
+  static async searchByCategory({ category, page, limit, isAuth, userID }) {
+    const offset = getOffset({ page, limit });
 
     const response = await pool.query(
-      'SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text, users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1::UUID = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;',
-      [category, limit, offset]
+      `SELECT posts.body, posts.title, posts.url, posts.adult_content, posts.id AS pin_id, alt_text,
+      (EXISTS(SELECT 1 FROM saved_profile_posts sp WHERE sp.post_id = posts.id AND sp.user_id = $5)) AS saved_in_profile,
+      CASE 
+          WHEN $4 = TRUE THEN (
+              SELECT json_build_object(
+                  'id', b.id,
+                  'name', b.name
+              )
+              FROM boards b
+              JOIN board_posts bp ON bp.board_id = b.id
+              WHERE bp.post_id = posts.id AND b.user_id = $5
+              LIMIT 1
+          )
+          ELSE NULL
+      END AS board,
+      CASE 
+          WHEN $4 = TRUE THEN posts.user_id = $5
+          ELSE FALSE 
+      END AS its_yours,
+      users.name, users.surname, users.username, users.avatar, users.avatar_background, users.avatar_letter_color, users.avatar_letter FROM posts INNER JOIN users ON users.id = user_id WHERE $1::UUID = ANY(topics) ORDER BY posts.id LIMIT $2 OFFSET $3;`,
+      [category, limit, offset, isAuth, isAuth ? userID : null]
     );
 
     const data = response.rows;
@@ -430,7 +536,6 @@ WHERE
     return { response, ok: false };
   }
 
-  // TODO: Moverlo
   // Devuelve las sugerencias de búsqueda,
   // tanto pins como usuarios.
   static async searchAutocompleteSuggestions() {

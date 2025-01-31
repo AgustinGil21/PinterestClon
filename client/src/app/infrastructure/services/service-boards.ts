@@ -174,8 +174,6 @@ export const serviceSearchBoards = async ({
   page,
 }: ISearchByValue) => {
   try {
-    console.log(value);
-
     const response = await axios.get(
       `${URLDOMAIN}/boards/search?value=${value}&page=${page}&limit=${limit}`,
       {
@@ -187,7 +185,7 @@ export const serviceSearchBoards = async ({
 
     const result = SearchBoardsSchema.safeParse(response.data);
 
-    console.log(result.error);
+    console.log(result.data);
 
     return result.success ? result.data : null;
   } catch (err) {

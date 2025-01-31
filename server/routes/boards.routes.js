@@ -5,7 +5,7 @@ import { isAuthenticated } from '../middlewares/isAuthenticated.js';
 
 const router = Router();
 
-router.get('/search', BoardsController.searchBoards);
+router.get('/search', isAuthenticated, BoardsController.searchBoards);
 router.get('/', BoardsController.getBoards);
 router.get('/last-board', authRequired, BoardsController.getLastUsedBoardName);
 router.get('/covers/:id', authRequired, BoardsController.getPossibleCovers);

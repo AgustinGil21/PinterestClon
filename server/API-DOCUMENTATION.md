@@ -763,7 +763,7 @@ _username_: User username
       "body": "String",
       "url": "String<URL>?",
       "adult_content": "Boolean",
-      "its_yours": "Boolean?",
+      "its_yours": "Boolean",
       "created_at": "String<Date>"
     }
   ]
@@ -1143,17 +1143,7 @@ _*POST*_ `http://localhost:1234/pinterest-clon-api/boards/search?value=String&pa
       "pins_count": "String<Number>",
       "cover": "String<URL>?",
       "collage": "String<URL>[]",
-      "user": {
-        "name": "String?",
-        "surname": "String?",
-        "username": "String",
-        "id": "String<UUID>",
-        "avatar": "String<URL>?",
-        "avatar_letter_color": "String<Hex>",
-        "avatar_letter": "String<Char>",
-        "avatar_background": "String<Hex>",
-        "verified": "Boolean"
-      }
+      "its_yours": "Boolean"
     }
   ],
   "results": "Number"
@@ -1298,7 +1288,7 @@ _username_: Username del usuario
       "name": "String",
       "created_at": "String<Date>",
       "pins_count": "String<Number>",
-      "its_yours": "Boolean?",
+      "its_yours": "Boolean",
       "cover": "String?",
       "collage": "String<URL>[]?"
     }

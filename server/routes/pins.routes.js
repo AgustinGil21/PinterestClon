@@ -17,12 +17,20 @@ router.get(
   PinsController.getCreatedPins
 );
 router.get('/saved/:username', isAuthenticated, PinsController.getSavedPins);
-router.get('/search', PinsController.searchPins);
-router.get('/search-by-category', PinsController.searchByCategory);
+router.get('/search', isAuthenticated, PinsController.searchPins);
+router.get(
+  '/search-by-category',
+  isAuthenticated,
+  PinsController.searchByCategory
+);
 router.get('/search/suggestions', PinsController.searchAutocompleteSuggestions);
 router.get('/:id', isAuthenticated, PinsController.getSinglePin);
-router.get('/similar-pins/:id', PinsController.youMightAlsoLike);
-router.get('/', PinsController.getHomePins);
+router.get(
+  '/similar-pins/:id',
+  isAuthenticated,
+  PinsController.youMightAlsoLike
+);
+router.get('/', isAuthenticated, PinsController.getHomePins);
 router.post('/like/:id', authRequired, PinsController.toggleLikePin);
 router.post('/create', authRequired, PinsController.createPin);
 router.delete('/:id', authRequired, PinsController.deletePin);

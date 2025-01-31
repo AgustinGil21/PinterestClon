@@ -4,7 +4,7 @@ import { objectsCompare } from '../libs/objectsCompare.js';
 
 export default class BoardsModel {
   // Búsqueda de boards
-  static async searchBoards({ value, page, limit }) {
+  static async searchBoards({ value, page, limit, isAuth, userID }) {
     const offset = getOffset({ page, limit });
 
     const response = await pool.query(
@@ -14,7 +14,11 @@ export default class BoardsModel {
           b.id, 
           b.name, 
           b.created_at, 
-          (SELECT COUNT(1) FROM board_posts WHERE board_id = b.id) AS pins_count, 
+          (SELECT COUNT(1) FROM board_posts WHERE board_id = b.id) AS pins_count,
+          CASE 
+          WHEN $4 = TRUE THEN (b.user_id = $5)
+          ELSE FALSE 
+        END AS its_yours,
           CASE 
             WHEN b.cover IS NOT NULL THEN b.cover
             ELSE NULL
@@ -56,7 +60,7 @@ export default class BoardsModel {
           END DESC 
       LIMIT $2 OFFSET $3;
       `,
-      [value, limit, offset]
+      [value, limit, offset, isAuth, userID]
     );
 
     const data = response.rows;
@@ -241,7 +245,7 @@ export default class BoardsModel {
       (SELECT COUNT(1) FROM board_posts WHERE board_id = b.id) AS pins_count,
       CASE 
         WHEN $2 = TRUE THEN (b.user_id = $3)
-        ELSE NULL 
+        ELSE FALSE 
       END AS its_yours,
       CASE
         WHEN b.cover IS NOT NULL THEN b.cover

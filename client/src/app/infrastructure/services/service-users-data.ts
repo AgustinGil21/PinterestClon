@@ -190,10 +190,9 @@ export const serviceGetSavesPins = async (
         withCredentials: true,
       }
     );
+    console.log(response.data);
 
     const result = PinSchema.array().safeParse(response.data.pins);
-
-    console.log(result.data);
 
     return result.success ? result.data : [];
   } catch (error) {
