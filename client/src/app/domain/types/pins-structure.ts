@@ -170,3 +170,8 @@ export interface DataOpenBoardModalInteface {
   pinId: string;
   pinBody: string;
 }
+
+export interface IPinBoard {
+  id: string;
+  name: string;
+}

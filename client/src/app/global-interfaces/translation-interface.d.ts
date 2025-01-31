@@ -50,6 +50,7 @@ interface Pin {
   'for-you': string;
   'no-comments': string;
   'save-btn': string;
+  'saved-btn': string;
   'more-options': {
     download: string;
     report: string;
