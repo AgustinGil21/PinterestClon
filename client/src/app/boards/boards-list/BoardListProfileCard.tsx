@@ -34,7 +34,7 @@ const BoardListProfileCard = () => {
       href={`/${userPublicData?.username}`}
       handleClick={handleLinkOnClick}
     >
-      <li className='flex items-center p-2 hover:bg-[#e9e9e9] hover:cursor-pointer w-full justify-between rounded-xl gap-2 group '>
+      <div className='flex items-center p-2 hover:bg-[#e9e9e9] hover:cursor-pointer w-full justify-between rounded-xl gap-2 group '>
         <div className='flex items-center gap-2 overflow-hidden '>
           <div className='size-[48px] rounded-md flex justify-center items-center bg-[#e9e9e9] group-hover:bg-white'>
             <ClockIcon svgClassName='size-[1.35rem]' />
@@ -49,7 +49,7 @@ const BoardListProfileCard = () => {
         >
           {t?.['boards-list'].save || 'Guardar'}
         </button>
-      </li>
+      </div>
     </LinkNavigate>
   );
 };

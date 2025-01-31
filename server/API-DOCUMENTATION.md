@@ -385,6 +385,12 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?",
       "name": "String?",
       "surname": "String?",
       "username": "String",
@@ -400,6 +406,12 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?",
       "name": "String?",
       "surname": "String?",
       "username": "String",
@@ -464,6 +476,12 @@ _:id_ => UUID Pin
     "likes": "String<Number>",
     "already_liked": "Boolean",
     "comments": "String<Number>",
+    "saved_in_profile": "Boolean?",
+    "board?": {
+      "id": "String<UUID>",
+      "name": "String"
+    },
+    "its_yours": "Boolean?",
     "username": "String",
     "name": "String?",
     "surname": "String?",
@@ -492,6 +510,12 @@ _:id_ => UUID Pin
     "url": "String<URL>?",
     "likes": "String<Number>",
     "already_liked": "Boolean",
+    "saved_in_profile": "Boolean?",
+    "board?": {
+      "id": "String<UUID>",
+      "name": "String"
+    },
+    "its_yours": "Boolean?",
     "comments": "String<Number>",
     "username": "String",
     "name": "String?",
@@ -552,6 +576,12 @@ _*GET*_ `http://localhost:1234/pinterest-clon-api/pins/similar-pins/:id?page=Num
       "pin_id": "String<UUID>",
       "alt_text": "String",
       "user_id": "String<UUID>",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?",
       "name": "String?",
       "surname": "String?",
       "username": "String",
@@ -622,6 +652,12 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?",
       "name": "String?",
       "surname": "String?",
       "username": "String",
@@ -660,6 +696,12 @@ _page_: Página actual en la cual se encuentra el usuario (min 1)
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?",
       "name": "String?",
       "surname": "String?",
       "username": "String",
@@ -764,7 +806,13 @@ _username_: User username
       "url": "String<URL>?",
       "adult_content": "Boolean",
       "its_yours": "Boolean",
-      "created_at": "String<Date>"
+      "created_at": "String<Date>",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?"
     }
   ]
 }
@@ -788,6 +836,12 @@ _username_: User username
       "adult_content": "Boolean",
       "pin_id": "String<UUID>",
       "alt_text": "String",
+      "saved_in_profile": "Boolean?",
+      "board?": {
+        "id": "String<UUID>",
+        "name": "String"
+      },
+      "its_yours": "Boolean?",
       "user_id": "String<UUID>",
       "name": "String?",
       "surname": "String?",
