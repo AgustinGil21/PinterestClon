@@ -21,11 +21,7 @@ const AsideFilters = () => {
     updateStateBoards,
     resetPage,
   } = useAppsStore();
-  const { handleSearch } = useSearchData({
-    getSearchBoards: searchBoards,
-    getSearchPins: getSearchPins,
-    getSearchUsers: searchUsers,
-  });
+  const { handleSearch } = useSearchData();
   const [selectedFilter, setSelectedFilter] = useState<string>(filterState);
   const [isExecute, setIsExecute] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
@@ -75,7 +71,7 @@ const AsideFilters = () => {
 
   return (
     <aside
-      className='fixed bg-white z-[100] md:z-[0] md:sticky h-screen  w-[270px] p-3 top-[125px] md:top-16 border-r-[1px] border-gray-300 responsivePx:border-none '
+      className='fixed bg-white z-[100] md:z-[0] md:sticky h-screen  w-[270px] p-3  top-[125px] md:top-20 border-r-[1px] border-gray-300 responsivePx:border-none '
       style={{ animation: `ease aside-filters-open 500ms` }}
     >
       <div className='mt-2 dark:text-white '>

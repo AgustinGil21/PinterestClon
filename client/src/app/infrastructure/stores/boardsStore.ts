@@ -12,6 +12,7 @@ import {
   searchBoardsUseCase,
   userBoardsUseCase,
 } from '@/app/application/use-cases/boards/boardsUseCases';
+import { getUniqueItems } from '@/app/libs/getUniqueItems';
 
 import {
   IBoard,
@@ -31,18 +32,6 @@ import {
 } from '@/app/domain/types/boards-interface';
 
 import { StateCreator } from 'zustand';
-
-// Utilidad para obtener elementos únicos
-export const getUniqueItems = <T extends Record<string, any>>(
-  newItems: T[],
-  existingItems: T[],
-  key: keyof T
-): T[] => {
-  return newItems.filter(
-    (newItem) =>
-      !existingItems.some((existingItem) => existingItem[key] === newItem[key])
-  );
-};
 
 export interface IBoardsStore {
   createBoardData: ICreateBoard;

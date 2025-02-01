@@ -9,10 +9,6 @@ import AvatarUser from './Avatar/AvatarUser';
 import LinkNavigate from './Nav/LinkNavigate';
 import { FaBars, FaBarsStaggered, FaXmark } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation';
-
-import ButtonStyled from '../../components/Basic/ButtonStyled';
-import FiltersIcon from '../../components/icons/FiltersIcon';
-
 import CardCategorySlider from '@/app/search/CardCategorySlider';
 import ButtonFilter from '@/app/search/ButtonFilter';
 
@@ -25,9 +21,6 @@ export const Header = () => {
     getLastBoard,
     getBoardsList,
     openMenuAsideSettingsResponsive,
-    isOpenFiltersModal,
-    openFiltersModal,
-    categoriesPin,
     getCategoriesPin,
     isOpenMenuAsideSettingsResponsive,
   } = useAppsStore();

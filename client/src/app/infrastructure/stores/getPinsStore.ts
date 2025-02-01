@@ -7,18 +7,7 @@ import { getHomePinsCase } from '@/app/application/use-cases/home/getHomePins';
 import { getSearchPinsCase } from '@/app/application/use-cases/home/getSearchPins';
 import { getSuggestionsCase } from '@/app/application/use-cases/header/getSuggestions';
 import { getPinSearchCategoriesCase } from '@/app/application/use-cases/home/getSearchForCategoryPins';
-
-// Utilidad para obtener elementos únicos
-export const getUniqueItems = <T extends Record<string, any>>(
-  newItems: T[],
-  existingItems: T[],
-  key: keyof T
-): T[] => {
-  return newItems.filter(
-    (newItem) =>
-      !existingItems.some((existingItem) => existingItem[key] === newItem[key])
-  );
-};
+import { getUniqueItems } from '@/app/libs/getUniqueItems';
 
 export interface homePinsStoreInterface {
   homePins: PinInterface[];

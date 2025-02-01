@@ -11,6 +11,7 @@ import { useSearchParams } from 'next/navigation';
 import { EmptyMsg } from './EmptyMsg';
 import useInfiniteScroll from '../interfaces/hooks/useInfiniteScroll';
 import { UsersProfileSearchContainer } from './UsersProfileSearchContainer';
+import { useGetLimit } from '../hooks/useGetLimit';
 
 const Search = () => {
   const {
@@ -21,6 +22,10 @@ const Search = () => {
     getCategoriesPin,
     isOpenFiltersModal,
     usersProfile,
+    page,
+    searchUsers,
+    searchBoards,
+    getSearchPins,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -29,10 +34,40 @@ const Search = () => {
   const queryValue: string | null = searchParams.get('query');
   const { handleScroll, lastScrollTop } = useInfiniteScroll();
 
+  const pinsLimit = useGetLimit({
+    parentPadding: 16,
+    elementMaxWidth: 236,
+    elementMinHeight: 239,
+  });
+  const boardsLimit = useGetLimit({
+    parentPadding: 16,
+    elementMaxWidth: 248,
+    elementMinHeight: 212,
+  });
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollTop]);
+
+  useEffect(() => {
+    if (page === 1) return;
+
+    if (filterState === 'tableros') {
+      searchBoards({ value: value, page: page, limit: boardsLimit });
+      return;
+    }
+
+    if (filterState === 'pines') {
+      getSearchPins(value, page, pinsLimit);
+      return;
+    }
+
+    if (filterState === 'perfiles') {
+      searchUsers({ value: value, page: page, limit: 25 });
+      return;
+    }
+  }, [page]);
 
   useEffect(() => {
     if (queryValue) setValueErrorSearch(queryValue);

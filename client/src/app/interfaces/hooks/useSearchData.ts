@@ -1,20 +1,9 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ISearchByValue } from '@/app/domain/types/boards-interface';
 import { useGetLimit } from '@/app/hooks/useGetLimit';
 
-interface InterfaceUseSearchData {
-  getSearchBoards: ({ value, page, limit }: ISearchByValue) => Promise<void>;
-  getSearchPins: (value: string, page: number, limit: number) => Promise<void>;
-  getSearchUsers: any;
-}
-
-const useSearchData = ({
-  getSearchBoards,
-  getSearchPins,
-  getSearchUsers,
-}: InterfaceUseSearchData) => {
+const useSearchData = () => {
   const limit = 25;
   const pinsLimit = useGetLimit({
     parentPadding: 16,
@@ -33,53 +22,11 @@ const useSearchData = ({
     value,
     filterState,
     updateDataSearch,
-    searchPins,
     updateValueSearchInput,
+    searchBoards,
+    getSearchPins,
+    searchUsers,
   } = useAppsStore();
-
-  const [localSearchValue, setLocalSearchValue] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   if (!localSearchValue) {
-  //     const storedValue = localStorage.getItem('searchInputValue');
-  //     setLocalSearchValue(storedValue);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!searchPins.length && localSearchValue) {
-  //     updateDataSearch('value', localSearchValue);
-
-  //     if (value) {
-  //       if (filterState === 'tableros') {
-  //         getSearchBoards({ value: value, page: 1, limit: boardsLimit });
-  //       }
-
-  //       if (filterState === 'perfiles') {
-  //         getSearchUsers({ value: value, page: 1, limit: 25 });
-  //       }
-  //     }
-  //   }
-  // }, [localSearchValue]);
-
-  useEffect(() => {
-    if (page === 1) return;
-
-    if (filterState === 'tableros') {
-      getSearchBoards({ value: value, page: page, limit: boardsLimit });
-      return;
-    }
-
-    if (filterState === 'pines') {
-      getSearchPins(value, page, pinsLimit);
-      return;
-    }
-
-    if (filterState === 'perfiles') {
-      getSearchUsers({ value: value, page: page, limit: boardsLimit });
-      return;
-    }
-  }, [page, filterState, value, limit, getSearchBoards, getSearchPins]);
 
   const handleSearch = async (query: string) => {
     localStorage.setItem('searchInputValue', query);
@@ -87,20 +34,19 @@ const useSearchData = ({
     updateValueSearchInput(value);
 
     if (filterState === 'tableros') {
-      await getSearchBoards({ value: query, page: 1, limit: limit });
+      await searchBoards({ value: query, page: 1, limit: boardsLimit });
       router.push(`/search?query=${query}`);
       return;
     }
 
     if (filterState === 'pines') {
-      console.log(query, page, pinsLimit);
       await getSearchPins(query, 1, pinsLimit);
       router.push(`/search?query=${query}`);
       return;
     }
 
     if (filterState === 'perfiles') {
-      await getSearchUsers({ value: value, page: 1, limit: boardsLimit });
+      await searchUsers({ value: value, page: 1, limit: limit });
       router.push(`/search?query=${query}`);
       return;
     }

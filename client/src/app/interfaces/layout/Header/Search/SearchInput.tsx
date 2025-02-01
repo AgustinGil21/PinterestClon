@@ -23,11 +23,7 @@ const SearchInput = () => {
     page,
     t,
   } = useAppsStore();
-  const { handleSearch } = useSearchData({
-    getSearchBoards: searchBoards,
-    getSearchPins: getSearchPins,
-    getSearchUsers: searchUsers,
-  });
+  const { handleSearch } = useSearchData();
   const [isFocused, setIsFocused] = useState(false);
   const [valueCurrent, setValueCurrent] = useState(value);
   const [modalState, setModal] = useState(false);
@@ -55,6 +51,11 @@ const SearchInput = () => {
     localStorage.removeItem('searchInputValue');
   };
 
+  const handleOpenModal = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setModal(true);
+  };
+
   const handleSubmit = async (
     event:
       | React.FormEvent<HTMLFormElement>
@@ -62,7 +63,6 @@ const SearchInput = () => {
   ) => {
     event.preventDefault();
     if (value === '' || valueCurrent === value) return;
-    resetPage();
     setValueCurrent(value);
     handleSearch(value);
 
@@ -79,7 +79,7 @@ const SearchInput = () => {
   };
 
   useEffect(() => {
-    const filteredPins = suggestions.filter((elem) => {
+    const filteredPins = suggestions.filter((elem: any) => {
       const searchTerm = value.toLowerCase();
       return (
         elem.pin_alt_text?.toLowerCase().includes(searchTerm) ||
@@ -115,7 +115,7 @@ const SearchInput = () => {
           placeholder={t?.header['search-input'].placeholder}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          onClick={() => setModal(true)}
+          onClick={(e) => handleOpenModal(e)}
           onKeyDown={handleKeyDown}
         />
         {!isFocused && (
