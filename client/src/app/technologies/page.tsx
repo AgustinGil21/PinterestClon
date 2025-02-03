@@ -16,11 +16,10 @@ const TechProcess = () => {
             Tecnologías y Proceso de Desarrollo
           </h2>
           <p className='text-sm max-w-[480px]'>
-            Este clon de Pinterest fue desarrollado con un enfoque en buenas
-            prácticas de desarrollo, priorizando, modularidad. Se implementaron
-            diferentes patrones y principios de diseño tanto en el frontend como
-            en el backend para buscar garantizar un código limpio y
-            estructurado.
+            Desarrollamos el proyecto con un enfoque en las buenas prácticas de
+            desarrollo, priorizando, modularidad. Se implementaron diferentes
+            patrones y principios de diseño tanto en el frontend como en el
+            backend para buscar garantizar un código limpio y estructurado.
           </p>
         </div>
         <ImagesTecnologies setSelectedImage={setSelectedImage} />
