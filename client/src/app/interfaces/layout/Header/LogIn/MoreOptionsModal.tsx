@@ -40,11 +40,11 @@ export const MoreOptionsModal = ({ setModal }: MoreOptionsModalInterface) => {
             {t?.header.modal.settings || 'Configuración'}
           </LinkNavigate>
           <LinkNavigate
-            href={'#'}
+            href={'/info-clon'}
             classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 rounded-lg cursor-pointer px-2 font-semibold'
             onClick={handleClick}
           >
-            {t?.header.modal['clone-info'] || 'Información del clo'}
+            {t?.header.modal['clone-info'] || 'Información del clon'}
           </LinkNavigate>
           <LogOutButton />
         </div>

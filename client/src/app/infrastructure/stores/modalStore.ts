@@ -100,13 +100,14 @@ export interface ModalStateInterface {
     its_yours: boolean
   ) => void;
   closeBoardMoreOptionsModal: () => void;
-
+  isOpenMenuAsideInfoClonResponsive: boolean;
   deleteBoardModalIsOpen: boolean;
   setDeleteBoardModal: () => void;
 
   editBoardModalIsOpen: boolean;
   editBoardID: string;
   setEditBoardModal: (id: string) => void;
+  openMenuAsideInfoClon: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -133,6 +134,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isCreateBoardModalOpen: false,
   sharePinData: '',
   isOpenMenuAsideSettingsResponsive: false,
+  isOpenMenuAsideInfoClonResponsive: false,
   isOpenReportModal: false,
   isOpenFiltersModal: JSON.parse(
     localStorage.getItem('isOpenFilterModal') || 'false'
@@ -384,6 +386,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     set((state) => ({
       editBoardID: id,
       editBoardModalIsOpen: !state.editBoardModalIsOpen,
+    }));
+  },
+  openMenuAsideInfoClon: () => {
+    set((state) => ({
+      isOpenMenuAsideInfoClonResponsive:
+        !state.isOpenMenuAsideInfoClonResponsive,
     }));
   },
 });

@@ -7,10 +7,12 @@ import { UserLoggedIn } from './LogIn/UserLoggedIn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import AvatarUser from './Avatar/AvatarUser';
 import LinkNavigate from './Nav/LinkNavigate';
-import { FaBars, FaBarsStaggered, FaXmark } from 'react-icons/fa6';
+import { FaBars, FaBarsStaggered, FaXmark, FaInfo } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation';
 import CardCategorySlider from '@/app/search/CardCategorySlider';
 import ButtonFilter from '@/app/search/ButtonFilter';
+import InfoClon from '@/app/info-clon/page';
+import InfoIcon from '../../components/icons/InfoIcon';
 
 export const Header = () => {
   const {
@@ -23,12 +25,27 @@ export const Header = () => {
     openMenuAsideSettingsResponsive,
     getCategoriesPin,
     isOpenMenuAsideSettingsResponsive,
+    isOpenMenuAsideInfoClonResponsive,
+    openMenuAsideInfoClon,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
   const [shadow, setShadow] = useState(false);
   const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
   const pathname = usePathname();
+
+  const routesResponsiveAsideSettings = [
+    '/edit-user',
+    '/admin-user',
+    '/privacy-info',
+    '/security-profile',
+  ];
+
+  const routesResponsiveAsideInfoClon = [
+    '/info-clon',
+    '/about-us',
+    '/technologies',
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,7 +124,7 @@ export const Header = () => {
           {isAuth && (
             <div
               className={`md:hidden min-w-[40px] min-h-[40px] hover:bg-slate-200 rounded-full relative flex justify-center items-center cursor-pointer ${
-                pathname !== '/edit-user' && 'hidden'
+                !routesResponsiveAsideSettings.includes(pathname) && 'hidden'
               }`}
               onClick={openMenuAsideSettingsResponsive}
             >
@@ -117,6 +134,31 @@ export const Header = () => {
                 <FaBarsStaggered size={20} color='black' />
               )}
             </div>
+          )}
+          {routesResponsiveAsideInfoClon && (
+            <div
+              className={`md:hidden min-w-[40px] min-h-[40px] hover:bg-slate-200 rounded-full relative flex justify-center items-center cursor-pointer ${
+                !routesResponsiveAsideInfoClon.includes(pathname) && 'hidden'
+              }`}
+              onClick={openMenuAsideInfoClon}
+            >
+              {isOpenMenuAsideInfoClonResponsive ? (
+                <FaXmark size={25} color='black' />
+              ) : (
+                <FaBarsStaggered size={20} color='black' />
+              )}
+            </div>
+          )}
+
+          {isMobileView && (
+            <LinkNavigate
+              href='/info-clon'
+              classProps={`${
+                routesResponsiveAsideInfoClon.includes(pathname) && 'hidden'
+              }`}
+            >
+              <InfoIcon />
+            </LinkNavigate>
           )}
         </div>
         {pathname == '/search' && (

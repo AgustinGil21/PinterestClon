@@ -15,6 +15,7 @@ import { SharePinModal } from './home-page-components/SharePinModal';
 import PinMoreOptionsModal from './home-page-components/PinMoreOptionsModal';
 import { DynamicShareBoardModal } from './board/DynamicShareBoardModal';
 import { DynamicMoreOptionsBoardModal } from './board/DynamicMoreOptionsBoardModal';
+import AsideSettingsInfoClon from './interfaces/layout/AsideInfoClon/AsideSettingsInfoClon';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -52,6 +53,12 @@ export default function RootLayout({
     '/privacy-info',
     '/admin-user',
     '/security-profile',
+  ];
+
+  const routesWithoutAsideInfoClon = [
+    '/info-clon',
+    '/technologies',
+    '/about-us',
   ];
 
   const routeCreatePin = ['/create-pin'];
@@ -95,6 +102,9 @@ export default function RootLayout({
 
         <main className={`flex pt-16 relative `}>
           {isAuth && routesWithoutAside.includes(pathname) && <AsideConfig />}
+          {routesWithoutAsideInfoClon.includes(pathname) && (
+            <AsideSettingsInfoClon />
+          )}
           {children}
           {toastNotificationContent?.status && (
             <ToastNotification
