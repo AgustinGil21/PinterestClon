@@ -36,7 +36,7 @@ const AsideSettingsInfoClon = () => {
           ></div>
         )}
         <aside
-          className={`fixed bg-white dark:bg-gray-900 h-full max-w-[80%] md:px-7 z-50 transform transition-transform duration-300 ${
+          className={`fixed  bg-white dark:bg-gray-900 h-full max-w-[80%] md:px-7 z-50 transform transition-transform duration-300 ${
             isMobile
               ? isOpenMenuAsideInfoClonResponsive
                 ? 'translate-x-0'
@@ -48,28 +48,31 @@ const AsideSettingsInfoClon = () => {
             <ul className='flex flex-col gap-2 font-semibold'>
               <LinkNavigate href='/info-clon' classProps=''>
                 <div
+                  onClick={openMenuAsideInfoClon}
                   className={`w-fit text-[13px] link-settings-aside ${
                     pathname === '/info-clon'
                       ? 'link-settings-aside-active'
                       : ''
                   } hover:bg-gray-200 px-2 py-1 rounded-md dark:hover:bg-slate-800`}
                 >
-                  Info clon
+                  Informacion del clon
                 </div>
               </LinkNavigate>
               <LinkNavigate href='/technologies' classProps=''>
                 <div
+                  onClick={openMenuAsideInfoClon}
                   className={`w-fit text-[13px] link-settings-aside ${
                     pathname === '/technologies'
                       ? 'link-settings-aside-active'
                       : ''
                   } px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-slate-800`}
                 >
-                  Tecnologias
+                  Tecnologias y proceso de desarollo
                 </div>
               </LinkNavigate>
               <LinkNavigate href='/about-us' classProps=''>
                 <div
+                  onClick={openMenuAsideInfoClon}
                   className={`w-fit text-[13px] link-settings-aside ${
                     pathname === '/about-us' ? 'link-settings-aside-active' : ''
                   } rounded-md hover:bg-gray-200 px-2 py-1 dark:hover:bg-slate-800`}

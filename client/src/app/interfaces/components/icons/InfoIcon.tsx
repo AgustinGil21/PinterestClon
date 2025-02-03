@@ -1,4 +1,4 @@
-const InfoIcon = ({ className = 'w-8 h-8 text-black dark:text-white' }) => {
+const InfoIcon = ({ className = 'w-6 h-6 text-black dark:text-white' }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

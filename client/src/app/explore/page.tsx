@@ -40,10 +40,10 @@ export default function Explore() {
       <section className='w-full flex justify-center p-3'>
         <div className='flex justify-center w-full flex-col max-w-[1400px] '>
           <div className='my-8 flex items-center flex-col'>
-            <h3 className='text-1xl font-semibold'>
+            <h3 className='text-1xl font-semibold text-center'>
               <FullDate lang={userLang || 'es'} />
             </h3>
-            <h2 className='font-bold text-4xl'>
+            <h2 className='font-bold text-center text-4xl'>
               {t?.explore.title || 'Sigue inspirándote'}
             </h2>
           </div>
