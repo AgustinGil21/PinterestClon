@@ -50,7 +50,6 @@ const BoardPage = ({ params }: Props) => {
         />
       )}
       {editBoardModalIsOpen && <EditBoardModal />}
-      <BoardGoBackBtn />
       <BoardHeader board={board} />
       <Masonry></Masonry>
     </section>

@@ -222,7 +222,7 @@ export const serviceSearchUsers = async ({
   page,
   limit,
   value,
-}: ISearchByValue): Promise<IUsersProfileCard | null> => {
+}: ISearchByValue) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/users/search/${value}?page=${page}&limit=${limit}`,
@@ -230,7 +230,6 @@ export const serviceSearchUsers = async ({
     );
 
     const result = SearchUsersSchema.safeParse(response.data);
-    console.log(result.data);
 
     return result.success ? result.data.users : null;
   } catch (err) {

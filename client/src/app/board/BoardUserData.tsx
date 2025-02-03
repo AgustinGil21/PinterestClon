@@ -12,7 +12,7 @@ export const BoardUserData = ({ user }: Props) => {
 
   return (
     <LinkNavigate href={`/${user.username}`} classProps='w-fit'>
-      <article className='flex gap-2 items-center overflow-hidden'>
+      <article className='flex gap-2 items-center overflow-hidden md:text-base text-sm'>
         <AvatarUser
           textSize='text-sm'
           data={{
@@ -21,10 +21,10 @@ export const BoardUserData = ({ user }: Props) => {
             avatar_letter: user.avatar_letter,
             avatar_background: user.avatar_background,
           }}
-          classProps='w-9 h-9'
+          classProps='md:w-9 md:h-9 w-8 h-8'
         />
         <span> {t?.board.view.by || 'de'} </span>
-        <strong className='text-ellipsis'>
+        <strong className='text-ellipsis max-w-[150px] overflow-hidden text-nowrap md:max-w-[180px]'>
           {user.name
             ? `${user.name}${user.surname ? ` ${user.surname}` : ''}`
             : `${user.username}`}
