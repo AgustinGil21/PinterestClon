@@ -1,5 +1,5 @@
 type Collage = string[];
-type CustomDate = Date | number | string;
+export type CustomDate = Date | string;
 
 export interface IPaging {
   page: number;
@@ -96,6 +96,7 @@ export interface IBoardPreview {
   avatar_letter_color?: string;
   avatar_letter?: string;
   avatar_background?: string;
+  its_yours?: boolean;
 }
 
 export interface IUserBoard {

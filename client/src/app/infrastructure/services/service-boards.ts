@@ -92,7 +92,10 @@ export const serviceGetUserBoards = async ({
 }: IGetUserBoards) => {
   try {
     const response = await axios.get(
-      `${URLDOMAIN}/boards/user/${username}?page=${page}&limit=${limit}`
+      `${URLDOMAIN}/boards/user/${username}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
     );
 
     const result = UserBoardsSchema.safeParse(response.data);

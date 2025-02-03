@@ -66,9 +66,9 @@ export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
     });
 
     const result = ArrayPreviousPinSchema.safeParse(response.data.pins.data);
+
     return result.success ? result.data : [];
   } catch (error) {
-    console.log(error);
     return [];
   }
 };
@@ -124,6 +124,7 @@ export const serviceGetHomePins = async (
       }
     );
 
+    console.log(response.data);
     const result = getPinsSchema.safeParse(response.data);
 
     return response.status === 200 ? response.data.pins : [];

@@ -1,3 +1,4 @@
+import { IBoardPreview } from '@/app/domain/types/boards-interface';
 import BoardPreviewBottom from './BoardPreviewBottom';
 import BoardPreviewTop from './BoardPreviewTop';
 
@@ -12,7 +13,7 @@ interface Data {
 }
 
 interface BoardsPreviewProps {
-  props: Data;
+  props: IBoardPreview;
 }
 
 const BoardPreview = ({ props }: BoardsPreviewProps) => {

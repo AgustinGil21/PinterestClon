@@ -1,12 +1,19 @@
+import { CustomDate } from '@/app/domain/types/boards-interface';
 import { TLang } from '@/app/global-interfaces/global-interfaces';
 import React from 'react';
 
 interface FormattedDateProps {
   lang: TLang;
+  date?: CustomDate;
+  className?: string;
 }
 
-export const FullDate: React.FC<FormattedDateProps> = ({ lang }) => {
-  const dayNow = new Date();
+export const FullDate: React.FC<FormattedDateProps> = ({
+  lang,
+  date,
+  className,
+}) => {
+  let dayNow = date ? new Date(date) : new Date();
 
   const dayNumber = dayNow.getDate();
   const monthNumber = dayNow.getMonth();
@@ -72,5 +79,5 @@ export const FullDate: React.FC<FormattedDateProps> = ({ lang }) => {
     }
   };
 
-  return <span>{formatDate()}</span>;
+  return <span className={`${className}`}>{formatDate()}</span>;
 };

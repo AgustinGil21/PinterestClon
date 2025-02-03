@@ -1,6 +1,7 @@
 import {
   CreatedPinsInterface,
   FollowingsListInterface,
+  ISingleUserProfileCard,
   IUsersProfileCard,
   OwnerProfileInterface,
 } from '@/app/domain/types/data-users';
@@ -229,6 +230,7 @@ export const serviceSearchUsers = async ({
     );
 
     const result = SearchUsersSchema.safeParse(response.data);
+    console.log(result.data);
 
     return result.success ? result.data.users : null;
   } catch (err) {

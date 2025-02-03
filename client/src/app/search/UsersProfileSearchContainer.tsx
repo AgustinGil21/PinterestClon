@@ -6,7 +6,7 @@ import { IUser } from './interfaces/user-interface';
 import { UserProfileSearchCard } from './UserProfileSearchCard';
 
 interface Props {
-  users: IUsersProfileCard | [];
+  users: IUsersProfileCard[] | [];
 }
 
 export const UsersProfileSearchContainer = ({ users }: Props) => {

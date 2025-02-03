@@ -103,5 +103,9 @@ export interface ISingleUserProfileCard {
 
 export interface IUsersProfileCard {
   users: ISingleUserProfileCard[];
-  results: number;
 }
+
+// export interface IUsersProfileCard {
+//   users: ISingleUserProfileCard[];
+//   results: number;
+// }

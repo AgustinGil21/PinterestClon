@@ -1,8 +1,9 @@
+import { CustomDate } from '@/app/domain/types/boards-interface';
 import RelativeTime from '../../components/Basic/RelativeTime';
 import InteractionSummary from '@/app/components/Basic/InteractionSummary';
 
 interface Props {
-  createdAt: string | Date;
+  createdAt: CustomDate;
   pins: number | string;
   name: string;
 }

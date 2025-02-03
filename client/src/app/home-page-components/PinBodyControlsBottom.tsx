@@ -54,7 +54,7 @@ export const PinBodyControlsBottom = ({ elem }: Props) => {
             handleClick={handleClickEditPin}
             linkClass='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
           >
-            <FaPen size={12} />
+            <FaPen size={13} />
           </LinkNavigate>
         ) : (
           <button

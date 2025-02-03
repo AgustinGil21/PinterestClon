@@ -42,6 +42,7 @@ export interface PreviousPin {
   body: string;
   title?: string;
   id: string;
+  created_at: string;
 }
 
 export interface PinId {

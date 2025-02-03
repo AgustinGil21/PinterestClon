@@ -28,7 +28,7 @@ export interface UserDataStoreInterface {
   followingList: FollowingsListInterface;
   createdPins: CreatedPinsInterface[];
   savedPins: PinInterface[];
-  usersProfile: IUsersProfileCard[];
+  usersProfile: IUsersProfileCard[] | [];
   isFollowing: boolean;
   noMoreUsers: boolean;
   noMoreCreatedPins: boolean;

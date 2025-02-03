@@ -1,24 +1,15 @@
 import Grid from '@/app/interfaces/components/Basic/Grid';
 import BoardPreview from './BoardPreview';
-
-interface Board {
-  id: string;
-  name: string;
-  created_at: Date | string;
-  pins_count: number;
-  cover?: string;
-  collage?: (string | undefined)[];
-  its_yours?: boolean;
-}
+import { IBoardPreview } from '@/app/domain/types/boards-interface';
 
 interface Props {
-  boards: Board[];
+  boards: IBoardPreview[];
 }
 
 const BoardsGrid = ({ boards }: Props) => {
   return (
     <Grid>
-      {boards.map((board) => (
+      {boards.map((board: IBoardPreview) => (
         <BoardPreview key={board.id} props={board} />
       ))}
     </Grid>

@@ -110,6 +110,7 @@ const PreviousPinSchema = z.object({
   id: z.string(),
   body: z.string(),
   title: z.string().optional(),
+  created_at: z.string(),
 });
 
 export const ArrayPreviousPinSchema = z.array(PreviousPinSchema);
@@ -125,6 +126,11 @@ export const PinEditIdSchema = z.object({
   body: z.string(),
   topics: z.array(z.string()).optional(),
   id: z.string(),
+});
+
+export const PinBoardSchema = z.object({
+  id: z.string(),
+  name: z.string(),
 });
 
 export const PinSchema = z.object({
@@ -143,6 +149,9 @@ export const PinSchema = z.object({
   avatar_letter: z.string(),
   user_id: z.string().optional(),
   similarity_score: z.number().optional(),
+  its_yours: z.boolean().optional(),
+  saved_in_profile: z.boolean().optional(),
+  board: PinBoardSchema.optional().nullable(),
 });
 
 export const getPinsSchema = z.object({
