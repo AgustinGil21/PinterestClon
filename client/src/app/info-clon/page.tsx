@@ -16,9 +16,10 @@ const InfoClon = () => {
       </section>
     );
   }
+
   return (
     <section className='flex flex-row w-full p-4 py-8 mb-[60px] md:mb-[30px] '>
-      <div className='max-w-[500px] w-full lg:ml-[140px] flex flex-col gap-6 dark:text-white'>
+      <div className='max-w-[500px] w-full lg:ml-[70px] flex flex-col gap-6 dark:text-white'>
         <div className='text-start flex justify-start items-start flex-col'>
           <div className='flex text-center flex-row-reverse gap-2'>
             <h2 className='text-[23px] font-semibold '>
@@ -105,7 +106,7 @@ const InfoClon = () => {
               compartiendo contenido.
             </p>
             <ul className='text-sm list-disc pl-5 mt-2'>
-              <li>Dar "Me gusta" a pines y comentarios de otros usuarios.</li>
+              <li>Dar me gusta a pines y comentarios de otros usuarios.</li>
               <li>
                 Dejar comentarios en pines para interactuar con la comunidad.
               </li>
@@ -128,6 +129,43 @@ const InfoClon = () => {
               <li>
                 Control total sobre los permisos de edición y visibilidad.
               </li>
+            </ul>
+          </div>
+
+          <div className='mt-4'>
+            <h3 className='text-[18px] font-semibold text-black dark:text-white'>
+              Sistema de Traducciones
+            </h3>
+            <p className='text-sm max-w-[480px] mt-2'>
+              La plataforma cuenta con soporte para múltiples idiomas, lo que
+              permite a los usuarios navegar en su idioma preferido.
+            </p>
+            <ul className='text-sm list-disc pl-5 mt-2'>
+              <li>Disponible en Español, Inglés y Portugués.</li>
+              <li>Interfaz completamente traducida.</li>
+              <li>
+                Selección automática del idioma según la configuración del
+                navegador.
+              </li>
+            </ul>
+          </div>
+
+          <div className='mt-4'>
+            <h3 className='text-[18px] font-semibold text-black dark:text-white'>
+              Diseño 100% Responsive
+            </h3>
+            <p className='text-sm max-w-[480px] mt-2'>
+              La aplicación ha sido diseñada para ofrecer una experiencia fluida
+              y optimizada en cualquier dispositivo.
+            </p>
+            <ul className='text-sm list-disc pl-5 mt-2'>
+              <li>
+                Adaptado para celulares, tablets y pantallas de escritorio.
+              </li>
+              <li>
+                Interfaz flexible que se ajusta a distintos tamaños de pantalla.
+              </li>
+              <li>Experiencia de usuario optimizada para navegación móvil.</li>
             </ul>
           </div>
         </div>
