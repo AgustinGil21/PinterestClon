@@ -9,7 +9,7 @@ const TechProcess = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <section className='flex flex-row w-full p-4 py-8 mb-[50px]'>
+    <section className='flex flex-row w-full p-4 py-8 mb-[50px] justify-center md:justify-start'>
       <div className='max-w-[500px] w-full lg:ml-[70px] flex flex-col gap-6 dark:text-white'>
         <div>
           <h2 className='text-[23px] font-semibold'>

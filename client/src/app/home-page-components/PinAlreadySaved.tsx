@@ -23,12 +23,15 @@ export const PinAlreadySaved = ({
   let url = savedInProfile ? `/${username}` : `/board/${board?.id}`;
 
   return (
-    <LinkNavigate href={url} classProps='flex items-center mr-2'>
+    <LinkNavigate
+      href={url}
+      classProps='flex items-center mr-2 max-w-[90px] overflow-hidden'
+    >
       <span
         title={content}
         className={`hover:underline ${
           pinCard ? 'text-black' : 'text-white'
-        } font-semibold text-base pl-2 text-nowrap`}
+        } font-semibold text-base pl-2 text-nowrap text-ellipsis overflow-hidden w-full`}
       >
         {content}
       </span>

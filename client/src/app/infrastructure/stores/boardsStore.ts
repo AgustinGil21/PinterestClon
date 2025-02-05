@@ -217,6 +217,9 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
       const prevPins = get().boardPins;
       const uniquePins = getUniqueItems(response.pins, prevPins, 'pin_id');
 
+      set({
+        board: response,
+      });
       if (uniquePins.length > 0) {
         set({
           boardPins: page === 1 ? uniquePins : [...prevPins, ...uniquePins],

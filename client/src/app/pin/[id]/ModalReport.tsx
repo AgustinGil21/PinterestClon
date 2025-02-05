@@ -25,6 +25,35 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
     });
   };
 
+  const reports = {
+    pin: [
+      'Contenido ofensivo',
+      'Contenido engañoso o spam',
+      'Contenido violento',
+      'Contiene contenido para adultos sin previo aviso',
+      'Información errónea',
+    ],
+    comment: [
+      'Contenido ofensivo',
+      'Acoso o bullying',
+      'Incita al odio',
+      'Contiene connotaciones sexuales',
+    ],
+    board: [
+      'Contenido ofensivo',
+      'Contenido engañoso o spam',
+      'Contenido violento',
+      'Fomenta el terrorismo',
+    ],
+    user: [
+      'Acoso o bullying',
+      'Incita al odio',
+      'Fomenta acciones delictivas',
+      'Spam',
+      'En su perfil contiene contenido explicito no apto para todo el público',
+    ],
+  };
+
   const cancelReport = () => closeReportModal();
 
   return (

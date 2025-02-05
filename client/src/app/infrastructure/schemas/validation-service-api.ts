@@ -286,6 +286,14 @@ export const PinViewSchema = z.object({
   follows_you: z.boolean().optional(),
   following: z.boolean().optional(),
   followers: z.string(),
+  saved_in_profile: z.boolean().optional(),
+  board: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+    })
+    .optional()
+    .nullable(),
 });
 
 export const PinCreatedDataSchema = z.array(
@@ -340,10 +348,10 @@ export const GetBoardSchema = z.object({
   pins_count: z.string(),
   user: z.object({
     id: z.string(),
-    name: z.string().optional(),
-    surname: z.string().optional(),
+    name: z.string().optional().nullable(),
+    surname: z.string().optional().nullable(),
     username: z.string(),
-    avatar: z.string().url().optional(),
+    avatar: z.string().optional().nullable(),
     avatar_letter: z.string().length(1),
     avatar_letter_color: z.string(),
     avatar_background: z.string(),
@@ -351,15 +359,15 @@ export const GetBoardSchema = z.object({
   pins: z.array(
     z.object({
       body: z.string().url(),
-      title: z.string().optional(),
-      url: z.string().url().optional(),
+      title: z.string().optional().nullable(),
+      url: z.string().optional().nullable(),
       adult_content: z.boolean(),
       pin_id: z.string(),
       alt_text: z.string(),
-      name: z.string().optional(),
-      surname: z.string().optional(),
+      name: z.string().optional().nullable(),
+      surname: z.string().optional().nullable(),
       username: z.string(),
-      avatar: z.string().url().optional(),
+      avatar: z.string().url().optional().nullable(),
       avatar_background: z.string(),
       avatar_letter_color: z.string(),
       avatar_letter: z.string().length(1),

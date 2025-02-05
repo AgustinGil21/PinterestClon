@@ -233,13 +233,14 @@ export default class PinsModel {
     u.avatar_letter_color, 
     u.avatar_letter, 
     u.verified,
-    CASE 
-    WHEN b.id IS NULL AND b.name IS NULL THEN NULL
-    ELSE json_build_object(
-        'id', b.id,
-        'name', b.name
-    )
-    END AS board,
+    (SELECT json_build_object(
+    'id', b.id,
+    'name', b.name
+    ) 
+    FROM boards b
+    JOIN board_posts bp ON bp.board_id = b.id
+    WHERE bp.post_id = p.id AND b.user_id = $2
+    LIMIT 1) AS board,
     (u.id = $2) AS its_you,
     (CASE 
         WHEN (u.id = $2) THEN NULL 
@@ -250,12 +251,8 @@ export default class PinsModel {
         ELSE (SELECT EXISTS(SELECT 1 FROM following_accounts WHERE following_id = u.id AND follower_id = $2)) 
      END) AS following,
     (SELECT COUNT(1) FROM following_accounts WHERE following_id = u.id) AS followers
-FROM posts AS p
-
-JOIN users AS u ON p.user_id = u.id
-LEFT JOIN board_posts bp ON bp.post_id = p.id
-LEFT JOIN boards b ON b.id = bp.board_id AND b.user_id = $2  
-
+FROM posts AS p   
+JOIN users AS u ON p.user_id = u.id 
 WHERE p.id = $1;
 
   `,

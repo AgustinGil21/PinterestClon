@@ -1,3 +1,5 @@
+import { PinInterface } from './pins-structure';
+
 type Collage = string[];
 export type CustomDate = Date | string;
 
@@ -80,7 +82,7 @@ export interface IBoard {
   following?: boolean;
   pins_count: string;
   user: IUserData;
-  pins: IPin[];
+  pins: PinInterface[];
 }
 
 export interface IBoardPreview {

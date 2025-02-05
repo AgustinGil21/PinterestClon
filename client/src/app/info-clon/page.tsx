@@ -18,7 +18,7 @@ const InfoClon = () => {
   }
 
   return (
-    <section className='flex flex-row w-full p-4 py-8 mb-[60px] md:mb-[30px] '>
+    <section className='flex flex-row w-full p-4 py-8 mb-[60px] md:mb-[30px] justify-center md:justify-start'>
       <div className='max-w-[500px] w-full lg:ml-[70px] flex flex-col gap-6 dark:text-white'>
         <div className='text-start flex justify-start items-start flex-col'>
           <div className='flex text-center flex-row-reverse gap-2'>

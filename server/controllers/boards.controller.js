@@ -125,11 +125,10 @@ export default class BoardsController {
         const board = data.response;
         const filteredBoard = filterFalsyValues(board);
 
-        return res
-          .status(200)
-          .json({ board: filteredBoard, isAuthenticated: req.isAuthenticated });
+        return res.status(200).json({ board: filteredBoard });
       }
     } catch (err) {
+      console.log(err);
       return res.status(404).json({ message: 'Board not found' });
     }
   }

@@ -6,6 +6,15 @@ import {
 import { createRef } from 'react';
 import { TReportType } from '@/app/global-interfaces/translation-interface';
 
+interface PinSaved {
+  pinID: string;
+  profile?: boolean;
+  board?: {
+    id: string;
+    name: string;
+  };
+}
+
 export interface ModalStateInterface {
   isLoginModalOpen: boolean;
   isRegisterModalOpen: boolean;
@@ -108,6 +117,9 @@ export interface ModalStateInterface {
   editBoardID: string;
   setEditBoardModal: (id: string) => void;
   openMenuAsideInfoClon: () => void;
+
+  pinSaved?: PinSaved;
+  setPinSaved: (data: PinSaved) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -393,5 +405,11 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       isOpenMenuAsideInfoClonResponsive:
         !state.isOpenMenuAsideInfoClonResponsive,
     }));
+  },
+
+  setPinSaved: (data: PinSaved) => {
+    set({
+      pinSaved: data,
+    });
   },
 });

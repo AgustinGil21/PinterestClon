@@ -6,6 +6,9 @@ import { BoardGoBackBtn } from '../BoardGoBackBtn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { DeleteBoardModal } from '../DeleteBoardModal';
 import { EditBoardModal } from '@/app/boards/edit-board/EditBoardModal';
+import { useEffect } from 'react';
+import { PinInterface } from '@/app/domain/types/pins-structure';
+import { Pin } from '@/app/home-page-components/Pin';
 
 interface IParams {
   id: string;
@@ -16,29 +19,30 @@ interface Props {
 }
 
 const BoardPage = ({ params }: Props) => {
-  const { deleteBoardModalIsOpen, setDeleteBoardModal, editBoardModalIsOpen } =
-    useAppsStore();
+  const {
+    deleteBoardModalIsOpen,
+    setDeleteBoardModal,
+    editBoardModalIsOpen,
+    getBoard,
+    board,
+    boardPins,
+  } = useAppsStore();
   const { id }: IParams = params;
 
-  const board = {
-    id: '1234',
-    name: 'Messi Board',
-    description:
-      'El mejor board de Messi, la historia lo recordará por siempre como el mejor jugador del mundo. Este board es una conmemoración a su carrera como jugador, mostrando momentos claves que lo llevan a ser lo que es hoy.',
-    pins_count: '43',
-    its_yours: true,
-    user: {
-      id: 'aa1234',
-      name: 'Pablo',
-      surname: 'Gutierrez',
-      username: 'PablitoGuti123',
-      avatar:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcRUXngqq-hskwEuvR9D_P1GHCGg2WfXDG7No8rx6n4BumkmW4UgbhHvxOsuq6bEZrB34&usqp=CAU',
-      avatar_letter_color: '#fff',
-      avatar_letter: 'P',
-      avatar_background: '#09f',
-    },
-  };
+  useEffect(() => {
+    if (!id) return;
+    console.log(board);
+
+    const fetchData = async () => {
+      try {
+        await getBoard({ id, page: 1, limit: 100 });
+      } catch (err) {
+        console.log('Error al obtener el tablero:', err);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   return (
     <section className='w-full relative h-full min-h-[90dvh]'>
@@ -51,7 +55,11 @@ const BoardPage = ({ params }: Props) => {
       )}
       {editBoardModalIsOpen && <EditBoardModal />}
       <BoardHeader board={board} />
-      <Masonry></Masonry>
+      <Masonry>
+        {boardPins.map((pin: PinInterface) => (
+          <Pin elem={pin} key={pin.pin_id} />
+        ))}
+      </Masonry>
     </section>
   );
 };

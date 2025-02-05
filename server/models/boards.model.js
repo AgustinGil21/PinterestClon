@@ -398,36 +398,38 @@ export default class BoardsModel {
             WHERE bp.board_id = b.id
         ) AS pins_count,
         (
-            SELECT json_agg(
-                json_build_object(
-                    'body', p.body,
-                    'title', p.title,
-                    'url', p.url,
-                    'adult_content', p.adult_content,
-                    'pin_id', p.id,
-                    'alt_text', p.alt_text,
-                    'name', pu.name,
-                    'surname', pu.surname,
-                    'username', pu.username,
-                    'avatar', pu.avatar,
-                    'avatar_background', pu.avatar_background,
-                    'avatar_letter_color', pu.avatar_letter_color,
-                    'avatar_letter', pu.avatar_letter
-                )
+    SELECT COALESCE(
+        json_agg(
+            json_build_object(
+                'body', p.body,
+                'title', p.title,
+                'url', p.url,
+                'adult_content', p.adult_content,
+                'pin_id', p.id,
+                'alt_text', p.alt_text,
+                'name', pu.name,
+                'surname', pu.surname,
+                'username', pu.username,
+                'avatar', pu.avatar,
+                'avatar_background', pu.avatar_background,
+                'avatar_letter_color', pu.avatar_letter_color,
+                'avatar_letter', pu.avatar_letter
             )
-            FROM posts p
-            INNER JOIN board_posts bp ON p.id = bp.post_id
-            INNER JOIN users pu ON pu.id = p.user_id
-            WHERE bp.board_id = b.id
-            ORDER BY p.id
-            LIMIT $1 OFFSET $2
-        ) AS pins
+        ), '[]'::json
+    )
+    FROM posts p
+    INNER JOIN board_posts bp ON p.id = bp.post_id
+    INNER JOIN users pu ON pu.id = p.user_id
+    WHERE bp.board_id = b.id
+    LIMIT $1 OFFSET $2
+) AS pins
+
       FROM 
         boards b
       LEFT JOIN 
         users u ON u.id = b.user_id  
       WHERE 
-        b.id = $3;  
+        b.id = $3;
     `,
       [limit, offset, boardID, userID, isAuth]
     );

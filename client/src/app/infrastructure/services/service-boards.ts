@@ -113,12 +113,15 @@ export const serviceGetSingleBoard = async ({
 }: ISearchByID) => {
   try {
     const response = await axios.get(
-      `${URLDOMAIN}/boards/${id}?page=${page}&limit=${limit}`
+      `${URLDOMAIN}/boards/single/${id}?page=${page}&limit=${limit}`,
+      {
+        withCredentials: true,
+      }
     );
 
     const result = GetBoardSchema.safeParse(response.data.board);
 
-    console.log(response);
+    console.log(result.data);
 
     return result.success ? result.data : null;
   } catch (err) {

@@ -263,7 +263,9 @@ export default class PinsController {
           pinID,
           userID,
         });
-      } else data = await PinsModel.getSinglePinNotLogged({ pinID });
+      } else {
+        data = await PinsModel.getSinglePinNotLogged({ pinID });
+      }
 
       if (data.ok) {
         const { response: pin } = data;
@@ -272,7 +274,6 @@ export default class PinsController {
       }
       return res.status(404).json({ message: 'Pin not found!' });
     } catch (err) {
-      console.log(err);
       return res.status(404).json({ message: 'Pin not found!' });
     }
   }

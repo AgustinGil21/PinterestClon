@@ -6,11 +6,11 @@ import { isAuthenticated } from '../middlewares/isAuthenticated.js';
 const router = Router();
 
 router.get('/search', isAuthenticated, BoardsController.searchBoards);
-router.get('/', BoardsController.getBoards);
+// router.get('/', BoardsController.getBoards);
 router.get('/last-board', authRequired, BoardsController.getLastUsedBoardName);
+router.get('/single/:id', isAuthenticated, BoardsController.getSingleBoard);
 router.get('/covers/:id', authRequired, BoardsController.getPossibleCovers);
 router.get('/boards-list', authRequired, BoardsController.getCreatedBoardsList);
-router.get('/:id', isAuthenticated, BoardsController.getSingleBoard);
 router.get('/user/:username', isAuthenticated, BoardsController.getUserBoards);
 router.post('/create', authRequired, BoardsController.createBoard);
 router.get(
