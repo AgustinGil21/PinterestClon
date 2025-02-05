@@ -33,6 +33,11 @@ const FaQ = () => {
       answer:
         'Puedes reportar cualquier pin o comentario presionando el botón de reporte dentro del mismo.',
     },
+    {
+      question: '¿Mis datos están seguros?',
+      answer:
+        'Si, tus datos fueron encriptados antes de ser almacenados en la base de datos.',
+    },
   ];
 
   return (
