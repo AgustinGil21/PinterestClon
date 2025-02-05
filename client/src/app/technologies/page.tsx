@@ -23,6 +23,35 @@ const TechProcess = () => {
           </p>
         </div>
         <ImagesTecnologies setSelectedImage={setSelectedImage} />
+
+        <div>
+          <h2 className='text-[22px] font-semibold text-black dark:text-white'>
+            Gestión del Código y Colaboración
+          </h2>
+          <p className='text-sm max-w-[480px] mt-2'>
+            Para asegurar un flujo de trabajo eficiente y estructurado,
+            utilizamos herramientas de control de versiones y gestión de
+            repositorios.
+          </p>
+
+          <div className='mt-4'>
+            <h3 className='text-[18px] font-semibold text-black dark:text-white'>
+              Tecnologías Utilizadas
+            </h3>
+            <ul className='text-sm list-disc pl-5 mt-2'>
+              <li>
+                Git para el control de versiones, facilitando el trabajo
+                colaborativo y el manejo de cambios en el código.
+              </li>
+              <li>
+                GitHub como plataforma de alojamiento del repositorio,
+                permitiendo la gestión de ramas para el desarrollo del clon y el
+                seguimiento del progreso del proyecto.
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div>
           <h2 className='text-[22px] font-semibold text-black dark:text-white'>
             Frontend

@@ -24,8 +24,8 @@ const AboutUs = () => {
         <h2 className='text-[26px] font-semibold'>Sobre Nosotros</h2>
         <p className='text-sm max-w-[800px] mx-auto'>
           Somos un equipo de{' '}
-          <strong>desarrolladores trainee en formación</strong>, apasionados por
-          la tecnología y comprometidos con ofrecer
+          <strong>desarrolladores trainee en formación de 18 y 20 años</strong>,
+          apasionados por la tecnología y comprometidos con ofrecer
           <strong> experiencias de usuario excepcionales</strong>. Para llevar a
           cabo este clon de Pinterest, combinamos nuestras habilidades y
           adquirimos nuevos conocimientos en diversas áreas, aplicando{' '}
