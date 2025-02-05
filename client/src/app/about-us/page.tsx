@@ -45,6 +45,16 @@ const AboutUs = () => {
           <Santino />
           <Agustin />
         </div>
+        <h3 className='text-[22px] font-semibold mt-6'>¿Que sigue?</h3>
+        <p className='text-sm max-w-[700px] mx-auto'>
+          Una etapa de nuestras vidas esta cerrada, por ende tenemos que seguir
+          adelante con nuevos proyectos que nos pongan a prueba. Este clon será
+          actualizado periódicamente con el objetivo de ir agregando
+          funcionalidades que lo acerquen cada vez mas al producto original.
+          Pero nuestro enfoque principal va a ser el desarrollo de nuestra
+          primera App para mobiles y otros proyectos que vayan surgiendo, los
+          cuales serán mas ambiciosos y únicos.
+        </p>
       </div>
     </section>
   );

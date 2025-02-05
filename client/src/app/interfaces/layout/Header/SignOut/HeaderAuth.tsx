@@ -31,7 +31,7 @@ export const HeaderAuth = () => {
           <div className='p-1 flex flex-col '>
             <div className='text-black dark:text-white flex flex-col text-sm'>
               <LinkNavigate
-                href={'#'}
+                href={'/info-clon'}
                 classProps='hover:bg-gray-200  dark:hover:bg-gray-900 p-1 my-1 px-2 rounded-lg cursor-pointer font-semibold'
               >
                 {t?.header.modal['clone-info'] || 'Información del clon'}

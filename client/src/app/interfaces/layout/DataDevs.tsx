@@ -13,7 +13,7 @@ const developers = [
   {
     name: 'Agustín Gil',
     github: 'https://github.com/AgustinGil21',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://linkedin.com/in/agustín-gil-470b44294',
   },
   {
     name: 'Santino Steckler',
