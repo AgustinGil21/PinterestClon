@@ -8,7 +8,7 @@ interface Props {
 
 const BoardsGrid = ({ boards }: Props) => {
   return (
-    <Grid>
+    <Grid className='boards-grid mt-4'>
       {boards.map((board: IBoardPreview) => (
         <BoardPreview key={board.id} props={board} />
       ))}

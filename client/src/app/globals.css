@@ -714,6 +714,13 @@
   }
 }
 
+@media (max-width: 464px) {
+  .boards-grid {
+    justify-content: center;
+    padding: 0.25rem;
+  }
+}
+
 /* xs */
 @media (max-width: 426px) {
   .masonry {

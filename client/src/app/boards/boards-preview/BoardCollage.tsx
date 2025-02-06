@@ -6,7 +6,7 @@ interface BoardCollageProps {
 const BoardCollage = ({ className, collage = [] }: BoardCollageProps) => {
   return (
     <article
-      className={`w-[247.6px] grid grid-cols-[164px_82px] grid-rows-[82px_82px] gap-[0.1rem] z-0 ${className}`}
+      className={`max-w-[247.6px] w-full min-w-[190px] grid grid-cols-[minmax(120px,164px)_minmax(56px,82px)] grid-rows-[minmax(56px,82px)_minmax(56px,82px)] gap-[0.1rem] z-0 ${className}`}
     >
       <div
         className={`w-full row-[span_2] col-[1] bg-[#e9e9e9] rounded-l-2xl  bg-center bg-cover bg-no-repeat`}
