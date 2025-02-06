@@ -148,9 +148,11 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isOpenMenuAsideSettingsResponsive: false,
   isOpenMenuAsideInfoClonResponsive: false,
   isOpenReportModal: false,
-  isOpenFiltersModal: JSON.parse(
-    localStorage.getItem('isOpenFilterModal') || 'false'
-  ),
+  isOpenFiltersModal:
+    typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('isOpenFilterModal') ?? 'false')
+      : false,
+
   isPinMoreOptionModalOpen: false,
   pinMoreOptionsBtnRef: createRef(),
   pinMoreOptionsBody: '',

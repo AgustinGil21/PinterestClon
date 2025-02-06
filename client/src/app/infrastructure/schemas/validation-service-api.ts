@@ -286,7 +286,7 @@ export const PinViewSchema = z.object({
   follows_you: z.boolean().optional(),
   following: z.boolean().optional(),
   followers: z.string(),
-  saved_in_profile: z.boolean().optional(),
+  saved_in_profile: z.boolean(),
   board: z
     .object({
       id: z.string(),
@@ -306,6 +306,8 @@ export const PinCreatedDataSchema = z.array(
     adult_content: z.boolean(),
     its_yours: z.boolean().optional(),
     created_at: z.string(),
+    saved_in_profile: z.boolean(),
+    board: PinBoardSchema.optional().nullable(),
   })
 );
 
@@ -469,6 +471,9 @@ export const PinSimilarSchema = z.object({
   url: z.string().optional(),
   user_id: z.string(),
   similarity_score: z.number(),
+  its_yours: z.boolean().optional(),
+  saved_in_profile: z.boolean(),
+  board: PinBoardSchema.optional().nullable(),
 });
 
 export const SearchUsersSchema = z.object({

@@ -80,6 +80,8 @@ export interface PinInterface {
   avatar?: string | null;
   url?: string | null;
   className?: string;
+  saved_in_profile: boolean;
+  board?: IPinBoard;
 }
 
 export interface GetPinsInterface {
@@ -123,6 +125,8 @@ export interface PinViewInterface {
   follows_you?: boolean;
   following?: boolean;
   followers?: string;
+  board?: IPinBoard;
+  saved_in_profile: boolean;
 }
 
 export interface PostCommentInterface {
@@ -165,6 +169,9 @@ export interface PinSimilarInterface {
   url?: string;
   user_id: string;
   similarity_score: number;
+  saved_in_profile: boolean;
+  its_yours?: boolean;
+  board?: IPinBoard;
 }
 
 export interface DataOpenBoardModalInteface {

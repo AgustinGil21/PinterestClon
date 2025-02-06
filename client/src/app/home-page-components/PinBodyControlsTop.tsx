@@ -27,7 +27,7 @@ export const PinBodyControlsTop = ({ elem }: { elem: PinInterface }) => {
     >
       <SavePinBtn
         pinId={elem.pin_id}
-        alreadySaved={elem.saved_in_profile || elem.board}
+        alreadySaved={!!(elem.saved_in_profile || elem.board?.id)}
         savedInProfile={elem.saved_in_profile}
         board={elem.board}
       />

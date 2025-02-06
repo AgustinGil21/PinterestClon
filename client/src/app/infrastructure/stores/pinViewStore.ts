@@ -70,6 +70,7 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
     follows_you: false,
     following: false,
     followers: '',
+    saved_in_profile: false,
   },
 
   commentsState: {

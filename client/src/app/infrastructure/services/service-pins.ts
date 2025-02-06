@@ -203,8 +203,6 @@ export const serviceGetPinView = async (
       withCredentials: true,
     });
 
-    console.log(response.data);
-
     const result = PinViewSchema.safeParse(response.data.pin);
 
     return result.success ? result.data : null;

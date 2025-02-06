@@ -177,6 +177,8 @@ export const getCreatedPinsAdapter = async (
       created_at: pin.created_at,
       adult_content: pin.adult_content,
       its_yours: pin.its_yours || false,
+      saved_in_profile: pin.saved_in_profile,
+      board: pin.board,
     }));
 
     return adaptedPins;

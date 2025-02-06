@@ -39,6 +39,10 @@ export const SavePinToBoardBtn = ({
     setDynamicModal(btnRef, pinId || '');
   };
 
+  const content = lastBoard.name
+    ? lastBoard.name
+    : t?.['boards-list'].profile || 'Perfil';
+
   return (
     <>
       {savedInProfile || board?.id ? (
@@ -58,10 +62,11 @@ export const SavePinToBoardBtn = ({
           onClick={handleModalOpen}
           ref={btnRef}
         >
-          <span className='text-sm overflow-hidden whitespace-nowrap text-ellipsis'>
-            {lastBoard.name
-              ? lastBoard.name
-              : t?.['boards-list'].profile || 'Perfil'}
+          <span
+            className='text-sm overflow-hidden whitespace-nowrap text-ellipsis'
+            title={content}
+          >
+            {content}
           </span>
           <svg
             fill='none'

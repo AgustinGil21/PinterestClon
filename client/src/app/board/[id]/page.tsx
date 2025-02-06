@@ -9,6 +9,7 @@ import { EditBoardModal } from '@/app/boards/edit-board/EditBoardModal';
 import { useEffect } from 'react';
 import { PinInterface } from '@/app/domain/types/pins-structure';
 import { Pin } from '@/app/home-page-components/Pin';
+import { changeDocTitle } from '@/app/libs/changeDocTitle';
 
 interface IParams {
   id: string;
@@ -42,7 +43,11 @@ const BoardPage = ({ params }: Props) => {
     };
 
     fetchData();
-  }, [id]);
+  }, [board, id]);
+
+  useEffect(() => {
+    changeDocTitle(board.name);
+  }, [board]);
 
   return (
     <section className='w-full relative h-full min-h-[90dvh]'>

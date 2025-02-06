@@ -150,11 +150,8 @@ export const serviceGetCreatedPins = async (
         withCredentials: true,
       }
     );
-    console.log(response);
 
     const result = PinCreatedDataSchema.safeParse(response.data.pins);
-
-    console.log(result);
 
     return result.success ? result.data : [];
   } catch (error) {

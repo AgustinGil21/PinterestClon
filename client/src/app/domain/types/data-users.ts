@@ -1,3 +1,5 @@
+import { IPinBoard } from './pins-structure';
+
 export interface OwnerProfileInterface {
   username: string;
   name?: string;
@@ -84,6 +86,8 @@ export interface CreatedPinsInterface {
   adult_content: boolean;
   its_yours?: boolean;
   created_at: string;
+  saved_in_profile: boolean;
+  board?: IPinBoard;
 }
 
 export interface ISingleUserProfileCard {

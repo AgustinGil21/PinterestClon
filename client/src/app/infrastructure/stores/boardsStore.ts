@@ -32,6 +32,7 @@ import {
 } from '@/app/domain/types/boards-interface';
 
 import { StateCreator } from 'zustand';
+import { PinInterface } from '@/app/domain/types/pins-structure';
 
 export interface IBoardsStore {
   createBoardData: ICreateBoard;
@@ -43,7 +44,7 @@ export interface IBoardsStore {
   homeBoards: IBoardPreview[];
   possibleCovers: ICover[];
   searchedBoards: IBoardPreview[];
-  boardPins: IPin[];
+  boardPins: PinInterface[];
   noMoreHomeBoards: boolean;
   noMoreSearchedBoards: boolean;
   noMoreBoardPins: boolean;

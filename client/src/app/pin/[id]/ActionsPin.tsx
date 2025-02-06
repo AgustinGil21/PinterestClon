@@ -35,8 +35,15 @@ const ActionsPin = () => {
           pinBody={pinData.body}
           btnRef={btnRef}
           pinCard
+          board={pinData.board}
+          savedInProfile={pinData.saved_in_profile}
         />
-        <SavePinBtn pinId={pinData.id} />
+        <SavePinBtn
+          pinId={pinData.id}
+          alreadySaved={!!(pinData.saved_in_profile || pinData.board?.id)}
+          savedInProfile={pinData.saved_in_profile}
+          board={pinData.board}
+        />
       </div>
     </div>
   );
