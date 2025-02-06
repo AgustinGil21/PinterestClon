@@ -698,5 +698,191 @@
     }
   },
   "required": "Obligatorio",
+  "info-clon": {
+    "title": "Información sobre el Clon",
+    "description": "Este clon de Pinterest fue desarrollado como proyecto de aprendizaje y estudio sin ningún fin económico redituable. Te permitirá descubrir, guardar y compartir imágenes inspiradoras. Explora una variedad de tableros creados por otros usuarios o sube tus propias ideas.",
+    "main-features": {
+      "title": "Características Principales",
+      "search": {
+        "title": "Descubrimiento y Búsqueda",
+        "description": "Encuentra imágenes, tableros y usuarios mediante un sistema de búsqueda avanzado con opciones de filtrado.",
+        "list": [
+          "Búsqueda inteligente basada en palabras clave y categorías.",
+          "Filtros avanzados para buscar por usuarios, tableros y pines.",
+          "Exploración de perfiles para descubrir contenido personalizado."
+        ]
+      },
+      "boards-&-pins": {
+        "title": "Pines y Tableros",
+        "description": "Guarda imágenes en tableros personalizados y organízalos a tu manera.",
+        "list": [
+          "Creación de tableros con nombres y descripciones personalizadas.",
+          "Guardar pines en tableros de manera sencilla.",
+          "Edición y reubicación de pines dentro de tableros."
+        ]
+      },
+      "creation-&-customization": {
+        "title": "Creación y Personalización de Pines",
+        "description": "Personaliza los pines con imágenes, descripciones y enlaces externos.",
+        "list": [
+          "Sube imágenes desde tu dispositivo o enlázalas desde la web.",
+          "Agrega descripciones personalizadas a cada pin.",
+          "Edita o elimina pines según tus necesidades."
+        ]
+      },
+      "social-interaction": {
+        "title": "Interacción y Social",
+        "description": "Conéctate con la comunidad mediante comentarios, likes y compartiendo contenido.",
+        "list": [
+          "Dar me gusta a pines y comentarios de otros usuarios.",
+          "Dejar comentarios en pines para interactuar con la comunidad.",
+          "Compartir pines en redes sociales o mediante enlaces."
+        ]
+      },
+      "privacy-&-safety": {
+        "title": "Seguridad y Privacidad",
+        "description": "Protegemos tu información y garantizamos que puedas administrar la visibilidad de tus tableros y pines. Puedes hacerlos privados o públicos según tus preferencias.",
+        "list": [
+          "Configuración de privacidad en tableros y pines.",
+          "Opción para ocultar tableros de otros usuarios.",
+          "Control total sobre los permisos de edición y visibilidad."
+        ]
+      },
+      "translation-system": {
+        "title": "Sistema de Traducciones",
+        "description": "La plataforma cuenta con soporte para múltiples idiomas, lo que permite a los usuarios navegar en su idioma preferido.",
+        "list": [
+          "Disponible en Español, Inglés y Portugués.",
+          "Interfaz completamente traducida.",
+          "Selección automática del idioma según la configuración del navegador."
+        ]
+      },
+      "responsive": {
+        "title": "Diseño 100% Responsive",
+        "description": "La aplicación ha sido diseñada para ofrecer una experiencia fluida y optimizada en cualquier dispositivo.",
+        "list": [
+          "Adaptado para celulares, tablets y pantallas de escritorio.",
+          "Interfaz flexible que se ajusta a distintos tamaños de pantalla.",
+          "Experiencia de usuario optimizada para navegación móvil."
+        ]
+      }
+    },
+    "frequent": "Preguntas frecuentes",
+    "faqs": [
+      {
+        "question": "¿Es necesario registrarse?",
+        "answer": "Sí, para poder guardar imágenes y crear tableros, necesitas una cuenta gratuita."
+      },
+      {
+        "question": "¿Puedo subir mis propias imágenes?",
+        "answer": "Sí, puedes cargar imágenes y organizarlas en tableros según tus intereses."
+      },
+      {
+        "question": "¿El uso es gratuito?",
+        "answer": "Sí, todas las funcionalidades del clon están disponibles de manera gratuita."
+      },
+      {
+        "question": "¿Cómo edito mi perfil?",
+        "answer": "Puedes editar tu perfil desde la sección de ajustes, donde puedes cambiar tu foto, nombre y descripción."
+      },
+      {
+        "question": "¿Se pueden descargar los pines?",
+        "answer": "Sí, cada pin tiene una opción para descargar la imagen a tu dispositivo."
+      },
+      {
+        "question": "¿Cómo reporto contenido inapropiado?",
+        "answer": "Puedes reportar cualquier pin o comentario presionando el botón de reporte dentro del mismo."
+      },
+      {
+        "question": "¿Mis datos están seguros?",
+        "answer": "Si, tus datos fueron encriptados antes de ser almacenados en la base de datos."
+      }
+    ]
+  },
+  "technologies": {
+    "development-technologies-&-processes": {
+      "title": "Tecnologías y Proceso de Desarrollo",
+      "description": "Desarrollamos el proyecto con un enfoque en las buenas prácticas de desarrollo, priorizando la modularidad. Se implementaron diferentes patrones y principios de diseño tanto en el frontend como en el backend para buscar garantizar un código limpio y estructurado."
+    },
+    "img": {
+      "title": "Diseño en Figma",
+      "subtitle": "A continuación, se presentan algunas imágenes del diseño inicial que se realizó en Figma antes de la implementación. Estas capturas reflejan el análisis previo de Pinterest para poder determinar cómo desarrollar la UI y qué funcionalidades tendría.",
+      "footer": "Imágenes extraídas del diseño original en Figma, utilizadas como referencia para la implementación del clon."
+    },
+    "code-management-&-collaboration": {
+      "title": "Gestión del Código y Colaboración",
+      "description": "Para asegurar un flujo de trabajo eficiente y estructurado, utilizamos herramientas de control de versiones y gestión de repositorios.",
+      "technologies": {
+        "title": "Tecnologías Utilizadas",
+        "list": [
+          "Git para el control de versiones, facilitando el trabajo colaborativo y el manejo de cambios en el código.",
+          "GitHub como plataforma de alojamiento del repositorio, permitiendo la gestión de ramas para el desarrollo del clon y el seguimiento del progreso del proyecto."
+        ]
+      },
+      "frontend": {
+        "title": "Frontend",
+        "description": "Para la construcción de la interfaz de usuario, se utilizaron tecnologías modernas enfocadas en la eficiencia y el rendimiento. Se aplicaron principios de programación funcional y una arquitectura escalable en capas.",
+        "technologies": {
+          "title": "Tecnologías Utilizadas",
+          "list": [
+            "TypeScript para tipado estático y robustez del código.",
+            "React.js como biblioteca principal para la construcción de componentes reutilizables.",
+            "Next.js para la optimización del rendimiento con Server-Side Rendering (SSR) y Static Site Generation (SSG).",
+            "Tailwind CSS para estilización rápida y diseño responsive.",
+            "Zustand para una gestión de estado ligera y eficiente.",
+            "Zod para validaciones de datos con enfoque tipado.",
+            "React Hook Form para la gestión optimizada de formularios.",
+            "Axios para el consumo eficiente de APIs."
+          ]
+        }
+      },
+      "backend": {
+        "title": "Backend",
+        "description": "Para la lógica del servidor y la persistencia de datos, se optó por tecnologías confiables con un enfoque estructurado en la arquitectura MVC.",
+        "technologies": {
+          "title": "Tecnologías Utilizadas",
+          "list": [
+            "JavaScript como lenguaje principal del backend.",
+            "Express.js como framework ligero y rápido para la creación de API REST.",
+            "PostgreSQL como base de datos relacional para almacenamiento estructurado y eficiente."
+          ]
+        },
+        "img": "Imagen de un panel organizativo en Notion para el desarrollo de un proyecto."
+      }
+    }
+  },
+  "about-us": {
+    "title": "Sobre Nosotros",
+    "description": [
+      "Somos un equipo de",
+      "desarrolladores trainee en formación de 18 y 20 años",
+      ", apasionados por la tecnología y comprometidos con ofrecer",
+      " experiencias de usuario excepcionales",
+      "Para llevar a cabo este clon de Pinterest, combinamos nuestras habilidades y adquirimos nuevos conocimientos en diversas áreas, aplicando",
+      " buenas prácticas de desarrollo "
+    ],
+    "our-philosophy": {
+      "title": "Nuestra Filosofía",
+      "description": [
+        "Creemos en el poder del ",
+        "aprendizaje continuo",
+        " y la colaboración para construir soluciones tecnológicas innovadoras. Buscamos mejorar nuestras habilidades cada día y aplicar las mejores prácticas en desarrollo, priorizando la calidad, la accesibilidad y la eficiencia en cada proyecto."
+      ]
+    },
+    "santino": {
+      "title": "Lucas Santino Steckler",
+      "subtitle": "Frontend Developer",
+      "quot": "Desarrollar el frontend de este proyecto fue un desafió increíble. Aprender a estructurar la UI con eficiencia, aplicar una nueva arquitectura y a optimizar la experiencia del usuario. Fue una gran oportunidad para reforzar mis conocimientos en React, Next.js y Tailwind CSS."
+    },
+    "agustin": {
+      "title": "Agustín Franco Gil",
+      "subtitle": "Backend/Frontend Developer",
+      "quot": "Este proyecto fue muy importante para mí porque gracias a él pude poner en práctica todo lo aprendido en Backend, Frontend y Figma. Siento que fué un paso arriesgado pero que todo el esfuerzo valió la pena ya que me ayudo a darme cuenta de lo que soy capaz."
+    },
+    "whats-next": {
+      "title": "¿Que sigue?",
+      "description": "Una etapa de nuestras vidas esta cerrada, por ende tenemos que seguir adelante con nuevos proyectos que nos pongan a prueba. Este clon será actualizado periódicamente con el objetivo de ir agregando funcionalidades que lo acerquen cada vez mas al producto original. Pero nuestro enfoque principal va a ser el desarrollo de nuestra primera App para mobiles y otros proyectos que vayan surgiendo, los cuales serán mas ambiciosos y únicos."
+    }
+  },
   "errors": {}
 }

@@ -666,6 +666,104 @@ interface IBoard {
 
 type TRequired = string;
 
+interface InfoClon {
+  title: string;
+  description: string;
+  'main-features': MainFeatures;
+  frequent: string;
+  faqs: FAQ[];
+}
+
+interface MainFeatures {
+  title: string;
+  search: FeatureDetail;
+  'boards-&-pins': FeatureDetail;
+  'creation-&-customization': FeatureDetail;
+  'social-interaction': FeatureDetail;
+  'privacy-&-safety': FeatureDetail;
+  'translation-system': FeatureDetail;
+  responsive: FeatureDetail;
+}
+
+interface FeatureDetail {
+  title: string;
+  description: string;
+  list: string[];
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Technologies {
+  'development-technologies-&-processes': TechnologyDetail;
+  img: ImageDetail;
+  'code-management-&-collaboration': CodeManagement;
+}
+
+interface TechnologyDetail {
+  title: string;
+  description: string;
+}
+
+interface ImageDetail {
+  title: string;
+  subtitle: string;
+  footer: string;
+}
+
+interface CodeManagement {
+  title: string;
+  description: string;
+  technologies: TechnologyList;
+  frontend: FrontendBackendDetail;
+  backend: FrontendBackendDetail;
+}
+
+interface TechnologyList {
+  title: string;
+  list: string[];
+}
+
+interface FrontendBackendDetail {
+  title: string;
+  description: string;
+  technologies: TechnologyList;
+  img?: string;
+}
+
+interface AboutUs {
+  title: string;
+  description: string[];
+  'our-philosophy': Philosophy;
+  santino: TeamMember;
+  agustin: TeamMember;
+  'whats-next': WhatsNext;
+}
+
+interface Philosophy {
+  title: string;
+  description: string[];
+}
+
+interface TeamMember {
+  title: string;
+  subtitle: string;
+  quot: string;
+}
+
+interface WhatsNext {
+  title: string;
+  description: string;
+}
+
+export interface Translations {
+  'info-clon': InfoClon;
+  technologies: Technologies;
+  'about-us': AboutUs;
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -694,6 +792,9 @@ export interface ITranslation {
   report: IReport;
   board: IBoard;
   required: TRequired;
+  'info-clon': InfoClon;
+  'about-us': AboutUs;
+  technologies: Technologies;
   errors: Record<string, unknown>;
 }
 

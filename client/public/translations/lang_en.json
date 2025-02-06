@@ -706,6 +706,192 @@
       }
     }
   },
+  "info-clon": {
+    "title": "Clone Information",
+    "description": "This Pinterest clone was developed as a learning and study project with no economic gain. It allows you to discover, save, and share inspiring images. Explore a variety of boards created by other users or upload your own ideas.",
+    "main-features": {
+      "title": "Main Features",
+      "search": {
+        "title": "Discovery and Search",
+        "description": "Find images, boards, and users through an advanced search system with filtering options.",
+        "list": [
+          "Smart search based on keywords and categories.",
+          "Advanced filters to search by users, boards, and pins.",
+          "Profile exploration to discover personalized content."
+        ]
+      },
+      "boards-&-pins": {
+        "title": "Pins and Boards",
+        "description": "Save images to personalized boards and organize them your way.",
+        "list": [
+          "Create boards with custom names and descriptions.",
+          "Easily save pins to boards.",
+          "Edit and relocate pins within boards."
+        ]
+      },
+      "creation-&-customization": {
+        "title": "Pin Creation and Customization",
+        "description": "Customize pins with images, descriptions, and external links.",
+        "list": [
+          "Upload images from your device or link them from the web.",
+          "Add custom descriptions to each pin.",
+          "Edit or delete pins as needed."
+        ]
+      },
+      "social-interaction": {
+        "title": "Social Interaction",
+        "description": "Connect with the community through comments, likes, and sharing content.",
+        "list": [
+          "Like pins and comments from other users.",
+          "Leave comments on pins to interact with the community.",
+          "Share pins on social media or via links."
+        ]
+      },
+      "privacy-&-safety": {
+        "title": "Privacy and Safety",
+        "description": "We protect your information and ensure you can manage the visibility of your boards and pins. You can make them private or public according to your preferences.",
+        "list": [
+          "Privacy settings for boards and pins.",
+          "Option to hide boards from other users.",
+          "Full control over editing and visibility permissions."
+        ]
+      },
+      "translation-system": {
+        "title": "Translation System",
+        "description": "The platform supports multiple languages, allowing users to navigate in their preferred language.",
+        "list": [
+          "Available in Spanish, English, and Portuguese.",
+          "Fully translated interface.",
+          "Automatic language selection based on browser settings."
+        ]
+      },
+      "responsive": {
+        "title": "100% Responsive Design",
+        "description": "The application is designed to provide a smooth and optimized experience on any device.",
+        "list": [
+          "Adapted for mobile phones, tablets, and desktop screens.",
+          "Flexible interface that adjusts to different screen sizes.",
+          "Optimized user experience for mobile navigation."
+        ]
+      }
+    },
+    "frequent": "Frequently Asked Questions",
+    "faqs": [
+      {
+        "question": "Is registration required?",
+        "answer": "Yes, to save images and create boards, you need a free account."
+      },
+      {
+        "question": "Can I upload my own images?",
+        "answer": "Yes, you can upload images and organize them into boards according to your interests."
+      },
+      {
+        "question": "Is it free to use?",
+        "answer": "Yes, all features of the clone are available for free."
+      },
+      {
+        "question": "How do I edit my profile?",
+        "answer": "You can edit your profile from the settings section, where you can change your photo, name, and description."
+      },
+      {
+        "question": "Can pins be downloaded?",
+        "answer": "Yes, each pin has an option to download the image to your device."
+      },
+      {
+        "question": "How do I report inappropriate content?",
+        "answer": "You can report any pin or comment by pressing the report button within it."
+      },
+      {
+        "question": "Is my data secure?",
+        "answer": "Yes, your data is encrypted before being stored in the database."
+      }
+    ]
+  },
+  "technologies": {
+    "development-technologies-&-processes": {
+      "title": "Development Technologies and Processes",
+      "description": "We developed the project with a focus on best development practices, prioritizing modularity. Different design patterns and principles were implemented in both the frontend and backend to ensure clean and structured code."
+    },
+    "img": {
+      "title": "Design in Figma",
+      "subtitle": "Below are some images of the initial design created in Figma before implementation. These captures reflect the prior analysis of Pinterest to determine how to develop the UI and what functionalities it would have.",
+      "footer": "Images extracted from the original design in Figma, used as a reference for the implementation of the clone."
+    },
+    "code-management-&-collaboration": {
+      "title": "Code Management and Collaboration",
+      "description": "To ensure an efficient and structured workflow, we used version control and repository management tools.",
+      "technologies": {
+        "title": "Technologies Used",
+        "list": [
+          "Git for version control, facilitating collaborative work and code change management.",
+          "GitHub as the repository hosting platform, allowing branch management for clone development and project progress tracking."
+        ]
+      },
+      "frontend": {
+        "title": "Frontend",
+        "description": "For building the user interface, modern technologies focused on efficiency and performance were used. Functional programming principles and a scalable layered architecture were applied.",
+        "technologies": {
+          "title": "Technologies Used",
+          "list": [
+            "TypeScript for static typing and code robustness.",
+            "React.js as the main library for building reusable components.",
+            "Next.js for performance optimization with Server-Side Rendering (SSR) and Static Site Generation (SSG).",
+            "Tailwind CSS for quick styling and responsive design.",
+            "Zustand for lightweight and efficient state management.",
+            "Zod for data validation with a typed approach.",
+            "React Hook Form for optimized form management.",
+            "Axios for efficient API consumption."
+          ]
+        }
+      },
+      "backend": {
+        "title": "Backend",
+        "description": "For server logic and data persistence, reliable technologies with a structured focus on MVC architecture were chosen.",
+        "technologies": {
+          "title": "Technologies Used",
+          "list": [
+            "JavaScript as the main backend language.",
+            "Express.js as a lightweight and fast framework for creating REST APIs.",
+            "PostgreSQL as a relational database for structured and efficient storage."
+          ]
+        },
+        "img": "Image of an organizational panel in Notion for project development."
+      }
+    }
+  },
+  "about-us": {
+    "title": "About Us",
+    "description": [
+      "We are a team of",
+      "trainee developers in training aged 18 and 20",
+      ", passionate about technology and committed to providing",
+      " exceptional user experiences",
+      "To carry out this Pinterest clone, we combined our skills and acquired new knowledge in various areas, applying",
+      " good development practices "
+    ],
+    "our-philosophy": {
+      "title": "Our Philosophy",
+      "description": [
+        "We believe in the power of ",
+        "continuous learning",
+        " and collaboration to build innovative technological solutions. We strive to improve our skills every day and apply best development practices, prioritizing quality, accessibility, and efficiency in every project."
+      ]
+    },
+    "santino": {
+      "title": "Lucas Santino Steckler",
+      "subtitle": "Frontend Developer",
+      "quot": "Developing the frontend of this project was an incredible challenge. Learning to structure the UI efficiently, apply a new architecture, and optimize the user experience. It was a great opportunity to reinforce my knowledge in React, Next.js, and Tailwind CSS."
+    },
+    "agustin": {
+      "title": "Agustín Franco Gil",
+      "subtitle": "Backend/Frontend Developer",
+      "quot": "This project was very important to me because it allowed me to put into practice everything I learned in Backend, Frontend, and Figma. I feel it was a risky step, but all the effort was worth it as it helped me realize what I am capable of."
+    },
+    "whats-next": {
+      "title": "What's Next?",
+      "description": "A stage of our lives is closed, so we have to move forward with new projects that challenge us. This clone will be updated periodically with the aim of adding functionalities that bring it closer to the original product. But our main focus will be the development of our first mobile app and other emerging projects, which will be more ambitious and unique."
+    }
+  },
   "required": "Required",
   "errors": {}
 }
