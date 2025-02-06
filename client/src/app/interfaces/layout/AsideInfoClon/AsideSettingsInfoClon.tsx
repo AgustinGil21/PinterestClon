@@ -6,7 +6,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const AsideSettingsInfoClon = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const { openMenuAsideInfoClon, isOpenMenuAsideInfoClonResponsive } =
+  const { openMenuAsideInfoClon, isOpenMenuAsideInfoClonResponsive, t } =
     useAppsStore();
 
   useEffect(() => {
@@ -55,7 +55,8 @@ const AsideSettingsInfoClon = () => {
                       : ''
                   } hover:bg-gray-200 px-2 py-1 rounded-md dark:hover:bg-slate-800`}
                 >
-                  Informacion del clon
+                  {t?.['clone-information-aside']['info-clon'] ||
+                    'Información del clon'}
                 </div>
               </LinkNavigate>
               <LinkNavigate href='/technologies' classProps=''>
@@ -67,7 +68,8 @@ const AsideSettingsInfoClon = () => {
                       : ''
                   } px-2 py-1 rounded-md hover:bg-gray-200 dark:hover:bg-slate-800`}
                 >
-                  Tecnologias y proceso de desarollo
+                  {t?.['clone-information-aside'].technologies ||
+                    'Tecnologías y proceso de desarrollo'}
                 </div>
               </LinkNavigate>
               <LinkNavigate href='/about-us' classProps=''>
@@ -77,7 +79,8 @@ const AsideSettingsInfoClon = () => {
                     pathname === '/about-us' ? 'link-settings-aside-active' : ''
                   } rounded-md hover:bg-gray-200 px-2 py-1 dark:hover:bg-slate-800`}
                 >
-                  Sobre nosotros
+                  {t?.['clone-information-aside']['about-us'] ||
+                    'Sobre nosotros'}
                 </div>
               </LinkNavigate>
             </ul>

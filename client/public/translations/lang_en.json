@@ -893,5 +893,10 @@
     }
   },
   "required": "Required",
+  "clone-information-aside": {
+    "info-clon": "Clone information",
+    "technologies": "Technologies and development process",
+    "about-us": "About us"
+  },
   "errors": {}
 }

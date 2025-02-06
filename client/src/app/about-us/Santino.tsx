@@ -1,7 +1,10 @@
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import Image from 'next/image';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 const Santino = () => {
+  const { t } = useAppsStore();
+
   return (
     <div className='flex flex-col items-center text-center'>
       <Image
@@ -12,9 +15,11 @@ const Santino = () => {
         height={100}
       />
 
-      <h3 className='text-[20px] font-semibold mt-4'>Lucas Santino Steckler</h3>
+      <h3 className='text-[20px] font-semibold mt-4'>
+        {t?.['about-us'].santino.title || 'Lucas Santino Steckler'}
+      </h3>
       <p className='text-sm text-gray-600 dark:text-gray-400'>
-        Frontend Developer
+        {t?.['about-us'].santino.subtitle || 'Frontend Developer'}
       </p>
 
       <div className='flex gap-4 mt-3'>
@@ -37,11 +42,14 @@ const Santino = () => {
       </div>
 
       <blockquote className='mt-4 text-gray-500 dark:text-gray-400 italic text-sm max-w-[450px] mx-auto'>
-        &quot;Desarrollar el frontend de este proyecto fue un desaf&iacute;o
-        increíble. Aprend&iacute; a estructurar la UI con eficiencia, aplicar
+        &quot;
+        {t?.['about-us'].santino.quot ||
+          `Desarrollar el frontend de este proyecto fue un desafío
+        increíble. Aprender a estructurar la UI con eficiencia, aplicar
         una nueva arquitectura y a optimizar la experiencia del usuario. Fue una
         gran oportunidad para reforzar mis conocimientos en React, Next.js y
-        Tailwind CSS.&quot;
+        Tailwind CSS.`}
+        &quot;
       </blockquote>
     </div>
   );

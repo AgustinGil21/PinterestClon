@@ -1,10 +1,13 @@
 import Image from 'next/image';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface InterfaceImageNotion {
   setSelectedImage: (src: string | null) => void;
 }
 
 const ImageNotion = ({ setSelectedImage }: InterfaceImageNotion) => {
+  const { t } = useAppsStore();
+
   return (
     <div className='mt-4 flex flex-col gap-4'>
       {['/notion1.png'].map((src, index) => (
@@ -23,7 +26,8 @@ const ImageNotion = ({ setSelectedImage }: InterfaceImageNotion) => {
         </div>
       ))}
       <p className='text-xs text-gray-500 dark:text-gray-400 text-center mt-2'>
-        Imágen de notion organizativo del desarollo
+        {t?.technologies['code-management-&-collaboration'].backend.img ||
+          'Imagen de notion organizativo del desarrollo'}
       </p>
     </div>
   );

@@ -1,41 +1,57 @@
 import { useState } from 'react';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 const FaQ = () => {
+  const { t } = useAppsStore();
   const [openIndex, setOpenIndex] = useState(0);
 
   const faqs = [
     {
-      question: '¿Es necesario registrarse?',
+      question:
+        t?.['info-clon'].faqs[0].question || '¿Es necesario registrarse?',
       answer:
+        t?.['info-clon'].faqs[0].answer ||
         'Sí, para poder guardar imágenes y crear tableros, necesitas una cuenta gratuita.',
     },
     {
-      question: '¿Puedo subir mis propias imágenes?',
+      question:
+        t?.['info-clon'].faqs[1].question ||
+        '¿Puedo subir mis propias imágenes?',
       answer:
+        t?.['info-clon'].faqs[1].answer ||
         'Sí, puedes cargar imágenes y organizarlas en tableros según tus intereses.',
     },
     {
-      question: '¿El uso es gratuito?',
+      question: t?.['info-clon'].faqs[2].question || '¿El uso es gratuito?',
       answer:
+        t?.['info-clon'].faqs[2].answer ||
         'Sí, todas las funcionalidades del clon están disponibles de manera gratuita.',
     },
     {
-      question: '¿Cómo edito mi perfil?',
+      question: t?.['info-clon'].faqs[3].question || '¿Cómo edito mi perfil?',
       answer:
+        t?.['info-clon'].faqs[3].answer ||
         'Puedes editar tu perfil desde la sección de ajustes, donde puedes cambiar tu foto, nombre y descripción.',
     },
     {
-      question: '¿Se pueden descargar los pines?',
+      question:
+        t?.['info-clon'].faqs[4].question || '¿Se pueden descargar los pines?',
       answer:
+        t?.['info-clon'].faqs[4].answer ||
         'Sí, cada pin tiene una opción para descargar la imagen a tu dispositivo.',
     },
     {
-      question: '¿Cómo reporto contenido inapropiado?',
+      question:
+        t?.['info-clon'].faqs[5].question ||
+        '¿Cómo reporto contenido inapropiado?',
       answer:
+        t?.['info-clon'].faqs[5].answer ||
         'Puedes reportar cualquier pin o comentario presionando el botón de reporte dentro del mismo.',
     },
     {
-      question: '¿Mis datos están seguros?',
+      question:
+        t?.['info-clon'].faqs[6].question || '¿Mis datos están seguros?',
       answer:
+        t?.['info-clon'].faqs[6].answer ||
         'Si, tus datos fueron encriptados antes de ser almacenados en la base de datos.',
     },
   ];
@@ -43,7 +59,7 @@ const FaQ = () => {
   return (
     <div>
       <h2 className='text-[20px] font-semibold text-black dark:text-white'>
-        Preguntas Frecuentes
+        {t?.['info-clon'].frequent || 'Preguntas Frecuentes'}
       </h2>
       <div className='mt-2 space-y-2'>
         {faqs.map((faq, index) => (

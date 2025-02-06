@@ -764,6 +764,12 @@ export interface Translations {
   'about-us': AboutUs;
 }
 
+interface CloneInformationAside {
+  'info-clon': string;
+  technologies: string;
+  'about-us': string;
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -795,6 +801,7 @@ export interface ITranslation {
   'info-clon': InfoClon;
   'about-us': AboutUs;
   technologies: Technologies;
+  'clone-information-aside': CloneInformationAside;
   errors: Record<string, unknown>;
 }
 

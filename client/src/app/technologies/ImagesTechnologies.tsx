@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface InterfaceImagesTechnologies {
   setSelectedImage: (src: string) => void;
@@ -7,16 +8,19 @@ interface InterfaceImagesTechnologies {
 const ImagesTechnologies = ({
   setSelectedImage,
 }: InterfaceImagesTechnologies) => {
+  const { t } = useAppsStore();
+
   return (
     <div>
       <h2 className='text-[22px] font-semibold text-black dark:text-white'>
-        Diseño en Figma
+        {t?.technologies.img.title || 'Diseño en Figma'}
       </h2>
       <p className='text-sm max-w-[480px] mt-2'>
-        A continuación, se presentan algunas imágenes del diseño inicial que se
+        {t?.technologies.img.subtitle ||
+          `A continuación, se presentan algunas imágenes del diseño inicial que se
         realizó en Figma antes de la implementación. Estas capturas reflejan el
         análisis previo de Pinterest para poder determinar cómo desarrollar la
-        UI y qué funcionalidades tendría.
+        UI y qué funcionalidades tendría.`}
       </p>
 
       <div className='mt-4 flex flex-col gap-4'>
@@ -37,8 +41,9 @@ const ImagesTechnologies = ({
         ))}
       </div>
       <p className='text-xs text-gray-500 dark:text-gray-400 text-center mt-2'>
-        Imágenes extraídas del diseño original en Figma, utilizadas como
-        referencia para la implementación del clon.
+        {t?.technologies.img.footer ||
+          `Imágenes extraídas del diseño original en Figma, utilizadas como
+        referencia para la implementación del clon.`}
       </p>
     </div>
   );

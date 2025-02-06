@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import { FaGithub } from 'react-icons/fa';
 import { FaLinkedin } from 'react-icons/fa';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 const Agustin = () => {
+  const { t } = useAppsStore();
+
   return (
     <div className='flex flex-col items-center text-center'>
       <Image
@@ -12,9 +15,11 @@ const Agustin = () => {
         width={100}
         height={100}
       />
-      <h3 className='text-[20px] font-semibold mt-4'>Agustín Gil</h3>
+      <h3 className='text-[20px] font-semibold mt-4'>
+        {t?.['about-us'].agustin.title || 'Agustín Gil'}
+      </h3>
       <p className='text-sm text-gray-600 dark:text-gray-400'>
-        Backend/Frontend Developer
+        {t?.['about-us'].agustin.subtitle || 'Backend/Frontend Developer'}
       </p>
       <div className='flex gap-4 mt-3'>
         <a
@@ -35,10 +40,13 @@ const Agustin = () => {
         </a>
       </div>
       <blockquote className='mt-4 text-gray-500 dark:text-gray-400 italic text-sm max-w-[450px] mx-auto'>
-        &quot;Este proyecto fue muy importante para mí porque gracias a él pude
+        &quot;
+        {t?.['about-us'].agustin.quot ||
+          `Este proyecto fue muy importante para mí porque gracias a él pude
         poner en práctica todo lo aprendido en Backend, Frontend y Figma. Siento
         que fué un paso arriesgado pero que todo el esfuerzo valió la pena ya
-        que me ayudo a darme cuenta de lo que soy capaz. &quot;
+        que me ayudo a darme cuenta de lo que soy capaz.`}
+        &quot;
       </blockquote>
     </div>
   );

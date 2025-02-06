@@ -862,5 +862,10 @@
     }
   },
   "required": "Obrigatório",
+  "clone-information-aside": {
+    "info-clon": "Informações sobre o clone",
+    "technologies": "Tecnologias e processo de desenvolvimento",
+    "about-us": "Sobre nós"
+  },
   "errors": {}
 }
