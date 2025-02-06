@@ -13,6 +13,7 @@ import CreatesOrSavesLink from '../user-profile/CreatesOrSavesLink';
 import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
 import BoardsGrid from '../boards/boards-preview/BoardsGrid';
+import { SavedPins } from './SavedPins';
 
 interface Props {
   params: { username: string };
@@ -159,7 +160,8 @@ export default function UserProfile({ params }: Props) {
           ))}
         </Masonry>
       ) : (
-        <BoardsGrid boards={userBoards} />
+        // <BoardsGrid boards={userBoards} />
+        <SavedPins />
       )}
     </section>
   );

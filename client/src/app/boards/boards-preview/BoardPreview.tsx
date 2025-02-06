@@ -1,19 +1,9 @@
-import { IBoardPreview } from '@/app/domain/types/boards-interface';
+import { IUserBoard } from '@/app/domain/types/boards-interface';
 import BoardPreviewBottom from './BoardPreviewBottom';
 import BoardPreviewTop from './BoardPreviewTop';
 
-interface Data {
-  id: string;
-  name: string;
-  created_at: Date | string;
-  pins_count: number;
-  cover?: string;
-  collage?: (string | undefined)[];
-  its_yours?: boolean;
-}
-
 interface BoardsPreviewProps {
-  props: IBoardPreview;
+  props: IUserBoard;
 }
 
 const BoardPreview = ({ props }: BoardsPreviewProps) => {
