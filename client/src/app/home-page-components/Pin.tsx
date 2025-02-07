@@ -43,7 +43,7 @@ export const Pin = ({ elem, className }: PinProps) => {
 
   return (
     <>
-      <section className={`${elem.className} ${className}`}>
+      <section className={`${elem.className} ${className} !z-0`}>
         {!isLoaded && elem.username ? (
           <PinSkeleton />
         ) : (

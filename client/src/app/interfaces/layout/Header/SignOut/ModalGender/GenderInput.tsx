@@ -20,10 +20,10 @@ const GenderInput = ({
   defaultValue,
 }: GenderInputInterface) => {
   return (
-    <div className='flex flex-row-reverse gap-4 items-center'>
+    <div className='flex flex-row-reverse gap-2 items-center'>
       <label
-        htmlFor={textLabel}
-        className='text-black text-sm dark:text-white text-nowrap'
+        htmlFor={id}
+        className='text-black text-sm dark:text-white text-nowrap hover:cursor-pointer'
       >
         {textLabel}
       </label>

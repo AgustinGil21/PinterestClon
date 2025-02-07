@@ -1,6 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { PinInterface } from '../domain/types/pins-structure';
 import { PinBodyControls } from './PinBodyControls';
+import { AdultContentPreview } from './AdultContentPreview';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface Props {
   elem: PinInterface;
@@ -31,14 +33,20 @@ export const PinBody = ({ elem }: Props) => {
   };
 
   return (
-    <article className='card-top'>
-      <img
-        src={elem.body}
-        className='card-body w-full h-60 object-cover'
-        alt={elem.alt_text}
-        onClick={handleClick}
-      />
-      <PinBodyControls elem={elem} />
+    <article className={`card-top relative inline-block`}>
+      {elem.adult_content ? (
+        <AdultContentPreview pinID={elem.pin_id} />
+      ) : (
+        <>
+          <img
+            src={elem.body}
+            className={`card-body w-full h-60 object-cover z-0`}
+            alt={elem.alt_text}
+            onClick={handleClick}
+          />
+          <PinBodyControls elem={elem} />
+        </>
+      )}
     </article>
   );
 };

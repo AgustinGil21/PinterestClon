@@ -16,6 +16,7 @@ import PinMoreOptionsModal from './home-page-components/PinMoreOptionsModal';
 import { DynamicShareBoardModal } from './board/DynamicShareBoardModal';
 import { DynamicMoreOptionsBoardModal } from './board/DynamicMoreOptionsBoardModal';
 import AsideSettingsInfoClon from './interfaces/layout/AsideInfoClon/AsideSettingsInfoClon';
+import { AdultContentModal } from './home-page-components/AdultContentModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
     isPinMoreOptionModalOpen,
     shareBoardModalIsOpen,
     boardMoreOptionsModalIsOpen,
+    adultContentModalIsOpen,
   } = useAppsStore();
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
@@ -118,6 +120,7 @@ export default function RootLayout({
           {isPinMoreOptionModalOpen && <PinMoreOptionsModal />}
           {shareBoardModalIsOpen && <DynamicShareBoardModal />}
           {boardMoreOptionsModalIsOpen && <DynamicMoreOptionsBoardModal />}
+          {adultContentModalIsOpen && <AdultContentModal />}
         </main>
       </body>
     </html>

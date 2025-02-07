@@ -10,12 +10,16 @@ export const SavedPins = () => {
   return (
     <section className='flex flex-col gap-5'>
       <BoardsGrid boards={userBoards} />
-      <hr />
-      <Masonry>
-        {savedPins.map((pin: PinInterface) => (
-          <Pin elem={pin} key={pin.pin_id} />
-        ))}
-      </Masonry>
+      {savedPins.length > 0 && (
+        <>
+          <hr />
+          <Masonry>
+            {savedPins.map((pin: PinInterface) => (
+              <Pin elem={pin} key={pin.pin_id} />
+            ))}
+          </Masonry>
+        </>
+      )}
     </section>
   );
 };

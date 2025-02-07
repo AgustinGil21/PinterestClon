@@ -28,7 +28,7 @@ const GendersAdmin = ({
       <span className='text-[12px]'>
         {t?.['account-management']['personal-info'].gender.label || 'Género'}
       </span>
-      <div className='flex gap-4 md:flex-row flex-col items-start'>
+      <div className='flex gap-6 md:flex-row flex-col items-start'>
         {genders.map((elem) => (
           <GenderInput
             register={register}

@@ -110,8 +110,8 @@ export default function UserProfile({ params }: Props) {
   }
 
   return (
-    <section className='p-5 min-h-screen flex w-full flex-col relative'>
-      <div className='flex w-full flex-col items-center'>
+    <section className='py-5 min-h-screen flex w-full flex-col relative'>
+      <div className='flex w-full flex-col items-center z-30'>
         <AvatarUser
           data={dataSearchUserProfile}
           classProps='w-[110px] h-[110px]'

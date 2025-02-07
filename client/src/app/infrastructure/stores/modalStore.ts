@@ -120,6 +120,10 @@ export interface ModalStateInterface {
 
   pinSaved?: PinSaved;
   setPinSaved: (data: PinSaved) => void;
+
+  adultContentModalIsOpen: boolean;
+  adultContentPinID?: string;
+  setAdultContentModal: (pinID?: string) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -173,6 +177,8 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
 
   editBoardID: '',
   editBoardModalIsOpen: false,
+
+  adultContentModalIsOpen: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -414,4 +420,13 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       pinSaved: data,
     });
   },
+
+  setAdultContentModal: (pinID?: string) => {
+    set((state) => ({
+      adultContentModalIsOpen: !state.adultContentModalIsOpen,
+      adultContentPinID: pinID,
+    }));
+  },
+
+  
 });

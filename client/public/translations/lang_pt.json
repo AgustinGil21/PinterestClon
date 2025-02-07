@@ -867,5 +867,17 @@
     "technologies": "Tecnologias e processo de desenvolvimento",
     "about-us": "Sobre nós"
   },
+  "adult": {
+    "pin-preview": "Conteúdo sensível",
+    "modal": {
+      "title": "Esta publicação contém conteúdo explícito",
+      "description": "Esta publicação está marcada como conteúdo adulto. O acesso é de sua responsabilidade. Pode conter nudez, portanto, recomendamos cautela.",
+      "buttons": {
+        "continue": "Continuar",
+        "cancel": "Cancelar"
+      }
+    }
+  },
+
   "errors": {}
 }

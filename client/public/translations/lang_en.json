@@ -898,5 +898,17 @@
     "technologies": "Technologies and development process",
     "about-us": "About us"
   },
+  "adult": {
+    "pin-preview": "Sensitive content",
+    "modal": {
+      "title": "This post contains explicit content",
+      "description": "This post is marked as adult content. Access is at your own discretion. It may contain nudity, so we recommend caution.",
+      "buttons": {
+        "continue": "Continue",
+        "cancel": "Cancel"
+      }
+    }
+  },
+
   "errors": {}
 }

@@ -770,6 +770,18 @@ interface CloneInformationAside {
   'about-us': string;
 }
 
+interface AdultContent {
+  'pin-preview': string;
+  modal: {
+    title: string;
+    description: string;
+    buttons: {
+      continue: string;
+      cancel: string;
+    };
+  };
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -802,6 +814,7 @@ export interface ITranslation {
   'about-us': AboutUs;
   technologies: Technologies;
   'clone-information-aside': CloneInformationAside;
+  adult: AdultContent;
   errors: Record<string, unknown>;
 }
 
