@@ -16,10 +16,7 @@ export const useDynamicModalPosition = ({
   modalHeight,
   modalWidth,
 }: Props) => {
-  const [position, setPosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const {
     left: btnLeft,
@@ -33,14 +30,19 @@ export const useDynamicModalPosition = ({
 
     const scrollY = window.scrollY;
     const viewportBottom = scrollY + window.innerHeight;
+    const viewportRight = window.innerWidth;
 
     let x = btnLeft;
     let y = btnBottom + btnMargin;
 
+    // Verificar si entra en la derecha
+    const fitsRight = btnRight + modalWidth + padding < viewportRight;
+    // Verificar si entre en la izquierda
+    const fitsLeft = btnLeft - modalWidth - padding > 0;
+
     // Si se sale por la derecha
-    if (x + modalWidth > window.innerWidth) {
-      // Para considerar el scrollbar
-      x = window.innerWidth - modalWidth - padding - 24;
+    if (x + modalWidth > viewportRight) {
+      x = viewportRight - modalWidth - padding - 24;
     }
 
     // Si se sale por la izquierda
@@ -53,23 +55,25 @@ export const useDynamicModalPosition = ({
       y = btnTop - modalHeight - btnMargin;
     }
 
-    // Si se sale por arriba o queda fuera del viewport por el scroll
-    if (y < scrollY + padding) {
-      y = scrollY + padding;
+    // Si no entra ni arriba ni abajo, intenta posicionarse
+    // en alguno de los lados que tenga disponible.
+    if (y < scrollY + padding || y + modalHeight > viewportBottom) {
+      if (fitsRight) {
+        x = btnRight + btnMargin;
+        y = btnTop;
+      } else if (fitsLeft) {
+        x = btnLeft - modalWidth - btnMargin;
+        y = btnTop;
+      }
     }
 
     setPosition({ x, y });
   };
 
   useEffect(() => {
-    // Posición inicial
     calculatePosition();
-
-    const handleScroll = () => calculatePosition();
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', calculatePosition);
+    return () => window.removeEventListener('scroll', calculatePosition);
   }, [
     btnLeft,
     btnTop,

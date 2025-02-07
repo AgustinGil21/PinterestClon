@@ -57,8 +57,8 @@ export const UserProfileSearchCard = ({ user }: Props) => {
             <Follow
               id={user.id}
               following={user.following}
-              classPropsFalseIsFollowing=' text-black bg-searchBg group-hover:bg-[#e0e0e0] hover:bg-[#d6d6d6] px-5 py-3 flex justify-center items-center '
-              classPropsTrueIsFollowing='bg-black text-white px-5 py-3 flex justify-center items-center'
+              classPropsFalseIsFollowing=' text-black bg-searchBg group-hover:bg-[#e0e0e0] group-hover:hover:bg-[#d6d6d6] px-5 py-3 flex justify-center items-center '
+              classPropsTrueIsFollowing='bg-black text-white px-5 py-3 flex justify-center items-center group-hover:hover:bg-[#333333]'
             />
           )}
         </article>
