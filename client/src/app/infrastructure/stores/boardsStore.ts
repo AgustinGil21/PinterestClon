@@ -173,7 +173,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     }
 
     if (page === 1) {
-      set({ searchedBoards: [], noMoreSearchedBoards: false });
+      set({ noMoreSearchedBoards: false });
     }
 
     try {

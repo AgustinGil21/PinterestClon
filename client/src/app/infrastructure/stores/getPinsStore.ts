@@ -103,7 +103,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
     // Si es la primera búsqueda, limpiamos los resultados previos y restablecemos noMoreSearchPins
     if (page === 1) {
-      set({ searchPins: [], noMoreSearchPins: false });
+      set({ noMoreSearchPins: false });
     }
 
     // Si ya no hay más datos y no estamos en la primera búsqueda, evitamos más llamadas
@@ -114,6 +114,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
     try {
       const response = await getSearchPinsCase(value, page, limit);
+      console.log(response);
 
       if (Array.isArray(response) && response.length > 0) {
         const uniqueSearchPins = getUniqueItems(response, searchPins, 'pin_id');

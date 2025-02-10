@@ -22,15 +22,40 @@ const useSearchData = () => {
     value,
     filterState,
     updateDataSearch,
+    updateStateBoards,
+    updateDataUsersSearch,
     updateValueSearchInput,
     searchBoards,
+    isModalSearchHeaderOpen,
     getSearchPins,
     searchUsers,
   } = useAppsStore();
 
+  useEffect(() => {
+    if (page === 1) return;
+
+    if (filterState === 'tableros') {
+      searchBoards({ value: value, page: page, limit: boardsLimit });
+      return;
+    }
+
+    if (filterState === 'pines') {
+      getSearchPins(value, page, pinsLimit);
+      return;
+    }
+
+    if (filterState === 'perfiles') {
+      searchUsers({ value: value, page: page, limit: 25 });
+      return;
+    }
+  }, [page]);
+
   const handleSearch = async (query: string) => {
     localStorage.setItem('searchInputValue', query);
     updateDataSearch('value', query);
+    updateDataSearch('searchPins', []),
+      updateStateBoards('searchedBoards', []),
+      updateDataUsersSearch(' usersProfile', []);
     updateValueSearchInput(value);
 
     if (filterState === 'tableros') {

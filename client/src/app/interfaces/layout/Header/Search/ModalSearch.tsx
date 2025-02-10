@@ -15,22 +15,17 @@ interface ModalStateProps {
   page: number;
   limit: number;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSearch: (query: string) => void;
 }
 
 const ModalSearch = ({
   modalRef,
   pinsSuggestions,
+  handleSearch,
   limit,
   setModal,
 }: ModalStateProps) => {
-  const { valuesSearch, value, getSearchPins, searchBoards, searchUsers } =
-    useAppsStore();
-
-  const { handleSearch } = useSearchData({
-    getSearchBoards: searchBoards,
-    getSearchPins: getSearchPins,
-    getSearchUsers: searchUsers,
-  });
+  const { valuesSearch, value } = useAppsStore();
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -74,7 +69,7 @@ const ModalSearch = ({
         {value.length > 0 && (
           <div className='mt-1.5 dark:text-white'>
             {pinsSuggestions.map((elem, index) => (
-              <div>
+              <div key={index}>
                 {elem.user_username ? (
                   <SearchUser
                     elem={elem}
