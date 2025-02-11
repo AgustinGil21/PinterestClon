@@ -4,7 +4,6 @@ import ModalSearch from './ModalSearch';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 import CloseSearchIcon from '@/app/interfaces/components/icons/CloseSearchIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import useSearchData from '@/app/interfaces/hooks/useSearchData';
 
@@ -12,48 +11,52 @@ const SearchInput = () => {
   const {
     value,
     updateDataSearch,
-    getSearchPins,
     suggestions,
-    updateValueSearchInput,
-    searchUsers,
+    isModalSearchHeaderOpen,
+    modalSearchHeaderOpen,
     getSuggestions,
     previousPin,
-    resetPage,
-    searchBoards,
     page,
     t,
   } = useAppsStore();
   const { handleSearch } = useSearchData();
   const [isFocused, setIsFocused] = useState(false);
   const [valueCurrent, setValueCurrent] = useState(value);
-  const [modalState, setModal] = useState(false);
   const [pinsSuggestions, setPinsSuggestions] = useState(suggestions);
 
   const limit = 25;
   const pathname = usePathname();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { modalRef } = useCloseModal({ setModal, inputRef });
+  const { modalRef } = useCloseModal({
+    setModal: modalSearchHeaderOpen,
+    inputRef,
+  });
+
+  useEffect(() => {
+    setValueCurrent('');
+  }, [value]);
 
   useEffect(() => {
     getSuggestions();
   }, [previousPin]);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isModalSearchHeaderOpen) modalSearchHeaderOpen();
     const newValue = e.target.value;
     updateDataSearch('value', newValue);
     localStorage.setItem('searchInputValue', newValue);
   };
 
   const handleClick = () => {
-    setModal(false);
+    modalSearchHeaderOpen();
     updateDataSearch('value', '');
     localStorage.removeItem('searchInputValue');
   };
 
   const handleOpenModal = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setModal(true);
+    modalSearchHeaderOpen();
   };
 
   const handleSubmit = async (
@@ -62,11 +65,10 @@ const SearchInput = () => {
       | React.KeyboardEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
+    modalSearchHeaderOpen();
     if (value === '' || valueCurrent === value) return;
     setValueCurrent(value);
     handleSearch(value);
-
-    setModal(false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -124,7 +126,7 @@ const SearchInput = () => {
           </div>
         )}
 
-        {modalState && (
+        {isModalSearchHeaderOpen && (
           <button
             type='button'
             className='absolute top-1/2 right-0 transform -translate-y-1/2 cursor-pointer hover:bg-gray-300 px-3 py-[12.1px] rounded-full'
@@ -134,11 +136,12 @@ const SearchInput = () => {
           </button>
         )}
 
-        {modalState && (
+        {isModalSearchHeaderOpen && (
           <ModalSearch
             modalRef={modalRef}
             pinsSuggestions={pinsSuggestions}
-            setModal={setModal}
+            setModal={modalSearchHeaderOpen}
+            handleSearch={handleSearch}
             page={page}
             limit={limit}
           />

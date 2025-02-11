@@ -8,6 +8,7 @@ import { getSearchPinsCase } from '@/app/application/use-cases/home/getSearchPin
 import { getSuggestionsCase } from '@/app/application/use-cases/header/getSuggestions';
 import { getPinSearchCategoriesCase } from '@/app/application/use-cases/home/getSearchForCategoryPins';
 import { getUniqueItems } from '@/app/libs/getUniqueItems';
+import { usePathname } from 'next/navigation';
 
 export interface homePinsStoreInterface {
   homePins: PinInterface[];
@@ -101,12 +102,10 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
   getSearchPins: async (value: string, page: number, limit: number) => {
     const { searchPins, noMoreSearchPins } = get();
 
-    // Si es la primera búsqueda, limpiamos los resultados previos y restablecemos noMoreSearchPins
     if (page === 1) {
-      set({ searchPins: [], noMoreSearchPins: false });
+      set({ noMoreSearchPins: false });
     }
 
-    // Si ya no hay más datos y no estamos en la primera búsqueda, evitamos más llamadas
     if (noMoreSearchPins && page > 1) {
       console.log('No hay más resultados para esta búsqueda.');
       return;
@@ -114,6 +113,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
 
     try {
       const response = await getSearchPinsCase(value, page, limit);
+      console.log(response);
 
       if (Array.isArray(response) && response.length > 0) {
         const uniqueSearchPins = getUniqueItems(response, searchPins, 'pin_id');

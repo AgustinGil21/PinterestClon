@@ -54,6 +54,10 @@ export interface UserDataStoreInterface {
   ) => Promise<void>;
   savePinToProfile: (id: string) => Promise<void>;
   removePinFromProfile: (id: string) => Promise<void>;
+  updateDataUsersSearch: (
+    store: string,
+    value: string | number | [] | boolean
+  ) => void;
 }
 
 export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
@@ -123,7 +127,7 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
     }
 
     if (page === 1) {
-      set({ usersProfile: [], noMoreUsers: false });
+      set({ noMoreUsers: false });
     }
 
     try {
@@ -285,5 +289,14 @@ export const createUserDataStore: StateCreator<UserDataStoreInterface> = (
 
   removePinFromProfile: async (id: string): Promise<void> => {
     const response = await removePinFromProfileUseCase(id);
+  },
+  updateDataUsersSearch: async (
+    store: string,
+    value: string | number | [] | boolean
+  ) => {
+    set((state) => ({
+      ...state,
+      [store]: value,
+    }));
   },
 });

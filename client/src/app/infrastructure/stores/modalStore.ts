@@ -124,6 +124,8 @@ export interface ModalStateInterface {
   adultContentModalIsOpen: boolean;
   adultContentPinID?: string;
   setAdultContentModal: (pinID?: string) => void;
+  isModalSearchHeaderOpen: boolean;
+  modalSearchHeaderOpen: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -179,6 +181,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   editBoardModalIsOpen: false,
 
   adultContentModalIsOpen: false,
+  isModalSearchHeaderOpen: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -427,6 +430,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       adultContentPinID: pinID,
     }));
   },
-
-  
+  modalSearchHeaderOpen: () => {
+    set((state) => ({
+      isModalSearchHeaderOpen: !state.isModalSearchHeaderOpen,
+    }));
+  },
 });

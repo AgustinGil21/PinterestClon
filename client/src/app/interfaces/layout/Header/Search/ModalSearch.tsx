@@ -7,32 +7,40 @@ import SearchUser from './SearchUser';
 import SavePinsButton from './SavePinsButton';
 import CategoryGroups from './CategoryGroups';
 import LabelsSearch from './LabelsSearch';
-import useSearchData from '@/app/interfaces/hooks/useSearchData';
 
 interface ModalStateProps {
   modalRef: RefObject<HTMLDivElement>;
   pinsSuggestions: SuggestionsInterface[];
   page: number;
   limit: number;
-  setModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setModal: () => void;
+  handleSearch: (query: string) => void;
 }
 
 const ModalSearch = ({
   modalRef,
   pinsSuggestions,
+  handleSearch,
   limit,
   setModal,
 }: ModalStateProps) => {
-  const { valuesSearch, value, getSearchPins, searchBoards, searchUsers } =
-    useAppsStore();
-
-  const { handleSearch } = useSearchData({
-    getSearchBoards: searchBoards,
-    getSearchPins: getSearchPins,
-    getSearchUsers: searchUsers,
-  });
+  const { valuesSearch, value } = useAppsStore();
+  const [suggestions, setSuggestions] = useState(pinsSuggestions);
 
   const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const uniqueSuggestions = Array.from(
+      new Map(
+        pinsSuggestions.map((item) => [
+          item.user_username || item.pin_alt_text,
+          item,
+        ])
+      ).values()
+    );
+
+    setSuggestions(uniqueSuggestions);
+  }, [pinsSuggestions]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,8 +54,8 @@ const ModalSearch = ({
   }, []);
 
   const handleClick = async (elem: string) => {
+    setModal();
     handleSearch(elem);
-    setModal(false);
   };
 
   return (
@@ -73,8 +81,8 @@ const ModalSearch = ({
 
         {value.length > 0 && (
           <div className='mt-1.5 dark:text-white'>
-            {pinsSuggestions.map((elem, index) => (
-              <div>
+            {suggestions.map((elem, index) => (
+              <div key={index}>
                 {elem.user_username ? (
                   <SearchUser
                     elem={elem}
