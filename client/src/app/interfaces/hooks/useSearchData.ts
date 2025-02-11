@@ -1,6 +1,6 @@
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useGetLimit } from '@/app/hooks/useGetLimit';
 
 const useSearchData = () => {
@@ -26,13 +26,38 @@ const useSearchData = () => {
     updateDataUsersSearch,
     updateValueSearchInput,
     searchBoards,
-    isModalSearchHeaderOpen,
     getSearchPins,
     searchUsers,
   } = useAppsStore();
 
+  const [process, setProcess] = useState(false);
+
+  const searchParams = useSearchParams();
+  const query = searchParams.get('query') ?? '';
+
   useEffect(() => {
-    if (page === 1) return;
+    if (!value.length) {
+      updateDataSearch('value', query);
+      if (filterState === 'tableros') {
+        searchBoards({ value: query, page: page, limit: boardsLimit });
+        return;
+      }
+
+      if (filterState === 'pines') {
+        getSearchPins(query, page, pinsLimit);
+        return;
+      }
+
+      if (filterState === 'perfiles') {
+        searchUsers({ value: query, page: page, limit: 25 });
+        return;
+      }
+    }
+  }, [query]);
+
+  useEffect(() => {
+    if (page === 1 || !value.length) return;
+    console.log('page');
 
     if (filterState === 'tableros') {
       searchBoards({ value: value, page: page, limit: boardsLimit });
@@ -52,11 +77,12 @@ const useSearchData = () => {
 
   const handleSearch = async (query: string) => {
     localStorage.setItem('searchInputValue', query);
+    updateDataUsersSearch('usersProfile', []);
+    updateStateBoards('searchedBoards', []);
+    updateDataSearch('searchPins', []);
     updateDataSearch('value', query);
-    updateDataSearch('searchPins', []),
-      updateStateBoards('searchedBoards', []),
-      updateDataUsersSearch(' usersProfile', []);
     updateValueSearchInput(value);
+    setProcess(true);
 
     if (filterState === 'tableros') {
       await searchBoards({ value: query, page: 1, limit: boardsLimit });

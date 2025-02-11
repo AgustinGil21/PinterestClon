@@ -4,7 +4,6 @@ import ModalSearch from './ModalSearch';
 import useCloseModal from '@/app/interfaces/hooks/useCloseModal';
 import CloseSearchIcon from '@/app/interfaces/components/icons/CloseSearchIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import useSearchData from '@/app/interfaces/hooks/useSearchData';
 
@@ -43,6 +42,7 @@ const SearchInput = () => {
   }, [previousPin]);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isModalSearchHeaderOpen) modalSearchHeaderOpen();
     const newValue = e.target.value;
     updateDataSearch('value', newValue);
     localStorage.setItem('searchInputValue', newValue);
@@ -65,11 +65,10 @@ const SearchInput = () => {
       | React.KeyboardEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
+    modalSearchHeaderOpen();
     if (value === '' || valueCurrent === value) return;
     setValueCurrent(value);
     handleSearch(value);
-
-    modalSearchHeaderOpen();
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

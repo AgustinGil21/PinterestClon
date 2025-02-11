@@ -31,6 +31,11 @@ export default function Home() {
   }, [handleScroll]);
 
   useEffect(() => {
+    updateDataSearch('filterState', 'pines');
+    localStorage.removeItem('valueFilter');
+  }, []);
+
+  useEffect(() => {
     updateDataSearch('page', 1);
   }, [pathname]);
 
