@@ -213,6 +213,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     }
 
     const response = await getBoardUseCase({ id, page, limit });
+    console.log({ hola: response });
 
     if (response) {
       const prevPins = get().boardPins;

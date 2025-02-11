@@ -119,10 +119,7 @@ export const serviceGetSingleBoard = async ({
       }
     );
 
-    console.log(response.data);
     const result = GetBoardSchema.safeParse(response.data.board);
-
-    console.log(result.data);
 
     return result.success ? result.data : null;
   } catch (err) {

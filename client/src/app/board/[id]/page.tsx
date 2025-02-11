@@ -50,7 +50,7 @@ const BoardPage = ({ params }: Props) => {
   }, [board]);
 
   return (
-    <section className='w-full relative h-full min-h-[90dvh]'>
+    <section className='w-full relative h-full min-h-[90dvh] flex flex-col gap-4'>
       {deleteBoardModalIsOpen && (
         <DeleteBoardModal
           setModal={setDeleteBoardModal}

@@ -369,7 +369,7 @@ export const GetBoardSchema = z.object({
       name: z.string().optional().nullable(),
       surname: z.string().optional().nullable(),
       username: z.string(),
-      avatar: z.string().url().optional().nullable(),
+      avatar: z.string().optional().nullable(),
       avatar_background: z.string(),
       avatar_letter_color: z.string(),
       avatar_letter: z.string().length(1),

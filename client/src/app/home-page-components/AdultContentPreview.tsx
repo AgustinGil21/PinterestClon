@@ -15,7 +15,7 @@ export const AdultContentPreview = ({ pinID }: Props) => {
 
   return (
     <div
-      className='w-full absolute top-0 bottom-0 left-0 right-0 bg-black text-white font-semibold rounded-[16px] p-2 flex flex-col justify-center items-center hover:bg-[#111111] transition-colors'
+      className='w-full absolute top-0 bottom-0 left-0 right-0 bg-black text-white font-semibold rounded-[16px] p-2 flex flex-col justify-center items-center transition-colors censored-preview'
       onClick={handleClick}
     >
       <FaRegEyeSlash size={iconSize} />

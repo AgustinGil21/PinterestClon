@@ -185,6 +185,14 @@
   cursor: zoom-in;
 }
 
+.card:hover .censored-text {
+  background-color: #111111;
+}
+
+.card:hover .censored-preview {
+  background-color: #111111;
+}
+
 .card:hover .card-body {
   filter: brightness(0.7);
 }
