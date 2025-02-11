@@ -56,8 +56,8 @@ const useSearchData = () => {
   }, [query]);
 
   useEffect(() => {
-    if (page === 1 || !value.length) return;
-    console.log('page');
+    if (page !== 1) setProcess(true);
+    if (page === 1 || !value.length || !process) return;
 
     if (filterState === 'tableros') {
       searchBoards({ value: value, page: page, limit: boardsLimit });
@@ -73,7 +73,7 @@ const useSearchData = () => {
       searchUsers({ value: value, page: page, limit: 25 });
       return;
     }
-  }, [page]);
+  }, [page, process]);
 
   const handleSearch = async (query: string) => {
     localStorage.setItem('searchInputValue', query);
