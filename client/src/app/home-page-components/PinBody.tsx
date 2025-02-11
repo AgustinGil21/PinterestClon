@@ -40,7 +40,7 @@ export const PinBody = ({ elem }: Props) => {
         <>
           <img
             src={elem.body}
-            className={`card-body w-full h-60 object-cover z-0`}
+            className={`card-body w-full h-60 object-cover `}
             alt={elem.alt_text}
             onClick={handleClick}
           />

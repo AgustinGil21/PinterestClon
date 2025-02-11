@@ -60,12 +60,10 @@ export default function Home() {
   }
 
   return (
-    <>
-      <section className='masonry'>
-        {homePins.map((elem) => (
-          <Pin elem={elem} key={elem.pin_id} />
-        ))}
-      </section>
-    </>
+    <section className='masonry'>
+      {homePins.map((elem) => (
+        <Pin elem={elem} key={elem.pin_id} />
+      ))}
+    </section>
   );
 }

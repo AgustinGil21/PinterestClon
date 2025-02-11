@@ -10,7 +10,7 @@ export const AdultContentPreview = ({ pinID }: Props) => {
 
   return (
     <div
-      className='w-full h-full bg-black text-white font-semibold min-h-full z-30'
+      className='w-full h-full bg-black text-white font-semibold min-h-full object-cover'
       onClick={handleClick}
     >
       {t?.adult['pin-preview'] || 'Contenido sensible'}
