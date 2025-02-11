@@ -34,19 +34,17 @@ export const PinBody = ({ elem }: Props) => {
 
   return (
     <article className={`card-top relative inline-block`}>
-      {elem.adult_content ? (
-        <AdultContentPreview pinID={elem.pin_id} />
-      ) : (
-        <>
-          <img
-            src={elem.body}
-            className={`card-body w-full h-60 object-cover `}
-            alt={elem.alt_text}
-            onClick={handleClick}
-          />
-          <PinBodyControls elem={elem} />
-        </>
-      )}
+      {elem.adult_content && <AdultContentPreview pinID={elem.pin_id} />}
+
+      <img
+        src={elem.body}
+        className={`card-body w-full h-60 object-cover ${
+          elem.adult_content ? 'invisible' : ''
+        }`}
+        alt={elem.alt_text}
+        onClick={handleClick}
+      />
+      {!elem.adult_content && <PinBodyControls elem={elem} />}
     </article>
   );
 };
