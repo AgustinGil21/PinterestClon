@@ -56,8 +56,7 @@ const useSearchData = () => {
   }, [query]);
 
   useEffect(() => {
-    if (page !== 1) setProcess(true);
-    if (page === 1 || !value.length || !process) return;
+    if (page === 1 || !value.length) return;
 
     if (filterState === 'tableros') {
       searchBoards({ value: value, page: page, limit: boardsLimit });
@@ -82,7 +81,6 @@ const useSearchData = () => {
     updateDataSearch('searchPins', []);
     updateDataSearch('value', query);
     updateValueSearchInput(value);
-    setProcess(true);
 
     if (filterState === 'tableros') {
       await searchBoards({ value: query, page: 1, limit: boardsLimit });
