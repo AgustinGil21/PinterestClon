@@ -28,9 +28,14 @@ const useSearchData = () => {
     searchBoards,
     getSearchPins,
     searchUsers,
+    resetPage,
   } = useAppsStore();
 
-  const [process, setProcess] = useState(false);
+  const clearSearchResults = () => {
+    updateDataUsersSearch('usersProfile', []);
+    updateStateBoards('searchedBoards', []);
+    updateDataSearch('searchPins', []);
+  };
 
   const searchParams = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -55,7 +60,7 @@ const useSearchData = () => {
     }
   }, [query]);
 
-  useEffect(() => {
+  const executeSearchScroll = () => {
     if (page === 1 || !value.length) return;
 
     if (filterState === 'tableros') {
@@ -72,13 +77,12 @@ const useSearchData = () => {
       searchUsers({ value: value, page: page, limit: 25 });
       return;
     }
-  }, [page, process]);
+  };
 
   const handleSearch = async (query: string) => {
     localStorage.setItem('searchInputValue', query);
-    updateDataUsersSearch('usersProfile', []);
-    updateStateBoards('searchedBoards', []);
-    updateDataSearch('searchPins', []);
+    resetPage();
+    clearSearchResults();
     updateDataSearch('value', query);
     updateValueSearchInput(value);
 
@@ -103,6 +107,7 @@ const useSearchData = () => {
 
   return {
     handleSearch,
+    executeSearchScroll,
   };
 };
 

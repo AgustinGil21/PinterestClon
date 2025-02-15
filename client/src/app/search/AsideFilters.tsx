@@ -39,15 +39,16 @@ const AsideFilters = () => {
   }, []);
 
   useEffect(() => {
-    if (!value || !isExecute) return;
+    if (!value.length || !isExecute) return;
     const executeSearch = async () => {
       await handleSearch(value);
+      if (isMobileView) openFiltersModal();
     };
 
     if (filterState) {
       executeSearch();
     }
-  }, [filterState]);
+  }, [filterState, isExecute]);
 
   const handleFilterClick = (filter: string) => {
     setSelectedFilter(filter);
@@ -55,14 +56,12 @@ const AsideFilters = () => {
 
   const handleClick = () => {
     if (selectedFilter === filterState) return;
-    if (isMobileView) openFiltersModal();
+
     resetPage();
     localStorage.setItem('valueFilter', selectedFilter);
     setIsExecute(true);
+    console.log('hola 2');
     setFiltersState(selectedFilter);
-    updateDataSearch('searchPins', []);
-    updateStateBoards('searchedBoards', []);
-    updateStateBoards('usersProfile', []);
   };
 
   const handleReset = () => {
