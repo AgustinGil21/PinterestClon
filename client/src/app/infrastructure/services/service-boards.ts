@@ -121,6 +121,8 @@ export const serviceGetSingleBoard = async ({
 
     const result = GetBoardSchema.safeParse(response.data.board);
 
+    console.log(result.error);
+
     return result.success ? result.data : null;
   } catch (err) {
     return null;

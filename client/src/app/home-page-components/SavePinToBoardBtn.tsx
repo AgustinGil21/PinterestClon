@@ -54,7 +54,7 @@ export const SavePinToBoardBtn = ({
         />
       ) : (
         <button
-          className={`save-to-board-button flex items-center justify-center h-[45px] p-[0_1rem] w-fit max-w-[110px] font-bold  bg-[rgba(0,0,0,0)] rounded-[24px] g-[0.3rem] transition-[colors,transform] hover:bg-[rgba(0,0,0,0.05)] focus:bg-black ${
+          className={`save-to-board-button flex items-center justify-center w-[35px] max-w-[35px] h-[35px] p-2 md:h-[45px] md:p-[0_1rem] md:w-fit md:max-w-[110px] font-bold  bg-[rgba(0,0,0,0)] rounded-[24px] g-[0.3rem] transition-[colors,transform] hover:bg-[rgba(0,0,0,0.05)] focus:bg-black ${
             pinCard
               ? 'text-black focus:text-white'
               : ' focus:scale-[1.06] text-white'
@@ -63,7 +63,7 @@ export const SavePinToBoardBtn = ({
           ref={btnRef}
         >
           <span
-            className='text-sm overflow-hidden whitespace-nowrap text-ellipsis'
+            className='text-sm overflow-hidden whitespace-nowrap text-ellipsis md:block hidden'
             title={content}
           >
             {content}

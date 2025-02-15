@@ -346,7 +346,7 @@ export const GetBoardSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   its_yours: z.boolean().optional(),
-  following: z.string().optional(),
+  following: z.boolean().optional(),
   pins_count: z.string(),
   user: z.object({
     id: z.string(),
