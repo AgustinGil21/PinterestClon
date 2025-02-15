@@ -11,7 +11,7 @@ import { useSearchParams } from 'next/navigation';
 import { EmptyMsg } from './EmptyMsg';
 import useInfiniteScroll from '../interfaces/hooks/useInfiniteScroll';
 import { UsersProfileSearchContainer } from './UsersProfileSearchContainer';
-import { useGetLimit } from '../hooks/useGetLimit';
+import useSearchData from '../interfaces/hooks/useSearchData';
 
 const Search = () => {
   const {
@@ -23,9 +23,6 @@ const Search = () => {
     isOpenFiltersModal,
     usersProfile,
     page,
-    searchUsers,
-    searchBoards,
-    getSearchPins,
   } = useAppsStore();
 
   const [loading, setLoading] = useState(true);
@@ -33,6 +30,7 @@ const Search = () => {
   const searchParams = useSearchParams();
   const queryValue: string | null = searchParams.get('query');
   const { handleScroll, lastScrollTop } = useInfiniteScroll();
+  const { executeSearchScroll } = useSearchData();
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -47,6 +45,11 @@ const Search = () => {
     getCategoriesPin();
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    if (page === 1 || loading) return;
+    executeSearchScroll();
+  }, [page]);
 
   if (loading) {
     return (
