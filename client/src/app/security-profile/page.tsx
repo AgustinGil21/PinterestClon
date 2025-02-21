@@ -20,7 +20,7 @@ const SecurityProfile = () => {
 
   if (loading) {
     return (
-      <section className='w-full flex justify-center '>
+      <section className='w-full flex justify-center  '>
         <Loader />
       </section>
     );
@@ -28,7 +28,7 @@ const SecurityProfile = () => {
 
   return (
     <>
-      <section className='p-5 py-8 flex flex-col'>
+      <section className='p-5 py-8 flex flex-col settings-page'>
         <div className='max-w-[420px] w-full lg:ml-[140px] flex flex-col gap-5 dark:text-white'>
           <div>
             <h2 className='text-[23px] font-semibold'>

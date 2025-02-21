@@ -13,6 +13,7 @@ import CardCategorySlider from '@/app/search/CardCategorySlider';
 import ButtonFilter from '@/app/search/ButtonFilter';
 import InfoClon from '@/app/info-clon/page';
 import InfoIcon from '../../components/icons/InfoIcon';
+import { useHideElementWithPathname } from '@/app/hooks/useHideElementWithPathname';
 
 export const Header = () => {
   const {
@@ -28,24 +29,27 @@ export const Header = () => {
     isOpenMenuAsideInfoClonResponsive,
     openMenuAsideInfoClon,
   } = useAppsStore();
-
-  const [loading, setLoading] = useState(true);
-  const [shadow, setShadow] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
-  const pathname = usePathname();
-
   const routesResponsiveAsideSettings = [
     '/edit-user',
     '/admin-user',
     '/privacy-info',
     '/security-profile',
   ];
-
   const routesResponsiveAsideInfoClon = [
     '/info-clon',
     '/about-us',
     '/technologies',
   ];
+  const [loading, setLoading] = useState(true);
+  const [shadow, setShadow] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 768);
+  const pathname = usePathname();
+  const hide = useHideElementWithPathname({
+    pathnames: [
+      ...routesResponsiveAsideSettings,
+      ...routesResponsiveAsideInfoClon,
+    ],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -153,9 +157,9 @@ export const Header = () => {
           {isMobileView && (
             <LinkNavigate
               href='/info-clon'
-              classProps={`${
-                routesResponsiveAsideInfoClon.includes(pathname) && 'hidden'
-              }`}
+              style={{
+                display: `${hide ? 'none' : 'block'}`,
+              }}
             >
               <InfoIcon />
             </LinkNavigate>

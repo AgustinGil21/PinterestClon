@@ -8,6 +8,7 @@ import GitHubIcon from '../components/icons/GitHubIcon';
 import LinkedinIcon from '../components/icons/LinkedinIcon';
 import useCloseModal from '../hooks/useCloseModal';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useHideElementWithPathname } from '@/app/hooks/useHideElementWithPathname';
 
 const developers = [
   {
@@ -23,6 +24,23 @@ const developers = [
 ];
 
 const DataDevs = () => {
+  const pathnames = [
+    '/edit-user',
+    '/admin-user',
+    '/security-profile',
+    '/privacy-info',
+    '/info-clon',
+    '/about-us',
+    '/technologies',
+  ];
+
+  const dynamicPathnames = ['/create-pin'];
+
+  const hide = useHideElementWithPathname({
+    pathnames,
+    dynamicPathnames,
+    maxWidth: 768,
+  });
   const [modal, setModal] = useState(false);
   const { t } = useAppsStore();
 
@@ -33,6 +51,9 @@ const DataDevs = () => {
       <button
         className='fixed bottom-20 md:bottom-5 right-7  p-2.5 rounded-full cursor-pointer shadow-uniform border-[1px] z-50 bg-white hover:bg-gray-300  flex justify-center items-center'
         onClick={() => setModal(!modal)}
+        style={{
+          display: `${hide ? 'none' : 'block'}`,
+        }}
       >
         <Tooltip
           tooltipText={t?.['data-devs'].tooltip || 'Mas'}

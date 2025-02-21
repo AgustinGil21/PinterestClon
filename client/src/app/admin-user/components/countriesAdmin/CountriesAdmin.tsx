@@ -7,6 +7,8 @@ import {
 } from 'react-hook-form';
 import useCountriesAdmin from './useCountriesAdmin';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { FaChevronDown } from 'react-icons/fa';
+import { CustomSelect } from '@/app/components/Basic/CustomSelect';
 
 interface CountriesAdminInterface {
   register: UseFormRegister<FieldValues>;
@@ -24,17 +26,17 @@ const CountriesAdmin = ({ register, setValue }: CountriesAdminInterface) => {
       <span className='text-[12px]'>
         {t?.['account-management']['personal-info'].country || 'País/región'}
       </span>
-      <select
-        id='country'
-        className='w-full p-2.5 px-4 border-gray-300 border-[1px] rounded-xl text-sm mt-1  outline-outline-search text-black'
-        {...register('country')}
-      >
+      <CustomSelect register={register} id='country'>
         {countries.map((elem) => (
-          <option key={elem.id} value={elem.id}>
+          <option
+            key={elem.id}
+            value={elem.id}
+            className='text-ellipsis text-nowrap max-w-full'
+          >
             {t?.countries[elem.name as keyof typeof t.countries] || elem.name}
           </option>
         ))}
-      </select>
+      </CustomSelect>
     </div>
   );
 };
