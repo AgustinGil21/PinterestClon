@@ -36,7 +36,7 @@ export const EditBoardModal = () => {
         className={`bg-white shadow-uniform flex flex-col p-4 gap-4 rounded-lg justify-center items-start min-w-[350px] max-w-[450px] min-h-[400px] w-full`}
       >
         <h2
-          className='text-md font-semibold text-center'
+          className='text-lg md:text-xl font-semibold text-center'
           style={{ alignSelf: 'center' }}
         >
           {t?.board.edit.title || 'Editar tablero'}

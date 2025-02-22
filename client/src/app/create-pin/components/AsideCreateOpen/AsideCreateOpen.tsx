@@ -43,7 +43,7 @@ const AsideCreateOpen = ({
         <div className='flex flex-col gap-5 justify-between h-full'>
           <div className='flex justify-between items-center'>
             <h3 className='font-semibold dark:text-white text-md'>
-              {t?.['create-pin'].aside.posts || 'Publicaciones'} ({pinsCount})
+              {t?.['create-pin'].aside.posts || 'Publicaciones'} ( {pinsCount} )
             </h3>
             <button
               className='hover:bg-slate-100 dark:hover:bg-black rounded-full p-2.5 cursor-pointer'
