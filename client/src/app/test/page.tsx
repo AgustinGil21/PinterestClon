@@ -73,7 +73,7 @@ export default function Test() {
   return (
     <>
       <BoardCoverModal />
-      <EditBoardModal />
+      {/* <EditBoardModal /> */}
       {/* <CreateBoardModal /> */}
       {/* <Skeleton
         width={200}

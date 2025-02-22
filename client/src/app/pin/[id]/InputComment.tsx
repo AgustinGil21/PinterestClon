@@ -29,6 +29,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     openRegisterModal,
     commentsState,
     isAuth,
+    t,
   } = useAppsStore();
   const btnRef = useRef(null);
   const tempId = uuidv4();
@@ -106,7 +107,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
   };
 
   return (
-    <form className='w-full relative' onSubmit={handleSubmit}>
+    <form className='w-full relative mb-3 md:mb-0' onSubmit={handleSubmit}>
       <InputLabelStyled
         type='text'
         register={register}
@@ -115,7 +116,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
         className={`w-full px-3 py-3 rounded-3xl border-[1px] bg-gray-200 text-sm ${
           comment.length > 0 ? 'pr-[100px]' : ''
         }`}
-        placeHolder='Agregar un comentario'
+        placeHolder={t?.comment['input-placeholder'] || 'Agregar un comentario'}
         value={comment}
       />
 

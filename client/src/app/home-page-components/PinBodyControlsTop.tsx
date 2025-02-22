@@ -38,21 +38,6 @@ export const PinBodyControlsTop = ({ elem }: { elem: PinInterface }) => {
         board={elem.board}
         savedInProfile={elem.saved_in_profile}
       />
-      <button className='hidden transition-[colors,scale] save-to-board-button-sm p-3 rounded-full bg-transparent justify-center items-center '>
-        <svg
-          fill='none'
-          viewBox='0 0 20 20'
-          strokeWidth='2'
-          stroke='white'
-          className='w-4 h-4 -translate-x-0.5'
-        >
-          <path
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            d='m19.5 8.25-7.5 7.5-7.5-7.5'
-          />
-        </svg>
-      </button>
     </article>
   );
 };

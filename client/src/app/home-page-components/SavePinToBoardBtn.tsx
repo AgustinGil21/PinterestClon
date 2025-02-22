@@ -1,3 +1,4 @@
+import { FaChevronDown } from 'react-icons/fa';
 import { IPinBoard } from '../domain/types/pins-structure';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { PinAlreadySaved } from './PinAlreadySaved';

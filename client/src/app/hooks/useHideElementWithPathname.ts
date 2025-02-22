@@ -18,26 +18,36 @@ export const useHideElementWithPathname = ({
   dynamicPathnames,
 }: Props) => {
   const [hidden, setHidden] = useState(initialValue);
-  const pathname = usePathname();
+  const fullPathname = usePathname();
   const { width } = useGetScreenSize();
 
   useEffect(() => {
-    if (!pathname) return;
+    if (!fullPathname) return;
 
     let shouldHide = initialValue;
 
     if (maxWidth && dynamicPathnames?.length) {
-      if (dynamicPathnames.includes(pathname)) {
+      if (dynamicPathnames.some((pattern) => fullPathname.includes(pattern))) {
         shouldHide = width <= maxWidth;
       }
     }
 
-    if (pathnames?.length && pathnames.includes(pathname)) {
+    if (
+      pathnames?.length &&
+      pathnames.some((pattern) => fullPathname.includes(pattern))
+    ) {
       shouldHide = true;
     }
 
     setHidden(shouldHide);
-  }, [pathname, width, pathnames, dynamicPathnames, maxWidth, initialValue]);
+  }, [
+    fullPathname,
+    width,
+    pathnames,
+    dynamicPathnames,
+    maxWidth,
+    initialValue,
+  ]);
 
   return hidden;
 };

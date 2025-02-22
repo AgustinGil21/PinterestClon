@@ -2,7 +2,6 @@ import { useRouter } from 'next/navigation';
 import { PinInterface } from '../domain/types/pins-structure';
 import { PinBodyControls } from './PinBodyControls';
 import { AdultContentPreview } from './AdultContentPreview';
-import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface Props {
   elem: PinInterface;

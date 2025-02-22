@@ -34,7 +34,7 @@ const DataDevs = () => {
     '/technologies',
   ];
 
-  const dynamicPathnames = ['/create-pin'];
+  const dynamicPathnames = ['/create-pin', '/pin/'];
 
   const hide = useHideElementWithPathname({
     pathnames,

@@ -90,10 +90,10 @@ const PinCard = () => {
 
   return (
     <>
-      <div className='bg-white shadow-pinShadow rounded-[30px] w-full p-4 flex flex-col lg:flex-row gap-4  min-h-[466px] sm:max-w-[530px] lg:max-w-[930px] lg:p-5 lg:gap-6 lg:rounded-[30px] '>
+      <div className='bg-white shadow-pinShadow md:rounded-[30px] w-full md:p-4 flex flex-col lg:flex-row gap-4  min-h-[466px] md:max-w-[530px] lg:max-w-[930px] lg:p-5 lg:gap-6 px-1 '>
         <ImagePin size={sizeCategory} />
 
-        <div className='w-full lg:w-[50%] grid grid-rows-[1fr_auto]'>
+        <div className='w-full lg:w-[50%] grid grid-rows-[1fr_auto] p-4 md:p-0'>
           <div className='max-h-[100%] overflow-hidden'>
             <ActionsPin />
             <DataUserPinCard />
@@ -173,7 +173,7 @@ const PinCard = () => {
 
           <footer className='w-full relative h-14 flex self-end bg-white items-end'>
             {!commentsState.comments.length && (
-              <span className='absolute -top-7 font-semibold'>
+              <span className='absolute -top-9 md:-top-7 font-semibold'>
                 {t?.pin['no-comments'] || '¿Qué te parece?'}
               </span>
             )}
