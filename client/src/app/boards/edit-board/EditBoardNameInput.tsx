@@ -22,7 +22,7 @@ export const EditBoardNameInput = ({ errors, register, watch }: IFormHook) => {
         infoName='name'
         register={register}
         errors={errors.name}
-        className='p-2 border-solid border-[1.5px] border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem] w-full outline-outline-search'
+        className='p-2 border-solid border-2 border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem] w-full outline-outline-search'
         handleChange={handleChange}
         watch={watch}
       />
