@@ -125,7 +125,9 @@ export interface ModalStateInterface {
   adultContentPinID?: string;
   setAdultContentModal: (pinID?: string) => void;
   isModalSearchHeaderOpen: boolean;
+  boardCoversModalIsOpen: boolean;
   modalSearchHeaderOpen: () => void;
+  setBoardCoversModalIsOpen: () => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -182,6 +184,8 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
 
   adultContentModalIsOpen: false,
   isModalSearchHeaderOpen: false,
+
+  boardCoversModalIsOpen: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -433,6 +437,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   modalSearchHeaderOpen: () => {
     set((state) => ({
       isModalSearchHeaderOpen: !state.isModalSearchHeaderOpen,
+    }));
+  },
+
+  setBoardCoversModalIsOpen: () => {
+    set((state) => ({
+      boardCoversModalIsOpen: !state.boardCoversModalIsOpen,
     }));
   },
 });

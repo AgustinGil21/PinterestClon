@@ -9,7 +9,7 @@ export const EditBoardNameInput = ({ errors, register, watch }: IFormHook) => {
   const handleChange = ({ key, value }: IHandleChange) => {};
 
   return (
-    <label className='text-xs hover:cursor-pointer flex flex-col'>
+    <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
       <div className='flex'>
         <span className='text-[0.6rem] font-medium mr-[2px]'>
           {t?.board.create.name.label || 'Nombre'}

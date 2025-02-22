@@ -4,6 +4,7 @@ const PlusIcon = ({
   svgClassName,
   pathClassName,
   strokeWidth = 3.5,
+  color = 'currentColor',
 }: Icons) => {
   return (
     <svg
@@ -11,7 +12,7 @@ const PlusIcon = ({
       fill='none'
       viewBox='0 0 24 24'
       strokeWidth={strokeWidth}
-      stroke='currentColor'
+      stroke={color}
       className={`size-6 ${svgClassName}`}
     >
       <path

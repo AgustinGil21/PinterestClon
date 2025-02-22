@@ -49,6 +49,8 @@ export interface IBoardsStore {
   noMoreSearchedBoards: boolean;
   noMoreBoardPins: boolean;
   noMoreUserBoards: boolean;
+  newBoardCover?: string;
+  boardCovers?: string[];
 
   createBoard: (data: ICreateBoard) => Promise<void>;
   editBoard: (data: IEditBoard) => Promise<void>;
@@ -66,6 +68,8 @@ export interface IBoardsStore {
   }: IBoardPinsInteractions) => Promise<void>;
   getUserBoards: ({ username, page, limit }: IGetUserBoards) => Promise<void>;
   updateStateBoards: (store: string, value: any[]) => void;
+  setNewBoardCover: (cover: string) => void;
+  setBoardCovers: (covers: string[]) => void;
 }
 
 export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
@@ -213,7 +217,6 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     }
 
     const response = await getBoardUseCase({ id, page, limit });
-    console.log({ hola: response });
 
     if (response) {
       const prevPins = get().boardPins;
@@ -288,5 +291,17 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
       ...state,
       [store]: value,
     }));
+  },
+
+  setNewBoardCover: (cover: string) => {
+    set({
+      newBoardCover: cover,
+    });
+  },
+
+  setBoardCovers: (covers: string[]) => {
+    set({
+      boardCovers: covers,
+    });
   },
 });

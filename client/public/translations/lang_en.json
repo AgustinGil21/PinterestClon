@@ -693,6 +693,14 @@
       "buttons": {
         "cancel": "Cancel",
         "save": "Save"
+      },
+      "covers-modal": {
+        "title": "Change board cover",
+        "button": "Done",
+        "cover-explanation": {
+          "title": "Board Cover",
+          "description": "Select a pin to set it as the board cover. You can change it later, but not remove it."
+        }
       }
     },
     "view": {

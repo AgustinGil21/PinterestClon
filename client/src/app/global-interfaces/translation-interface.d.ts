@@ -651,6 +651,14 @@ interface IBoard {
       cancel: string;
       save: string;
     };
+    'covers-modal': {
+      title: string;
+      button: string;
+      'cover-explanation': {
+        title: string;
+        description: string;
+      };
+    };
   };
   view: {
     by: string;

@@ -613,7 +613,7 @@
 /* xl */
 @media (min-width: 1025px) {
   .masonry-small {
-    columns: 24 200px;
+    columns: 24 152px;
   }
 
   .settings-page {
@@ -628,7 +628,7 @@
 /* lg */
 @media (max-width: 1024px) {
   .masonry-small {
-    columns: 24 180px;
+    columns: 24 152px;
   }
 
   .masonry {

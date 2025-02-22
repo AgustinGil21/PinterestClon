@@ -15,6 +15,7 @@ import { PinSkeleton } from '../skeletons/PinSkeleton';
 import { CategoryCardSkeleton } from '../skeletons/CategoryCardSkeleton';
 import { UserProfileSearchCard } from '../search/UserProfileSearchCard';
 import { UsersProfileSearchContainer } from '../search/UsersProfileSearchContainer';
+import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
 
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();
@@ -71,7 +72,8 @@ export default function Test() {
 
   return (
     <>
-      {/* <BoardCoverModal /> */}
+      <BoardCoverModal />
+      <EditBoardModal />
       {/* <CreateBoardModal /> */}
       {/* <Skeleton
         width={200}

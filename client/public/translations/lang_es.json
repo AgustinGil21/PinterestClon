@@ -684,6 +684,14 @@
       "buttons": {
         "cancel": "Cancelar",
         "save": "Guardar"
+      },
+      "covers-modal": {
+        "title": "Cambiar la portada del tablero",
+        "button": "Listo",
+        "cover-explanation": {
+          "title": "Portada del Tablero",
+          "description": "Selecciona un pin para establecerlo como la portada del tablero. Podrás cambiarlo más adelante, pero no eliminarlo."
+        }
       }
     },
     "view": {

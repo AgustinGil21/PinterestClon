@@ -12,7 +12,7 @@ export const EditBoardDescriptionInput = ({
   const handleChange = ({ key, value }: IHandleChange) => {};
 
   return (
-    <label className='text-xs hover:cursor-pointer'>
+    <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
       <span className='text-[0.6rem] font-medium'>
         {t?.board.create.description.label || 'Descripción'}
       </span>

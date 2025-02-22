@@ -662,6 +662,14 @@
       "buttons": {
         "cancel": "Cancelar",
         "save": "Salvar"
+      },
+      "covers-modal": {
+        "title": "Alterar a capa do quadro",
+        "button": "Feito",
+        "cover-explanation": {
+          "title": "Capa do Quadro",
+          "description": "Selecione um pin para defini-lo como a capa do quadro. Você pode alterá-lo mais tarde, mas não removê-lo."
+        }
       }
     },
     "view": {
