@@ -5,6 +5,8 @@ import {
 } from '@/app/interfaces/helpers/BlockOrActiveScroll';
 import { createRef } from 'react';
 import { TReportType } from '@/app/global-interfaces/translation-interface';
+import { IPosition } from '@/app/global-interfaces/global-interfaces';
+import { MobileSavePinButtonsController } from '@/app/home-page-components/MobileSavePinButtonsController';
 
 interface PinSaved {
   pinID: string;
@@ -128,6 +130,10 @@ export interface ModalStateInterface {
   boardCoversModalIsOpen: boolean;
   modalSearchHeaderOpen: () => void;
   setBoardCoversModalIsOpen: () => void;
+
+  mobileSavePinControllerIsActive: boolean;
+  mobileSavePinControllerPosition: IPosition;
+  setMobileSavePinController: (position: IPosition) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -186,6 +192,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   isModalSearchHeaderOpen: false,
 
   boardCoversModalIsOpen: false,
+
+  mobileSavePinControllerIsActive: false,
+  mobileSavePinControllerPosition: {
+    x: 0,
+    y: 0,
+  },
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -443,6 +455,13 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   setBoardCoversModalIsOpen: () => {
     set((state) => ({
       boardCoversModalIsOpen: !state.boardCoversModalIsOpen,
+    }));
+  },
+
+  setMobileSavePinController: (position: IPosition) => {
+    set((state) => ({
+      mobileSavePinControllerIsActive: !state.mobileSavePinControllerIsActive,
+      mobileSavePinControllerPosition: position,
     }));
   },
 });

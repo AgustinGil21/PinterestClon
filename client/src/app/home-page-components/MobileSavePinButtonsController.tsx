@@ -1,10 +1,19 @@
 import { HoldableLink } from '../interfaces/layout/Header/Nav/HoldableLink';
 import { useGetHoldPosition } from '../hooks/useGetHoldPosition';
+import { useEffect } from 'react';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 export const MobileSavePinButtonsController = () => {
-  const { handleHold, position, resetPosition } = useGetHoldPosition();
+  const { setMobileSavePinController } = useAppsStore();
+  const { handleHold, position, resetPosition } = useGetHoldPosition(
+    setMobileSavePinController
+  );
 
   const handleHoldCancel = () => resetPosition();
+
+  useEffect(() => {
+    console.log(position);
+  }, [position]);
 
   return (
     <HoldableLink
@@ -12,7 +21,8 @@ export const MobileSavePinButtonsController = () => {
       onHold={handleHold}
       onCancelHold={handleHoldCancel}
       holdTime={300}
-      className='w-[100px] h-[100px] m-5 bg-black text-white p-2'
+      className='m-5 bg-black text-white py-2 rounded-lg px-4'
+      maxWidth={768}
     >
       <span>HOLD ME!</span>
     </HoldableLink>

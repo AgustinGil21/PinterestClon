@@ -6,7 +6,7 @@ interface Props {
 
 export const Masonry = ({ children, small = false, className }: Props) => {
   return (
-    <section className={` ${small ? 'masonry-small' : 'masonry'} ${className}`}>
+    <section className={`${small ? 'masonry-small' : 'masonry'} ${className}`}>
       {children}
     </section>
   );
