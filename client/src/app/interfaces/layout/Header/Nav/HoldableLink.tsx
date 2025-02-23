@@ -5,7 +5,7 @@ interface Props {
   href: string;
   holdTime?: number;
   children?: React.ReactNode;
-  onHold: () => void;
+  onHold: (e: React.MouseEvent | React.TouchEvent) => void;
   onCancelHold?: () => void;
   className?: string;
 }
@@ -25,10 +25,10 @@ export const HoldableLink = ({
     if (clickDisabled) e.preventDefault();
   };
 
-  const handleHold = () => {
+  const handleHold = (e: React.MouseEvent | React.TouchEvent) => {
     timerRef.current = setTimeout(() => {
       setClickDisabled(true);
-      onHold();
+      onHold(e);
     }, holdTime);
   };
 

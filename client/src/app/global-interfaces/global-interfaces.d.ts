@@ -43,3 +43,9 @@ export interface IToastNotificationProps {
   action: TAction;
   type: TType;
 }
+
+export interface IPosition {
+  x: number;
+  y: number;
+  z?: number;
+}
