@@ -16,6 +16,7 @@ import { CategoryCardSkeleton } from '../skeletons/CategoryCardSkeleton';
 import { UserProfileSearchCard } from '../search/UserProfileSearchCard';
 import { UsersProfileSearchContainer } from '../search/UsersProfileSearchContainer';
 import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
+import { MobileSavePinButtonsController } from '../home-page-components/MobileSavePinButtonsController';
 
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();
@@ -73,6 +74,7 @@ export default function Test() {
   return (
     <>
       <BoardCoverModal />
+      <MobileSavePinButtonsController />
       {/* <EditBoardModal /> */}
       {/* <CreateBoardModal /> */}
       {/* <Skeleton
