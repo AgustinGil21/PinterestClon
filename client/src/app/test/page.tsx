@@ -17,6 +17,8 @@ import { UserProfileSearchCard } from '../search/UserProfileSearchCard';
 import { UsersProfileSearchContainer } from '../search/UsersProfileSearchContainer';
 import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
 import { MobileSavePinButtonsController } from '../home-page-components/MobileSavePinButtonsController';
+import { FaShare } from 'react-icons/fa';
+import { MobileController } from '../home-page-components/MobileController';
 
 export default function Test() {
   const { userBoards, getUserBoards } = useAppsStore();
@@ -75,6 +77,7 @@ export default function Test() {
     <>
       <BoardCoverModal />
       <MobileSavePinButtonsController />
+      <MobileController />
       {/* <EditBoardModal /> */}
       {/* <CreateBoardModal /> */}
       {/* <Skeleton

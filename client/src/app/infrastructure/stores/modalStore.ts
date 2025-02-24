@@ -133,7 +133,8 @@ export interface ModalStateInterface {
 
   mobileSavePinControllerIsActive: boolean;
   mobileSavePinControllerPosition: IPosition;
-  setMobileSavePinController: (position: IPosition) => void;
+  mobilePinControllerRotation: number;
+  setMobileSavePinController: (position: IPosition, rotation: number) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -198,6 +199,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     x: 0,
     y: 0,
   },
+  mobilePinControllerRotation: 0,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -458,10 +460,22 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  setMobileSavePinController: (position: IPosition) => {
+  setMobileSavePinController: (position: IPosition, rotation: number) => {
     set((state) => ({
       mobileSavePinControllerIsActive: !state.mobileSavePinControllerIsActive,
       mobileSavePinControllerPosition: position,
+      mobilePinControllerRotation: rotation,
     }));
+  },
+
+  closeMobilePinController: () => {
+    set({
+      mobileSavePinControllerIsActive: false,
+      mobileSavePinControllerPosition: {
+        x: 0,
+        y: 0,
+      },
+      mobilePinControllerRotation: 0,
+    });
   },
 });
