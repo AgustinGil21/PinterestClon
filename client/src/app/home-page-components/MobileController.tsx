@@ -9,7 +9,7 @@ import { MobileControllerSaveBtn } from './mobile-controller-btns/MobileControll
 export const MobileController = () => {
   return (
     <div className='p-2 w-[130px] h-[130px] rounded-full mr-10 flex justify-center items-center z-0 relative mt-16'>
-      <div className=' outline-3 outline outline-slate-400 min-w-[35px] min-h-[35px] w-[35px] h-[35px] rounded-full '></div>
+      <div className=' outline-3 outline outline-slate-400 min-w-[35px] min-h-[35px] w-[35px] h-[35px] rounded-full opacity-40'></div>
       <MobileControllerLikeBtn />
       <MobileControllerSaveBtn />
       <MobileControllerShareBtn />

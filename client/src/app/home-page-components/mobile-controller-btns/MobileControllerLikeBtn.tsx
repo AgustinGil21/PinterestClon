@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FaHeart, FaShare } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
 import { MobileControllerBtn } from '../MobileControllerBtn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
