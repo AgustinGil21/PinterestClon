@@ -10,6 +10,7 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { isValid } from 'zod';
 import useCloseModal from '@/app/hooks/useCloseModal';
 import { v4 as uuidv4 } from 'uuid';
+import { useGetScreenSize } from '@/app/hooks/useGetScreenSize';
 
 interface Props {
   handleCommentsCount: () => void;
@@ -31,6 +32,7 @@ const InputComment = ({ handleCommentsCount }: Props) => {
     isAuth,
     t,
   } = useAppsStore();
+  const { width } = useGetScreenSize();
   const btnRef = useRef(null);
   const tempId = uuidv4();
 
@@ -122,7 +124,11 @@ const InputComment = ({ handleCommentsCount }: Props) => {
 
       {emojiIsOpen && (
         <div className='absolute z-50 bottom-[50px] right-0' ref={modalRef}>
-          <EmojiPicker onEmojiClick={handleEmojiClick} />
+          <EmojiPicker
+            onEmojiClick={handleEmojiClick}
+            width={width > 768 ? 350 : 330}
+            height={width > 768 ? 400 : 350}
+          />
         </div>
       )}
 

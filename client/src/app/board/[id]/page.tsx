@@ -31,8 +31,8 @@ const BoardPage = ({ params }: Props) => {
   const { id }: IParams = params;
 
   useEffect(() => {
+    console.log(id);
     if (!id) return;
-    console.log(board);
 
     const fetchData = async () => {
       try {
