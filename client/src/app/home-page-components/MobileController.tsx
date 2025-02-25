@@ -1,12 +1,12 @@
-import { FaShare } from 'react-icons/fa';
-import { MobileControllerBtn } from './MobileControllerBtn';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { MobileControllerShareBtn } from './mobile-controller-btns/MobileControllerShareBtn';
 import { MobileControllerShareWhatsappBtn } from './mobile-controller-btns/MobileControllerShareWhatsappBtn';
 import { MobileControllerLikeBtn } from './mobile-controller-btns/MobileControllerLikeBtn';
 import { MobileControllerSaveBtn } from './mobile-controller-btns/MobileControllerSaveBtn';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useGetButtonsTranslateAxis } from '../hooks/useGetButtonsTranslateAxis';
+import { useMobileHover } from '../hooks/useMobileHover';
+import { MobileControllerCenterCircle } from './mobile-controller-btns/MobileControllerCenterCircle';
 
 export const MobileController = () => {
   const {
@@ -31,7 +31,7 @@ export const MobileController = () => {
         rotate: `${mobilePinControllerRotation}deg`,
       }}
     >
-      <div className=' outline-3 outline outline-slate-400 min-w-[35px] min-h-[35px] w-[35px] h-[35px] rounded-full opacity-40'></div>
+      <MobileControllerCenterCircle />
       <MobileControllerLikeBtn />
       <MobileControllerSaveBtn />
       <MobileControllerShareBtn />
