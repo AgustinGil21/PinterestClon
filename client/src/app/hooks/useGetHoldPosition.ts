@@ -11,7 +11,7 @@ export const useGetHoldPosition = (
       y = 0;
 
     if ('touches' in e && e.touches.length > 0) {
-      // Evento táctil
+      // Evento para celular
       x = e.touches[0].clientX;
       y = e.touches[0].clientY;
     } else if ('clientX' in e) {

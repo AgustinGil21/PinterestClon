@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import BoardCoverModal from '../boards/board-cover/BoardCoverModal';
 import BoardsList from '../boards/boards-list/BoardsList';
 import BoardsListModal from '../boards/boards-list/BoardsListModal';
@@ -74,10 +74,14 @@ export default function Test() {
   ];
 
   return (
-    <>
+    <section>
       <BoardCoverModal />
-      <MobileSavePinButtonsController />
+      {/* <MobileSavePinButtonsController /> */}
       <MobileController />
+
+      <MobileSavePinButtonsController>
+        <div className='w-[250px] h-[400px] rounded-lg bg-black'></div>
+      </MobileSavePinButtonsController>
       {/* <EditBoardModal /> */}
       {/* <CreateBoardModal /> */}
       {/* <Skeleton
@@ -91,6 +95,6 @@ export default function Test() {
       {/* <PinSkeleton />
       <CategoryCardSkeleton /> */}
       {/* <UsersProfileSearchContainer users={users} /> */}
-    </>
+    </section>
   );
 }

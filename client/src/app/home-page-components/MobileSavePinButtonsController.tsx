@@ -3,7 +3,15 @@ import { useEffect } from 'react';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useGetHoldPosition } from '../hooks/useGetHoldPosition';
 
-export const MobileSavePinButtonsController = () => {
+interface Props {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export const MobileSavePinButtonsController = ({
+  children,
+  className,
+}: Props) => {
   const { setMobileSavePinController } = useAppsStore();
   const { handleHold, position, resetPosition } = useGetHoldPosition(
     setMobileSavePinController
@@ -21,10 +29,10 @@ export const MobileSavePinButtonsController = () => {
       onHold={handleHold}
       onCancelHold={handleHoldCancel}
       holdTime={300}
-      className='m-5 bg-black text-white py-2 rounded-lg px-4'
+      className={`${className}`}
       maxWidth={768}
     >
-      <span>HOLD ME!</span>
+      {children}
     </HoldableLink>
   );
 };

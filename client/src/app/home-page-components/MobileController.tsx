@@ -5,15 +5,17 @@ import { MobileControllerLikeBtn } from './mobile-controller-btns/MobileControll
 import { MobileControllerSaveBtn } from './mobile-controller-btns/MobileControllerSaveBtn';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useGetButtonsTranslateAxis } from '../hooks/useGetButtonsTranslateAxis';
-import { useMobileHover } from '../hooks/useMobileHover';
 import { MobileControllerCenterCircle } from './mobile-controller-btns/MobileControllerCenterCircle';
+import { useGetScreenSize } from '../hooks/useGetScreenSize';
 
 export const MobileController = () => {
   const {
     mobilePinControllerRotation,
     setMobilePinControllerRotation,
     setPinControllerButtonsTranslate,
+    mobileSavePinControllerPosition,
   } = useAppsStore();
+  const { width } = useGetScreenSize();
 
   useGetButtonsTranslateAxis({
     rotation: mobilePinControllerRotation,
@@ -21,21 +23,33 @@ export const MobileController = () => {
   });
 
   useEffect(() => {
-    setMobilePinControllerRotation(0);
+    setMobilePinControllerRotation(45);
   }, []);
 
   return (
+    // { width <= 768 && (
+    // ) }
+
     <div
-      className='p-2 w-[130px] h-[130px] rounded-full mr-10 flex justify-center items-center z-0 relative mt-16 ml-10'
+      className='absolute z-[70]'
       style={{
-        rotate: `${mobilePinControllerRotation}deg`,
+        transform: 'translate(-65px,-130px)',
       }}
     >
-      <MobileControllerCenterCircle />
-      <MobileControllerLikeBtn />
-      <MobileControllerSaveBtn />
-      <MobileControllerShareBtn />
-      <MobileControllerShareWhatsappBtn />
+      <article
+        className='p-2 w-[130px] h-[130px] rounded-full flex justify-center items-center relative'
+        style={{
+          rotate: `${mobilePinControllerRotation}deg`,
+          top: `${mobileSavePinControllerPosition.y}px`,
+          left: `${mobileSavePinControllerPosition.x}px`,
+        }}
+      >
+        <MobileControllerCenterCircle />
+        <MobileControllerLikeBtn />
+        <MobileControllerSaveBtn />
+        <MobileControllerShareBtn />
+        <MobileControllerShareWhatsappBtn />
+      </article>
     </div>
   );
 };
