@@ -38,10 +38,10 @@ export const useGetButtonsTranslateAxis = ({ rotation, setToStore }: Props) => {
 
     if (rotation === 180) {
       newTranslate = {
-        like: { x: 7, y: 0 },
+        like: { x: 5, y: 0 },
         save: { x: 3, y: 7 },
         share: { x: -3, y: 7 },
-        shareWsp: { x: -7, y: 0 },
+        shareWsp: { x: -5, y: 0 },
       };
     } else if (rotation === 45) {
       newTranslate = {
@@ -73,10 +73,10 @@ export const useGetButtonsTranslateAxis = ({ rotation, setToStore }: Props) => {
       };
     } else {
       newTranslate = {
-        like: { x: -7, y: 0 },
+        like: { x: -5, y: 0 },
         save: { x: -3, y: -7 },
         share: { x: 3, y: -7 },
-        shareWsp: { x: 7, y: 0 },
+        shareWsp: { x: 5, y: 0 },
       };
     }
 

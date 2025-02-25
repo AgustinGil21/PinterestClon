@@ -74,14 +74,26 @@ export default function Test() {
   ];
 
   return (
-    <section>
+    <section className='p-4 '>
       <BoardCoverModal />
       {/* <MobileSavePinButtonsController /> */}
       <MobileController />
 
-      <MobileSavePinButtonsController>
-        <div className='w-[250px] h-[400px] rounded-lg bg-black'></div>
-      </MobileSavePinButtonsController>
+      <article className='flex gap-4'>
+        <MobileSavePinButtonsController>
+          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
+        </MobileSavePinButtonsController>
+        <MobileSavePinButtonsController>
+          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
+        </MobileSavePinButtonsController>
+        <MobileSavePinButtonsController>
+          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
+        </MobileSavePinButtonsController>
+        <MobileSavePinButtonsController>
+          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
+        </MobileSavePinButtonsController>
+      </article>
+
       {/* <EditBoardModal /> */}
       {/* <CreateBoardModal /> */}
       {/* <Skeleton

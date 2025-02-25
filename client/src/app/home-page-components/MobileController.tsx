@@ -33,7 +33,7 @@ export const MobileController = () => {
     <div
       className='absolute z-[70]'
       style={{
-        transform: 'translate(-65px,-130px)',
+        transform: 'translate(-80px,-145px)',
       }}
     >
       <article

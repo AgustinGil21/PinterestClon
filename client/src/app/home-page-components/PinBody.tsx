@@ -3,6 +3,7 @@ import { PinInterface } from '../domain/types/pins-structure';
 import { PinBodyControls } from './PinBodyControls';
 import { AdultContentPreview } from './AdultContentPreview';
 import { HoldableLink } from '../interfaces/layout/Header/Nav/HoldableLink';
+import { MobileSavePinButtonsController } from './MobileSavePinButtonsController';
 
 interface Props {
   elem: PinInterface;
