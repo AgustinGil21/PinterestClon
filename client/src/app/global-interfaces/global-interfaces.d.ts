@@ -49,3 +49,15 @@ export interface IPosition {
   y: number;
   z?: number;
 }
+
+interface IPossibleButtonTranslateAxis {
+  x?: number;
+  y?: number;
+}
+
+export interface IMobileControllerButtonsTranslate {
+  like: IPossibleButtonTranslateAxis;
+  save: IPossibleButtonTranslateAxis;
+  shareWsp: IPossibleButtonTranslateAxis;
+  share: IPossibleButtonTranslateAxis;
+}

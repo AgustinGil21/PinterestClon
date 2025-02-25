@@ -10,6 +10,10 @@ interface Props {
   hoverColor?: string;
   setIconColor?: (color: string) => void;
   id: string;
+  onHoverTranslateX?: number;
+  onHoverTranslateY?: number;
+  setIsHovered?: (isHovered: boolean) => void;
+  setAlreadyHovered?: (alreadyHovered: boolean) => void;
 }
 
 export const MobileControllerBtn = ({
@@ -21,6 +25,10 @@ export const MobileControllerBtn = ({
   hoverColor = '#e9f',
   setIconColor,
   id,
+  onHoverTranslateX,
+  onHoverTranslateY,
+  setIsHovered: setIsBtnHovered,
+  setAlreadyHovered,
 }: Props) => {
   const { isHovered, setIsHovered } = useMobileHover(id);
 
@@ -28,7 +36,18 @@ export const MobileControllerBtn = ({
   const [bgColor, setBgColor] = useState(defaultColor);
   const [btnScale, setBtnScale] = useState(1);
 
+  let transformClass =
+    onHoverTranslateX && onHoverTranslateY
+      ? `translate(${onHoverTranslateX}px,${onHoverTranslateY}px)`
+      : onHoverTranslateX
+      ? `translateX(${onHoverTranslateX}px)`
+      : onHoverTranslateY
+      ? `translateY(${onHoverTranslateY}px)`
+      : '';
+
   useEffect(() => {
+    if (setIsBtnHovered) setIsBtnHovered(isHovered);
+    if (setAlreadyHovered) setAlreadyHovered(true);
     if (isHovered) {
       setBgColor(hoverColor);
       setBtnScale(1.2);
@@ -50,7 +69,8 @@ export const MobileControllerBtn = ({
         rotate: `${-Math.abs(rotation)}deg`,
         backgroundColor: bgColor,
         scale: btnScale,
-        transition: `300ms background-color ease, 300ms scale ease`,
+        transition: `300ms background-color ease, 300ms scale ease, 300ms transform ease`,
+        transform: `${isHovered ? transformClass : ''}`,
       }}
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

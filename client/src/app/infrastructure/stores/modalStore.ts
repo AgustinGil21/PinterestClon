@@ -5,7 +5,10 @@ import {
 } from '@/app/interfaces/helpers/BlockOrActiveScroll';
 import { createRef } from 'react';
 import { TReportType } from '@/app/global-interfaces/translation-interface';
-import { IPosition } from '@/app/global-interfaces/global-interfaces';
+import {
+  IMobileControllerButtonsTranslate,
+  IPosition,
+} from '@/app/global-interfaces/global-interfaces';
 import { MobileSavePinButtonsController } from '@/app/home-page-components/MobileSavePinButtonsController';
 
 interface PinSaved {
@@ -134,7 +137,13 @@ export interface ModalStateInterface {
   mobileSavePinControllerIsActive: boolean;
   mobileSavePinControllerPosition: IPosition;
   mobilePinControllerRotation: number;
+  mobilePinControllerButtonsTranslate: IMobileControllerButtonsTranslate;
   setMobileSavePinController: (position: IPosition, rotation: number) => void;
+  closeMobilePinController: () => void;
+  setMobilePinControllerRotation: (rotation: number) => void;
+  setPinControllerButtonsTranslate: (
+    translate: IMobileControllerButtonsTranslate
+  ) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -200,6 +209,25 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     y: 0,
   },
   mobilePinControllerRotation: 0,
+
+  mobilePinControllerButtonsTranslate: {
+    like: {
+      x: -7,
+      y: 0,
+    },
+    save: {
+      x: -3,
+      y: -7,
+    },
+    share: {
+      x: 3,
+      y: -7,
+    },
+    shareWsp: {
+      x: 7,
+      y: 0,
+    },
+  },
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -476,6 +504,20 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
         y: 0,
       },
       mobilePinControllerRotation: 0,
+    });
+  },
+
+  setMobilePinControllerRotation: (rotation: number) => {
+    set({
+      mobilePinControllerRotation: rotation,
+    });
+  },
+
+  setPinControllerButtonsTranslate: (
+    translate: IMobileControllerButtonsTranslate
+  ) => {
+    set({
+      mobilePinControllerButtonsTranslate: translate,
     });
   },
 });

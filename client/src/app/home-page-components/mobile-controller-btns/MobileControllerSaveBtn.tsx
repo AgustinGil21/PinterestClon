@@ -1,12 +1,13 @@
-import { FaSave, FaShare, FaThumbtack } from 'react-icons/fa';
-import { MobileControllerBtn } from '../MobileControllerBtn';
 import { useState } from 'react';
+import { FaThumbtack } from 'react-icons/fa';
+import { MobileControllerBtn } from '../MobileControllerBtn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { FaThumbtackSlash } from 'react-icons/fa6';
 
 export const MobileControllerSaveBtn = () => {
   const [shareColor, setShareColor] = useState('#000000');
-  const { mobilePinControllerRotation } = useAppsStore();
+  const { mobilePinControllerRotation, mobilePinControllerButtonsTranslate } =
+    useAppsStore();
+  const { save } = mobilePinControllerButtonsTranslate;
 
   return (
     <MobileControllerBtn
@@ -15,6 +16,8 @@ export const MobileControllerSaveBtn = () => {
       setIconColor={setShareColor}
       id='controller-save-btn'
       hoverColor='#e60023'
+      onHoverTranslateY={save.y}
+      onHoverTranslateX={save.x}
     >
       <FaThumbtack
         size={14}

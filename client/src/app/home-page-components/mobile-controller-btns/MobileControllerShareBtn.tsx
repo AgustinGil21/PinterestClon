@@ -1,11 +1,12 @@
-import { FaShare } from 'react-icons/fa';
-import { MobileControllerBtn } from '../MobileControllerBtn';
 import { useState } from 'react';
+import { MobileControllerBtn } from '../MobileControllerBtn';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const MobileControllerShareBtn = () => {
   const [shareColor, setShareColor] = useState('#000000');
-  const { mobilePinControllerRotation } = useAppsStore();
+  const { mobilePinControllerRotation, mobilePinControllerButtonsTranslate } =
+    useAppsStore();
+  const { share } = mobilePinControllerButtonsTranslate;
 
   return (
     <MobileControllerBtn
@@ -14,6 +15,8 @@ export const MobileControllerShareBtn = () => {
       setIconColor={setShareColor}
       id='controller-share-btn'
       hoverColor='#e60023'
+      onHoverTranslateX={share.x}
+      onHoverTranslateY={share.y}
     >
       <svg
         aria-hidden='true'

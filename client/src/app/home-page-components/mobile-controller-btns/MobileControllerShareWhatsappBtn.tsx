@@ -5,7 +5,9 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const MobileControllerShareWhatsappBtn = () => {
   const [shareColor, setShareColor] = useState('#000000');
-  const { mobilePinControllerRotation } = useAppsStore();
+  const { mobilePinControllerRotation, mobilePinControllerButtonsTranslate } =
+    useAppsStore();
+  const { shareWsp } = mobilePinControllerButtonsTranslate;
 
   return (
     <MobileControllerBtn
@@ -14,6 +16,8 @@ export const MobileControllerShareWhatsappBtn = () => {
       setIconColor={setShareColor}
       id='controller-share-wsp-btn'
       hoverColor='#65bc40'
+      onHoverTranslateX={shareWsp.x}
+      onHoverTranslateY={shareWsp.y}
     >
       <FaWhatsapp
         size={18}
