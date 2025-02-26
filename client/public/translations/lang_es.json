@@ -908,5 +908,108 @@
       }
     }
   },
-  "errors": {}
+  "errors": {
+    "login": {
+      "email": {
+        "invalid": "Por favor, introduce una dirección de correo electrónico válida.",
+        "empty": "Se requiere dirección de correo electrónico.",
+        "min": "La dirección de correo electrónico debe contener al menos 12 caracteres.",
+        "max": "La dirección de correo electrónico puede contener hasta 320 caracteres."
+      },
+      "password": {
+        "empty": "Se requiere una contraseña.",
+        "min": "La contraseña debe contener al menos 8 caracteres.",
+        "max": "La contraseña puede contener hasta 128 caracteres.",
+        "invalid": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial."
+      }
+    },
+    "register": {
+      "email": {
+        "invalid": "Por favor, introduce una dirección de correo electrónico válida.",
+        "empty": "Se requiere dirección de correo electrónico.",
+        "min": "La dirección de correo electrónico debe contener al menos 12 caracteres.",
+        "max": "La dirección de correo electrónico puede contener hasta 320 caracteres."
+      },
+      "password": {
+        "empty": "Se requiere una contraseña.",
+        "min": "La contraseña debe contener al menos 8 caracteres.",
+        "max": "La contraseña puede contener hasta 128 caracteres.",
+        "invalid": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial."
+      },
+      "date": {
+        "invalid": "¡Te faltó algo! No olvides agregar tu fecha de nacimiento."
+      }
+    },
+    "username": {
+      "username": {
+        "empty": "Se requiere nombre de usuario.",
+        "min": "El nombre de usuario debe contener al menos 8 caracteres.",
+        "max": "El nombre de usuario puede contener hasta 24 caracteres.",
+        "invalid": "El nombre de usuario debe contener caracteres alfanuméricos y también puede incluir caracteres especiales como . (punto) o _ (guion bajo)."
+      }
+    },
+    "recover_password": {
+      "password": {
+        "empty": "Se requiere una contraseña.",
+        "min": "La contraseña debe contener al menos 8 caracteres.",
+        "max": "La contraseña puede contener hasta 128 caracteres.",
+        "invalid": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial."
+      }
+    },
+    "user_settings": {
+      "name": {
+        "max": "El nombre no puede tener más de 30 caracteres.",
+        "invalid": "El nombre debe contener solo letras y, opcionalmente, un espacio seguido de más letras."
+      },
+      "surname": {
+        "max": "El apellido no puede tener más de 30 caracteres.",
+        "invalid": "El apellido debe contener solo letras."
+      },
+      "about_you": {
+        "max": "El contenido no puede tener más de 500 caracteres."
+      },
+      "website": {
+        "invalid": "El enlace debe ser una URL válida."
+      },
+      "username": {
+        "max": "El nombre de usuario puede contener hasta 24 caracteres.",
+        "invalid": "El nombre de usuario debe contener caracteres alfanuméricos y también puede incluir caracteres especiales como . (punto) o _ (guion bajo)."
+      }
+    },
+    "change_password": {
+      "oldPassword": {
+        "empty": "Se requiere una contraseña.",
+        "min": "La contraseña debe contener al menos 8 caracteres.",
+        "max": "La contraseña puede contener hasta 128 caracteres.",
+        "invalid": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial."
+      },
+      "newPassword": {
+        "empty": "Se requiere una contraseña.",
+        "min": "La contraseña debe contener al menos 8 caracteres.",
+        "max": "La contraseña puede contener hasta 128 caracteres.",
+        "invalid": "La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un dígito y un carácter especial."
+      }
+    },
+    "create_pin": {
+      "title": {
+        "max": "El título es demasiado largo. Solo se mostrarán los primeros 100 caracteres."
+      },
+      "description": {
+        "max": "La descripción no puede exceder los 700 caracteres."
+      },
+      "url": {
+        "invalid": "El enlace debe ser una URL válida."
+      },
+      "alt_text": {
+        "empty": "El texto alternativo es obligatorio.",
+        "max": "El texto alternativo es demasiado largo. Solo se mostrarán los primeros 100 caracteres.",
+        "invalid": "El texto alternativo contiene caracteres no permitidos."
+      }
+    },
+    "create_comment": {
+      "comment": {
+        "max": "El comentario no puede exceder los 500 caracteres."
+      }
+    }
+  }
 }

@@ -790,6 +790,111 @@ interface AdultContent {
   };
 }
 
+interface Errors {
+  login: {
+    email: {
+      invalid: string;
+      empty: string;
+      min: string;
+      max: string;
+    };
+    password: {
+      empty: string;
+      min: string;
+      max: string;
+      invalid: string;
+    };
+  };
+  register: {
+    email: {
+      invalid: string;
+      empty: string;
+      min: string;
+      max: string;
+    };
+    password: {
+      empty: string;
+      min: string;
+      max: string;
+      invalid: string;
+    };
+    date: {
+      invalid: string;
+    };
+  };
+  username: {
+    username: {
+      empty: string;
+      min: string;
+      max: string;
+      invalid: string;
+    };
+  };
+  recover_password: {
+    password: {
+      empty: string;
+      min: string;
+      max: string;
+      invalid: string;
+    };
+  };
+  user_settings: {
+    name: {
+      max: string;
+      invalid: string;
+    };
+    surname: {
+      max: string;
+      invalid: string;
+    };
+    about_you: {
+      max: string;
+    };
+    website: {
+      invalid: string;
+    };
+    username: {
+      max: string;
+      invalid: string;
+    };
+  };
+  change_password: {
+    oldPassword: {
+      empty: string;
+      min: string;
+      max: string;
+      invalid: string;
+    };
+    newPassword: {
+      empty: string;
+      min: string;
+      max: string;
+      invalid: string;
+    };
+  };
+  create_pin: {
+    title: {
+      max: string;
+    };
+    description: {
+      max: string;
+    };
+    url: {
+      invalid: string;
+    };
+    alt_text: {
+      empty: string;
+      max: string;
+      invalid: string;
+    };
+  };
+  create_comment: {
+    comment: {
+      max: string;
+    };
+  };
+}
+
 export interface ITranslation {
   header: Header;
   user: User;
@@ -823,7 +928,7 @@ export interface ITranslation {
   technologies: Technologies;
   'clone-information-aside': CloneInformationAside;
   adult: AdultContent;
-  errors: Record<string, unknown>;
+  errors: Errors;
 }
 
 export type TTranslationKey =

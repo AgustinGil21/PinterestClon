@@ -918,5 +918,108 @@
     }
   },
 
-  "errors": {}
+  "errors": {
+    "login": {
+      "email": {
+        "invalid": "Please enter a valid email address.",
+        "empty": "Email address is required.",
+        "min": "The email address must be at least 12 characters long.",
+        "max": "The email address can be up to 320 characters long."
+      },
+      "password": {
+        "empty": "Password is required.",
+        "min": "The password must be at least 8 characters long.",
+        "max": "The password can be up to 128 characters long.",
+        "invalid": "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character."
+      }
+    },
+    "register": {
+      "email": {
+        "invalid": "Please enter a valid email address.",
+        "empty": "Email address is required.",
+        "min": "The email address must be at least 12 characters long.",
+        "max": "The email address can be up to 320 characters long."
+      },
+      "password": {
+        "empty": "Password is required.",
+        "min": "The password must be at least 8 characters long.",
+        "max": "The password can be up to 128 characters long.",
+        "invalid": "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character."
+      },
+      "date": {
+        "invalid": "You missed something! Don't forget to add your birth date."
+      }
+    },
+    "username": {
+      "username": {
+        "empty": "Username is required.",
+        "min": "The username must be at least 8 characters long.",
+        "max": "The username can be up to 24 characters long.",
+        "invalid": "The username must contain alphanumeric characters and may also include special characters like . (dot) or _ (underscore)."
+      }
+    },
+    "recover_password": {
+      "password": {
+        "empty": "Password is required.",
+        "min": "The password must be at least 8 characters long.",
+        "max": "The password can be up to 128 characters long.",
+        "invalid": "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character."
+      }
+    },
+    "user_settings": {
+      "name": {
+        "max": "The name cannot be more than 30 characters long.",
+        "invalid": "The name must contain only letters and optionally a space followed by more letters."
+      },
+      "surname": {
+        "max": "The surname cannot be more than 30 characters long.",
+        "invalid": "The surname must contain only letters."
+      },
+      "about_you": {
+        "max": "The content cannot be more than 500 characters long."
+      },
+      "website": {
+        "invalid": "The link must be a valid URL."
+      },
+      "username": {
+        "max": "The username can be up to 24 characters long.",
+        "invalid": "The username must contain alphanumeric characters and may also include special characters like . (dot) or _ (underscore)."
+      }
+    },
+    "change_password": {
+      "oldPassword": {
+        "empty": "Password is required.",
+        "min": "The password must be at least 8 characters long.",
+        "max": "The password can be up to 128 characters long.",
+        "invalid": "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character."
+      },
+      "newPassword": {
+        "empty": "Password is required.",
+        "min": "The password must be at least 8 characters long.",
+        "max": "The password can be up to 128 characters long.",
+        "invalid": "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character."
+      }
+    },
+    "create_pin": {
+      "title": {
+        "max": "The title is too long. Only the first 100 characters will be displayed."
+      },
+      "description": {
+        "max": "The description cannot exceed 700 characters."
+      },
+      "url": {
+        "invalid": "The link must be a valid URL."
+      },
+      "alt_text": {
+        "empty": "Alternative text is required.",
+        "max": "The alternative text is too long. Only the first 100 characters will be displayed.",
+        "invalid": "The alternative text contains invalid characters."
+      }
+    },
+    "create_comment": {
+      "comment": {
+        "max": "The comment cannot exceed 500 characters."
+      }
+    }
+  }
 }

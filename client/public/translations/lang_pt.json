@@ -887,5 +887,108 @@
     }
   },
 
-  "errors": {}
+  "errors": {
+    "login": {
+      "email": {
+        "invalid": "Por favor, insira um endereço de e-mail válido.",
+        "empty": "Endereço de e-mail é obrigatório.",
+        "min": "O endereço de e-mail deve ter pelo menos 12 caracteres.",
+        "max": "O endereço de e-mail pode ter até 320 caracteres."
+      },
+      "password": {
+        "empty": "Senha é obrigatória.",
+        "min": "A senha deve ter pelo menos 8 caracteres.",
+        "max": "A senha pode ter até 128 caracteres.",
+        "invalid": "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula, um dígito e um caractere especial."
+      }
+    },
+    "register": {
+      "email": {
+        "invalid": "Por favor, insira um endereço de e-mail válido.",
+        "empty": "Endereço de e-mail é obrigatório.",
+        "min": "O endereço de e-mail deve ter pelo menos 12 caracteres.",
+        "max": "O endereço de e-mail pode ter até 320 caracteres."
+      },
+      "password": {
+        "empty": "Senha é obrigatória.",
+        "min": "A senha deve ter pelo menos 8 caracteres.",
+        "max": "A senha pode ter até 128 caracteres.",
+        "invalid": "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula, um dígito e um caractere especial."
+      },
+      "date": {
+        "invalid": "Você esqueceu algo! Não se esqueça de adicionar sua data de nascimento."
+      }
+    },
+    "username": {
+      "username": {
+        "empty": "Nome de usuário é obrigatório.",
+        "min": "O nome de usuário deve ter pelo menos 8 caracteres.",
+        "max": "O nome de usuário pode ter até 24 caracteres.",
+        "invalid": "O nome de usuário deve conter caracteres alfanuméricos e também pode incluir caracteres especiais como . (ponto) ou _ (sublinhado)."
+      }
+    },
+    "recover_password": {
+      "password": {
+        "empty": "Senha é obrigatória.",
+        "min": "A senha deve ter pelo menos 8 caracteres.",
+        "max": "A senha pode ter até 128 caracteres.",
+        "invalid": "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula, um dígito e um caractere especial."
+      }
+    },
+    "user_settings": {
+      "name": {
+        "max": "O nome não pode ter mais de 30 caracteres.",
+        "invalid": "O nome deve conter apenas letras e, opcionalmente, um espaço seguido de mais letras."
+      },
+      "surname": {
+        "max": "O sobrenome não pode ter mais de 30 caracteres.",
+        "invalid": "O sobrenome deve conter apenas letras."
+      },
+      "about_you": {
+        "max": "O conteúdo não pode ter mais de 500 caracteres."
+      },
+      "website": {
+        "invalid": "O link deve ser uma URL válida."
+      },
+      "username": {
+        "max": "O nome de usuário pode ter até 24 caracteres.",
+        "invalid": "O nome de usuário deve conter caracteres alfanuméricos e também pode incluir caracteres especiais como . (ponto) ou _ (sublinhado)."
+      }
+    },
+    "change_password": {
+      "oldPassword": {
+        "empty": "Senha é obrigatória.",
+        "min": "A senha deve ter pelo menos 8 caracteres.",
+        "max": "A senha pode ter até 128 caracteres.",
+        "invalid": "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula, um dígito e um caractere especial."
+      },
+      "newPassword": {
+        "empty": "Senha é obrigatória.",
+        "min": "A senha deve ter pelo menos 8 caracteres.",
+        "max": "A senha pode ter até 128 caracteres.",
+        "invalid": "A senha deve conter pelo menos uma letra minúscula, uma letra maiúscula, um dígito e um caractere especial."
+      }
+    },
+    "create_pin": {
+      "title": {
+        "max": "O título é muito longo. Apenas os primeiros 100 caracteres serão exibidos."
+      },
+      "description": {
+        "max": "A descrição não pode exceder 700 caracteres."
+      },
+      "url": {
+        "invalid": "O link deve ser uma URL válida."
+      },
+      "alt_text": {
+        "empty": "Texto alternativo é obrigatório.",
+        "max": "O texto alternativo é muito longo. Apenas os primeiros 100 caracteres serão exibidos.",
+        "invalid": "O texto alternativo contém caracteres inválidos."
+      }
+    },
+    "create_comment": {
+      "comment": {
+        "max": "O comentário não pode exceder 500 caracteres."
+      }
+    }
+  }
 }
