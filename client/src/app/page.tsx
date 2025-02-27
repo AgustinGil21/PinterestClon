@@ -65,7 +65,7 @@ export default function Home() {
   }
 
   return (
-    <section className='masonry'>
+    <section className={`masonry`}>
       {homePins.map((elem) => (
         <Pin elem={elem} key={elem.pin_id} />
       ))}

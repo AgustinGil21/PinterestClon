@@ -13,11 +13,11 @@ export const useGetHoldPosition = (
     if ('touches' in e && e.touches.length > 0) {
       // Evento para celular
       x = e.touches[0].clientX;
-      y = e.touches[0].clientY;
+      y = e.touches[0].pageY;
     } else if ('clientX' in e) {
       // Evento de mouse
       x = e.clientX;
-      y = e.clientY;
+      y = e.pageY;
     }
 
     setPosition({ x, y });

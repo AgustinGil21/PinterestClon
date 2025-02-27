@@ -135,10 +135,15 @@ export interface ModalStateInterface {
   setBoardCoversModalIsOpen: () => void;
 
   mobileSavePinControllerIsActive: boolean;
+  mobileControllerPinID: string;
   mobileSavePinControllerPosition: IPosition;
   mobilePinControllerRotation: number;
   mobilePinControllerButtonsTranslate: IMobileControllerButtonsTranslate;
-  setMobileSavePinController: (position: IPosition, rotation: number) => void;
+  setMobileSavePinController: (
+    position: IPosition,
+    rotation: number,
+    pinID
+  ) => void;
   closeMobilePinController: () => void;
   setMobilePinControllerRotation: (rotation: number) => void;
   setPinControllerButtonsTranslate: (
@@ -204,12 +209,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   boardCoversModalIsOpen: false,
 
   mobileSavePinControllerIsActive: false,
+  mobileControllerPinID: '',
   mobileSavePinControllerPosition: {
     x: 0,
     y: 0,
   },
   mobilePinControllerRotation: 0,
-
   mobilePinControllerButtonsTranslate: {
     like: {
       x: -7,
@@ -488,17 +493,23 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  setMobileSavePinController: (position: IPosition, rotation: number) => {
+  setMobileSavePinController: (
+    position: IPosition,
+    rotation: number,
+    pinID: string
+  ) => {
     set((state) => ({
       mobileSavePinControllerIsActive: !state.mobileSavePinControllerIsActive,
       mobileSavePinControllerPosition: position,
       mobilePinControllerRotation: rotation,
+      mobileControllerPinID: pinID,
     }));
   },
 
   closeMobilePinController: () => {
     set({
       mobileSavePinControllerIsActive: false,
+      mobileControllerPinID: '',
       mobileSavePinControllerPosition: {
         x: 0,
         y: 0,

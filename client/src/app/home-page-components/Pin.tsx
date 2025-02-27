@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { PinInterface } from '../domain/types/pins-structure';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import CreateBoardModal from '../boards/create-board/CreateBoardModal';
-import ModalPlusOptionPin from '../pin/[id]/ModalPlusOptionPin';
 import { PinFooter } from './PinFooter';
 import { PinBody } from './PinBody';
 import { PinSkeleton } from '../skeletons/PinSkeleton';

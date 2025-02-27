@@ -7,13 +7,17 @@ import { useGetDynamicRotation } from '../hooks/useGetDynamicRotation';
 interface Props {
   children: React.ReactNode;
   className?: string;
+  href: string;
+  pinID: string;
 }
 
 export const MobileSavePinButtonsController = ({
   children,
   className,
+  href,
+  pinID,
 }: Props) => {
-  const { setMobileSavePinController } = useAppsStore();
+  const { setMobileSavePinController, mobileControllerPinID } = useAppsStore();
   const { handleHold, position, resetPosition } = useGetHoldPosition();
   const rotation = useGetDynamicRotation({
     position,
@@ -22,19 +26,24 @@ export const MobileSavePinButtonsController = ({
   });
 
   useEffect(() => {
-    setMobileSavePinController(position, rotation);
+    setMobileSavePinController(position, rotation, pinID);
+    console.log(position);
   }, [position]);
 
   return (
-    <HoldableLink
-      href='/explore'
-      onHold={handleHold}
-      onCancelHold={resetPosition}
-      holdTime={300}
-      className={`${className}`}
-      maxWidth={768}
-    >
-      {children}
-    </HoldableLink>
+    <>
+      <HoldableLink
+        href={href}
+        onHold={handleHold}
+        onCancelHold={resetPosition}
+        holdTime={300}
+        className={`${className} ${
+          mobileControllerPinID === pinID ? 'z-[80]' : ''
+        }`}
+        maxWidth={768}
+      >
+        {children}
+      </HoldableLink>
+    </>
   );
 };

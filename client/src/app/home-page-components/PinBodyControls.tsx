@@ -12,7 +12,7 @@ export const PinBodyControls = ({ elem }: Props) => {
 
   return (
     <>
-      {width > 768 && <PinBodyControlsTop elem={elem} />}
+      <PinBodyControlsTop elem={elem} />
       <PinBodyControlsBottom elem={elem} />
     </>
   );

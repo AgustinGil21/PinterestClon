@@ -17,6 +17,8 @@ import { DynamicShareBoardModal } from './board/DynamicShareBoardModal';
 import { DynamicMoreOptionsBoardModal } from './board/DynamicMoreOptionsBoardModal';
 import AsideSettingsInfoClon from './interfaces/layout/AsideInfoClon/AsideSettingsInfoClon';
 import { AdultContentModal } from './home-page-components/AdultContentModal';
+import { MobileController } from './home-page-components/MobileController';
+import { useGetScreenSize } from './hooks/useGetScreenSize';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -47,7 +49,10 @@ export default function RootLayout({
     shareBoardModalIsOpen,
     boardMoreOptionsModalIsOpen,
     adultContentModalIsOpen,
+    mobileSavePinControllerIsActive,
   } = useAppsStore();
+  const { width } = useGetScreenSize();
+
   const pathname = usePathname();
   const routesWithoutHeader = ['/recover-password'];
   const routesWithoutAside = [
@@ -102,7 +107,7 @@ export default function RootLayout({
         {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
 
-        <main className={`flex pt-16 relative `}>
+        <main className={`flex pt-16 relative`}>
           {isAuth && routesWithoutAside.includes(pathname) && <AsideConfig />}
           {routesWithoutAsideInfoClon.includes(pathname) && (
             <AsideSettingsInfoClon />
@@ -115,6 +120,9 @@ export default function RootLayout({
             />
           )}
 
+          {mobileSavePinControllerIsActive && width < 769 && (
+            <MobileController />
+          )}
           <BoardsListModal />
           <SharePinModal />
           {isPinMoreOptionModalOpen && <PinMoreOptionsModal />}

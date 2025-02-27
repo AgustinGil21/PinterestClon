@@ -1,9 +1,16 @@
 import { useMobileHover } from '@/app/hooks/useMobileHover';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const MobileControllerCenterCircle = () => {
   const { isHovered, setIsHovered } = useMobileHover(
     'controller-center-circle'
   );
+  const { closeMobilePinController } = useAppsStore();
+
+  const handleClick = () => {
+    setIsHovered(false);
+    closeMobilePinController();
+  };
 
   return (
     <div
@@ -14,6 +21,7 @@ export const MobileControllerCenterCircle = () => {
       }}
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
     ></div>
   );
 };
