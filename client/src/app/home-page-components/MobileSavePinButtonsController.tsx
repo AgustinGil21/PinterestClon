@@ -23,11 +23,14 @@ export const MobileSavePinButtonsController = ({
     position,
     height: 150,
     width: 150,
+    translateX: -65,
+    translateY: -130,
+    headerHeight: 64,
+    footerHeight: 64,
   });
 
   useEffect(() => {
     setMobileSavePinController(position, rotation, pinID);
-    console.log(position);
   }, [position]);
 
   return (

@@ -32,6 +32,7 @@ export const useGetButtonsTranslateAxis = ({ rotation, setToStore }: Props) => {
   // 180 deg - Centrado mirando hacía abajo
   // 225 deg - Diagonal Der.
   // 270 deg - Lateral Der.
+  // 315 deg - Diagonal Der. abajo
 
   useEffect(() => {
     let newTranslate = translate;
@@ -70,6 +71,13 @@ export const useGetButtonsTranslateAxis = ({ rotation, setToStore }: Props) => {
         save: { x: -7, y: 3 },
         share: { x: -7, y: -2 },
         shareWsp: { x: -3, y: -7 },
+      };
+    } else if (rotation === 315) {
+      newTranslate = {
+        like: { x: -4, y: 2 },
+        save: { x: -5, y: -1 },
+        share: { x: -2, y: -4 },
+        shareWsp: { x: 4, y: -2 },
       };
     } else {
       newTranslate = {

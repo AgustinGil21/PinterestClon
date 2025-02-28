@@ -1,22 +1,26 @@
 import { useEffect, useState } from 'react';
 
 export const useGetScreenSize = () => {
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
+  const getSize = () => ({
+    width: window.visualViewport?.width ?? window.innerWidth,
+    height: window.visualViewport?.height ?? window.innerHeight,
+  });
 
-  const handleResize = () => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
-  };
+  const [size, setSize] = useState(getSize());
 
   useEffect(() => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
+    const handleResize = () => {
+      setSize(getSize());
+    };
 
     window.addEventListener('resize', handleResize);
+    window.visualViewport?.addEventListener('resize', handleResize);
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.visualViewport?.removeEventListener('resize', handleResize);
+    };
   }, []);
 
-  return { width, height };
+  return size;
 };

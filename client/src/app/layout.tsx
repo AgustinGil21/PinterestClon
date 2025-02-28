@@ -107,7 +107,7 @@ export default function RootLayout({
         {!routesWithoutHeader.includes(pathname) && <Header />}
         <DataDevs />
 
-        <main className={`flex pt-16 relative`}>
+        <main className={`flex pt-16 relative overflow-x-hidden`}>
           {isAuth && routesWithoutAside.includes(pathname) && <AsideConfig />}
           {routesWithoutAsideInfoClon.includes(pathname) && (
             <AsideSettingsInfoClon />
@@ -123,7 +123,7 @@ export default function RootLayout({
           {mobileSavePinControllerIsActive && width < 769 && (
             <MobileController />
           )}
-          <BoardsListModal />
+          {width > 768 && <BoardsListModal />}
           <SharePinModal />
           {isPinMoreOptionModalOpen && <PinMoreOptionsModal />}
           {shareBoardModalIsOpen && <DynamicShareBoardModal />}

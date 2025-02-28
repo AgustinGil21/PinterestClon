@@ -13,10 +13,11 @@ export const MobileController = () => {
     setPinControllerButtonsTranslate,
     mobileSavePinControllerPosition,
     closeMobilePinController,
+    mobileSavePinControllerIsActive,
+    setMobilePinControllerRotation,
   } = useAppsStore();
 
   useLockScroll();
-
   useGetButtonsTranslateAxis({
     rotation: mobilePinControllerRotation,
     setToStore: setPinControllerButtonsTranslate,
@@ -25,7 +26,7 @@ export const MobileController = () => {
   return (
     <>
       <div
-        className='fixed inset-0 bg-black bg-opacity-50 z-[70]'
+        className={`fixed inset-0 bg-black bg-opacity-50 z-[70] `}
         onClick={closeMobilePinController}
       />
       <div

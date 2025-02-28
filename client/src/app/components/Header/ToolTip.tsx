@@ -22,7 +22,7 @@ const Tooltip = ({
 
   return (
     <div
-      className={`relative group ${
+      className={`relative pointer-events-none group ${
         isDownloadAccountOpen || isThreePointsAccountOpen ? 'z-[51]' : 'z-[20]'
       }  p-1`}
     >

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import {
-  IMobileControllerButtonsTranslate,
-  IPosition,
-} from '../global-interfaces/global-interfaces';
+import { IPosition } from '../global-interfaces/global-interfaces';
+import { useGetScreenSize } from './useGetScreenSize';
 
 interface Props {
   position: IPosition;
@@ -10,58 +8,60 @@ interface Props {
   height: number;
   padding?: number;
   setComponent?: (position: IPosition, rotation: number) => void;
+  translateY?: number;
+  translateX?: number;
+  headerHeight?: number;
+  footerHeight?: number;
 }
 
 export const useGetDynamicRotation = ({
   position,
   padding = 16,
-  height,
-  width,
+  height: componentHeight,
+  width: componentWidth,
   setComponent,
+  translateY = 0,
+  translateX = 0,
+  headerHeight = 0,
+  footerHeight = 0,
 }: Props) => {
   const [rotation, setRotation] = useState(0);
-  const { x, y } = position;
+  const { width: windowWidth, height: windowHeight } = useGetScreenSize();
+  const { x: posX, y: posY } = position;
+
+  const x = posX + translateX;
+  const y = posY + translateY;
+
+  const MARGIN_THRESHOLD = 10;
+
+  // Corrección de cálculos:
+  const componentRight = x + componentWidth;
+  const componentBottom = y + componentHeight;
+
+  const isTop = y <= padding + headerHeight + MARGIN_THRESHOLD;
+  const isBottom =
+    componentBottom >= windowHeight - padding - footerHeight - MARGIN_THRESHOLD;
+  const isLeft = x <= padding + MARGIN_THRESHOLD;
+  const isRight =
+    x + componentWidth >= windowWidth - padding - MARGIN_THRESHOLD;
+
+  const isCenterX = !isLeft && !isRight;
+  const isCenterY = !isTop && !isBottom;
 
   const calculateRotation = (): number => {
-    const isTop = y <= padding;
-    const isBottom = y >= height - padding;
-    const isLeft = x <= padding;
-    const isRight = x >= width - padding;
-    const isCenterX = x > padding && x < width - padding;
-    const isCenterY = y > padding && y < height - padding;
-
-    // Si se encuentra arriba a la izquierda
-
     if (isTop && isLeft) return 90;
-
-    // Si se encuentra arriba centrado
     if (isTop && isCenterX) return 180;
-
-    // Si se encuentra arriba a la derecha
-
     if (isTop && isRight) return 225;
-
-    // Si se encuentra pegado a la izquierda,
-    // pero no se esta cerca de abajo ni arriba
-
     if (isLeft && isCenterY) return 90;
-
-    // Si se encuentra pegado a la derecha,
-    // pero no se esta cerca de abajo ni arriba
-
     if (isRight && isCenterY) return 270;
-
-    // Si se encuentra abajo a la izquierda
-
     if (isBottom && isLeft) return 45;
-
-    // Si se encuentra abajo centrado
-
     if (isBottom && isCenterX) return 0;
+    if (isBottom && isRight) return 315;
 
-    // Si se encuentra abajo a la derecha
-
-    if (isBottom && isRight) return 225;
+    if (isRight) return 270;
+    if (isLeft) return 90;
+    if (isTop) return 180;
+    if (isBottom) return 0;
 
     return 0;
   };
@@ -69,8 +69,21 @@ export const useGetDynamicRotation = ({
   useEffect(() => {
     const newRotation = calculateRotation();
     setRotation(newRotation);
-    if (setComponent) setComponent(position, rotation);
-  }, [x, y, padding, height, width]);
+    if (setComponent) setComponent(position, newRotation);
+  }, [
+    x,
+    y,
+    padding,
+    componentHeight,
+    componentWidth,
+    position,
+    translateX,
+    translateY,
+    headerHeight,
+    footerHeight,
+    windowWidth,
+    windowHeight,
+  ]);
 
   return rotation;
 };

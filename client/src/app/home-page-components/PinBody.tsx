@@ -4,6 +4,7 @@ import { PinBodyControls } from './PinBodyControls';
 import { AdultContentPreview } from './AdultContentPreview';
 import { MobileSavePinButtonsController } from './MobileSavePinButtonsController';
 import { useGetScreenSize } from '../hooks/useGetScreenSize';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface Props {
   elem: PinInterface;
@@ -11,10 +12,12 @@ interface Props {
 
 export const PinBody = ({ elem }: Props) => {
   const router = useRouter();
+  const { closeMobilePinController } = useAppsStore();
   const { width } = useGetScreenSize();
   let pinId = String(elem.pin_id).trim();
 
   const handleClick = () => {
+    closeMobilePinController();
     const fetchData = async () => {
       try {
         if (!pinId.startsWith('http')) {
