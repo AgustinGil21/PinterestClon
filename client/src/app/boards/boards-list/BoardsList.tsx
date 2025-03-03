@@ -7,29 +7,21 @@ import PlusIcon from '@/app/components/icons/PlusIcon';
 import { BoardsListEmpty } from './BoardsListEmpty';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
-import CreateBoardModal from '../create-board/CreateBoardModal';
 
 interface Props {
   boards: ListOfBoards[];
+  pinID: string;
+  closeBoardsList: () => void;
 }
 
-const BoardsList = ({ boards }: Props) => {
+const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
   const [value, setValue] = useState('');
-  const [openModalCreate, setOpenModalCreate] = useState(false);
-  const {
-    isCreateBoardModalOpen,
-    updateDataOpenBoardModal,
-    setDynamicModal,
-    closeDynamicModal,
-    createBoardModalOpen,
-    getBoardsList,
-    getLastBoard,
-    t,
-  } = useAppsStore();
+  const { createBoardModalOpen, getBoardsList, getLastBoard, t } =
+    useAppsStore();
 
   const handleClick = () => {
     createBoardModalOpen();
-    closeDynamicModal();
+    closeBoardsList();
     getBoardsList();
     getLastBoard();
   };
@@ -44,7 +36,12 @@ const BoardsList = ({ boards }: Props) => {
         <BoardsListHeader setValue={setValue} />
         <section className='w-full flex flex-col text-[0.8rem] gap-4 max-h-[290px] min-h-[290px] overflow-y-auto p-2'>
           <div className='flex w-full flex-col gap-2'>
-            {!value && <BoardListProfileCard />}
+            {!value && (
+              <BoardListProfileCard
+                pinID={pinID}
+                closeBoardsList={closeBoardsList}
+              />
+            )}
           </div>
           {boards.length ? (
             <div className='flex w-full flex-col gap-2'>
@@ -56,7 +53,12 @@ const BoardsList = ({ boards }: Props) => {
                 <h3>{t?.['boards-list'].results || 'Resultados'}</h3>
               )}
               {boards.length && (
-                <BoardsListResults value={value} boards={boards} />
+                <BoardsListResults
+                  value={value}
+                  boards={boards}
+                  pinID={pinID}
+                  closeBoardsList={closeBoardsList}
+                />
               )}
             </div>
           ) : (

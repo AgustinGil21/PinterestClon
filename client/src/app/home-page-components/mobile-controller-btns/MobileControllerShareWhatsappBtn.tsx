@@ -9,11 +9,14 @@ export const MobileControllerShareWhatsappBtn = () => {
     mobilePinControllerRotation,
     mobilePinControllerButtonsTranslate,
     closeMobilePinController,
+    mobileControllerPinID,
   } = useAppsStore();
   const { shareWsp } = mobilePinControllerButtonsTranslate;
+  const url = `https://pinterestClon.com/pin/${mobileControllerPinID}`;
+  const wspURL = `https://wa.me/?text=${encodeURIComponent(url)}`;
 
   const handleBtnPress = () => {
-    console.log('Click');
+    window.open(wspURL, '_blank');
     closeMobilePinController();
   };
 

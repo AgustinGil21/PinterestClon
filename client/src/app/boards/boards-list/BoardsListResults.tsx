@@ -9,11 +9,17 @@ export interface ListOfBoards {
 
 interface Props {
   value?: string;
-  lang?: string;
   boards: ListOfBoards[];
+  pinID: string;
+  closeBoardsList: () => void;
 }
 
-const BoardsListResults = ({ value, lang = 'en', boards }: Props) => {
+const BoardsListResults = ({
+  value,
+  boards,
+  pinID,
+  closeBoardsList,
+}: Props) => {
   const filteredBoards = value
     ? boards.filter((board) =>
         board.name.toLowerCase().includes(value.toLowerCase())
@@ -23,7 +29,12 @@ const BoardsListResults = ({ value, lang = 'en', boards }: Props) => {
   return (
     <ul className='w-full'>
       {filteredBoards.map((board) => (
-        <BoardListCard key={board.id} board={board} />
+        <BoardListCard
+          key={board.id}
+          board={board}
+          pinID={pinID}
+          closeBoardsList={closeBoardsList}
+        />
       ))}
     </ul>
   );

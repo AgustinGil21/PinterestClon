@@ -9,9 +9,16 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 interface Props {
   data?: string;
   endpoint?: string;
+  className?: string;
+  iconsContainerClassName?: string;
 }
 
-export const ShareComponent = ({ data, endpoint }: Props) => {
+export const ShareComponent = ({
+  data,
+  endpoint,
+  className,
+  iconsContainerClassName,
+}: Props) => {
   const [copied, setCopied] = useState(false);
   const { setToastNotification, t } = useAppsStore();
 
@@ -64,11 +71,13 @@ export const ShareComponent = ({ data, endpoint }: Props) => {
   ];
 
   return (
-    <div>
+    <div className={`${className}`}>
       <h4 className='text-center text-black text-[16px] font-semibold dark:text-white'>
         {t?.share.text || 'Compartir'}
       </h4>
-      <div className='grid grid-cols-4 items-center mt-2 gap-1 max-w-[300px]'>
+      <div
+        className={`grid grid-cols-4 items-center mt-2 gap-1 max-w-[300px] ${iconsContainerClassName}`}
+      >
         <div
           onClick={() => copyToClipboard(urlToShare, setCopied)}
           className='flex justify-center flex-col items-center gap-1 cursor-pointer  dark:text-white'

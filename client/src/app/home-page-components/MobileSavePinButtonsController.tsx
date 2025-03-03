@@ -34,6 +34,10 @@ export const MobileSavePinButtonsController = ({
     footerHeight: 64,
   });
 
+  // const handleLinkHold = (e: React.MouseEvent | React.TouchEvent) => {
+  //   handleHold(e);
+  // };
+
   const handleCancelHold = () => {
     resetPosition();
     setMobileControllerBtnCenterIsHovered(false);
@@ -49,7 +53,7 @@ export const MobileSavePinButtonsController = ({
         href={href}
         onHold={handleHold}
         onCancelHold={handleCancelHold}
-        holdTime={300}
+        holdTime={400}
         className={`${className} ${
           mobileControllerPinID === pinID ? 'z-[80]' : ''
         }`}

@@ -9,11 +9,13 @@ export const MobileControllerSaveBtn = () => {
     mobilePinControllerRotation,
     mobilePinControllerButtonsTranslate,
     closeMobilePinController,
+    setMobileControllerBoardsListModalIsOpen,
+    mobileControllerPinID,
   } = useAppsStore();
   const { save } = mobilePinControllerButtonsTranslate;
 
   const handleBtnPress = () => {
-    console.log('Click');
+    setMobileControllerBoardsListModalIsOpen(mobileControllerPinID);
     closeMobilePinController();
   };
 

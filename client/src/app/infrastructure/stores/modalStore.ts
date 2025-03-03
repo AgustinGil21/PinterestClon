@@ -153,6 +153,13 @@ export interface ModalStateInterface {
   ) => void;
   setMobileControllerBtnCenterIsHovered: (isHovered: boolean) => void;
   setMobileControllerUserIsHolding: (isHolding: boolean) => void;
+
+  mobileControllerSharePinModal: boolean;
+  setMobileControllerSharePinModal: () => void;
+
+  mobileControllerBoardsListModalIsOpen: boolean;
+  mobileControllerBoardsListModalPinID: string;
+  setMobileControllerBoardsListModalIsOpen: (pinID?: string) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -239,6 +246,10 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   },
   mobileControllerBtnCenterIsHovered: false,
   mobileControllerUserIsHolding: false,
+
+  mobileControllerSharePinModal: false,
+  mobileControllerBoardsListModalIsOpen: false,
+  mobileControllerBoardsListModalPinID: '',
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -548,5 +559,19 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     set({
       mobileControllerUserIsHolding: isHolding,
     });
+  },
+
+  setMobileControllerSharePinModal: () => {
+    set((state) => ({
+      mobileControllerSharePinModal: !state.mobileControllerSharePinModal,
+    }));
+  },
+
+  setMobileControllerBoardsListModalIsOpen: (pinID?: string) => {
+    set((state) => ({
+      mobileControllerBoardsListModalIsOpen:
+        !state.mobileControllerBoardsListModalIsOpen,
+      mobileControllerBoardsListModalPinID: pinID,
+    }));
   },
 });

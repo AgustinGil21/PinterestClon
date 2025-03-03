@@ -3,8 +3,15 @@ import BoardsList from './BoardsList';
 import { DynamicModal } from '@/app/components/Basic/DynamicModal';
 
 const BoardsListModal = () => {
-  const { boardsList, closeDynamicModal, btnRef, dynamicModalIsOpen } =
-    useAppsStore();
+  const {
+    boardsList,
+    closeDynamicModal,
+    btnRef,
+    dynamicModalIsOpen,
+    dataOpenBoardModal,
+  } = useAppsStore();
+
+  const { pinId } = dataOpenBoardModal;
 
   return (
     <>
@@ -17,7 +24,11 @@ const BoardsListModal = () => {
           btnRef={btnRef}
           closeDynamicModal={closeDynamicModal}
         >
-          <BoardsList boards={boardsList} />
+          <BoardsList
+            boards={boardsList}
+            pinID={pinId}
+            closeBoardsList={closeDynamicModal}
+          />
         </DynamicModal>
       )}
     </>

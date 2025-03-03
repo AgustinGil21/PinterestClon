@@ -4,18 +4,13 @@ import LinkNavigate from '@/app/components/Header/LinkNavigate';
 
 interface Props {
   board: ListOfBoards;
+  pinID: string;
+  closeBoardsList: () => void;
 }
 
-const BoardListCard = ({ board }: Props) => {
-  const {
-    dataOpenBoardModal,
-    addPinToBoard,
-    closeDynamicModal,
-    getLastBoard,
-    setToastNotification,
-    t,
-  } = useAppsStore();
-  const { pinId } = dataOpenBoardModal;
+const BoardListCard = ({ board, pinID, closeBoardsList }: Props) => {
+  const { addPinToBoard, getLastBoard, setToastNotification, t } =
+    useAppsStore();
 
   let url: string;
 
@@ -30,8 +25,8 @@ const BoardListCard = ({ board }: Props) => {
   const handleSavePinToBoard = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addPinToBoard({ pinId, boardId: board.id });
-    closeDynamicModal();
+    addPinToBoard({ pinId: pinID, boardId: board.id });
+    closeBoardsList();
     getLastBoard();
     setToastNotification({
       status: 'success',
@@ -41,7 +36,7 @@ const BoardListCard = ({ board }: Props) => {
   };
 
   const handleLinkOnClick = () => {
-    closeDynamicModal();
+    closeBoardsList();
   };
 
   return (

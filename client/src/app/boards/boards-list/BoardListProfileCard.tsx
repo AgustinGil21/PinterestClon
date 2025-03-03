@@ -2,22 +2,20 @@ import LinkNavigate from '@/app/components/Header/LinkNavigate';
 import ClockIcon from '@/app/components/icons/ClockIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
-const BoardListProfileCard = () => {
-  const {
-    dataOpenBoardModal,
-    savePinToProfile,
-    closeDynamicModal,
-    t,
-    setToastNotification,
-    userPublicData,
-  } = useAppsStore();
-  const { pinId } = dataOpenBoardModal;
+interface Props {
+  pinID: string;
+  closeBoardsList: () => void;
+}
+
+const BoardListProfileCard = ({ pinID, closeBoardsList }: Props) => {
+  const { savePinToProfile, t, setToastNotification, userPublicData } =
+    useAppsStore();
 
   const handleSavePinToProfile = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    savePinToProfile(pinId);
-    closeDynamicModal();
+    savePinToProfile(pinID);
+    closeBoardsList();
     setToastNotification({
       status: 'success',
       type: 'pin',
@@ -26,7 +24,7 @@ const BoardListProfileCard = () => {
   };
 
   const handleLinkOnClick = () => {
-    closeDynamicModal();
+    closeBoardsList();
   };
 
   return (

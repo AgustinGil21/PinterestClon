@@ -10,11 +10,13 @@ export const MobileControllerLikeBtn = () => {
     mobilePinControllerRotation,
     mobilePinControllerButtonsTranslate,
     closeMobilePinController,
+    postLikeOrUnlike,
+    mobileControllerPinID,
   } = useAppsStore();
   const { like } = mobilePinControllerButtonsTranslate;
 
   const handleBtnPress = () => {
-    console.log('Click');
+    postLikeOrUnlike(mobileControllerPinID);
     closeMobilePinController();
   };
 

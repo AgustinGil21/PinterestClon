@@ -8,11 +8,12 @@ export const MobileControllerShareBtn = () => {
     mobilePinControllerRotation,
     mobilePinControllerButtonsTranslate,
     closeMobilePinController,
+    setMobileControllerSharePinModal,
   } = useAppsStore();
   const { share } = mobilePinControllerButtonsTranslate;
 
   const handleBtnPress = () => {
-    console.log('Click');
+    setMobileControllerSharePinModal();
     closeMobilePinController();
   };
 

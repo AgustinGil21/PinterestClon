@@ -19,6 +19,8 @@ import AsideSettingsInfoClon from './interfaces/layout/AsideInfoClon/AsideSettin
 import { AdultContentModal } from './home-page-components/AdultContentModal';
 import { MobileController } from './home-page-components/MobileController';
 import { useGetScreenSize } from './hooks/useGetScreenSize';
+import { MobileControllerSharePinModal } from './home-page-components/MobileControllerSharePinModal';
+import { MobileControllerBoardsListModal } from './home-page-components/MobileControllerBoardsListModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -50,6 +52,8 @@ export default function RootLayout({
     boardMoreOptionsModalIsOpen,
     adultContentModalIsOpen,
     mobileSavePinControllerIsActive,
+    mobileControllerSharePinModal,
+    mobileControllerBoardsListModalIsOpen,
   } = useAppsStore();
   const { width } = useGetScreenSize();
 
@@ -129,6 +133,11 @@ export default function RootLayout({
           {shareBoardModalIsOpen && <DynamicShareBoardModal />}
           {boardMoreOptionsModalIsOpen && <DynamicMoreOptionsBoardModal />}
           {adultContentModalIsOpen && <AdultContentModal />}
+          {mobileControllerSharePinModal && <MobileControllerSharePinModal />}
+
+          {mobileControllerBoardsListModalIsOpen && (
+            <MobileControllerBoardsListModal />
+          )}
         </main>
       </body>
     </html>
