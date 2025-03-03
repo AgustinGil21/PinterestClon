@@ -5,7 +5,9 @@ export const useLockScroll = () => {
     const scrollY = window.scrollY;
 
     const handleTouchMove = (e: TouchEvent) => {
-      e.preventDefault();
+      if (e.cancelable) {
+        e.preventDefault();
+      }
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;

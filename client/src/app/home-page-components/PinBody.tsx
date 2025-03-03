@@ -12,7 +12,11 @@ interface Props {
 
 export const PinBody = ({ elem }: Props) => {
   const router = useRouter();
-  const { closeMobilePinController } = useAppsStore();
+  const {
+    closeMobilePinController,
+    mobileControllerPinID,
+    mobileControllerBtnCenterIsHovered,
+  } = useAppsStore();
   const { width } = useGetScreenSize();
   let pinId = String(elem.pin_id).trim();
 
@@ -37,13 +41,19 @@ export const PinBody = ({ elem }: Props) => {
   };
 
   return (
-    <article className={`card-top relative inline-block`}>
+    <article className={` card-top relative inline-block`}>
       {elem.adult_content && <AdultContentPreview pinID={elem.pin_id} />}
       <MobileSavePinButtonsController href={`/pin/${pinId}`} pinID={pinId}>
         <img
           src={elem.body}
-          className={`card-body w-full h-60 object-cover ${
+          className={`card-body transition-all w-full h-60 object-cover ${
             elem.adult_content ? 'invisible' : ''
+          } ${
+            !elem.adult_content &&
+            mobileControllerBtnCenterIsHovered &&
+            mobileControllerPinID === elem.pin_id
+              ? 'z-[100] brightness-0'
+              : ''
           }`}
           alt={elem.alt_text}
           onClick={handleClick}

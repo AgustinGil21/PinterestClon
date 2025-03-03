@@ -6,9 +6,17 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 export const MobileControllerLikeBtn = () => {
   const [shareColor, setShareColor] = useState('#000000');
   const [isHovered, setIsHovered] = useState(false);
-  const { mobilePinControllerRotation, mobilePinControllerButtonsTranslate } =
-    useAppsStore();
+  const {
+    mobilePinControllerRotation,
+    mobilePinControllerButtonsTranslate,
+    closeMobilePinController,
+  } = useAppsStore();
   const { like } = mobilePinControllerButtonsTranslate;
+
+  const handleBtnPress = () => {
+    console.log('Click');
+    closeMobilePinController();
+  };
 
   return (
     <MobileControllerBtn
@@ -20,6 +28,7 @@ export const MobileControllerLikeBtn = () => {
       onHoverTranslateX={like.x}
       onHoverTranslateY={like.y}
       setIsHovered={setIsHovered}
+      handleClick={handleBtnPress}
     >
       {isHovered ? (
         <FaHeart

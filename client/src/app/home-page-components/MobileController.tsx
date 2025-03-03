@@ -6,6 +6,7 @@ import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { useGetButtonsTranslateAxis } from '../hooks/useGetButtonsTranslateAxis';
 import { MobileControllerCenterCircle } from './mobile-controller-btns/MobileControllerCenterCircle';
 import { useLockScroll } from '../hooks/useLockScroll';
+import { MobileControllerFilter } from './MobileControllerFilter';
 
 export const MobileController = () => {
   const {
@@ -13,7 +14,6 @@ export const MobileController = () => {
     setPinControllerButtonsTranslate,
     mobileSavePinControllerPosition,
     closeMobilePinController,
-    mobileSavePinControllerIsActive,
     setMobilePinControllerRotation,
   } = useAppsStore();
 
@@ -25,10 +25,7 @@ export const MobileController = () => {
 
   return (
     <>
-      <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-[70] `}
-        onClick={closeMobilePinController}
-      />
+      <MobileControllerFilter />
       <div
         className='absolute z-[90]'
         style={{

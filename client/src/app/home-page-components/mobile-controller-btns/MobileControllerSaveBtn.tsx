@@ -5,9 +5,17 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const MobileControllerSaveBtn = () => {
   const [shareColor, setShareColor] = useState('#000000');
-  const { mobilePinControllerRotation, mobilePinControllerButtonsTranslate } =
-    useAppsStore();
+  const {
+    mobilePinControllerRotation,
+    mobilePinControllerButtonsTranslate,
+    closeMobilePinController,
+  } = useAppsStore();
   const { save } = mobilePinControllerButtonsTranslate;
+
+  const handleBtnPress = () => {
+    console.log('Click');
+    closeMobilePinController();
+  };
 
   return (
     <MobileControllerBtn
@@ -18,6 +26,7 @@ export const MobileControllerSaveBtn = () => {
       hoverColor='#e60023'
       onHoverTranslateY={save.y}
       onHoverTranslateX={save.x}
+      handleClick={handleBtnPress}
     >
       <FaThumbtack
         size={14}

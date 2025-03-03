@@ -17,7 +17,12 @@ export const MobileSavePinButtonsController = ({
   href,
   pinID,
 }: Props) => {
-  const { setMobileSavePinController, mobileControllerPinID } = useAppsStore();
+  const {
+    setMobileSavePinController,
+    mobileControllerPinID,
+    setMobileControllerBtnCenterIsHovered,
+    setMobileControllerUserIsHolding,
+  } = useAppsStore();
   const { handleHold, position, resetPosition } = useGetHoldPosition();
   const rotation = useGetDynamicRotation({
     position,
@@ -29,6 +34,11 @@ export const MobileSavePinButtonsController = ({
     footerHeight: 64,
   });
 
+  const handleCancelHold = () => {
+    resetPosition();
+    setMobileControllerBtnCenterIsHovered(false);
+  };
+
   useEffect(() => {
     setMobileSavePinController(position, rotation, pinID);
   }, [position]);
@@ -38,12 +48,13 @@ export const MobileSavePinButtonsController = ({
       <HoldableLink
         href={href}
         onHold={handleHold}
-        onCancelHold={resetPosition}
+        onCancelHold={handleCancelHold}
         holdTime={300}
         className={`${className} ${
           mobileControllerPinID === pinID ? 'z-[80]' : ''
         }`}
         maxWidth={768}
+        setIsHolding={setMobileControllerUserIsHolding}
       >
         {children}
       </HoldableLink>

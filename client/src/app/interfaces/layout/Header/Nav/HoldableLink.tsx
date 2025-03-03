@@ -11,6 +11,7 @@ interface Props {
   onCancelHold?: () => void;
   className?: string;
   maxWidth?: number;
+  setIsHolding?: (isHolding: boolean) => void;
 }
 
 export const HoldableLink = ({
@@ -21,6 +22,7 @@ export const HoldableLink = ({
   onCancelHold,
   className,
   maxWidth,
+  setIsHolding,
 }: Props) => {
   const [clickDisabled, setClickDisabled] = useState(false);
   const { width } = useGetScreenSize();
@@ -34,6 +36,7 @@ export const HoldableLink = ({
     timerRef.current = setTimeout(() => {
       setClickDisabled(true);
       onHold(e);
+      if (setIsHolding) setIsHolding(true);
     }, holdTime);
   };
 
@@ -48,6 +51,11 @@ export const HoldableLink = ({
     }, 50);
 
     if (onCancelHold) onCancelHold();
+    if (setIsHolding) setIsHolding(false);
+  };
+
+  const handleTouchEnd = () => {
+    if (setIsHolding) setIsHolding(false);
   };
 
   return (
@@ -63,7 +71,7 @@ export const HoldableLink = ({
           onMouseDown={handleHold}
           onMouseUp={handleCancelHold}
           onTouchStart={handleHold}
-          onTouchEnd={handleCancelHold}
+          onTouchEnd={handleTouchEnd}
           className={className}
         >
           {children}

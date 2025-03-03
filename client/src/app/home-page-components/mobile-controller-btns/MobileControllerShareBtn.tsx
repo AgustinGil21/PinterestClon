@@ -4,9 +4,17 @@ import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const MobileControllerShareBtn = () => {
   const [shareColor, setShareColor] = useState('#000000');
-  const { mobilePinControllerRotation, mobilePinControllerButtonsTranslate } =
-    useAppsStore();
+  const {
+    mobilePinControllerRotation,
+    mobilePinControllerButtonsTranslate,
+    closeMobilePinController,
+  } = useAppsStore();
   const { share } = mobilePinControllerButtonsTranslate;
+
+  const handleBtnPress = () => {
+    console.log('Click');
+    closeMobilePinController();
+  };
 
   return (
     <MobileControllerBtn
@@ -17,6 +25,7 @@ export const MobileControllerShareBtn = () => {
       hoverColor='#e60023'
       onHoverTranslateX={share.x}
       onHoverTranslateY={share.y}
+      handleClick={handleBtnPress}
     >
       <svg
         aria-hidden='true'

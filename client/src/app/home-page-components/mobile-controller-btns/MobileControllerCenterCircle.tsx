@@ -1,16 +1,29 @@
 import { useMobileHover } from '@/app/hooks/useMobileHover';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useEffect } from 'react';
 
 export const MobileControllerCenterCircle = () => {
   const { isHovered, setIsHovered } = useMobileHover(
     'controller-center-circle'
   );
-  const { closeMobilePinController } = useAppsStore();
+  const {
+    closeMobilePinController,
+    setMobileControllerBtnCenterIsHovered,
+    mobileControllerUserIsHolding,
+  } = useAppsStore();
 
   const handleClick = () => {
     setIsHovered(false);
     closeMobilePinController();
   };
+
+  useEffect(() => {
+    setMobileControllerBtnCenterIsHovered(isHovered);
+  }, [isHovered]);
+
+  useEffect(() => {
+    if (isHovered && !mobileControllerUserIsHolding) closeMobilePinController();
+  }, [mobileControllerUserIsHolding]);
 
   return (
     <div

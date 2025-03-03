@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ImagePin from './ImagePin';
 import ActionsPin from './ActionsPin';
@@ -21,6 +21,7 @@ const PinCard = () => {
     dataOpenBoardModal,
     getLastBoard,
     t,
+    closeMobilePinController,
   } = useAppsStore();
 
   const { width } = useGetScreenSize();
@@ -80,13 +81,15 @@ const PinCard = () => {
     getPinComments(pinData.id, 1, 10);
   }, [pinData.id, getPinComments]);
 
+  useEffect(() => {
+    if (width < 769) closeMobilePinController();
+  }, []);
+
   const sizeCategory = (() => {
     if (imgHeight < 700) return 'small';
     if (imgHeight >= 700 && imgHeight < 1200) return 'medium';
     return 'large';
   })();
-
-  // console.log(sizeCategory, imgHeight);
 
   return (
     <>

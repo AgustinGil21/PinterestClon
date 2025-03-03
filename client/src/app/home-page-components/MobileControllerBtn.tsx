@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useMobileHover } from '../hooks/useMobileHover';
+import { useAppsStore } from '../infrastructure/stores/useAppStore';
 
 interface Props {
   handleClick?: () => void;
@@ -22,7 +23,7 @@ export const MobileControllerBtn = ({
   className,
   children,
   rotation = 0,
-  hoverColor = '#e9f',
+  hoverColor = '#ee99ff',
   setIconColor,
   id,
   onHoverTranslateX,
@@ -30,6 +31,7 @@ export const MobileControllerBtn = ({
   setIsHovered: setIsBtnHovered,
   setAlreadyHovered,
 }: Props) => {
+  const { mobileControllerUserIsHolding } = useAppsStore();
   const { isHovered, setIsHovered } = useMobileHover(id);
 
   const defaultColor = '#f1f1f1';
@@ -45,6 +47,12 @@ export const MobileControllerBtn = ({
       ? `translateY(${onHoverTranslateY}px)`
       : '';
 
+  const handleTouchClick = (e: React.TouchEvent) => {
+    e.preventDefault();
+    setIsHovered(false);
+    if (handleClick) handleClick();
+  };
+
   useEffect(() => {
     if (setIsBtnHovered) setIsBtnHovered(isHovered);
     if (setAlreadyHovered) setAlreadyHovered(true);
@@ -59,11 +67,18 @@ export const MobileControllerBtn = ({
     }
   }, [isHovered]);
 
+  useEffect(() => {
+    if (!handleClick) return;
+
+    if (isHovered && !mobileControllerUserIsHolding) handleClick();
+  }, [mobileControllerUserIsHolding]);
+
   return (
     <button
       ref={btnRef}
       id={id}
       onClick={handleClick}
+      onTouchEnd={handleTouchClick}
       className={`${className} p-2 flex justify-center items-center rounded-full group h-[40px] w-[40px] min-h-[40px] min-w-[40px]`}
       style={{
         rotate: `${-Math.abs(rotation)}deg`,

@@ -139,16 +139,20 @@ export interface ModalStateInterface {
   mobileSavePinControllerPosition: IPosition;
   mobilePinControllerRotation: number;
   mobilePinControllerButtonsTranslate: IMobileControllerButtonsTranslate;
+  mobileControllerBtnCenterIsHovered: boolean;
+  mobileControllerUserIsHolding: boolean;
   setMobileSavePinController: (
     position: IPosition,
     rotation: number,
-    pinID
+    pinID: string
   ) => void;
   closeMobilePinController: () => void;
   setMobilePinControllerRotation: (rotation: number) => void;
   setPinControllerButtonsTranslate: (
     translate: IMobileControllerButtonsTranslate
   ) => void;
+  setMobileControllerBtnCenterIsHovered: (isHovered: boolean) => void;
+  setMobileControllerUserIsHolding: (isHolding: boolean) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -233,6 +237,8 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
       y: 0,
     },
   },
+  mobileControllerBtnCenterIsHovered: false,
+  mobileControllerUserIsHolding: false,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -529,6 +535,18 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   ) => {
     set({
       mobilePinControllerButtonsTranslate: translate,
+    });
+  },
+
+  setMobileControllerBtnCenterIsHovered: (isHovered: boolean) => {
+    set({
+      mobileControllerBtnCenterIsHovered: isHovered,
+    });
+  },
+
+  setMobileControllerUserIsHolding: (isHolding: boolean) => {
+    set({
+      mobileControllerUserIsHolding: isHolding,
     });
   },
 });
