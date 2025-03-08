@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { useGetScreenSize } from '@/app/hooks/useGetScreenSize';
 import Link from 'next/link';
 import LinkNavigate from './LinkNavigate';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 interface Props {
   href: string;
@@ -16,7 +17,7 @@ interface Props {
 
 export const HoldableLink = ({
   href,
-  holdTime = 300,
+  holdTime = 600,
   children,
   onHold,
   onCancelHold,
@@ -27,12 +28,15 @@ export const HoldableLink = ({
   const [clickDisabled, setClickDisabled] = useState(false);
   const { width } = useGetScreenSize();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const { masonryMobileStopScrolling } = useAppsStore();
 
   const handleClick = (e: React.MouseEvent) => {
     if (clickDisabled) e.preventDefault();
   };
 
   const handleHold = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!masonryMobileStopScrolling) return;
+
     timerRef.current = setTimeout(() => {
       setClickDisabled(true);
       onHold(e);

@@ -1,4 +1,4 @@
-'use client';
+// 'use client';
 
 import Modal from '@/app/components/Basic/Modal';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';

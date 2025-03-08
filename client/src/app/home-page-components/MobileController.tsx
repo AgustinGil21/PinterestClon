@@ -16,6 +16,7 @@ export const MobileController = () => {
     setPinControllerButtonsTranslate,
     mobileSavePinControllerPosition,
     mobileControllerUserIsHolding,
+    mobileSavePinControllerIsActive,
     closeMobilePinController,
   } = useAppsStore();
   const { isHovered, setIsHovered } = useMobileHover(
@@ -34,7 +35,8 @@ export const MobileController = () => {
 
   return (
     <>
-      <MobileControllerFilter />
+      {mobileSavePinControllerIsActive && <MobileControllerFilter />}
+
       <div
         className='absolute z-[90]'
         style={{
@@ -54,10 +56,12 @@ export const MobileController = () => {
           onClick={closeMobilePinController}
         >
           <MobileControllerCenterCircle />
-          <MobileControllerLikeBtn />
-          <MobileControllerSaveBtn />
-          <MobileControllerShareBtn />
-          <MobileControllerShareWhatsappBtn />
+          <article>
+            <MobileControllerLikeBtn />
+            <MobileControllerSaveBtn />
+            <MobileControllerShareBtn />
+            <MobileControllerShareWhatsappBtn />
+          </article>
         </article>
       </div>
     </>

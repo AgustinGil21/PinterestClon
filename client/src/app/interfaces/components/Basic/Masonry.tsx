@@ -1,3 +1,7 @@
+import { useMobileIsScrolling } from '@/app/hooks/useMobileIsScrolling';
+import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
+import { useEffect } from 'react';
+
 interface Props {
   children?: React.ReactNode;
   small?: boolean;
@@ -5,8 +9,17 @@ interface Props {
 }
 
 export const Masonry = ({ children, small = false, className }: Props) => {
+  const { setMasonryMobileStopScrolling } = useAppsStore();
+  const { handleTouchEnd, handleTouchMove } = useMobileIsScrolling(
+    setMasonryMobileStopScrolling
+  );
+
   return (
-    <section className={`${small ? 'masonry-small' : 'masonry'} ${className}`}>
+    <section
+      className={`${small ? 'masonry-small' : 'masonry'} ${className}`}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {children}
     </section>
   );

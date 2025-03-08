@@ -6,6 +6,7 @@ import Loader from './interfaces/components/Basic/Loader';
 import useInfiniteScroll from './interfaces/hooks/useInfiniteScroll';
 import { usePathname } from 'next/navigation';
 import useSearchHome from './interfaces/hooks/useSearchHome';
+import Masonry from './interfaces/components/Basic/Masonry';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,10 +66,10 @@ export default function Home() {
   }
 
   return (
-    <section className={`masonry`}>
+    <Masonry>
       {homePins.map((elem) => (
         <Pin elem={elem} key={elem.pin_id} />
       ))}
-    </section>
+    </Masonry>
   );
 }

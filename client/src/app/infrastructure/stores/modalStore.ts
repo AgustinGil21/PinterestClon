@@ -160,6 +160,9 @@ export interface ModalStateInterface {
   mobileControllerBoardsListModalIsOpen: boolean;
   mobileControllerBoardsListModalPinID: string;
   setMobileControllerBoardsListModalIsOpen: (pinID?: string) => void;
+
+  masonryMobileStopScrolling: boolean;
+  setMasonryMobileStopScrolling: (isScrolling: boolean) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -250,6 +253,8 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   mobileControllerSharePinModal: false,
   mobileControllerBoardsListModalIsOpen: false,
   mobileControllerBoardsListModalPinID: '',
+
+  masonryMobileStopScrolling: true,
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -573,5 +578,11 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
         !state.mobileControllerBoardsListModalIsOpen,
       mobileControllerBoardsListModalPinID: pinID,
     }));
+  },
+
+  setMasonryMobileStopScrolling: (isScrolling: boolean) => {
+    set({
+      masonryMobileStopScrolling: isScrolling,
+    });
   },
 });
