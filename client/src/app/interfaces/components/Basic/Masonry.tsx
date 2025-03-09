@@ -1,6 +1,5 @@
 import { useMobileIsScrolling } from '@/app/hooks/useMobileIsScrolling';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { useEffect } from 'react';
 
 interface Props {
   children?: React.ReactNode;

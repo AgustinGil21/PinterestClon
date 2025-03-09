@@ -9,6 +9,7 @@ import { MobileControllerCenterCircle } from './mobile-controller-btns/MobileCon
 import { useLockScroll } from '../hooks/useLockScroll';
 import { MobileControllerFilter } from './MobileControllerFilter';
 import { useMobileHover } from '../hooks/useMobileHover';
+import { executeVibration } from '../libs/executeVibration';
 
 export const MobileController = () => {
   const {
@@ -28,6 +29,10 @@ export const MobileController = () => {
     rotation: mobilePinControllerRotation,
     setToStore: setPinControllerButtonsTranslate,
   });
+
+  useEffect(() => {
+    executeVibration();
+  }, []);
 
   useEffect(() => {
     if (isHovered && !mobileControllerUserIsHolding) closeMobilePinController();

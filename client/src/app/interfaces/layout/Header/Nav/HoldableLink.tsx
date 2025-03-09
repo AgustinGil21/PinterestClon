@@ -17,7 +17,7 @@ interface Props {
 
 export const HoldableLink = ({
   href,
-  holdTime = 600,
+  holdTime = 1000,
   children,
   onHold,
   onCancelHold,

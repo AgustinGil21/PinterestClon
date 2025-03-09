@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useMobileHover } from '../hooks/useMobileHover';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
+import { executeVibration } from '../libs/executeVibration';
 
 interface Props {
   handleClick?: () => void;
@@ -54,6 +55,8 @@ export const MobileControllerBtn = ({
   };
 
   useEffect(() => {
+    if (isHovered) executeVibration();
+
     if (setIsBtnHovered) setIsBtnHovered(isHovered);
     if (setAlreadyHovered) setAlreadyHovered(true);
     if (isHovered) {
