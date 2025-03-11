@@ -26,9 +26,7 @@ import {
   PinViewSchema,
 } from '../schemas/validation-service-api';
 
-export const servicePostCreatePin = async (
-  data: PinCreateServerAdapter
-): Promise<void> => {
+export const servicePostCreatePin = async (data: PinCreateServerAdapter) => {
   console.log(data);
   try {
     const response = await axios.post(`${URLDOMAIN}/pins/create`, data, {
@@ -138,7 +136,7 @@ export const serviceGetSearchPin = async (
   value: string,
   page: number,
   limit: number
-): Promise<PinInterface[] | []> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/pins/search?value=${value}&page=${page}&limit=${limit}`,
@@ -177,7 +175,7 @@ export const serviceGetPinSearchCategories = async (
   category: string,
   page: number,
   limit: number
-): Promise<PinInterface[] | []> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/pins/search-by-category?category=${category}&page=${page}&limit=${limit} `,
@@ -195,9 +193,7 @@ export const serviceGetPinSearchCategories = async (
   }
 };
 
-export const serviceGetPinView = async (
-  id: string
-): Promise<PinViewInterface | null> => {
+export const serviceGetPinView = async (id: string) => {
   try {
     const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
       withCredentials: true,
@@ -244,7 +240,7 @@ export const serviceGetPinComments = async (
   id: string,
   page: number,
   limit: number
-): Promise<CommentsResponseInterface | null> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/comments/pin-comments/${id}?page=${page}&limit=${limit}`,
@@ -282,7 +278,7 @@ export const serviceGetSimilarPins = async (
   id: string,
   page: number,
   limit: number
-): Promise<PinSimilarInterface[] | []> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/pins/similar-pins/${id}?page=${page}&limit=${limit}`,

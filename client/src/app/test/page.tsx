@@ -21,7 +21,12 @@ import { FaShare } from 'react-icons/fa';
 import { MobileController } from '../home-page-components/MobileController';
 
 export default function Test() {
-  const { userBoards, getUserBoards } = useAppsStore();
+  const {
+    userBoards,
+    getUserBoards,
+    editBoardModalIsOpen,
+    boardCoversModalIsOpen,
+  } = useAppsStore();
 
   const boards = [
     {
@@ -74,39 +79,9 @@ export default function Test() {
   ];
 
   return (
-    <section className='p-4 '>
-      <BoardCoverModal />
-      {/* <MobileSavePinButtonsController /> */}
-      <MobileController />
-
-      <article className='flex gap-4'>
-        <MobileSavePinButtonsController>
-          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
-        </MobileSavePinButtonsController>
-        <MobileSavePinButtonsController>
-          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
-        </MobileSavePinButtonsController>
-        <MobileSavePinButtonsController>
-          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
-        </MobileSavePinButtonsController>
-        <MobileSavePinButtonsController>
-          <div className='w-[150px] h-[400px] rounded-lg bg-black'></div>
-        </MobileSavePinButtonsController>
-      </article>
-
-      {/* <EditBoardModal /> */}
-      {/* <CreateBoardModal /> */}
-      {/* <Skeleton
-        width={200}
-        height={100}
-        borderRadius='1rem'
-        angle='diagonalRight'
-        direction='bottom'
-        color='#e60023'
-      /> */}
-      {/* <PinSkeleton />
-      <CategoryCardSkeleton /> */}
-      {/* <UsersProfileSearchContainer users={users} /> */}
-    </section>
+    <>
+      {editBoardModalIsOpen && <EditBoardModal />}
+      {/* {boardCoversModalIsOpen && <BoardCoverModal />} */}
+    </>
   );
 }

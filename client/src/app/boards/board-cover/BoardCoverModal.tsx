@@ -8,11 +8,10 @@ import { useGetScreenSize } from '@/app/hooks/useGetScreenSize';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 const BoardCoverModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
   const { width } = useGetScreenSize();
   const { t, setBoardCoversModalIsOpen, boardCoversModalIsOpen } =
     useAppsStore();
-  const handleOpenModal = () => setIsModalOpen(true);
+
   const handleClose = () => setBoardCoversModalIsOpen();
 
   const data = {
@@ -66,8 +65,7 @@ const BoardCoverModal = () => {
       props={{
         setModal: setBoardCoversModalIsOpen,
         isModalOpen: boardCoversModalIsOpen,
-        className:
-          'min-w-[300px] w-full max-w-[900px] bg-white rounded-lg fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:max-h-[550px] overflow-y-auto h-full',
+        className: `min-w-[300px] w-full max-w-[900px] bg-white rounded-lg fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full md:max-h-[550px] overflow-y-auto h-full`,
         blackFilter: true,
       }}
     >

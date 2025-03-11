@@ -130,7 +130,7 @@ export default function UserProfile({ params }: Props) {
               <Message />
               <Follow
                 classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
-                classPropsTrueIsFollowing='bg-black rounded-full text-white'
+                classPropsTrueIsFollowing='bg-[#111111] hover:bg-[#222222] rounded-full text-white'
                 following={dataSearchUserProfile.following}
                 id={dataSearchUserProfile.id}
               />

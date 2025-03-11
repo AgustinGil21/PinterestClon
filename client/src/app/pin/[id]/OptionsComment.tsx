@@ -55,21 +55,21 @@ const OptionsComment = ({
       </span>
       <div className='flex flex-row-reverse gap-1 items-center'>
         {likes > 0 && <Counter value={likes} className='text-black text-xs' />}
-        <Tooltip
+        {/* <Tooltip
           tooltipText={t?.comment.like || 'Me encanta'}
           className='!top-6'
+        > */}
+        <ButtonStyled
+          className='!px-0 !py-0'
+          handleClick={handleToggleLikeComment}
         >
-          <ButtonStyled
-            className='!px-0 !py-0'
-            handleClick={handleToggleLikeComment}
-          >
-            {alreadyLiked ? (
-              <LikeActiveIcon classProps='w-3 h-3' />
-            ) : (
-              <LikeIcon classProps='w-3 h-3' />
-            )}
-          </ButtonStyled>
-        </Tooltip>
+          {alreadyLiked ? (
+            <LikeActiveIcon classProps='w-3 h-3' />
+          ) : (
+            <LikeIcon classProps='w-3 h-3' />
+          )}
+        </ButtonStyled>
+        {/* </Tooltip> */}
       </div>
       <div className='relative flex items-center'>
         <ButtonStyled

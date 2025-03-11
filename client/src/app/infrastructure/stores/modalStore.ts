@@ -215,7 +215,7 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   deleteBoardModalIsOpen: false,
 
   editBoardID: '',
-  editBoardModalIsOpen: false,
+  editBoardModalIsOpen: true,
 
   adultContentModalIsOpen: false,
   isModalSearchHeaderOpen: false,
