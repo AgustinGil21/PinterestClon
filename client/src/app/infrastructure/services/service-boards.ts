@@ -2,6 +2,7 @@ import axios from 'axios';
 import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   BoardsListSchema,
+  EditBoardPrevDataSchema,
   GetBoardSchema,
   GetPossibleCoversSchema,
   HomeBoardsSchema,
@@ -211,6 +212,25 @@ export const serviceGetHomeBoards = async ({ page, limit }: IPaging) => {
     const result = HomeBoardsSchema.safeParse(response.data);
 
     console.log(response);
+
+    return result.success ? result.data : null;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const serviceEditBoardPrevData = async (id: string) => {
+  try {
+    const response = await axios.get(
+      `${URLDOMAIN}/boards/edit/prev-data/${id}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    const result = EditBoardPrevDataSchema.safeParse(response.data);
+
+    console.log(response, result.success);
 
     return result.success ? result.data : null;
   } catch (err) {

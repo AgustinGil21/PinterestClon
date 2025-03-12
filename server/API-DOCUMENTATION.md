@@ -1406,6 +1406,21 @@ _*PUT*_ `http://localhost:1234/pinterest-clon-api/boards/edit`
 
 _*Description*_: Permite editar un board.
 
+### Get previous edit board data
+
+_*GET*_ `http://localhost:1234/pinterest-clon-api/boards/edit/prev-data/:id`
+
+[BODY]
+
+```json
+{
+  "name": "String",
+  "description": "String?",
+  "cover": "String<URL>?",
+  "collage": "String<URL>?"
+}
+```
+
 ### Delete board
 
 _*DELETE*_ `http://localhost:1234/pinterest-clon-api/boards/:id`

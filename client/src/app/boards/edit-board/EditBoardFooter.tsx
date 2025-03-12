@@ -18,7 +18,7 @@ export const EditBoardFooter = () => {
       <button
         className='p-2 bg-[#e60023] rounded-2xl text-white font-bold text-[0.7rem] hover:bg-[#b60000] transition-colors min-w-[67px]'
         type='submit'
-        form='createBoardForm'
+        form='editBoardModalForm'
       >
         {t?.board.edit.buttons.save || 'Guardar'}
       </button>

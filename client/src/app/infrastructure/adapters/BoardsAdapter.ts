@@ -12,6 +12,7 @@ import {
   serviceCreateBoard,
   serviceDeleteBoard,
   serviceEditBoard,
+  serviceEditBoardPrevData,
   serviceGetBoardsList,
   serviceGetHomeBoards,
   serviceGetLastBoardName,
@@ -86,4 +87,8 @@ export const userBoardsAdapter = async ({
   limit,
 }: IGetUserBoards) => {
   return await serviceGetUserBoards({ username, limit, page });
+};
+
+export const editBoardPrevDataAdapter = async (id: string) => {
+  return await serviceEditBoardPrevData(id);
 };

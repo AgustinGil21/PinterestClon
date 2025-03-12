@@ -118,9 +118,6 @@ export interface ModalStateInterface {
   deleteBoardModalIsOpen: boolean;
   setDeleteBoardModal: () => void;
 
-  editBoardModalIsOpen: boolean;
-  editBoardID: string;
-  setEditBoardModal: (id: string) => void;
   openMenuAsideInfoClon: () => void;
 
   pinSaved?: PinSaved;
@@ -213,9 +210,6 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   boardItsYours: false,
 
   deleteBoardModalIsOpen: false,
-
-  editBoardID: '',
-  editBoardModalIsOpen: true,
 
   adultContentModalIsOpen: false,
   isModalSearchHeaderOpen: false,
@@ -478,12 +472,6 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  setEditBoardModal: (id: string) => {
-    set((state) => ({
-      editBoardID: id,
-      editBoardModalIsOpen: !state.editBoardModalIsOpen,
-    }));
-  },
   openMenuAsideInfoClon: () => {
     set((state) => ({
       isOpenMenuAsideInfoClonResponsive:

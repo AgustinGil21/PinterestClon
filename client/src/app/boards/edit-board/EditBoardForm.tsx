@@ -3,24 +3,27 @@ import { EditBoardDescriptionInput } from './EditBoardDescriptionInput';
 import { EditBoardNameInput } from './EditBoardNameInput';
 import { EditBoardSchema } from '@/app/infrastructure/schemas/validation-service-api';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-
-interface IOnSubmit {
-  name: string;
-  description?: string;
-}
+import { IEditBoard } from '@/app/domain/types/boards-interface';
+import { useEffect } from 'react';
 
 export const EditBoardForm = () => {
   const { errors, register, handleSubmit, watch } = useFormHook({
     schema: EditBoardSchema,
   });
-  const { setToastNotification, setEditBoardModal, editBoardID } =
-    useAppsStore();
+  const {
+    setToastNotification,
+    setEditBoardModal,
+    editBoardID,
+    newBoardCover,
+    editBoard,
+    setNewBoardCover,
+  } = useAppsStore();
 
-  const onSubmit = (values: IOnSubmit) => {
-    console.log(values);
-    // createBoard(values);
-    setEditBoardModal(editBoardID);
-    console.log(values);
+  const onSubmit = (values: IEditBoard) => {
+    const data = { ...values, cover: newBoardCover, id: editBoardID };
+    console.log(data);
+    // editBoard(values);
+    setEditBoardModal();
     // setToastNotification({
     //   status: 'success',
     //   action: 'edit',
@@ -28,11 +31,16 @@ export const EditBoardForm = () => {
     // });
   };
 
+  useEffect(() => {
+    setNewBoardCover('');
+    console.log(editBoardID);
+  }, [editBoardID]);
+
   return (
     <form
       className='flex flex-col justify-start gap-3 w-full'
       onSubmit={handleSubmit(onSubmit)}
-      id='editBoardForm'
+      id='editBoardModalForm'
     >
       <EditBoardNameInput errors={errors} register={register} watch={watch} />
       <EditBoardDescriptionInput

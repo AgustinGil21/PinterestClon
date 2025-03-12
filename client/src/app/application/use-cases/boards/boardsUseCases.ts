@@ -13,6 +13,7 @@ import {
   createBoardAdapter,
   deleteBoardAdapter,
   editBoardAdapter,
+  editBoardPrevDataAdapter,
   getBoardAdapter,
   getPossibleCoversAdapter,
   homeBoardsAdapter,
@@ -86,4 +87,8 @@ export const userBoardsUseCase = async ({
   limit,
 }: IGetUserBoards) => {
   return await userBoardsAdapter({ username, limit, page });
+};
+
+export const editBoardPrevDataUseCase = async (id: string) => {
+  return await editBoardPrevDataAdapter(id);
 };

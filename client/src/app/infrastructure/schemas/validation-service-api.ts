@@ -384,10 +384,9 @@ export const CreateBoardSchema = z.object({
 });
 
 export const EditBoardSchema = z.object({
-  id: z.string().uuid(),
   name: z.string(),
-  description: z.string().optional(),
-  cover: string().url().optional(),
+  description: z.string().optional().nullable(),
+  cover: string().url().optional().nullable(),
 });
 
 export const AddPinToBoardSchema = z.object({
@@ -494,4 +493,11 @@ export const SearchUsersSchema = z.object({
     })
   ),
   results: z.number(),
+});
+
+export const EditBoardPrevDataSchema = z.object({
+  name: z.string(),
+  description: z.string().optional().nullable(),
+  cover: z.string().optional().nullable(),
+  collage: z.string().optional().nullable(),
 });

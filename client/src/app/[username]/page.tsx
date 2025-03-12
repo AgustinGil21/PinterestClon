@@ -14,6 +14,7 @@ import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
 import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 import { SavedPins } from './SavedPins';
+import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
 
 interface Props {
   params: { username: string };
@@ -36,6 +37,7 @@ export default function UserProfile({ params }: Props) {
     getUserBoards,
     userBoards,
     t,
+    editBoardModalIsOpen,
   } = useAppsStore();
 
   const { username }: { username: string } = params;
@@ -110,59 +112,61 @@ export default function UserProfile({ params }: Props) {
   }
 
   return (
-    <section className='py-5 min-h-screen flex w-full flex-col relative'>
-      <div className='flex w-full flex-col items-center z-30'>
-        <AvatarUser
-          data={dataSearchUserProfile}
-          classProps='w-[110px] h-[110px]'
-          textSize='text-[40px]'
-        />
-        <DataUser data={dataSearchUserProfile} />
-        {dataSearchUserProfile.its_you ? (
-          <ButtonsGroup username={dataSearchUserProfile.username} />
-        ) : (
-          <div className='flex flex-row justify-between items-center gap-3.5 mt-4'>
-            <DownloadShare
-              classProps='p-3'
-              dataShare={dataSearchUserProfile.username}
-            />
-            <div className='flex flex-row gap-2'>
-              <Message />
-              <Follow
-                classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
-                classPropsTrueIsFollowing='bg-[#111111] hover:bg-[#222222] rounded-full text-white'
-                following={dataSearchUserProfile.following}
-                id={dataSearchUserProfile.id}
+    <>
+      <section className='py-5 min-h-screen flex w-full flex-col relative'>
+        <div className='flex w-full flex-col items-center z-30'>
+          <AvatarUser
+            data={dataSearchUserProfile}
+            classProps='w-[110px] h-[110px]'
+            textSize='text-[40px]'
+          />
+          <DataUser data={dataSearchUserProfile} />
+          {dataSearchUserProfile.its_you ? (
+            <ButtonsGroup username={dataSearchUserProfile.username} />
+          ) : (
+            <div className='flex flex-row justify-between items-center gap-3.5 mt-4'>
+              <DownloadShare
+                classProps='p-3'
+                dataShare={dataSearchUserProfile.username}
               />
+              <div className='flex flex-row gap-2'>
+                <Message />
+                <Follow
+                  classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
+                  classPropsTrueIsFollowing='bg-[#111111] hover:bg-[#222222] rounded-full text-white'
+                  following={dataSearchUserProfile.following}
+                  id={dataSearchUserProfile.id}
+                />
+              </div>
+              <ThreePointsBlok />
             </div>
-            <ThreePointsBlok />
-          </div>
-        )}
+          )}
+
+          {dataSearchUserProfile.private_account &&
+          dataSearchUserProfile.username !== dataOwnerProfile.username ? (
+            <p></p>
+          ) : (
+            <CreatesOrSavesLink
+              savesOrCreates={savesOrCreates}
+              setSavesOrCreates={setSavesOrCreates}
+            />
+          )}
+        </div>
 
         {dataSearchUserProfile.private_account &&
         dataSearchUserProfile.username !== dataOwnerProfile.username ? (
-          <p></p>
+          <p>{t?.user.private || 'Esta cuenta es privada'}</p>
+        ) : savesOrCreates ? (
+          <Masonry className='w-full'>
+            {createdPins.map((elem) => (
+              <Pin elem={elem} key={elem.pin_id} className='mb-4 z-10' />
+            ))}
+          </Masonry>
         ) : (
-          <CreatesOrSavesLink
-            savesOrCreates={savesOrCreates}
-            setSavesOrCreates={setSavesOrCreates}
-          />
+          <SavedPins />
         )}
-      </div>
-
-      {dataSearchUserProfile.private_account &&
-      dataSearchUserProfile.username !== dataOwnerProfile.username ? (
-        <p>{t?.user.private || 'Esta cuenta es privada'}</p>
-      ) : savesOrCreates ? (
-        <Masonry className='w-full'>
-          {createdPins.map((elem) => (
-            <Pin elem={elem} key={elem.pin_id} className='mb-4 z-10' />
-          ))}
-        </Masonry>
-      ) : (
-        // <BoardsGrid boards={userBoards} />
-        <SavedPins />
-      )}
-    </section>
+      </section>
+      {editBoardModalIsOpen && <EditBoardModal />}
+    </>
   );
 }

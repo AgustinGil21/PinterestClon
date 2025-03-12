@@ -15,10 +15,11 @@ export interface ICreateBoard {
 }
 
 export interface IEditBoard {
-  id: string;
+  id?: string;
   name: string;
   description?: string;
   cover?: string;
+  collage?: string;
 }
 
 export interface IGetUserBoards extends IPaging {

@@ -3,6 +3,7 @@ import {
   boardsListUseCase,
   createBoardUseCase,
   deleteBoardUseCase,
+  editBoardPrevDataUseCase,
   editBoardUseCase,
   getBoardUseCase,
   getPossibleCoversUseCase,
@@ -70,6 +71,11 @@ export interface IBoardsStore {
   updateStateBoards: (store: string, value: any[]) => void;
   setNewBoardCover: (cover: string) => void;
   setBoardCovers: (covers: string[]) => void;
+
+  editBoardPrevData?: IEditBoard | null;
+  editBoardModalIsOpen: boolean;
+  editBoardID: string;
+  setEditBoardModal: (id?: string) => void;
 }
 
 export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
@@ -103,6 +109,9 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
   noMoreSearchedBoards: false,
   noMoreBoardPins: false,
   noMoreUserBoards: false,
+
+  editBoardID: '',
+  editBoardModalIsOpen: false,
 
   createBoard: async (data: ICreateBoard) => {
     await createBoardUseCase(data);
@@ -303,5 +312,12 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     set({
       boardCovers: covers,
     });
+  },
+
+  setEditBoardModal: async (id?: string) => {
+    set((state) => ({
+      editBoardID: id,
+      editBoardModalIsOpen: !state.editBoardModalIsOpen,
+    }));
   },
 });
