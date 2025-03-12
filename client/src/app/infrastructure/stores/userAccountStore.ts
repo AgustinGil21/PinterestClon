@@ -146,7 +146,6 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
         [key]: value,
       },
     }));
-    console.log(get().userSettingsEditProfile);
   },
 
   putUserSettingsEditProfile: async (data: UserSettingsEditProfile) => {
@@ -178,12 +177,10 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
   },
 
   patchProfileTypeVisibility: async (data: UserProfileVisibility) => {
-    console.log(data);
     await patchProfileVisibilityTypeCase(data);
   },
 
   patchProfilePrivateVisibility: async (data: UserProfileVisibility) => {
-    console.log(data);
     await patchProfileVisibilityPrivateCase(data);
   },
 
@@ -200,7 +197,6 @@ export const createUserAccountStore: StateCreator<UserAccountInterface> = (
         private_account: value,
       },
     }));
-    console.log(get().userProfileVisibility);
   },
 
   deleteAvatar: async () => {

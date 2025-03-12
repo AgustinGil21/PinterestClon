@@ -285,8 +285,8 @@ export const PinViewSchema = z.object({
   its_you: z.boolean().optional(),
   follows_you: z.boolean().optional(),
   following: z.boolean().optional(),
-  followers: z.string(),
-  saved_in_profile: z.boolean(),
+  followers: z.string().optional(),
+  saved_in_profile: z.boolean().optional(),
   board: z
     .object({
       id: z.string(),

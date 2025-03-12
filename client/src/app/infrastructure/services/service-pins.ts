@@ -3,16 +3,11 @@ import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   SuggestionsInterface,
   CategoriesPin,
-  PinCreate,
   PinEdit,
   PreviousPin,
   PinCreateServerAdapter,
   GetPinsInterface,
-  PinInterface,
-  PinViewInterface,
   PostCommentInterface,
-  CommentsResponseInterface,
-  PinSimilarInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
@@ -21,13 +16,11 @@ import {
   CommentsResponseSchema,
   getPinsSchema,
   PinEditIdSchema,
-  PinSchema,
   PinSimilarSchema,
   PinViewSchema,
 } from '../schemas/validation-service-api';
 
 export const servicePostCreatePin = async (data: PinCreateServerAdapter) => {
-  console.log(data);
   try {
     const response = await axios.post(`${URLDOMAIN}/pins/create`, data, {
       withCredentials: true,
@@ -37,8 +30,11 @@ export const servicePostCreatePin = async (data: PinCreateServerAdapter) => {
     });
 
     return response.status ? response.data : null;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al crear el pin'
+    );
   }
 };
 
@@ -51,9 +47,11 @@ export const serviceGetCategoriesPin = async (): Promise<CategoriesPin[]> => {
     const result = CategoriesSchema.safeParse(response.data);
 
     return result.success ? result.data.categories : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener las categorías'
+    );
   }
 };
 
@@ -66,8 +64,11 @@ export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
     const result = ArrayPreviousPinSchema.safeParse(response.data.pins.data);
 
     return result.success ? result.data : [];
-  } catch (error) {
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los pines anteriores'
+    );
   }
 };
 
@@ -76,9 +77,12 @@ export const serviceDeletePreviousPin = async (id: string) => {
     const response = await axios.delete(`${URLDOMAIN}/pins/${id}`, {
       withCredentials: true,
     });
-  } catch (error) {
-    console.log(error);
-    return null;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el pin'
+    );
   }
 };
 
@@ -93,9 +97,11 @@ export const serviceGetEditPinId = async (
     const result = PinEditIdSchema.safeParse(response.data.pin);
 
     return result.success ? result.data : null;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener el pin para editar'
+    );
   }
 };
 
@@ -104,9 +110,12 @@ export const servicePutEditPinId = async (id: string, data: PinEdit) => {
     const response = await axios.put(`${URLDOMAIN}/pins/${id}`, data, {
       withCredentials: true,
     });
-  } catch (error) {
-    console.log(error);
-    return null;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al editar el pin'
+    );
   }
 };
 
@@ -122,13 +131,14 @@ export const serviceGetHomePins = async (
       }
     );
 
-    console.log(response.data);
     const result = getPinsSchema.safeParse(response.data);
 
     return response.status === 200 ? response.data.pins : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los pines de inicio'
+    );
   }
 };
 
@@ -145,14 +155,14 @@ export const serviceGetSearchPin = async (
       }
     );
 
-    console.log(response);
-
     const result = getPinsSchema.safeParse(response.data);
 
     return result.success ? result.data.pins : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar pines'
+    );
   }
 };
 
@@ -165,9 +175,11 @@ export const serviceGetSuggestions = async (): Promise<
     const result = ArraySuggestionSchema.safeParse(response.data.suggestions);
 
     return result.success ? result.data : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener sugerencias'
+    );
   }
 };
 
@@ -178,7 +190,7 @@ export const serviceGetPinSearchCategories = async (
 ) => {
   try {
     const response = await axios.get(
-      `${URLDOMAIN}/pins/search-by-category?category=${category}&page=${page}&limit=${limit} `,
+      `${URLDOMAIN}/pins/search-by-category?category=${category}&page=${page}&limit=${limit}`,
       {
         withCredentials: true,
       }
@@ -187,9 +199,11 @@ export const serviceGetPinSearchCategories = async (
     const result = getPinsSchema.safeParse(response.data);
 
     return result.success ? result.data.pins : [];
-  } catch (error) {
-    console.log('Error en la solicitud o en el parseo:', error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar pines por categoría'
+    );
   }
 };
 
@@ -202,9 +216,11 @@ export const serviceGetPinView = async (id: string) => {
     const result = PinViewSchema.safeParse(response.data.pin);
 
     return result.success ? result.data : null;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener la vista del pin'
+    );
   }
 };
 
@@ -219,8 +235,11 @@ export const servicePostLikeOrUnlikePin = async (id: string) => {
     );
 
     return response.status ? response.data : null;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al dar like o unlike al pin'
+    );
   }
 };
 
@@ -231,8 +250,11 @@ export const servicePostCommentsCreate = async (data: PostCommentInterface) => {
     });
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al crear el comentario'
+    );
   }
 };
 
@@ -252,9 +274,11 @@ export const serviceGetPinComments = async (
     const result = CommentsResponseSchema.safeParse(response.data);
 
     return result.success ? result.data : null;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los comentarios del pin'
+    );
   }
 };
 
@@ -269,8 +293,11 @@ export const servicePostToggleLikeComment = async (id: string) => {
     );
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al dar like o unlike al comentario'
+    );
   }
 };
 
@@ -292,9 +319,11 @@ export const serviceGetSimilarPins = async (
     );
 
     return result.success ? result.data : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener pines similares'
+    );
   }
 };
 
@@ -309,23 +338,25 @@ export const servicePostSavePin = async (data: string) => {
     );
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al guardar el pin'
+    );
   }
 };
 
 export const servicePostDeleteComment = async (id: string) => {
   try {
-    const response = await axios.delete(
-      `${URLDOMAIN}/comments/${id}`,
-
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.delete(`${URLDOMAIN}/comments/${id}`, {
+      withCredentials: true,
+    });
 
     return response.data;
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el comentario'
+    );
   }
 };

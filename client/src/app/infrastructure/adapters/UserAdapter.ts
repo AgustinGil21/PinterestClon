@@ -86,10 +86,12 @@ export const fetchUserLoggedAdapter =
         };
       }
 
-      return null;
-    } catch (error) {
-      console.error(error);
-      return null;
+      throw new Error('No se encontraron datos del usuario logueado.');
+    } catch (error: unknown) {
+      throw new Error(
+        (error instanceof Error && error.message) ||
+          'Error al obtener los datos del usuario logueado'
+      );
     }
   };
 
@@ -108,10 +110,13 @@ export const fetchUserAccountManagementAdapter =
           gender: response.gender,
         };
       }
-      return null;
-    } catch (error) {
-      console.log(error);
-      return null;
+
+      throw new Error('No se encontraron datos de la gestión de la cuenta.');
+    } catch (error: unknown) {
+      throw new Error(
+        (error instanceof Error && error.message) ||
+          'Error al obtener los datos de la gestión de la cuenta'
+      );
     }
   };
 
@@ -119,7 +124,7 @@ export const fetchUserSettingsEditProfileAdapter =
   async (): Promise<UserSettingsEditProfile | null> => {
     try {
       const response = await serviceGetUserSettingsEditProfile();
-      console.log(response);
+
       if (response) {
         return {
           avatar_background: response.avatar_background,
@@ -132,10 +137,15 @@ export const fetchUserSettingsEditProfileAdapter =
           website: response.website,
         };
       }
-      return null;
-    } catch (error) {
-      console.log(error);
-      return null;
+
+      throw new Error(
+        'No se encontraron datos de la configuración del perfil.'
+      );
+    } catch (error: unknown) {
+      throw new Error(
+        (error instanceof Error && error.message) ||
+          'Error al obtener los datos de la configuración del perfil'
+      );
     }
   };
 
@@ -143,10 +153,9 @@ export const putUserSettingsEditProfileAdapter = async (
   data: UserSettingsEditProfile
 ) => {
   const response = await getUserSettingsEditProfileCase();
-  console.log(response);
 
   if (!response) {
-    return null;
+    throw new Error('No se encontraron datos de la configuración del perfil.');
   }
 
   const newData: Partial<UserSettingsEditProfile> = {};
@@ -172,14 +181,16 @@ export const putUserSettingsEditProfileAdapter = async (
   }
 
   if (Object.keys(newData).length === 0) {
-    return;
+    throw new Error('No se detectaron cambios para actualizar.');
   }
 
   try {
     await servicePutUserSettingsEditProfile(newData);
-  } catch (error) {
-    console.error(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al actualizar la configuración del perfil'
+    );
   }
 };
 
@@ -193,11 +204,14 @@ export const putUserAccountManagementAdapter = async (
     emailAddress: data?.emailAddress,
     birthdate: data.birthdate,
   };
+
   try {
     await servicePutAccountManagementPersonalInfo(newData);
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al actualizar la gestión de la cuenta'
+    );
   }
 };
 
@@ -205,6 +219,7 @@ export const fetchProfileVisibilityAdapter =
   async (): Promise<UserProfileVisibility | null> => {
     try {
       const response = await ServiceGetProfileVisibility();
+
       if (response) {
         return {
           account_type: response.account_type,
@@ -212,10 +227,12 @@ export const fetchProfileVisibilityAdapter =
         };
       }
 
-      return null;
-    } catch (error) {
-      console.log(error);
-      return null;
+      throw new Error('No se encontraron datos de visibilidad del perfil.');
+    } catch (error: unknown) {
+      throw new Error(
+        (error instanceof Error && error.message) ||
+          'Error al obtener la visibilidad del perfil'
+      );
     }
   };
 
@@ -229,9 +246,11 @@ export const patchProfileVisibilityTypeAdapter = async (
 
   try {
     await servicePatchProfileVisibilityTypeAccount(newData);
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al actualizar el tipo de visibilidad del perfil'
+    );
   }
 };
 
@@ -245,9 +264,11 @@ export const patchProfileVisibilityPrivateAdapter = async (
 
   try {
     await servicePatchProfileVisibilityPrivateAccount(newData);
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al actualizar la visibilidad privada del perfil'
+    );
   }
 };
 
@@ -261,8 +282,11 @@ export const patchAccountManagementPasswordAdapter = async (
 
   try {
     await servicePatchAccountManagementPassword(newData);
-  } catch (error) {
-    throw error;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al actualizar la contraseña'
+    );
   }
 };
 
@@ -270,28 +294,34 @@ export const patchAvatarAdapter = async (data: UserPatchAvatar) => {
   const newData = {
     avatar: data.avatar,
   };
+
   try {
     await servicePatchAvatar(newData);
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al actualizar el avatar'
+    );
   }
 };
 
 export const deleteAvatarAdapter = async () => {
   try {
     await serviceDeleteAvatar();
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) || 'Error al eliminar el avatar'
+    );
   }
 };
 
 export const deleteUserAccountAdapter = async () => {
   try {
     await serviceDeleteAccountUser();
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al eliminar la cuenta de usuario'
+    );
   }
 };

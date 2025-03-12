@@ -81,18 +81,21 @@ export const getPinEditIdAdapter = async (
     }
 
     return null;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al obtener el pin para editar'
+    );
   }
 };
 
 export const putPinEditIdAdapter = async (id: string, data: PinEdit) => {
-  console.log(data);
   try {
     await servicePutEditPinId(id, data);
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) || 'Error al editar el pin'
+    );
   }
 };
 
@@ -160,12 +163,12 @@ export const getPinViewAdapter = async (
       };
     }
 
-    console.log(response);
-
-    return null;
-  } catch (error) {
-    console.log(error);
-    return null;
+    throw new Error('No se encontró el pin solicitado.');
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al obtener la vista del pin'
+    );
   }
 };
 
@@ -210,11 +213,12 @@ export const getPinCommentsAdapter = async (
       };
     }
 
-    console.log(response);
-    return null;
-  } catch (error) {
-    console.log(error);
-    return null;
+    throw new Error('No se encontraron comentarios para este pin.');
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al obtener los comentarios del pin'
+    );
   }
 };
 

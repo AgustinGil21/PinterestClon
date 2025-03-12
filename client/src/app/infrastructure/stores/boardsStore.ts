@@ -34,6 +34,7 @@ import {
 
 import { StateCreator } from 'zustand';
 import { PinInterface } from '@/app/domain/types/pins-structure';
+import { unknown } from 'zod';
 
 export interface IBoardsStore {
   createBoardData: ICreateBoard;
@@ -139,7 +140,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     const { homeBoards, noMoreHomeBoards } = get();
 
     if (noMoreHomeBoards && page > 1) {
-      console.log('No hay más tableros en la sección de inicio.');
+      // console.log('No hay más tableros en la sección de inicio.');
       return;
     }
 
@@ -163,17 +164,18 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
           });
         } else {
           set({ noMoreHomeBoards: true });
-          console.log('No hay más tableros en la sección de inicio.');
+          // console.log('No hay más tableros en la sección de inicio.');
         }
       } else {
         set({ noMoreHomeBoards: true });
-        console.log(
-          'No hay más tableros en la sección de inicio o la respuesta fue inválida.'
-        );
+        // console.log(
+        //   'No hay más tableros en la sección de inicio o la respuesta fue inválida.'
+        // );
       }
-    } catch (error) {
-      console.error('Error al obtener los tableros de inicio:', error);
+    } catch (error: unknown | any) {
       set({ noMoreHomeBoards: true });
+
+      // throw new Error('Error al obtener los tableros de inicio:', error);
     }
   },
 
@@ -181,7 +183,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     const { searchedBoards, noMoreSearchedBoards } = get();
 
     if (noMoreSearchedBoards && page > 1) {
-      console.log('No hay más resultados para esta búsqueda.');
+      // console.log('No hay más resultados para esta búsqueda.');
       return;
     }
 
@@ -205,23 +207,23 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
           });
         } else {
           set({ noMoreSearchedBoards: true });
-          console.log('No hay más resultados para esta búsqueda.');
+          // console.log('No hay más resultados para esta búsqueda.');
         }
       } else {
         set({ noMoreSearchedBoards: true });
-        console.log(
-          'No hay más resultados para esta búsqueda o la respuesta fue inválida.'
-        );
+        // console.log(
+        //   'No hay más resultados para esta búsqueda o la respuesta fue inválida.'
+        // );
       }
-    } catch (error) {
-      console.error('Error al buscar tableros:', error);
+    } catch (error: unknown | any) {
       set({ noMoreSearchedBoards: true });
+      // throw new Error('Error al buscar tableros:', error);
     }
   },
 
   getBoard: async ({ id, page, limit }: ISearchByID) => {
     if (get().noMoreBoardPins) {
-      console.log('No hay más pines en este tablero.');
+      // console.log('No hay más pines en este tablero.');
       return;
     }
 
@@ -240,11 +242,11 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
         });
       } else {
         set({ noMoreBoardPins: true });
-        console.log('No hay más pines en este tablero.');
+        // console.log('No hay más pines en este tablero.');
       }
     } else {
       set({ noMoreBoardPins: true });
-      console.log('No hay más pines en este tablero.');
+      // console.log('No hay más pines en este tablero.');
     }
   },
 
@@ -254,7 +256,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
       if (response.pins.length > 0) {
         set({ possibleCovers: response.pins });
       } else {
-        console.log('No hay más posibles portadas para este tablero.');
+        // console.log('No hay más posibles portadas para este tablero.');
       }
     }
   },
@@ -269,7 +271,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
 
   getUserBoards: async ({ username, page, limit }: IGetUserBoards) => {
     if (get().noMoreUserBoards) {
-      console.log('No hay más tableros de este usuario.');
+      // console.log('No hay más tableros de este usuario.');
       return;
     }
 
@@ -287,11 +289,11 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
         set({ userBoards: [...prevUserBoards, ...uniqueUserBoards] });
       } else {
         set({ noMoreUserBoards: true });
-        console.log('No hay más tableros de este usuario.');
+        // console.log('No hay más tableros de este usuario.');
       }
     } else {
       set({ noMoreUserBoards: true });
-      console.log('No hay más tableros de este usuario.');
+      // console.log('No hay más tableros de este usuario.');
     }
   },
 

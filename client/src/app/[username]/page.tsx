@@ -6,15 +6,14 @@ import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
 import DataUser from '../user-profile/DataUser';
 import DownloadShare from '../account-search/DownloadShare';
 import ThreePointsBlok from '../account-search/ThreePointsBlok';
-import Message from '../account-search/Message';
 import Follow from '../account-search/Follow';
 import ButtonsGroup from '../user-profile/ButtonsGroup';
 import CreatesOrSavesLink from '../user-profile/CreatesOrSavesLink';
 import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
-import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 import { SavedPins } from './SavedPins';
 import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
+import Message from '../account-search/Message';
 
 interface Props {
   params: { username: string };
@@ -31,11 +30,9 @@ export default function UserProfile({ params }: Props) {
     isFollowing,
     getCreatedPins,
     createdPins,
-    savedPins,
     dataOwnerProfile,
     getSavePins,
     getUserBoards,
-    userBoards,
     t,
     editBoardModalIsOpen,
   } = useAppsStore();
@@ -43,8 +40,6 @@ export default function UserProfile({ params }: Props) {
   const { username }: { username: string } = params;
 
   useEffect(() => {
-    console.log(dataOwnerProfile.private_account);
-    console.log(username);
     getSavePins(username, 1, 10);
     getUserBoards({ username, page: 1, limit: 100 });
   }, [username]);

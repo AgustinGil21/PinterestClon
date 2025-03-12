@@ -42,10 +42,12 @@ export const getUserOwnerProfileAdapter =
         };
       }
 
-      return null;
-    } catch (error) {
-      console.error(error);
-      return null;
+      throw new Error('No se encontró el perfil del propietario.');
+    } catch (error: unknown) {
+      throw new Error(
+        (error instanceof Error && error.message) ||
+          'Error al obtener el perfil del propietario'
+      );
     }
   };
 
@@ -77,17 +79,25 @@ export const getSearchUserProfileAdapter = async (
       };
     }
 
-    return null;
-  } catch (error) {
-    console.error(error);
-    return null;
+    throw new Error('No se encontró el perfil del usuario buscado.');
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al buscar el perfil del usuario'
+    );
   }
 };
 
 export const postFollowUserAdapter = async (
   id: string
 ): Promise<boolean | null> => {
-  return await servicePostFollowUser(id);
+  try {
+    return await servicePostFollowUser(id);
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) || 'Error al seguir al usuario'
+    );
+  }
 };
 
 export const getFollowersListAdapter = async (
@@ -95,8 +105,6 @@ export const getFollowersListAdapter = async (
 ): Promise<FollowersListInterface> => {
   try {
     const response = await serviceGetFollowersList(username);
-
-    console.log(response);
 
     const adaptedResponse = {
       followers: response.followers.map((follower) => ({
@@ -116,12 +124,12 @@ export const getFollowersListAdapter = async (
       followersCount: response.followersCount || 0,
     };
 
-    console.log(adaptedResponse);
-
     return adaptedResponse;
-  } catch (error) {
-    console.error('Error in getFollowersListAdapter:', error);
-    return { followers: [], followersCount: 0 };
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al obtener la lista de seguidores'
+    );
   }
 };
 
@@ -130,8 +138,6 @@ export const getFollowingsListAdapter = async (
 ): Promise<FollowingsListInterface> => {
   try {
     const response = await serviceGetFollowingList(username);
-
-    console.log(response);
 
     const adaptedResponse = {
       following: response.following.map((following) => ({
@@ -151,12 +157,12 @@ export const getFollowingsListAdapter = async (
       followingCount: response.followingCount || 0,
     };
 
-    console.log(adaptedResponse);
-
     return adaptedResponse;
-  } catch (error) {
-    console.error('Error in getFollowe  rsListAdapter:', error);
-    return { following: [], followingCount: 0 };
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al obtener la lista de seguidos'
+    );
   }
 };
 
@@ -182,22 +188,46 @@ export const getCreatedPinsAdapter = async (
     }));
 
     return adaptedPins;
-  } catch (error) {
-    console.error(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al obtener los pines creados'
+    );
   }
 };
 
-export const savePinToProfileAdapter = async (id: string) =>
-  await serviceSavePinToProfile(id);
+export const savePinToProfileAdapter = async (id: string) => {
+  try {
+    return await serviceSavePinToProfile(id);
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al guardar el pin en el perfil'
+    );
+  }
+};
 
-export const removePinFromProfileAdapter = async (id: string) =>
-  await serviceRemovePinFromProfile(id);
+export const removePinFromProfileAdapter = async (id: string) => {
+  try {
+    return await serviceRemovePinFromProfile(id);
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) ||
+        'Error al eliminar el pin del perfil'
+    );
+  }
+};
 
 export const searchUsersAdapter = async ({
   page,
   limit,
   value,
 }: ISearchByValue): Promise<IUsersProfileCard | null> => {
-  return await serviceSearchUsers({ page, limit, value });
+  try {
+    return await serviceSearchUsers({ page, limit, value });
+  } catch (error: unknown) {
+    throw new Error(
+      (error instanceof Error && error.message) || 'Error al buscar usuarios'
+    );
+  }
 };

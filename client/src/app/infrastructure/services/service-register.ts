@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain'; // Asegúrate de importar URLDOMAIN
 import {
   ArrayCountriesSchema,
   ArrayGenderSchema,
@@ -15,40 +16,40 @@ import {
 
 export const serviceGetGender = async (): Promise<Gender[]> => {
   try {
-    const response = await axios.get(
-      'http://localhost:1234/pinterest-clon-api/genders'
-    );
+    const response = await axios.get(`${URLDOMAIN}/genders`);
     const result = ArrayGenderSchema.safeParse(response.data);
     return result.success ? result.data.genders : [];
-  } catch (error) {
-    console.error(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los géneros'
+    );
   }
 };
 
 export const serviceGetCountry = async (): Promise<Country[]> => {
   try {
-    const response = await axios.get(
-      'http://localhost:1234/pinterest-clon-api/countries'
-    );
+    const response = await axios.get(`${URLDOMAIN}/countries`);
     const result = ArrayCountriesSchema.safeParse(response.data);
     return result.success ? result.data.countries : [];
-  } catch (error) {
-    console.error(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los países'
+    );
   }
 };
 
 export const serviceGetLanguages = async (): Promise<Language[]> => {
   try {
-    const response = await axios.get(
-      'http://localhost:1234/pinterest-clon-api/languages'
-    );
+    const response = await axios.get(`${URLDOMAIN}/languages`);
     const result = ArrayLanguagesSchema.safeParse(response.data);
     return result.success ? result.data.languages : [];
-  } catch (error) {
-    console.error(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los idiomas'
+    );
   }
 };
 
@@ -58,22 +59,24 @@ export const serviceGetColors = async (): Promise<any> => {
     const colors = response.data;
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
-  } catch (error) {
-    console.error(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los colores'
+    );
   }
 };
 
 export const servicePostEmailUser = async (data: UserEmail): Promise<void> => {
   try {
-    await axios.post(
-      'http://localhost:1234/pinterest-clon-api/auth/email-address',
-      data,
-      { withCredentials: true }
+    await axios.post(`${URLDOMAIN}/auth/email-address`, data, {
+      withCredentials: true,
+    });
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al enviar el correo electrónico'
     );
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 };
 
@@ -81,60 +84,57 @@ export const servicePostRegisterUser = async (
   formData: FormData
 ): Promise<void> => {
   try {
-    const response = await axios.post(
-      'http://localhost:1234/pinterest-clon-api/auth/register',
-      formData,
-      {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
+    await axios.post(`${URLDOMAIN}/auth/register`, formData, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al registrar el usuario'
     );
-  } catch (error) {
-    console.error('Error al enviar los datos:', error);
-    throw error;
   }
 };
 
 export const servicePostLoginUser = async (data: UserLogin): Promise<void> => {
   try {
-    await axios.post(
-      'http://localhost:1234/pinterest-clon-api/auth/login',
-      data,
-      { withCredentials: true }
+    await axios.post(`${URLDOMAIN}/auth/login`, data, {
+      withCredentials: true,
+    });
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al iniciar sesión'
     );
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 };
-//  '';
+
 export const serviceGetDataUserLogged = async () => {
   try {
-    const response = await axios.get(
-      'http://localhost:1234/pinterest-clon-api/',
-      { withCredentials: true }
-    );
+    const response = await axios.get(`${URLDOMAIN}/`, {
+      withCredentials: true,
+    });
 
     const result = UserDataSchema.safeParse(response.data.userData);
 
     return result.success ? result.data : null;
-  } catch (error) {
-    console.error(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los datos del usuario'
+    );
   }
 };
 
 export const servicePostLogOut = async (): Promise<void> => {
   try {
-    await axios.post(
-      'http://localhost:1234/pinterest-clon-api/auth/logout',
-      {},
-      { withCredentials: true }
+    await axios.post(`${URLDOMAIN}/auth/logout`, {}, { withCredentials: true });
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al cerrar sesión'
     );
-  } catch (error) {
-    console.error(error);
-    throw error;
   }
 };
