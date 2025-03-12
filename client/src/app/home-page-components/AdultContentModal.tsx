@@ -51,21 +51,22 @@ export const AdultContentModal = () => {
           <h2 className='font-bold text-xl md:text-2xl'>
             {t?.adult.modal.title || 'Contenido sensible'}
           </h2>
-          <p className='text-base md:text-lg text-pretty'>
+          <p className=' md:text-[15px] text-pretty text-center text-sm'>
             {t?.adult.modal.description ||
               'Esta publicación está marcada como contenido para adultos. El acceso queda bajo tu responsabilidad. Puede contener desnudos, por lo que recomendamos discreción.'}
           </p>
+          cd
         </article>
-        <article className='flex justify-around'>
+        <article className='flex justify-center max-w-[300px] mx-auto gap-3'>
           <button
             onClick={handleClose}
-            className='py-2 px-3 rounded-3xl bg-slate-200 text-base font-semibold'
+            className='py-2 px-3 rounded-3xl bg-slate-200 text-sm font-semibold w-full'
           >
             {t?.adult.modal.buttons.cancel || 'Cancelar'}
           </button>
           <button
             onClick={handleContinue}
-            className='py-2 px-3 rounded-3xl bg-redPinterestBg text-base font-semibold text-white'
+            className='py-2 px-3 rounded-3xl w-full bg-redPinterestBg text-sm font-semibold text-white '
           >
             {t?.adult.modal.buttons.continue || 'Continuar'}
           </button>

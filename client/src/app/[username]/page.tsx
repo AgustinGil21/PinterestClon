@@ -127,7 +127,7 @@ export default function UserProfile({ params }: Props) {
               dataShare={dataSearchUserProfile.username}
             />
             <div className='flex flex-row gap-2'>
-              <Message />
+              {/* <Message /> */}
               <Follow
                 classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
                 classPropsTrueIsFollowing='bg-black rounded-full text-white'
@@ -160,8 +160,10 @@ export default function UserProfile({ params }: Props) {
           ))}
         </Masonry>
       ) : (
-        // <BoardsGrid boards={userBoards} />
-        <SavedPins />
+        <>
+          {/* <BoardsGrid boards={userBoards} /> */}
+          <SavedPins />
+        </>
       )}
     </section>
   );
