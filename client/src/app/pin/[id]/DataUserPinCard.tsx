@@ -58,7 +58,7 @@ const DataUserPinCard = () => {
           {pinData.user_id && !pinData.its_you && (
             <Follow
               classPropsFalseIsFollowing='bg-white border-[1px] text-black  hover:bg-transparent p-2 flex justify-center items-center '
-              classPropsTrueIsFollowing='bg-black text-white  border-[1px] p-2 flex justify-center items-center'
+              classPropsTrueIsFollowing='bg-[#111111] text-white hover:bg-[#222222] border-[1px] p-2 flex justify-center items-center'
               id={pinData.user_id}
               following={pinData.following}
             />

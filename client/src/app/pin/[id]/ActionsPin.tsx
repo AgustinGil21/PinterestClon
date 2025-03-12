@@ -17,12 +17,12 @@ const ActionsPin = () => {
     <div className='flex justify-between items-center'>
       <div className='flex gap-1 items-center relative'>
         <Like />
-        <Tooltip tooltipText={t?.share.text || 'Compartir'}>
-          <DownloadShare
-            classProps='p-2 flex items-center'
-            dataShare={`pin/${pinData.id}`}
-          />
-        </Tooltip>
+        {/* <Tooltip tooltipText={t?.share.text || 'Compartir'}> */}
+        <DownloadShare
+          classProps='p-2 flex items-center'
+          dataShare={`pin/${pinData.id}`}
+        />
+        {/* </Tooltip> */}
 
         <PlusOptionsPins />
       </div>

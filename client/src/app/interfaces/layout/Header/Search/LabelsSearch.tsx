@@ -23,6 +23,7 @@ const LabelsSearch = ({ handleClick }: LabelsSearchInterface) => {
             <span className='text-[14px]'>{elem}</span>
             <button
               onClick={(e) => {
+                e.stopPropagation();
                 removeValueFromSearch(elem);
               }}
             >

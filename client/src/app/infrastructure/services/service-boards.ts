@@ -28,8 +28,11 @@ export const serviceGetLastBoardName = async () => {
     const result = LastBoardSchema.safeParse(response.data?.board);
 
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener el último tablero'
+    );
   }
 };
 
@@ -40,8 +43,11 @@ export const serviceCreateBoard = async (data: ICreateBoard) => {
     });
 
     return response.status ? response.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al crear el tablero'
+    );
   }
 };
 
@@ -51,11 +57,12 @@ export const serviceEditBoard = async (data: IEditBoard) => {
       withCredentials: true,
     });
 
-    console.log(response);
-
     return response.status ? response.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al editar el tablero'
+    );
   }
 };
 
@@ -65,9 +72,12 @@ export const serviceDeleteBoard = async (id: string) => {
       withCredentials: true,
     });
 
-    console.log(response);
-  } catch (err) {
-    return null;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el tablero'
+    );
   }
 };
 
@@ -80,8 +90,11 @@ export const serviceGetBoardsList = async () => {
     const result = BoardsListSchema.safeParse(response.data);
 
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener la lista de tableros'
+    );
   }
 };
 
@@ -101,8 +114,11 @@ export const serviceGetUserBoards = async ({
     const result = UserBoardsSchema.safeParse(response.data);
 
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los tableros del usuario'
+    );
   }
 };
 
@@ -121,11 +137,12 @@ export const serviceGetSingleBoard = async ({
 
     const result = GetBoardSchema.safeParse(response.data.board);
 
-    console.log(result.error);
-
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener el tablero individual'
+    );
   }
 };
 
@@ -136,8 +153,11 @@ export const serviceAddPinToBoard = async (data: IBoardPinsInteractions) => {
     });
 
     return response.status;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al agregar un pin al tablero'
+    );
   }
 };
 
@@ -148,8 +168,13 @@ export const serviceRemovePinFromBoard = async (
     const response = await axios.post(`${URLDOMAIN}/boards/remove-pin`, data, {
       withCredentials: true,
     });
-  } catch (err) {
-    return null;
+
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar un pin del tablero'
+    );
   }
 };
 
@@ -169,8 +194,11 @@ export const serviceGetPossibleCovers = async ({
     const result = GetPossibleCoversSchema.safeParse(response.data);
 
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener las portadas posibles'
+    );
   }
 };
 
@@ -187,15 +215,14 @@ export const serviceSearchBoards = async ({
       }
     );
 
-    console.log(response.data);
-
     const result = SearchBoardsSchema.safeParse(response.data);
 
-    console.log(result.data);
-
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar tableros'
+    );
   }
 };
 
@@ -210,10 +237,11 @@ export const serviceGetHomeBoards = async ({ page, limit }: IPaging) => {
 
     const result = HomeBoardsSchema.safeParse(response.data);
 
-    console.log(response);
-
     return result.success ? result.data : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los tableros de inicio'
+    );
   }
 };

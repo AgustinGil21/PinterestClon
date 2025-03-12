@@ -3,16 +3,11 @@ import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain';
 import {
   SuggestionsInterface,
   CategoriesPin,
-  PinCreate,
   PinEdit,
   PreviousPin,
   PinCreateServerAdapter,
   GetPinsInterface,
-  PinInterface,
-  PinViewInterface,
   PostCommentInterface,
-  CommentsResponseInterface,
-  PinSimilarInterface,
 } from '@/app/domain/types/pins-structure';
 import {
   ArrayPreviousPinSchema,
@@ -21,14 +16,11 @@ import {
   CommentsResponseSchema,
   getPinsSchema,
   PinEditIdSchema,
-  PinSchema,
   PinSimilarSchema,
   PinViewSchema,
 } from '../schemas/validation-service-api';
 
-export const servicePostCreatePin = async (
-  data: PinCreateServerAdapter
-): Promise<void> => {
+export const servicePostCreatePin = async (data: PinCreateServerAdapter) => {
   try {
     const response = await axios.post(`${URLDOMAIN}/pins/create`, data, {
       withCredentials: true,
@@ -37,13 +29,12 @@ export const servicePostCreatePin = async (
       },
     });
 
-    return response.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error creating pin: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while creating the pin.');
-    }
+    return response.status ? response.data : null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al crear el pin'
+    );
   }
 };
 
@@ -55,17 +46,12 @@ export const serviceGetCategoriesPin = async (): Promise<CategoriesPin[]> => {
 
     const result = CategoriesSchema.safeParse(response.data);
 
-    if (!result.success) {
-      throw new Error('Invalid categories data format');
-    }
-
-    return result.data.categories;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching categories: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching categories.');
-    }
+    return result.success ? result.data.categories : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener las categorías'
+    );
   }
 };
 
@@ -77,33 +63,26 @@ export const serviceGetPreviousPins = async (): Promise<PreviousPin[]> => {
 
     const result = ArrayPreviousPinSchema.safeParse(response.data.pins.data);
 
-    if (!result.success) {
-      throw new Error('Invalid previous pins data format');
-    }
-
-    return result.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching previous pins: ${error.message}`);
-    } else {
-      throw new Error(
-        'An unknown error occurred while fetching previous pins.'
-      );
-    }
+    return result.success ? result.data : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los pines anteriores'
+    );
   }
 };
 
-export const serviceDeletePreviousPin = async (id: string): Promise<void> => {
+export const serviceDeletePreviousPin = async (id: string) => {
   try {
-    await axios.delete(`${URLDOMAIN}/pins/${id}`, {
+    const response = await axios.delete(`${URLDOMAIN}/pins/${id}`, {
       withCredentials: true,
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error deleting pin: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while deleting the pin.');
-    }
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el pin'
+    );
   }
 };
 
@@ -117,36 +96,26 @@ export const serviceGetEditPinId = async (
 
     const result = PinEditIdSchema.safeParse(response.data.pin);
 
-    if (!result.success) {
-      throw new Error('Invalid pin data format');
-    }
-
-    return result.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching pin for edit: ${error.message}`);
-    } else {
-      throw new Error(
-        'An unknown error occurred while fetching the pin for edit.'
-      );
-    }
+    return result.success ? result.data : null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener el pin para editar'
+    );
   }
 };
 
-export const servicePutEditPinId = async (
-  id: string,
-  data: PinEdit
-): Promise<void> => {
+export const servicePutEditPinId = async (id: string, data: PinEdit) => {
   try {
-    await axios.put(`${URLDOMAIN}/pins/${id}`, data, {
+    const response = await axios.put(`${URLDOMAIN}/pins/${id}`, data, {
       withCredentials: true,
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error updating pin: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while updating the pin.');
-    }
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al editar el pin'
+    );
   }
 };
 
@@ -164,17 +133,12 @@ export const serviceGetHomePins = async (
 
     const result = getPinsSchema.safeParse(response.data);
 
-    if (!result.success) {
-      throw new Error('Invalid home pins data format');
-    }
-
-    return response.data.pins;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching home pins: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching home pins.');
-    }
+    return response.status === 200 ? response.data.pins : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los pines de inicio'
+    );
   }
 };
 
@@ -182,7 +146,7 @@ export const serviceGetSearchPin = async (
   value: string,
   page: number,
   limit: number
-): Promise<PinInterface[] | []> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/pins/search?value=${value}&page=${page}&limit=${limit}`,
@@ -193,17 +157,12 @@ export const serviceGetSearchPin = async (
 
     const result = getPinsSchema.safeParse(response.data);
 
-    if (!result.success) {
-      throw new Error('Invalid search pins data format');
-    }
-
-    return result.data.pins;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching search pins: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching search pins.');
-    }
+    return result.success ? result.data.pins : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar pines'
+    );
   }
 };
 
@@ -215,17 +174,12 @@ export const serviceGetSuggestions = async (): Promise<
 
     const result = ArraySuggestionSchema.safeParse(response.data.suggestions);
 
-    if (!result.success) {
-      throw new Error('Invalid suggestions data format');
-    }
-
-    return result.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching suggestions: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching suggestions.');
-    }
+    return result.success ? result.data : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener sugerencias'
+    );
   }
 };
 
@@ -233,7 +187,7 @@ export const serviceGetPinSearchCategories = async (
   category: string,
   page: number,
   limit: number
-): Promise<PinInterface[] | []> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/pins/search-by-category?category=${category}&page=${page}&limit=${limit}`,
@@ -244,25 +198,16 @@ export const serviceGetPinSearchCategories = async (
 
     const result = getPinsSchema.safeParse(response.data);
 
-    if (!result.success) {
-      throw new Error('Invalid category pins data format');
-    }
-
-    return result.data.pins;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching category pins: ${error.message}`);
-    } else {
-      throw new Error(
-        'An unknown error occurred while fetching category pins.'
-      );
-    }
+    return result.success ? result.data.pins : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar pines por categoría'
+    );
   }
 };
 
-export const serviceGetPinView = async (
-  id: string
-): Promise<PinViewInterface | null> => {
+export const serviceGetPinView = async (id: string) => {
   try {
     const response = await axios.get(`${URLDOMAIN}/pins/${id}`, {
       withCredentials: true,
@@ -270,53 +215,46 @@ export const serviceGetPinView = async (
 
     const result = PinViewSchema.safeParse(response.data.pin);
 
-    if (!result.success) {
-      throw new Error('Invalid pin view data format');
-    }
-
-    return result.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching pin view: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching the pin view.');
-    }
+    return result.success ? result.data : null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener la vista del pin'
+    );
   }
 };
 
-export const servicePostLikeOrUnlikePin = async (id: string): Promise<void> => {
+export const servicePostLikeOrUnlikePin = async (id: string) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       `${URLDOMAIN}/pins/like/${id}`,
       {},
       {
         withCredentials: true,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error liking/unliking pin: ${error.message}`);
-    } else {
-      throw new Error(
-        'An unknown error occurred while liking/unliking the pin.'
-      );
-    }
+
+    return response.status ? response.data : null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al dar like o unlike al pin'
+    );
   }
 };
 
-export const servicePostCommentsCreate = async (
-  data: PostCommentInterface
-): Promise<void> => {
+export const servicePostCommentsCreate = async (data: PostCommentInterface) => {
   try {
-    await axios.post(`${URLDOMAIN}/comments/create`, data, {
+    const response = await axios.post(`${URLDOMAIN}/comments/create`, data, {
       withCredentials: true,
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error creating comment: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while creating the comment.');
-    }
+
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al crear el comentario'
+    );
   }
 };
 
@@ -324,7 +262,7 @@ export const serviceGetPinComments = async (
   id: string,
   page: number,
   limit: number
-): Promise<CommentsResponseInterface | null> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/comments/pin-comments/${id}?page=${page}&limit=${limit}`,
@@ -335,39 +273,31 @@ export const serviceGetPinComments = async (
 
     const result = CommentsResponseSchema.safeParse(response.data);
 
-    if (!result.success) {
-      throw new Error('Invalid comments data format');
-    }
-
-    return result.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching comments: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching comments.');
-    }
+    return result.success ? result.data : null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los comentarios del pin'
+    );
   }
 };
 
-export const servicePostToggleLikeComment = async (
-  id: string
-): Promise<void> => {
+export const servicePostToggleLikeComment = async (id: string) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       `${URLDOMAIN}/comments/toggle-like`,
       { id },
       {
         withCredentials: true,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error toggling like on comment: ${error.message}`);
-    } else {
-      throw new Error(
-        'An unknown error occurred while toggling like on the comment.'
-      );
-    }
+
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al dar like o unlike al comentario'
+    );
   }
 };
 
@@ -375,7 +305,7 @@ export const serviceGetSimilarPins = async (
   id: string,
   page: number,
   limit: number
-): Promise<PinSimilarInterface[] | []> => {
+) => {
   try {
     const response = await axios.get(
       `${URLDOMAIN}/pins/similar-pins/${id}?page=${page}&limit=${limit}`,
@@ -388,48 +318,45 @@ export const serviceGetSimilarPins = async (
       response.data.response.pins
     );
 
-    if (!result.success) {
-      throw new Error('Invalid similar pins data format');
-    }
-
-    return result.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error fetching similar pins: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while fetching similar pins.');
-    }
+    return result.success ? result.data : [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener pines similares'
+    );
   }
 };
 
-export const servicePostSavePin = async (data: string): Promise<void> => {
+export const servicePostSavePin = async (data: string) => {
   try {
-    await axios.post(
+    const response = await axios.post(
       `${URLDOMAIN}/users/save-pin`,
       { id: data },
       {
         withCredentials: true,
       }
     );
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error saving pin: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while saving the pin.');
-    }
+
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al guardar el pin'
+    );
   }
 };
 
-export const servicePostDeleteComment = async (id: string): Promise<void> => {
+export const servicePostDeleteComment = async (id: string) => {
   try {
-    await axios.delete(`${URLDOMAIN}/comments/${id}`, {
+    const response = await axios.delete(`${URLDOMAIN}/comments/${id}`, {
       withCredentials: true,
     });
-  } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(`Error deleting comment: ${error.message}`);
-    } else {
-      throw new Error('An unknown error occurred while deleting the comment.');
-    }
+
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el comentario'
+    );
   }
 };

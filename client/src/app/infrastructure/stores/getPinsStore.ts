@@ -77,7 +77,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     const { homePins } = get();
 
     if (homePins.length > 0 && page > 1 && get().noMoreHomePins) {
-      console.log('No hay más pins para cargar.');
+      // console.log('No hay más pins para cargar.');
       return;
     }
 
@@ -107,13 +107,12 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
     }
 
     if (noMoreSearchPins && page > 1) {
-      console.log('No hay más resultados para esta búsqueda.');
+      // console.log('No hay más resultados para esta búsqueda.');
       return;
     }
 
     try {
       const response = await getSearchPinsCase(value, page, limit);
-      console.log(response);
 
       if (Array.isArray(response) && response.length > 0) {
         const uniqueSearchPins = getUniqueItems(response, searchPins, 'pin_id');
@@ -128,14 +127,14 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
           });
         } else {
           set({ noMoreSearchPins: true });
-          console.log('No hay más resultados para esta búsqueda.');
+          // console.log('No hay más resultados para esta búsqueda.');
         }
       } else {
         set({ noMoreSearchPins: true });
-        console.log('No hay más resultados disponibles.');
+        // console.log('No hay más resultados disponibles.');
       }
     } catch (error) {
-      console.error('Error en la búsqueda de pines:', error);
+      // console.error('Error en la búsqueda de pines:', error);
       set({ noMoreSearchPins: true });
     }
   },
@@ -153,7 +152,7 @@ export const homePinsStore: StateCreator<homePinsStoreInterface> = (
       get().noMoreCategoryPins &&
       prevCategory === category
     ) {
-      console.log('No hay más resultados para esta categoría.');
+      // console.log('No hay más resultados para esta categoría.');
       return;
     }
 

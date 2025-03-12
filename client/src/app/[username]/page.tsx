@@ -6,13 +6,11 @@ import AvatarUser from '../interfaces/layout/Header/Avatar/AvatarUser';
 import DataUser from '../user-profile/DataUser';
 import DownloadShare from '../account-search/DownloadShare';
 import ThreePointsBlok from '../account-search/ThreePointsBlok';
-import Message from '../account-search/Message';
 import Follow from '../account-search/Follow';
 import ButtonsGroup from '../user-profile/ButtonsGroup';
 import CreatesOrSavesLink from '../user-profile/CreatesOrSavesLink';
 import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
-import BoardsGrid from '../boards/boards-preview/BoardsGrid';
 import { SavedPins } from './SavedPins';
 
 interface Props {
@@ -30,19 +28,15 @@ export default function UserProfile({ params }: Props) {
     isFollowing,
     getCreatedPins,
     createdPins,
-    savedPins,
     dataOwnerProfile,
     getSavePins,
     getUserBoards,
-    userBoards,
     t,
   } = useAppsStore();
 
   const { username }: { username: string } = params;
 
   useEffect(() => {
-    console.log(dataOwnerProfile.private_account);
-    console.log(username);
     getSavePins(username, 1, 10);
     getUserBoards({ username, page: 1, limit: 100 });
   }, [username]);
@@ -111,7 +105,7 @@ export default function UserProfile({ params }: Props) {
 
   return (
     <section className='py-5 min-h-screen flex w-full flex-col relative'>
-      <div className='flex w-full flex-col items-center z-30'>
+      <div className='flex w-full flex-col items-center z-20'>
         <AvatarUser
           data={dataSearchUserProfile}
           classProps='w-[110px] h-[110px]'
@@ -130,7 +124,7 @@ export default function UserProfile({ params }: Props) {
               {/* <Message /> */}
               <Follow
                 classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
-                classPropsTrueIsFollowing='bg-black rounded-full text-white'
+                classPropsTrueIsFollowing='bg-[#111111] hover:bg-[#222222] rounded-full text-white'
                 following={dataSearchUserProfile.following}
                 id={dataSearchUserProfile.id}
               />

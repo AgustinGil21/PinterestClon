@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { URLDOMAIN } from '@/app/interfaces/helpers/urldomain'; // Asegúrate de importar URLDOMAIN
 import {
   UserAccountManagmentSchema,
   UserSettingsEditProfileSchema,
@@ -17,18 +18,19 @@ export const serviceGetUserAccountManagment =
   async (): Promise<UserDataAccountEdit | null> => {
     try {
       const response = await axios.get(
-        'http://localhost:1234/pinterest-clon-api/settings/account-management/',
+        `${URLDOMAIN}/settings/account-management/`,
         { withCredentials: true }
       );
-      console.log(response);
 
       const result = UserAccountManagmentSchema.safeParse(
         response.data.userData
       );
       return result.success ? result.data : null;
-    } catch (error) {
-      console.log(error);
-      return null;
+    } catch (error: unknown) {
+      throw new Error(
+        (axios.isAxiosError(error) && error.response?.data?.message) ||
+          'Error al obtener la gestión de la cuenta del usuario'
+      );
     }
   };
 
@@ -37,47 +39,46 @@ export const servicePutAccountManagementPersonalInfo = async (
 ) => {
   try {
     const response = await axios.put(
-      'http://localhost:1234/pinterest-clon-api/settings/account-management/personal-info',
+      `${URLDOMAIN}/settings/account-management/personal-info`,
       {
         ...data,
       },
       { withCredentials: true }
     );
-    console.log(response.status);
-  } catch (error) {
-    console.log(error);
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al actualizar la información personal'
+    );
   }
 };
 
 export const serviceGetUserSettingsEditProfile =
   async (): Promise<UserSettingsEditProfile | null> => {
     try {
-      const response = await axios.get(
-        'http://localhost:1234/pinterest-clon-api/settings/edit-profile/',
-        { withCredentials: true }
-      );
-      console.log(response);
-      console.log(response.status);
+      const response = await axios.get(`${URLDOMAIN}/settings/edit-profile/`, {
+        withCredentials: true,
+      });
 
       const result = UserSettingsEditProfileSchema.safeParse(
         response.data.userData
       );
-      console.log(result);
       return result.success ? result.data : null;
-    } catch (error) {
-      console.log(error);
-      return null;
+    } catch (error: unknown) {
+      throw new Error(
+        (axios.isAxiosError(error) && error.response?.data?.message) ||
+          'Error al obtener la configuración de edición del perfil'
+      );
     }
   };
 
 export const servicePutUserSettingsEditProfile = async (
   data: UserSettingsEditProfile
 ) => {
-  console.log(data);
-
   try {
     const response = await axios.put(
-      'http://localhost:1234/pinterest-clon-api/settings/edit-profile',
+      `${URLDOMAIN}/settings/edit-profile`,
       {
         ...data,
       },
@@ -86,10 +87,12 @@ export const servicePutUserSettingsEditProfile = async (
       }
     );
 
-    console.log(response.status);
-    console.log(response);
-  } catch (error) {
-    console.log(error);
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al actualizar la configuración del perfil'
+    );
   }
 };
 
@@ -97,8 +100,7 @@ export const ServiceGetProfileVisibility =
   async (): Promise<UserProfileVisibility | null> => {
     try {
       const response = await axios.get(
-        'http://localhost:1234/pinterest-clon-api/settings/profile-visibility',
-
+        `${URLDOMAIN}/settings/profile-visibility`,
         { withCredentials: true }
       );
 
@@ -106,9 +108,11 @@ export const ServiceGetProfileVisibility =
         response.data.userData
       );
       return result.success ? result.data : null;
-    } catch (error) {
-      console.log(error);
-      return null;
+    } catch (error: unknown) {
+      throw new Error(
+        (axios.isAxiosError(error) && error.response?.data?.message) ||
+          'Error al obtener la visibilidad del perfil'
+      );
     }
   };
 
@@ -117,17 +121,19 @@ export const servicePatchProfileVisibilityTypeAccount = async (
 ) => {
   try {
     const response = await axios.patch(
-      'http://localhost:1234/pinterest-clon-api/settings/profile-visibility/convert-account',
+      `${URLDOMAIN}/settings/profile-visibility/convert-account`,
       {
         ...data,
       },
       { withCredentials: true }
     );
 
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-    return null;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al cambiar el tipo de cuenta'
+    );
   }
 };
 
@@ -136,19 +142,19 @@ export const servicePatchProfileVisibilityPrivateAccount = async (
 ) => {
   try {
     const response = await axios.patch(
-      'http://localhost:1234/pinterest-clon-api/settings/profile-visibility/private-account',
+      `${URLDOMAIN}/settings/profile-visibility/private-account`,
       {
         ...data,
       },
       { withCredentials: true }
     );
 
-    console.log(response);
-
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
-    return null;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al cambiar la visibilidad de la cuenta a privada'
+    );
   }
 };
 
@@ -157,27 +163,29 @@ export const servicePatchAccountManagementPassword = async (
 ) => {
   try {
     const response = await axios.patch(
-      'http://localhost:1234/pinterest-clon-api/settings/account-management/change-password',
+      `${URLDOMAIN}/settings/account-management/change-password`,
       {
         ...data,
       },
       { withCredentials: true }
     );
 
-    console.log(response);
-  } catch (error) {
-    throw error;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al cambiar la contraseña'
+    );
   }
 };
 
 export const servicePatchAvatar = async (data: UserPatchAvatar) => {
   try {
     const response = await axios.post(
-      'http://localhost:1234/pinterest-clon-api/avatar',
+      `${URLDOMAIN}/avatar`,
       {
         ...data,
       },
-
       {
         withCredentials: true,
         headers: {
@@ -186,37 +194,42 @@ export const servicePatchAvatar = async (data: UserPatchAvatar) => {
       }
     );
 
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-    return null;
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al actualizar el avatar'
+    );
   }
 };
 
 export const serviceDeleteAvatar = async () => {
   try {
-    const response = await axios.delete(
-      'http://localhost:1234/pinterest-clon-api/avatar',
+    const response = await axios.delete(`${URLDOMAIN}/avatar`, {
+      withCredentials: true,
+    });
 
-      {
-        withCredentials: true,
-      }
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el avatar'
     );
-
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-    return null;
   }
 };
 
 export const serviceDeleteAccountUser = async () => {
   try {
-    await axios.delete(
-      'http://localhost:1234/pinterest-clon-api/settings/account-management/delete-account',
+    const response = await axios.delete(
+      `${URLDOMAIN}/settings/account-management/delete-account`,
       { withCredentials: true }
     );
-  } catch (error) {
-    console.log(error);
+
+    return response.data;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar la cuenta de usuario'
+    );
   }
 };

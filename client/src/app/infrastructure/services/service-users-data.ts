@@ -1,8 +1,6 @@
 import {
   CreatedPinsInterface,
   FollowingsListInterface,
-  ISingleUserProfileCard,
-  IUsersProfileCard,
   OwnerProfileInterface,
 } from '@/app/domain/types/data-users';
 import { SearchUserProfileInterface } from '@/app/domain/types/data-users';
@@ -28,16 +26,14 @@ export const serviceGetUserOwnerProfile =
         withCredentials: true,
       });
 
-      console.log(response);
-
       const result = OwnerProfileSchema.safeParse(response.data.profile);
 
-      console.log(result);
-
       return result.success ? result.data : null;
-    } catch (error) {
-      console.log(error);
-      return null;
+    } catch (error: unknown) {
+      throw new Error(
+        (axios.isAxiosError(error) && error.response?.data?.message) ||
+          'Error al obtener el perfil del propietario'
+      );
     }
   };
 
@@ -45,12 +41,9 @@ export const serviceGetSearchUserProfile = async (
   username: string
 ): Promise<SearchUserProfileInterface | null> => {
   try {
-    console.log(username);
     const response = await axios.get(`${URLDOMAIN}/users/profile/${username}`, {
       withCredentials: true,
     });
-
-    console.log(response);
 
     const result = SearchUserProfileSchema.safeParse(response.data.profile);
 
@@ -63,9 +56,11 @@ export const serviceGetSearchUserProfile = async (
     }
 
     return null;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar el perfil del usuario'
+    );
   }
 };
 
@@ -81,19 +76,18 @@ export const servicePostFollowUser = async (
       }
     );
 
-    console.log(response);
-
     return response.status ? response.data : null;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al seguir al usuario'
+    );
   }
 };
 
 export const serviceGetFollowersList = async (
   username: string
 ): Promise<FollowersListInterface> => {
-  console.log(username);
   try {
     const response = await axios.get(
       `${URLDOMAIN}/users/followers-list/${username}`,
@@ -101,23 +95,21 @@ export const serviceGetFollowersList = async (
         withCredentials: true,
       }
     );
-    console.log(response);
 
     const result = FollowersListSchema.safeParse(response.data);
 
-    console.log(result);
-
     return result.success ? result.data : { followers: [], followersCount: 0 };
-  } catch (error) {
-    console.log(error);
-    return { followers: [], followersCount: 0 };
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener la lista de seguidores'
+    );
   }
 };
 
 export const serviceGetFollowingList = async (
   username: string
 ): Promise<FollowingsListInterface> => {
-  console.log(username);
   try {
     const response = await axios.get(
       `${URLDOMAIN}/users/following-list/${username}`,
@@ -125,16 +117,15 @@ export const serviceGetFollowingList = async (
         withCredentials: true,
       }
     );
-    console.log(response);
 
     const result = FollowingsListSchema.safeParse(response.data);
 
-    console.log(result);
-
     return result.success ? result.data : { following: [], followingCount: 0 };
-  } catch (error) {
-    console.log(error);
-    return { following: [], followingCount: 0 };
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener la lista de seguidos'
+    );
   }
 };
 
@@ -154,9 +145,11 @@ export const serviceGetCreatedPins = async (
     const result = PinCreatedDataSchema.safeParse(response.data.pins);
 
     return result.success ? result.data : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los pines creados'
+    );
   }
 };
 
@@ -171,8 +164,11 @@ export const serviceSavePinToProfile = async (id: string) => {
     );
 
     return response.status;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al guardar el pin en el perfil'
+    );
   }
 };
 
@@ -188,14 +184,15 @@ export const serviceGetSavesPins = async (
         withCredentials: true,
       }
     );
-    console.log(response.data);
 
     const result = PinSchema.array().safeParse(response.data.pins);
 
     return result.success ? result.data : [];
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al obtener los pines guardados'
+    );
   }
 };
 
@@ -210,8 +207,11 @@ export const serviceRemovePinFromProfile = async (id: string) => {
     );
 
     return response.status;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al eliminar el pin del perfil'
+    );
   }
 };
 
@@ -229,7 +229,10 @@ export const serviceSearchUsers = async ({
     const result = SearchUsersSchema.safeParse(response.data);
 
     return result.success ? result.data.users : null;
-  } catch (err) {
-    return null;
+  } catch (error: unknown) {
+    throw new Error(
+      (axios.isAxiosError(error) && error.response?.data?.message) ||
+        'Error al buscar usuarios'
+    );
   }
 };

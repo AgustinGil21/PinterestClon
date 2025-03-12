@@ -97,7 +97,6 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
   getPinView: async (id: string) => {
     const response = await getPinViewAdapter(id);
 
-    console.log(response);
     if (response) {
       set({
         pinData: response,

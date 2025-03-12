@@ -5,6 +5,7 @@ import { EditBoardForm } from './EditBoardForm';
 import { useEffect } from 'react';
 import { BoardCoverCard } from './BoardCoverCard';
 import { BoardCoverExplanation } from './BoardCoverExplanation';
+import BoardCoverModal from '../board-cover/BoardCoverModal';
 
 export const EditBoardModal = () => {
   const {
@@ -12,6 +13,7 @@ export const EditBoardModal = () => {
     setEditBoardModal,
     editBoardID,
     closeBoardMoreOptionsModal,
+    boardCoversModalIsOpen,
   } = useAppsStore();
 
   const { t } = useAppsStore();
@@ -26,7 +28,7 @@ export const EditBoardModal = () => {
     <Modal
       props={{
         className:
-          'bg-white rounded-lg fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto w-full min-w-[350px] max-w-[450px] ',
+          'bg-white rounded-lg fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto w-full min-w-[350px] max-w-[450px]',
         setModal: handleCloseModal,
         isModalOpen: true,
         blackFilter: true,
@@ -47,6 +49,7 @@ export const EditBoardModal = () => {
         </section>
         <EditBoardFooter />
       </div>
+      {boardCoversModalIsOpen && <BoardCoverModal />}
     </Modal>
   );
 };

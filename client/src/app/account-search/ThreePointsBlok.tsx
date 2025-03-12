@@ -47,9 +47,9 @@ const ThreePointsBlok = () => {
                 {t?.user['profile-options'].text || 'Opciones de perfil'}
               </span>
               <div className='flex flex-col items-start mt-2'>
-                <ButtonStyled className='text-sm font-semibold hover:bg-gray-200 dark:hover:bg-slate-900 w-full text-start rounded-lg'>
+                {/* <ButtonStyled className='text-sm font-semibold hover:bg-gray-200 dark:hover:bg-slate-900 w-full text-start rounded-lg'>
                   {t?.user['profile-options'].block || 'Bloquear'}
-                </ButtonStyled>
+                </ButtonStyled> */}
                 <ButtonStyled className='text-sm font-semibold hover:bg-gray-200 dark:hover:bg-slate-900 w-full text-start rounded-lg'>
                   {t?.user['profile-options'].report || 'Reportar'}
                 </ButtonStyled>

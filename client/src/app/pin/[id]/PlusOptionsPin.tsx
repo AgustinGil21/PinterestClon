@@ -29,22 +29,22 @@ const PlusOptionsPin = () => {
 
   return (
     <>
-      <Tooltip tooltipText={t?.pin['more-options'].tooltip || 'Más opciones'}>
-        <ButtonStyled btnRef={btnRef} className='!p-0'>
-          <div
-            onClick={handleClick}
-            className={`p-2 rounded-full cursor-pointer flex items-center ${
-              isThreePointsAccountOpen
-                ? 'bg-black hover:bg-black'
-                : 'hover:bg-gray-200'
-            }`}
-          >
-            <ThreePointsIcon
-              isThreePointsAccountOpen={isThreePointsAccountOpen}
-            />
-          </div>
-        </ButtonStyled>
-      </Tooltip>
+      {/* <Tooltip tooltipText={t?.pin['more-options'].tooltip || 'Más opciones'}> */}
+      <ButtonStyled btnRef={btnRef} className='!p-0'>
+        <div
+          onClick={handleClick}
+          className={`p-2 rounded-full cursor-pointer flex items-center ${
+            isThreePointsAccountOpen
+              ? 'bg-black hover:bg-black'
+              : 'hover:bg-gray-200'
+          }`}
+        >
+          <ThreePointsIcon
+            isThreePointsAccountOpen={isThreePointsAccountOpen}
+          />
+        </div>
+      </ButtonStyled>
+      {/* </Tooltip> */}
 
       {isThreePointsAccountOpen && (
         <div className='relative'>

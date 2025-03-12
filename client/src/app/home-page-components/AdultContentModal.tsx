@@ -55,7 +55,6 @@ export const AdultContentModal = () => {
             {t?.adult.modal.description ||
               'Esta publicación está marcada como contenido para adultos. El acceso queda bajo tu responsabilidad. Puede contener desnudos, por lo que recomendamos discreción.'}
           </p>
-          cd
         </article>
         <article className='flex justify-center max-w-[300px] mx-auto gap-3'>
           <button

@@ -62,6 +62,7 @@ export const createPinsStore: StateCreator<CreatePinsStoreInterface> = (
       title: '',
       id: '',
       body: '',
+      created_at: '',
     },
   ],
   imagePreview: null,
