@@ -15,11 +15,22 @@ export interface ICreateBoard {
 }
 
 export interface IEditBoard {
-  id?: string;
+  id: string;
   name: string;
   description?: string;
   cover?: string;
-  collage?: string;
+}
+
+export interface IEditBoardForm {
+  name: string;
+  description?: string;
+}
+
+export interface IEditBoardPrevData {
+  name: string;
+  description?: string | null;
+  cover?: string | null;
+  collage?: string | null;
 }
 
 export interface IGetUserBoards extends IPaging {
@@ -100,6 +111,11 @@ export interface IBoardPreview {
   avatar_letter?: string;
   avatar_background?: string;
   its_yours?: boolean;
+}
+
+export interface IBoardCover {
+  id: string;
+  body: string;
 }
 
 export interface IUserBoard {

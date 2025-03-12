@@ -17,12 +17,14 @@ import { getUniqueItems } from '@/app/libs/getUniqueItems';
 
 import {
   IBoard,
+  IBoardCover,
   IBoardPinsInteractions,
   IBoardPreview,
   IBoardsList,
   ICover,
   ICreateBoard,
   IEditBoard,
+  IEditBoardPrevData,
   IGetUserBoards,
   ILastBoard,
   IPaging,
@@ -52,7 +54,7 @@ export interface IBoardsStore {
   noMoreBoardPins: boolean;
   noMoreUserBoards: boolean;
   newBoardCover?: string;
-  boardCovers?: string[];
+  boardCovers?: IBoardCover[];
 
   createBoard: (data: ICreateBoard) => Promise<void>;
   editBoard: (data: IEditBoard) => Promise<void>;
@@ -71,12 +73,13 @@ export interface IBoardsStore {
   getUserBoards: ({ username, page, limit }: IGetUserBoards) => Promise<void>;
   updateStateBoards: (store: string, value: any[]) => void;
   setNewBoardCover: (cover: string) => void;
-  setBoardCovers: (covers: string[]) => void;
+  getBoardCovers: ({ id, page, limit }: ISearchByID) => void;
 
-  editBoardPrevData?: IEditBoard | null;
+  editBoardPrevData?: IEditBoardPrevData;
   editBoardModalIsOpen: boolean;
   editBoardID: string;
   setEditBoardModal: (id?: string) => void;
+  getEditBoardPrevData: (id: string) => void;
 }
 
 export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
@@ -310,16 +313,28 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     });
   },
 
-  setBoardCovers: (covers: string[]) => {
+  getBoardCovers: async ({ id, page, limit }: ISearchByID) => {
+    const covers = await getPossibleCoversUseCase({ id, page, limit });
+
     set({
-      boardCovers: covers,
+      boardCovers: covers?.pins,
     });
   },
 
-  setEditBoardModal: async (id?: string) => {
+  setEditBoardModal: (id?: string) => {
     set((state) => ({
       editBoardID: id,
       editBoardModalIsOpen: !state.editBoardModalIsOpen,
     }));
+  },
+
+  getEditBoardPrevData: async (id: string) => {
+    const response = await editBoardPrevDataUseCase(id);
+
+    if (response) {
+      set({
+        editBoardPrevData: response,
+      });
+    }
   },
 });

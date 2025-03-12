@@ -384,9 +384,16 @@ export const CreateBoardSchema = z.object({
 });
 
 export const EditBoardSchema = z.object({
+  id: z.string().uuid(),
   name: z.string(),
   description: z.string().optional().nullable(),
-  cover: string().url().optional().nullable(),
+  cover: z.string().url().optional().nullable(),
+  collage: z.string().url().optional().nullable(),
+});
+
+export const EditBoardFormSchema = z.object({
+  name: z.string(),
+  description: z.string().optional().nullable(),
 });
 
 export const AddPinToBoardSchema = z.object({

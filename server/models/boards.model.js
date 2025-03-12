@@ -165,8 +165,8 @@ export default class BoardsModel {
     if (!prevData) throw new Error('Cannot get board previous data');
 
     const newValues = objectsCompare(
-      { name, description, cover },
       prevData,
+      { name, description, cover },
       boardSkeleton
     );
 

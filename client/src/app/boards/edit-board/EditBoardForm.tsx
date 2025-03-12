@@ -1,14 +1,17 @@
+import { useEffect } from 'react';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
 import { EditBoardDescriptionInput } from './EditBoardDescriptionInput';
 import { EditBoardNameInput } from './EditBoardNameInput';
-import { EditBoardSchema } from '@/app/infrastructure/schemas/validation-service-api';
+import { EditBoardFormSchema } from '@/app/infrastructure/schemas/validation-service-api';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
-import { IEditBoard } from '@/app/domain/types/boards-interface';
-import { useEffect } from 'react';
+import {
+  IEditBoard,
+  IEditBoardForm,
+} from '@/app/domain/types/boards-interface';
 
 export const EditBoardForm = () => {
   const { errors, register, handleSubmit, watch } = useFormHook({
-    schema: EditBoardSchema,
+    schema: EditBoardFormSchema,
   });
   const {
     setToastNotification,
@@ -17,23 +20,22 @@ export const EditBoardForm = () => {
     newBoardCover,
     editBoard,
     setNewBoardCover,
+    getEditBoardPrevData,
+    editBoardPrevData,
   } = useAppsStore();
 
-  const onSubmit = (values: IEditBoard) => {
+  const onSubmit = (values: IEditBoardForm) => {
     const data = { ...values, cover: newBoardCover, id: editBoardID };
-    console.log(data);
-    // editBoard(values);
+
+    console.log(newBoardCover);
+
+    editBoard(data);
     setEditBoardModal();
-    // setToastNotification({
-    //   status: 'success',
-    //   action: 'edit',
-    //   type: 'board',
-    // });
   };
 
   useEffect(() => {
+    getEditBoardPrevData(editBoardID);
     setNewBoardCover('');
-    console.log(editBoardID);
   }, [editBoardID]);
 
   return (

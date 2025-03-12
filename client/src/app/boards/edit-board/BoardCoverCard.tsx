@@ -2,7 +2,11 @@ import PlusIcon from '@/app/components/icons/PlusIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
 export const BoardCoverCard = () => {
-  const { setBoardCoversModalIsOpen, newBoardCover: cover } = useAppsStore();
+  const {
+    setBoardCoversModalIsOpen,
+    newBoardCover: cover,
+    editBoardPrevData,
+  } = useAppsStore();
   const handleOpenModal = () => setBoardCoversModalIsOpen();
 
   return (
@@ -13,14 +17,20 @@ export const BoardCoverCard = () => {
           : 'outline-[#111111] hover:outline-[#555555]'
       }`}
       style={{
-        backgroundImage: `url(${cover})`,
+        backgroundImage: `url(${cover || editBoardPrevData?.cover})`,
       }}
       onClick={handleOpenModal}
     >
-      <span className={`${cover ? 'group-hover:block hidden' : 'block'}`}>
+      <span
+        className={`${
+          cover || editBoardPrevData?.cover
+            ? 'group-hover:block hidden'
+            : 'block'
+        }`}
+      >
         <PlusIcon
           svgClassName={`stroke-[#111111] ${
-            !cover
+            !cover && !editBoardPrevData?.cover
               ? 'group-hover:stroke-[#555555]'
               : 'group-hover:stroke-[#111111]'
           } transition-colors`}

@@ -54,6 +54,8 @@ export const serviceCreateBoard = async (data: ICreateBoard) => {
 
 export const serviceEditBoard = async (data: IEditBoard) => {
   try {
+    console.log(data.cover);
+
     const response = await axios.put(`${URLDOMAIN}/boards/edit`, data, {
       withCredentials: true,
     });
@@ -256,9 +258,7 @@ export const serviceEditBoardPrevData = async (id: string) => {
       }
     );
 
-    const result = EditBoardPrevDataSchema.safeParse(response.data);
-
-    console.log(response, result.success);
+    const result = EditBoardPrevDataSchema.safeParse(response.data.board);
 
     return result.success ? result.data : null;
   } catch (err) {

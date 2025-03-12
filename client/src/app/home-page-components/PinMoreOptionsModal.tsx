@@ -51,14 +51,14 @@ const PinMoreOptionsModal = ({
         >
           {t?.pin['more-options'].download || 'Descargar imagen'}
         </ButtonStyled>
-        {/* {!its_yours && (
+        {!its_yours && (
           <ButtonStyled
             className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'
             handleClick={handleClick}
           >
             {t?.pin['more-options'].report || 'Reportar pin'}
           </ButtonStyled>
-        )} */}
+        )}
       </div>
     </DynamicModal>
   );
