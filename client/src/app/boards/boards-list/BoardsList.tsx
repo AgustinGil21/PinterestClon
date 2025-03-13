@@ -16,13 +16,8 @@ interface Props {
 
 const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
   const [value, setValue] = useState('');
-  const {
-    createBoardModalOpen,
-    getBoardsList,
-    getLastBoard,
-    t,
-    isCreateBoardModalOpen,
-  } = useAppsStore();
+  const { createBoardModalOpen, getBoardsList, getLastBoard, t } =
+    useAppsStore();
 
   const handleClick = () => {
     createBoardModalOpen();
@@ -34,10 +29,6 @@ const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
   useEffect(() => {
     getBoardsList();
   }, []);
-
-  useEffect(() => {
-    console.log(isCreateBoardModalOpen);
-  }, [isCreateBoardModalOpen]);
 
   return (
     <>

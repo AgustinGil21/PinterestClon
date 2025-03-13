@@ -174,9 +174,9 @@ export interface PinSimilarInterface {
   board?: IPinBoard;
 }
 
-export interface DataOpenBoardModalInteface {
+export interface IDataOpenBoardModal {
   pinId: string;
-  pinBody: string;
+  pinBody?: string;
 }
 
 export interface IPinBoard {

@@ -1,6 +1,6 @@
 import {
   CommentsResponseInterface,
-  DataOpenBoardModalInteface,
+  IDataOpenBoardModal,
   PinInterface,
   PinSimilarInterface,
   PinViewInterface,
@@ -32,8 +32,8 @@ export interface PinViewStoreInterface {
   postToggleLikeComment: (id: string) => Promise<void>;
   similarPins: PinSimilarInterface[];
   getSimilarPins: (id: string, page: number, limit: number) => Promise<void>;
-  dataOpenBoardModal: DataOpenBoardModalInteface;
-  updateDataOpenBoardModal: (pinId: string, pinBody: string) => void;
+  dataOpenBoardModal: IDataOpenBoardModal;
+  updateDataOpenBoardModal: (pinId: string, pinBody?: string) => void;
   postSavePin: (data: string) => Promise<void>;
   postDeleteComment: (id: string) => Promise<void>;
   updateStateCommentsThenDelete: (commentsUpdatedThenDelete: any) => void;
@@ -215,7 +215,7 @@ export const createPinViewStore: StateCreator<PinViewStoreInterface> = (
     }
   },
 
-  updateDataOpenBoardModal: (pinId: string, pinBody: string) => {
+  updateDataOpenBoardModal: (pinId: string, pinBody?: string) => {
     set((state) => ({
       dataOpenBoardModal: {
         ...state.dataOpenBoardModal,

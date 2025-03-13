@@ -9,6 +9,7 @@ interface Props {
   className?: string;
   href: string;
   pinID: string;
+  pinBody?: string;
 }
 
 export const MobileSavePinButtonsController = ({
@@ -16,12 +17,14 @@ export const MobileSavePinButtonsController = ({
   className,
   href,
   pinID,
+  pinBody,
 }: Props) => {
   const {
     setMobileSavePinController,
     mobileControllerPinID,
     setMobileControllerBtnCenterIsHovered,
     setMobileControllerUserIsHolding,
+    updateDataOpenBoardModal,
   } = useAppsStore();
   const { handleHold, position, resetPosition } = useGetHoldPosition();
   const rotation = useGetDynamicRotation({
@@ -34,9 +37,10 @@ export const MobileSavePinButtonsController = ({
     footerHeight: 64,
   });
 
-  // const handleLinkHold = (e: React.MouseEvent | React.TouchEvent) => {
-  //   handleHold(e);
-  // };
+  const handleLinkHold = (e: React.MouseEvent | React.TouchEvent) => {
+    handleHold(e);
+    if (pinID) updateDataOpenBoardModal(pinID, pinBody);
+  };
 
   const handleCancelHold = () => {
     resetPosition();
@@ -51,7 +55,7 @@ export const MobileSavePinButtonsController = ({
     <>
       <HoldableLink
         href={href}
-        onHold={handleHold}
+        onHold={handleLinkHold}
         onCancelHold={handleCancelHold}
         holdTime={400}
         className={`${className} ${

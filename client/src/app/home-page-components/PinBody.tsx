@@ -43,7 +43,11 @@ export const PinBody = ({ elem }: Props) => {
   return (
     <article className={` card-top relative inline-block`}>
       {elem.adult_content && <AdultContentPreview pinID={elem.pin_id} />}
-      <MobileSavePinButtonsController href={`/pin/${pinId}`} pinID={pinId}>
+      <MobileSavePinButtonsController
+        href={`/pin/${pinId}`}
+        pinID={pinId}
+        pinBody={elem.body}
+      >
         <img
           src={elem.body}
           className={`card-body transition-all w-full h-60 object-cover ${
