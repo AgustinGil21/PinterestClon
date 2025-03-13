@@ -3,6 +3,7 @@ import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { useState, RefObject, useRef, CSSProperties } from 'react';
 import { DynamicModal } from '../components/Basic/DynamicModal';
+import { downloadImage } from '../libs/downloadImage';
 
 interface ModalPlusOptionPinInterface {
   its_yours?: boolean;
@@ -21,19 +22,7 @@ const PinMoreOptionsModal = ({
   } = useAppsStore();
 
   const handleDownload = async () => {
-    if (body) {
-      const response = await fetch(body);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'pin-image';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-    }
+    if (body) await downloadImage(body, 'pin-image');
 
     closePinMoreOptionsModal();
   };
