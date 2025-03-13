@@ -30,10 +30,10 @@ export const serviceGetLastBoardName = async () => {
 
     return result.success ? result.data : null;
   } catch (error: unknown) {
-    throw new Error(
-      (axios.isAxiosError(error) && error.response?.data?.message) ||
-        'Error al obtener el último tablero'
-    );
+    // throw new Error(
+    //   (axios.isAxiosError(error) && error.response?.data?.message) ||
+    //     'Error al obtener el último tablero'
+    // );
   }
 };
 
@@ -94,10 +94,10 @@ export const serviceGetBoardsList = async () => {
 
     return result.success ? result.data : null;
   } catch (error: unknown) {
-    throw new Error(
-      (axios.isAxiosError(error) && error.response?.data?.message) ||
-        'Error al obtener la lista de tableros'
-    );
+    // throw new Error(
+    //   (axios.isAxiosError(error) && error.response?.data?.message) ||
+    //     'Error al obtener la lista de tableros'
+    // );
   }
 };
 

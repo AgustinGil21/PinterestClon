@@ -18,6 +18,9 @@ import { useHideElementWithPathname } from '@/app/hooks/useHideElementWithPathna
 export const Header = () => {
   const {
     isAuth,
+    isThreePointsAccountOpen,
+    isFollowerModalOpen,
+    isFollowingsModalOpen,
     userPublicData,
     getDataUserLogged,
     setIsHeaderLoaded,
@@ -110,8 +113,14 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`w-full h-auto text-white py-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0 z-[60] ${
+        className={`w-full h-auto text-white py-3 px-4 items-center bg-white dark:bg-gray-900 fixed top-0  ${
           shadow ? 'shadow-md' : ''
+        } ${
+          isThreePointsAccountOpen ||
+          isFollowerModalOpen ||
+          isFollowingsModalOpen
+            ? '!z-[30]'
+            : '!z-[60]'
         }`}
       >
         <div className='flex items-center justify-between w-full gap-3'>

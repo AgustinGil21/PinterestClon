@@ -13,7 +13,7 @@ import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
 import { SavedPins } from './SavedPins';
 import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
-import Message from '../account-search/Message';
+// import Message from '../account-search/Message';
 
 interface Props {
   params: { username: string };
@@ -125,7 +125,7 @@ export default function UserProfile({ params }: Props) {
                 dataShare={dataSearchUserProfile.username}
               />
               <div className='flex flex-row gap-2'>
-                <Message />
+                {/* <Message /> */}
                 <Follow
                   classPropsFalseIsFollowing='bg-redPinterestBg rounded-full hover:bg-red-800 text-white'
                   classPropsTrueIsFollowing='bg-[#111111] hover:bg-[#222222] rounded-full text-white'

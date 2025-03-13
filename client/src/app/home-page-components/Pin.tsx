@@ -17,10 +17,6 @@ export const Pin = ({ elem, className }: PinProps) => {
     isCreateBoardModalOpen,
     isAuth,
     openRegisterModal,
-    userPublicData,
-    isPinMoreOptionModalOpen,
-    closePinMoreOptionsModal,
-    pinMoreOptionsBtnRef,
     activePin,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;

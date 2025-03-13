@@ -1,4 +1,5 @@
 import Modal from '@/app/components/Basic/Modal';
+import useCloseModal from '@/app/hooks/useCloseModal';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { RefObject } from 'react';
@@ -12,6 +13,8 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
     openReportModal,
     isOpenReportModal,
     t,
+    isThreePointsAccountOpen,
+    openThreePointsAcountModal,
     reportType,
     setToastNotification,
     closeReportModal,
@@ -23,6 +26,7 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
       type: reportType,
       action: 'report',
     });
+    if (isThreePointsAccountOpen) openThreePointsAcountModal();
   };
 
   const reports = {
@@ -54,7 +58,11 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
     ],
   };
 
-  const cancelReport = () => closeReportModal();
+  const cancelReport = () => {
+    if (isThreePointsAccountOpen) openThreePointsAcountModal();
+
+    closeReportModal();
+  };
 
   return (
     <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] p-2'>
