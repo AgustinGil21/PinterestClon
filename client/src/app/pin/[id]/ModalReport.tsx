@@ -1,5 +1,6 @@
 import Modal from '@/app/components/Basic/Modal';
 import useCloseModal from '@/app/hooks/useCloseModal';
+import { useLockScroll } from '@/app/hooks/useLockScroll';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import ButtonStyled from '@/app/interfaces/components/Basic/ButtonStyled';
 import { RefObject } from 'react';
@@ -29,34 +30,7 @@ const ModalReport = ({ btnRefReportModal }: ModalReportInterface) => {
     if (isThreePointsAccountOpen) openThreePointsAcountModal();
   };
 
-  const reports = {
-    pin: [
-      'Contenido ofensivo',
-      'Contenido engañoso o spam',
-      'Contenido violento',
-      'Contiene contenido para adultos sin previo aviso',
-      'Información errónea',
-    ],
-    comment: [
-      'Contenido ofensivo',
-      'Acoso o bullying',
-      'Incita al odio',
-      'Contiene connotaciones sexuales',
-    ],
-    board: [
-      'Contenido ofensivo',
-      'Contenido engañoso o spam',
-      'Contenido violento',
-      'Fomenta el terrorismo',
-    ],
-    user: [
-      'Acoso o bullying',
-      'Incita al odio',
-      'Fomenta acciones delictivas',
-      'Spam',
-      'En su perfil contiene contenido explicito no apto para todo el público',
-    ],
-  };
+  useLockScroll();
 
   const cancelReport = () => {
     if (isThreePointsAccountOpen) openThreePointsAcountModal();

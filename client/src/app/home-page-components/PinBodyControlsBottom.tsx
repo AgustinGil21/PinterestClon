@@ -60,14 +60,13 @@ export const PinBodyControlsBottom = ({ elem }: Props) => {
             <FaPen size={13} />
           </LinkNavigate>
         ) : (
-          <></>
-          // <button
-          //   ref={ellipsisBtnRef}
-          //   className='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
-          //   onClick={handleClickOpenModalThreePoints}
-          // >
-          //   <FaEllipsis size={20} />
-          // </button>
+          <button
+            ref={ellipsisBtnRef}
+            className='w-[32px] h-[32px] min-w-[32px] min-h-[32px] flex justify-center items-center bg-white rounded-full hover:bg-[#f4f4f4] transition-colors'
+            onClick={handleClickOpenModalThreePoints}
+          >
+            <FaEllipsis size={20} />
+          </button>
         )}
 
         <button

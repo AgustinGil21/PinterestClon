@@ -20,18 +20,26 @@ const PinMoreOptionsModal = ({
     pinMoreOptionsBody: body,
   } = useAppsStore();
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (body) {
-      const link = document.createElement('a');
-      link.href = body;
-      link.target = '_blank';
-      link.download = 'pin-image';
-      link.click();
+      const response = await fetch(body);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'pin-image';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
     }
+
+    closePinMoreOptionsModal();
   };
 
   const handleClick = () => {
-    openReportModal('pin');
+    openReportModal(body);
     closePinMoreOptionsModal();
   };
 
@@ -51,6 +59,7 @@ const PinMoreOptionsModal = ({
         >
           {t?.pin['more-options'].download || 'Descargar imagen'}
         </ButtonStyled>
+
         {!its_yours && (
           <ButtonStyled
             className='font-semibold !p-2 !text-[12px] w-full  hover:bg-gray-200 rounded-lg text-start'

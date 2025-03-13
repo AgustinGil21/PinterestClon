@@ -77,8 +77,9 @@ export interface ModalStateInterface {
   isCreateBoardModalOpen: boolean;
   createBoardModalOpen: () => void;
   isOpenReportModal: boolean;
+  reportModalPinBody?: string;
   reportType: TReportType;
-  openReportModal: (type?: TReportType) => void;
+  openReportModal: (body?: string) => void;
   closeReportModal: () => void;
   openFiltersModal: () => void;
   isOpenFiltersModal: boolean;
@@ -394,10 +395,10 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  openReportModal: (type?: TReportType) => {
+  openReportModal: (body?: string) => {
     set((state) => ({
       isOpenReportModal: !state.isOpenReportModal,
-      reportType: type,
+      reportModalPinBody: body,
     }));
   },
   closeReportModal: () => {

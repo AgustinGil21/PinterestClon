@@ -5,6 +5,7 @@ import CreateBoardModal from '../boards/create-board/CreateBoardModal';
 import { PinFooter } from './PinFooter';
 import { PinBody } from './PinBody';
 import { PinSkeleton } from '../skeletons/PinSkeleton';
+import ModalReport from '../pin/[id]/ModalReport';
 
 interface PinProps {
   elem: PinInterface;
@@ -18,6 +19,8 @@ export const Pin = ({ elem, className }: PinProps) => {
     isAuth,
     openRegisterModal,
     activePin,
+    isOpenReportModal,
+    reportModalPinBody,
   } = useAppsStore();
   const { pinBody, pinId } = dataOpenBoardModal;
   const [isLoaded, setIsLoaded] = useState(false);
@@ -55,6 +58,7 @@ export const Pin = ({ elem, className }: PinProps) => {
       {isCreateBoardModalOpen && elem.pin_id === pinId && (
         <CreateBoardModal pinBody={pinBody} pinId={pinId} />
       )}
+      {isOpenReportModal && reportModalPinBody === elem.body && <ModalReport />}
     </>
   );
 };
