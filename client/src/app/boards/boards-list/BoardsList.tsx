@@ -16,8 +16,13 @@ interface Props {
 
 const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
   const [value, setValue] = useState('');
-  const { createBoardModalOpen, getBoardsList, getLastBoard, t } =
-    useAppsStore();
+  const {
+    createBoardModalOpen,
+    getBoardsList,
+    getLastBoard,
+    t,
+    isCreateBoardModalOpen,
+  } = useAppsStore();
 
   const handleClick = () => {
     createBoardModalOpen();
@@ -29,6 +34,10 @@ const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
   useEffect(() => {
     getBoardsList();
   }, []);
+
+  useEffect(() => {
+    console.log(isCreateBoardModalOpen);
+  }, [isCreateBoardModalOpen]);
 
   return (
     <>
@@ -73,9 +82,7 @@ const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
             <div className='size-[48px] rounded-md flex justify-center items-center bg-[#e9e9e9] '>
               <PlusIcon />
             </div>
-            <span className=''>
-              {t?.['boards-list']['create-board'] || 'Crear tablero'}
-            </span>
+            <span>{t?.['boards-list']['create-board'] || 'Crear tablero'}</span>
           </ButtonStyled>
         </footer>
       </section>

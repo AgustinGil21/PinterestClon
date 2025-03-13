@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { BoardCoverCard } from './BoardCoverCard';
 import { BoardCoverExplanation } from './BoardCoverExplanation';
 import BoardCoverModal from '../board-cover/BoardCoverModal';
+import { useLockScroll } from '@/app/hooks/useLockScroll';
 
 export const EditBoardModal = () => {
   const {
@@ -19,6 +20,8 @@ export const EditBoardModal = () => {
   const { t } = useAppsStore();
 
   const handleCloseModal = () => setEditBoardModal(editBoardID);
+
+  useLockScroll();
 
   useEffect(() => {
     closeBoardMoreOptionsModal();

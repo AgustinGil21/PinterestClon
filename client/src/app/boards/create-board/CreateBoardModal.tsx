@@ -1,5 +1,3 @@
-// 'use client';
-
 import Modal from '@/app/components/Basic/Modal';
 import useFormHook from '@/app/interfaces/hooks/useFormHook';
 import { CreateBoardDataSchema } from '@/app/infrastructure/schemas/validation-service-api';
@@ -7,6 +5,7 @@ import { CustomTextArea } from '@/app/components/Basic/CustomTextArea';
 import { CustomInput } from '@/app/components/Basic/CustomInput';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { Required } from '@/app/interfaces/components/Basic/Required';
+import { useLockScroll } from '@/app/hooks/useLockScroll';
 
 interface IntefaceCreateBoardModal {
   setOpenModalCreate?: (state: boolean) => void;
@@ -57,6 +56,8 @@ const CreateBoardModal = ({
       type: 'board',
     });
   };
+
+  useLockScroll();
 
   const handleChange = ({ key, value }: IHandleChange) => {};
 
