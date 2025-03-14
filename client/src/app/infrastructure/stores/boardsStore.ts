@@ -274,6 +274,10 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
   },
 
   getUserBoards: async ({ username, page, limit }: IGetUserBoards) => {
+    set({
+      userBoards: [],
+    });
+
     const response = await userBoardsUseCase({ username, page, limit });
 
     if (response?.boards) {
