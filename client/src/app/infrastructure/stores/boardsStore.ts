@@ -300,7 +300,7 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
     }
   },
 
-  updateStateBoards: (store: string, value: any[]) => {
+  updateStateBoards: (store: string, value: any) => {
     set((state) => ({
       ...state,
       [store]: value,

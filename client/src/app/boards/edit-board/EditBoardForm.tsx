@@ -10,9 +10,10 @@ import {
 } from '@/app/domain/types/boards-interface';
 
 export const EditBoardForm = () => {
-  const { errors, register, handleSubmit, watch } = useFormHook({
-    schema: EditBoardFormSchema,
-  });
+  const { errors, register, handleSubmit, watch, setValue, getValues } =
+    useFormHook({
+      schema: EditBoardFormSchema,
+    });
   const {
     setToastNotification,
     setEditBoardModal,
@@ -44,7 +45,12 @@ export const EditBoardForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       id='editBoardModalForm'
     >
-      <EditBoardNameInput errors={errors} register={register} watch={watch} />
+      <EditBoardNameInput
+        errors={errors}
+        register={register}
+        watch={watch}
+        setValue={setValue}
+      />
       <EditBoardDescriptionInput
         errors={errors}
         register={register}
