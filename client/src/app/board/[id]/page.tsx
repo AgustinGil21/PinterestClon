@@ -31,7 +31,6 @@ const BoardPage = ({ params }: Props) => {
   const { id }: IParams = params;
 
   useEffect(() => {
-    console.log(id);
     if (!id) return;
 
     const fetchData = async () => {
@@ -43,7 +42,7 @@ const BoardPage = ({ params }: Props) => {
     };
 
     fetchData();
-  }, [board, id]);
+  }, [id]);
 
   useEffect(() => {
     changeDocTitle(board.name);

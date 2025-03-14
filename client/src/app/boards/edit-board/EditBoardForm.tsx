@@ -10,7 +10,7 @@ import {
 } from '@/app/domain/types/boards-interface';
 
 export const EditBoardForm = () => {
-  const { errors, register, handleSubmit, watch } = useFormHook({
+  const { errors, register, handleSubmit, watch, setValue } = useFormHook({
     schema: EditBoardFormSchema,
   });
   const {
@@ -27,16 +27,20 @@ export const EditBoardForm = () => {
   const onSubmit = (values: IEditBoardForm) => {
     const data = { ...values, cover: newBoardCover, id: editBoardID };
 
-    console.log(newBoardCover);
-
     editBoard(data);
     setEditBoardModal();
   };
 
   useEffect(() => {
     getEditBoardPrevData(editBoardID);
+
     setNewBoardCover('');
   }, [editBoardID]);
+
+  useEffect(() => {
+    setValue('name', editBoardPrevData.name);
+    setValue('description', editBoardPrevData.description);
+  }, [editBoardPrevData]);
 
   return (
     <form
