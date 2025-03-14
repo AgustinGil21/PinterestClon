@@ -9,9 +9,13 @@ interface Props {
 }
 
 const CoverList = ({ pins }: Props) => {
-  const { setNewBoardCover, newBoardCover } = useAppsStore();
+  const { setNewBoardCover, newBoardCover, setBoardCoversModalIsOpen } =
+    useAppsStore();
 
-  const handleSelect = (body: string) => setNewBoardCover(body);
+  const handleSelect = (body: string) => {
+    setNewBoardCover(body);
+    setBoardCoversModalIsOpen();
+  };
 
   return (
     <>

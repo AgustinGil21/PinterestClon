@@ -4,14 +4,8 @@ import { Required } from '@/app/interfaces/components/Basic/Required';
 import { IFormHook, IHandleChange } from '../boards-client-interface';
 import { useEffect } from 'react';
 
-export const EditBoardNameInput = ({
-  errors,
-  register,
-  watch,
-  setValue,
-}: IFormHook) => {
-  const { t, editBoardPrevData, updateStateBoards, editBoardData } =
-    useAppsStore();
+export const EditBoardNameInput = ({ errors, register, watch }: IFormHook) => {
+  const { t } = useAppsStore();
 
   const handleChange = ({ key, value }: IHandleChange) => {};
 
@@ -27,7 +21,6 @@ export const EditBoardNameInput = ({
         type='text'
         placeholder={t?.board.create.name.placeholder || 'Nombre del tablero'}
         infoName='name'
-        value={editBoardPrevData?.name || ''}
         register={register}
         errors={errors.name}
         className='p-2 border-solid border-2 border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem] w-full outline-outline-search'

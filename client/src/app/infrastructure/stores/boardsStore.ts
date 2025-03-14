@@ -75,7 +75,7 @@ export interface IBoardsStore {
   setNewBoardCover: (cover: string) => void;
   getBoardCovers: ({ id, page, limit }: ISearchByID) => void;
 
-  editBoardPrevData?: IEditBoardPrevData;
+  editBoardPrevData: IEditBoardPrevData;
   editBoardModalIsOpen: boolean;
   editBoardID: string;
   setEditBoardModal: (id?: string) => void;
@@ -115,6 +115,12 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
   noMoreUserBoards: false,
 
   editBoardID: '',
+  editBoardPrevData: {
+    name: '',
+    description: '',
+    cover: '',
+    collage: '',
+  },
   editBoardModalIsOpen: false,
 
   createBoard: async (data: ICreateBoard) => {
@@ -225,11 +231,6 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
   },
 
   getBoard: async ({ id, page, limit }: ISearchByID) => {
-    if (get().noMoreBoardPins) {
-      // console.log('No hay más pines en este tablero.');
-      return;
-    }
-
     const response = await getBoardUseCase({ id, page, limit });
 
     if (response) {
@@ -273,11 +274,6 @@ export const boardsStore: StateCreator<IBoardsStore> = (set, get) => ({
   },
 
   getUserBoards: async ({ username, page, limit }: IGetUserBoards) => {
-    if (get().noMoreUserBoards) {
-      // console.log('No hay más tableros de este usuario.');
-      return;
-    }
-
     const response = await userBoardsUseCase({ username, page, limit });
 
     if (response?.boards) {

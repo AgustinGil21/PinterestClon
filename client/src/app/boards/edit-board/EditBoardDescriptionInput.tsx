@@ -7,7 +7,7 @@ export const EditBoardDescriptionInput = ({
   register,
   watch,
 }: IFormHook) => {
-  const { t, editBoardPrevData } = useAppsStore();
+  const { t } = useAppsStore();
 
   const handleChange = ({ key, value }: IHandleChange) => {};
 
@@ -24,7 +24,6 @@ export const EditBoardDescriptionInput = ({
         }
         maxLength={500}
         register={register}
-        value={editBoardPrevData?.description || ''}
         errors={errors.description}
         watch={watch}
         handleChange={handleChange}
