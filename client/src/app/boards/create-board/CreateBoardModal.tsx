@@ -99,9 +99,9 @@ const CreateBoardModal = ({
                   onSubmit={handleSubmit(onSubmit)}
                   id='createBoardForm'
                 >
-                  <label className='text-xs hover:cursor-pointer flex flex-col'>
+                  <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
                     <div className='flex'>
-                      <span className='text-[0.6rem] font-medium mr-[2px]'>
+                      <span className='text-xs font-semibold mr-[2px]'>
                         {t?.board.create.name.label || 'Nombre'}
                       </span>
                       <Required />
@@ -114,17 +114,17 @@ const CreateBoardModal = ({
                       infoName='name'
                       register={register}
                       errors={errors.name}
-                      className='p-2 border-solid border-[1.5px] border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem] w-full outline-outline-search'
+                      className='p-2 border-solid border-[1.5px] border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-xs w-full outline-outline-search'
                       handleChange={handleChange}
                       watch={watch}
                     />
                   </label>
-                  <label className='text-xs hover:cursor-pointer'>
-                    <span className='text-[0.6rem] font-medium'>
+                  <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
+                    <span className='text-xs font-semibold'>
                       {t?.board.create.description.label || 'Descripción'}
                     </span>
                     <CustomTextArea
-                      className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-[0.6rem] min-h-[192px] md:min-h-[200px] h-full'
+                      className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-xs min-h-[192px] md:min-h-[200px] h-full'
                       infoName='description'
                       placeholder={
                         t?.board.create.description.placeholder ||

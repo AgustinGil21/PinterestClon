@@ -12,10 +12,10 @@ export const EditBoardNameInput = ({ errors, register, watch }: IFormHook) => {
   return (
     <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
       <div className='flex'>
-        <span className='text-[0.6rem] font-medium mr-[2px]'>
+        <span className=' text-xs font-semibold mr-[2px]'>
           {t?.board.create.name.label || 'Nombre'}
         </span>
-        <Required />
+        <Required textSize='text-xs' />
       </div>
       <CustomInput
         type='text'
@@ -23,7 +23,7 @@ export const EditBoardNameInput = ({ errors, register, watch }: IFormHook) => {
         infoName='name'
         register={register}
         errors={errors.name}
-        className='p-2 border-solid border-2 border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-[0.6rem] w-full outline-outline-search'
+        className='p-2 border-solid border-2 border-[#ebebeb] rounded-lg hover:border-[#cdcdcd] transition-colors text-xs w-full outline-outline-search'
         handleChange={handleChange}
         watch={watch}
       />

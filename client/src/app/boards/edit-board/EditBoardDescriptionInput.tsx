@@ -13,11 +13,11 @@ export const EditBoardDescriptionInput = ({
 
   return (
     <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
-      <span className='text-[0.6rem] font-medium'>
+      <span className='text-xs font-semibold'>
         {t?.board.create.description.label || 'Descripción'}
       </span>
       <CustomTextArea
-        className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-[0.6rem] min-h-[150px]'
+        className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-xs min-h-[150px]'
         infoName='description'
         placeholder={
           t?.board.create.description.placeholder || 'Descripción del tablero'

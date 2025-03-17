@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import Modal from '@/app/components/Basic/Modal';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { EditBoardFooter } from './EditBoardFooter';
 import { EditBoardForm } from './EditBoardForm';
-import { useEffect } from 'react';
 import { BoardCoverCard } from './BoardCoverCard';
 import { BoardCoverExplanation } from './BoardCoverExplanation';
 import BoardCoverModal from '../board-cover/BoardCoverModal';
