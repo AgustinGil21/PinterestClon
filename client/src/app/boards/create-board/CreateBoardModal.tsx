@@ -78,14 +78,14 @@ const CreateBoardModal = ({
             }}
           >
             <div
-              className={`bg-white shadow-uniform flex flex-col p-4 gap-4 rounded-lg justify-center items-center sm:min-w-[300px] min-h-[400px]`}
+              className={`bg-white shadow-uniform flex flex-col p-4 gap-4 rounded-lg md:justify-center md:items-center sm:min-w-[300px] min-h-[400px] justify-between`}
             >
               <h2 className='text-md font-semibold text-center'>
                 {t?.board.create.title || 'Crear tablero'}
               </h2>
               <section className='w-full flex flex-col sm:flex-row gap-3 h-auto'>
                 {pinBody && (
-                  <div className='w-full sm:w-1/2 max-h-[300px] overflow-hidden'>
+                  <div className='w-full sm:w-1/2 md:max-h-[300px] min-h-[300px] overflow-hidden md:block hidden'>
                     <img
                       alt='pin-img'
                       src={pinBody}
@@ -93,6 +93,7 @@ const CreateBoardModal = ({
                     />
                   </div>
                 )}
+
                 <form
                   className='flex flex-col justify-start gap-3 w-full'
                   onSubmit={handleSubmit(onSubmit)}
@@ -123,7 +124,7 @@ const CreateBoardModal = ({
                       {t?.board.create.description.label || 'Descripción'}
                     </span>
                     <CustomTextArea
-                      className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-[0.6rem] sm:min-h-[150px]'
+                      className='resize-none w-full border-solid rounded-lg border-2 border-[#ebebeb] hover:border-[#cdcdcd] outline-outline-search p-2 text-[0.6rem] min-h-[192px] md:min-h-[200px] h-full'
                       infoName='description'
                       placeholder={
                         t?.board.create.description.placeholder ||
@@ -138,7 +139,7 @@ const CreateBoardModal = ({
                   </label>
                 </form>
               </section>
-              <footer className='border-solid border-t border-[#cdcdcd] w-full p-2 flex items-center justify-between'>
+              <footer className=' w-full p-2 flex items-center justify-between'>
                 <button
                   className='p-2 bg-[#e9e9e9] rounded-2xl text-black font-bold text-[0.7rem] hover:bg-gray-300 transition-colors min-w-[67px]'
                   onClick={handleCancel}
