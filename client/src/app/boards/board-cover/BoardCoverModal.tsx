@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Modal from '@/app/components/Basic/Modal';
 import CoverList from './CoversList';
-import { FaCross, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import { useGetScreenSize } from '@/app/hooks/useGetScreenSize';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
@@ -33,13 +33,13 @@ const BoardCoverModal = () => {
         blackFilter: true,
       }}
     >
-      <header className='flex justify-center relative mt-6 mb-6'>
+      <header className='flex justify-center relative mt-6 sticky top-0 bg-white py-4'>
         <h2 className='font-semibold text-sm md:text-xl '>
           {t?.board.edit['covers-modal'].title ||
             'Cambiar la portada del tablero'}
         </h2>
         <button
-          className='p-2 flex justify-center items-center hover:bg-slate-200 rounded-full absolute md:right-[16px] -top-[6px] md:-top-1.5 right-[16px]'
+          className='p-2 flex justify-center items-center hover:bg-slate-200 rounded-full absolute md:right-[16px] top-2 md:top-2 right-[16px]'
           onClick={handleClose}
         >
           <FaTimes size={width > 768 ? 25 : 20} />

@@ -98,6 +98,11 @@ interface User {
     report: string;
   };
   private: string;
+  'create-pin-or-board-modal': {
+    title: string;
+    pin: string;
+    board: string;
+  };
 }
 
 interface Explore {

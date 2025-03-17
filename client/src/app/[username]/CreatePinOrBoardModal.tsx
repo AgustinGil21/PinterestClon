@@ -10,6 +10,7 @@ export const CreatePinOrBoardModal = () => {
     setCreatePinOrBoardModalIsOpen,
     createPinOrBoardBtnRef,
     createBoardModalOpen,
+    t,
   } = useAppsStore();
 
   const router = useRouter();
@@ -33,19 +34,23 @@ export const CreatePinOrBoardModal = () => {
       }}
     >
       <section className='p-3 shadow-uniform bg-white w-full h-full rounded-2xl flex flex-col gap-1.5'>
-        <h2 className='text-xs self-start ml-[8px]'>Crear</h2>
+        <h2 className='text-xs self-start ml-[8px]'>
+          {t?.user['create-pin-or-board-modal'].title || 'Crear'}
+        </h2>
         <article className='w-full flex flex-col items-start font-medium'>
           <button
             onClick={handleCreatePin}
             className='hover:bg-slate-200 w-full self-start py-[5px] px-[8px] rounded-lg flex items-start'
           >
-            <span>Pin</span>
+            <span>{t?.user['create-pin-or-board-modal'].pin || 'Pin'}</span>
           </button>
           <button
             onClick={handleCreateBoard}
             className='hover:bg-slate-200 w-full self-start py-[5px] px-[8px] rounded-lg flex items-start'
           >
-            <span>Tablero</span>
+            <span>
+              {t?.user['create-pin-or-board-modal'].board || 'Tablero'}
+            </span>
           </button>
         </article>
       </section>

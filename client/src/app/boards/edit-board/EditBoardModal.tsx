@@ -21,8 +21,6 @@ export const EditBoardModal = () => {
 
   const handleCloseModal = () => setEditBoardModal(editBoardID);
 
-  useLockScroll();
-
   useEffect(() => {
     closeBoardMoreOptionsModal();
   }, []);
@@ -30,8 +28,9 @@ export const EditBoardModal = () => {
   return (
     <Modal
       props={{
-        className:
-          'bg-white rounded-lg fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto w-full min-w-[350px] max-w-[450px]',
+        className: `bg-white rounded-lg fixed z-[71] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto w-full min-w-[350px] transition-all duration-200 ${
+          boardCoversModalIsOpen ? 'max-w-[800px]' : 'max-w-[450px]'
+        }`,
         setModal: handleCloseModal,
         isModalOpen: true,
         blackFilter: true,

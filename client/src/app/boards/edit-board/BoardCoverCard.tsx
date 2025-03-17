@@ -9,7 +9,10 @@ export const BoardCoverCard = () => {
     editBoardPrevData,
     setNewBoardCover,
   } = useAppsStore();
-  const handleOpenModal = () => setBoardCoversModalIsOpen();
+
+  const handleOpenModal = () => {
+    setBoardCoversModalIsOpen();
+  };
 
   useEffect(() => {
     if (editBoardPrevData.cover) setNewBoardCover(editBoardPrevData.cover);

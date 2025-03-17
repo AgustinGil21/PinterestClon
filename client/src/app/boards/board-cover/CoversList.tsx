@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import Masonry from '@/app/interfaces/components/Basic/Masonry';
 import CoverCard from './CoverCard';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 import { IBoardCover } from '@/app/domain/types/boards-interface';
-import { useEffect } from 'react';
 
 interface Props {
   pins: IBoardCover[];
@@ -29,24 +29,16 @@ const CoverList = ({ pins }: Props) => {
   }, [editBoardPrevData.cover]);
 
   return (
-    <>
-      {pins.length ? (
-        <Masonry small>
-          {pins.map(({ body, id }) => (
-            <CoverCard
-              key={id}
-              cover={body}
-              isSelected={newBoardCover === body}
-              onSelect={() => handleSelect(body)}
-            />
-          ))}
-        </Masonry>
-      ) : (
-        <span className='self-center justify-self-center mt-10 text-xl font-semibold text-[#b3b3b3]'>
-          No hay pines disponibles
-        </span>
-      )}
-    </>
+    <Masonry small>
+      {pins.map(({ body, id }) => (
+        <CoverCard
+          key={id}
+          cover={body}
+          isSelected={newBoardCover === body}
+          onSelect={() => handleSelect(body)}
+        />
+      ))}
+    </Masonry>
   );
 };
 

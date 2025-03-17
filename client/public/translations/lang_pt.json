@@ -79,7 +79,12 @@
       "block": "Bloquear",
       "report": "Denunciar"
     },
-    "private": "Esta conta é privada"
+    "private": "Esta conta é privada",
+    "create-pin-or-board-modal": {
+      "title": "Criar",
+      "pin": "Pin",
+      "board": "Quadro"
+    }
   },
   "explore": {
     "title": "Continue se inspirando",
