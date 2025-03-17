@@ -34,7 +34,7 @@ const BoardsList = ({ boards, pinID, closeBoardsList }: Props) => {
     <>
       <section className='w-full pt-4 flex flex-col items-center'>
         <BoardsListHeader setValue={setValue} />
-        <section className='w-full flex flex-col text-[0.8rem] gap-4 max-h-[290px] min-h-[290px] overflow-y-auto p-2'>
+        <section className='w-full flex flex-col text-[0.8rem] gap-4 max-h-[290px] min-h-[290px] overflow-y-auto md:p-2 p-1'>
           <div className='flex w-full flex-col gap-2'>
             {!value && (
               <BoardListProfileCard

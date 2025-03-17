@@ -127,7 +127,7 @@ export default function RootLayout({
           {mobileSavePinControllerIsActive && width < 769 && (
             <MobileController />
           )}
-          {width > 768 && <BoardsListModal />}
+          <BoardsListModal />
           <SharePinModal />
           {isPinMoreOptionModalOpen && <PinMoreOptionsModal />}
           {shareBoardModalIsOpen && <DynamicShareBoardModal />}

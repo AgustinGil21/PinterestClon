@@ -93,7 +93,7 @@ const PinCard = () => {
 
   return (
     <>
-      <div className='bg-white shadow-pinShadow md:rounded-[30px] w-full md:p-4 flex flex-col lg:flex-row gap-4  min-h-[466px] md:max-w-[530px] lg:max-w-[930px] lg:p-5 lg:gap-6 px-1 '>
+      <div className='bg-white shadow-pinShadow md:rounded-[30px] w-full md:p-4 flex flex-col lg:flex-row gap-4  min-h-[466px] max-w-[530px] lg:max-w-[930px] lg:p-5 lg:gap-6 px-1 '>
         <ImagePin size={sizeCategory} />
 
         <div className='w-full lg:w-[50%] grid grid-rows-[1fr_auto] p-4 md:p-0'>

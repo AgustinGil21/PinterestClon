@@ -57,7 +57,7 @@ export const SavePinToBoardBtn = ({
         />
       ) : (
         <button
-          className={`save-to-board-button flex items-center justify-center w-[35px] max-w-[35px] h-[35px] p-2 md:h-[45px] md:p-[0_1rem] md:w-fit md:max-w-[110px] font-bold  bg-[rgba(0,0,0,0)] rounded-[24px] g-[0.3rem] transition-[colors,transform] hover:bg-[rgba(0,0,0,0.05)] focus:bg-black ${
+          className={`save-to-board-button flex items-center justify-center w-[35px] max-w-[35px] h-[35px] px-3 p-2 md:h-[45px] md:p-[0_1rem] md:w-fit md:max-w-[110px] font-bold  bg-[rgba(0,0,0,0)] rounded-[24px] g-[0.3rem] transition-[colors,transform] hover:bg-[rgba(0,0,0,0.05)] focus:bg-black ${
             pinCard
               ? 'text-black focus:text-white'
               : ' focus:scale-[1.06] text-white'
@@ -66,7 +66,7 @@ export const SavePinToBoardBtn = ({
           ref={btnRef}
         >
           <span
-            className='text-sm overflow-hidden whitespace-nowrap text-ellipsis md:block hidden'
+            className='text-sm overflow-hidden whitespace-nowrap text-ellipsis'
             title={content}
           >
             {content}
@@ -76,7 +76,7 @@ export const SavePinToBoardBtn = ({
             viewBox='0 0 24 24'
             strokeWidth='1.5'
             stroke='currentColor'
-            className='w-4 h-4 ml-1'
+            className='md:w-4 md:h-4 ml-1 w-3 h-3'
           >
             <path
               strokeLinecap='round'

@@ -692,6 +692,24 @@
     flex-direction: column;
     align-items: center;
   }
+
+  .save-button {
+    min-width: 75px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.7rem;
+  }
+
+  .save-to-board-button {
+    min-width: 75px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6rem;
+  }
 }
 
 /* sm */
@@ -720,14 +738,6 @@
 
   .tray svg {
     width: 15px;
-  }
-
-  .save-to-board-button-sm {
-    display: block;
-  }
-
-  .save-to-board-button {
-    display: none;
   }
 }
 
@@ -771,15 +781,6 @@
   .save-to-board-button-sm svg {
     width: 0.75rem;
     height: 0.75rem;
-  }
-
-  .save-button {
-    min-width: 75px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.7rem;
   }
 }
 
