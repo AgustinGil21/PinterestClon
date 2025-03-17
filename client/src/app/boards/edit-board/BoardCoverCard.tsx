@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PlusIcon from '@/app/components/icons/PlusIcon';
 import { useAppsStore } from '@/app/infrastructure/stores/useAppStore';
 
@@ -6,8 +7,13 @@ export const BoardCoverCard = () => {
     setBoardCoversModalIsOpen,
     newBoardCover: cover,
     editBoardPrevData,
+    setNewBoardCover,
   } = useAppsStore();
   const handleOpenModal = () => setBoardCoversModalIsOpen();
+
+  useEffect(() => {
+    if (editBoardPrevData.cover) setNewBoardCover(editBoardPrevData.cover);
+  }, [editBoardPrevData.cover]);
 
   return (
     <div

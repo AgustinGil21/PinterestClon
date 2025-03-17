@@ -54,8 +54,6 @@ export const serviceCreateBoard = async (data: ICreateBoard) => {
 
 export const serviceEditBoard = async (data: IEditBoard) => {
   try {
-    console.log(data.cover);
-
     const response = await axios.put(`${URLDOMAIN}/boards/edit`, data, {
       withCredentials: true,
     });

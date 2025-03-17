@@ -84,6 +84,17 @@ export interface PinInterface {
   board?: IPinBoard;
 }
 
+interface ISavedBoard {
+  id: string;
+  name: string;
+}
+
+export interface IButtonsPinSaved {
+  alreadySaved: boolean;
+  board?: ISavedBoard;
+  savedInProfile: boolean;
+}
+
 export interface GetPinsInterface {
   pins: PinInterface[];
   results?: number;

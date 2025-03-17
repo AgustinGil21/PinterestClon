@@ -9,8 +9,13 @@ interface Props {
 }
 
 const BoardListCard = ({ board, pinID, closeBoardsList }: Props) => {
-  const { addPinToBoard, getLastBoard, setToastNotification, t } =
-    useAppsStore();
+  const {
+    addPinToBoard,
+    getLastBoard,
+    setToastNotification,
+    t,
+    setSavedPinObj,
+  } = useAppsStore();
 
   let url: string;
 
@@ -26,6 +31,16 @@ const BoardListCard = ({ board, pinID, closeBoardsList }: Props) => {
     e.preventDefault();
     e.stopPropagation();
     addPinToBoard({ pinId: pinID, boardId: board.id });
+    if (setSavedPinObj) {
+      setSavedPinObj({
+        alreadySaved: true,
+        savedInProfile: false,
+        board: {
+          id: board.id,
+          name: board.name,
+        },
+      });
+    }
     closeBoardsList();
     getLastBoard();
     setToastNotification({

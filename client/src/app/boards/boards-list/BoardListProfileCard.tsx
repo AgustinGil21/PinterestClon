@@ -8,13 +8,24 @@ interface Props {
 }
 
 const BoardListProfileCard = ({ pinID, closeBoardsList }: Props) => {
-  const { savePinToProfile, t, setToastNotification, userPublicData } =
-    useAppsStore();
+  const {
+    savePinToProfile,
+    t,
+    setToastNotification,
+    userPublicData,
+    setSavedPinObj,
+  } = useAppsStore();
 
   const handleSavePinToProfile = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     savePinToProfile(pinID);
+    if (setSavedPinObj) {
+      setSavedPinObj({
+        alreadySaved: true,
+        savedInProfile: true,
+      });
+    }
     closeBoardsList();
     setToastNotification({
       status: 'success',

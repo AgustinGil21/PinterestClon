@@ -1,12 +1,13 @@
-import { useState } from 'react';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
-import { IPinBoard } from '../domain/types/pins-structure';
+import { IButtonsPinSaved, IPinBoard } from '../domain/types/pins-structure';
 
 interface Props {
   pinId?: string;
   alreadySaved: boolean;
   board?: IPinBoard;
   savedInProfile: boolean;
+  saved: IButtonsPinSaved;
+  setSaved: (object: IButtonsPinSaved) => void;
 }
 
 export const SavePinBtn = ({
@@ -14,6 +15,8 @@ export const SavePinBtn = ({
   alreadySaved,
   board,
   savedInProfile,
+  saved,
+  setSaved,
 }: Props) => {
   const {
     lastBoard,
@@ -26,7 +29,6 @@ export const SavePinBtn = ({
     removePinFromProfile,
     removePinFromBoard,
   } = useAppsStore();
-  const [saved, setSaved] = useState(alreadySaved);
 
   const handleSavePin = () => {
     if (!isAuth) {
@@ -35,12 +37,20 @@ export const SavePinBtn = ({
     }
     if (!pinId) return;
 
-    if (saved) {
+    if (saved.alreadySaved) {
       if (savedInProfile) {
         removePinFromProfile(pinId);
+        setSaved({
+          alreadySaved: false,
+          savedInProfile: false,
+        });
       } else {
         if (!board?.id) return;
         removePinFromBoard({ pinId, boardId: board.id });
+        setSaved({
+          alreadySaved: false,
+          savedInProfile: false,
+        });
         setToastNotification({
           status: 'success',
           type: 'pin',
@@ -50,8 +60,20 @@ export const SavePinBtn = ({
     } else {
       if (lastBoard.id) {
         addPinToBoard({ pinId, boardId: lastBoard.id });
+        setSaved({
+          alreadySaved: true,
+          board: {
+            id: lastBoard.id,
+            name: lastBoard.name,
+          },
+          savedInProfile: false,
+        });
       } else {
         savePinToProfile(pinId);
+        setSaved({
+          alreadySaved: true,
+          savedInProfile: true,
+        });
       }
       setToastNotification({
         status: 'success',
@@ -59,19 +81,18 @@ export const SavePinBtn = ({
         action: 'save',
       });
     }
-    setSaved(!saved);
   };
 
   return (
     <button
       className={`p-[0_1.5rem] h-[45px] save-button rounded-[24px] text-white text-sm ${
-        saved
+        saved.alreadySaved
           ? 'bg-[#111111] hover:bg-[#222222]'
           : 'bg-[#e60023] hover:bg-[#b6031e]'
       } font-bold transition-colors `}
       onClick={handleSavePin}
     >
-      {saved
+      {saved.alreadySaved
         ? t?.pin['saved-btn'] || 'Guardado'
         : t?.pin['save-btn'] || 'Guardar'}
     </button>

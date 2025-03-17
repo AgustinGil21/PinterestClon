@@ -10,6 +10,7 @@ import {
   IPosition,
 } from '@/app/global-interfaces/global-interfaces';
 import { MobileSavePinButtonsController } from '@/app/home-page-components/MobileSavePinButtonsController';
+import { IButtonsPinSaved } from '@/app/domain/types/pins-structure';
 
 interface PinSaved {
   pinID: string;
@@ -52,9 +53,11 @@ export interface ModalStateInterface {
 
   dynamicModalIsOpen: boolean;
   btnRef: React.RefObject<HTMLButtonElement>;
+  setSavedPinObj?: (object: IButtonsPinSaved) => void;
   setDynamicModal: (
     ref: React.RefObject<HTMLButtonElement>,
-    pinID: string
+    pinID: string,
+    setSaved: (object: IButtonsPinSaved) => void
   ) => void;
   closeDynamicModal: () => void;
 
@@ -257,11 +260,16 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     }));
   },
 
-  setDynamicModal: (ref: React.RefObject<HTMLButtonElement>, pinID: string) =>
+  setDynamicModal: (
+    ref: React.RefObject<HTMLButtonElement>,
+    pinID: string,
+    setSaved: (object: IButtonsPinSaved) => void
+  ) =>
     set((state) => ({
       btnRef: ref,
       dynamicModalIsOpen: !state.dynamicModalIsOpen,
       activePin: !state.dynamicModalIsOpen ? pinID : '',
+      setSavedPinObj: setSaved,
     })),
 
   closeDynamicModal: () =>

@@ -1,5 +1,5 @@
 import { FaChevronDown } from 'react-icons/fa';
-import { IPinBoard } from '../domain/types/pins-structure';
+import { IButtonsPinSaved, IPinBoard } from '../domain/types/pins-structure';
 import { useAppsStore } from '../infrastructure/stores/useAppStore';
 import { PinAlreadySaved } from './PinAlreadySaved';
 
@@ -10,6 +10,8 @@ interface Props {
   pinCard?: boolean;
   savedInProfile?: boolean;
   board?: IPinBoard;
+  saved: IButtonsPinSaved;
+  setSaved: (object: IButtonsPinSaved) => void;
 }
 
 export const SavePinToBoardBtn = ({
@@ -17,8 +19,8 @@ export const SavePinToBoardBtn = ({
   pinBody,
   btnRef,
   pinCard = false,
-  savedInProfile = false,
-  board,
+  saved,
+  setSaved,
 }: Props) => {
   const {
     updateDataOpenBoardModal,
@@ -37,7 +39,7 @@ export const SavePinToBoardBtn = ({
     }
     if (pinId) updateDataOpenBoardModal(pinId, pinBody);
 
-    setDynamicModal(btnRef, pinId || '');
+    setDynamicModal(btnRef, pinId || '', setSaved);
   };
 
   const content = lastBoard.name
@@ -46,10 +48,10 @@ export const SavePinToBoardBtn = ({
 
   return (
     <>
-      {savedInProfile || board?.id ? (
+      {saved.alreadySaved ? (
         <PinAlreadySaved
-          savedInProfile={savedInProfile}
-          board={board}
+          savedInProfile={saved.savedInProfile}
+          board={saved.board}
           username={userPublicData?.username}
           pinCard={pinCard}
         />

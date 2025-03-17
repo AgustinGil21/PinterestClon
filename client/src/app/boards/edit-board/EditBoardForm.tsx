@@ -24,6 +24,8 @@ export const EditBoardForm = () => {
     editBoardPrevData,
   } = useAppsStore();
 
+  let defaultCover = editBoardPrevData.cover ? editBoardPrevData.cover : '';
+
   const onSubmit = (values: IEditBoardForm) => {
     const data = { ...values, cover: newBoardCover, id: editBoardID };
 
