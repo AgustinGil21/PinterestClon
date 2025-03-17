@@ -16,6 +16,7 @@ const BoardPreview = ({ props }: BoardsPreviewProps) => {
         collage={collage}
         itsYours={its_yours ? true : false}
         boardID={id}
+        boardName={name}
       />
       <BoardPreviewBottom
         name={name}

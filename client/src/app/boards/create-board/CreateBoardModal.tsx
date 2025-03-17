@@ -50,6 +50,7 @@ const CreateBoardModal = ({
     };
     createBoard(dataToSubmit);
     createBoardModalOpen();
+    window.location.reload();
     setToastNotification({
       status: 'success',
       action: 'create',

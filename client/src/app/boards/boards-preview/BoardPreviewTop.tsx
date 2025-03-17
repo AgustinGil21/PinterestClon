@@ -8,6 +8,7 @@ interface Props {
   collage?: (string | undefined)[];
   itsYours?: boolean;
   boardID: string;
+  boardName: string;
 }
 
 const BoardPreviewTop = ({
@@ -15,12 +16,13 @@ const BoardPreviewTop = ({
   collage,
   itsYours = false,
   boardID,
+  boardName
 }: Props) => {
   return (
     <LinkNavigate href={`/board/${boardID}`}>
       <article className='rounded-md w-full board-preview-top relative hover:cursor-pointer'>
         {cover ? (
-          <BoardCover cover={cover} />
+          <BoardCover cover={cover} boardName={ boardName } />
         ) : (
           <BoardCollage collage={collage} />
         )}

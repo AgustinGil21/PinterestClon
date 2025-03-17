@@ -30,6 +30,7 @@ export const EditBoardForm = () => {
     const data = { ...values, cover: newBoardCover, id: editBoardID };
 
     editBoard(data);
+    window.location.reload();
     setEditBoardModal();
   };
 
