@@ -13,6 +13,8 @@ import Masonry from '../interfaces/components/Basic/Masonry';
 import { Pin } from '../home-page-components/Pin';
 import { SavedPins } from './SavedPins';
 import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
+import { CreatePinOrBoardBtn } from './CreatePinOrBoardBtn';
+import CreateBoardModal from '../boards/create-board/CreateBoardModal';
 // import Message from '../account-search/Message';
 
 interface Props {
@@ -35,6 +37,7 @@ export default function UserProfile({ params }: Props) {
     getUserBoards,
     t,
     editBoardModalIsOpen,
+    isCreateBoardModalOpen,
   } = useAppsStore();
 
   const { username }: { username: string } = params;
@@ -148,6 +151,7 @@ export default function UserProfile({ params }: Props) {
           )}
         </div>
 
+        {dataSearchUserProfile.its_you && <CreatePinOrBoardBtn />}
         {dataSearchUserProfile.private_account &&
         dataSearchUserProfile.username !== dataOwnerProfile.username ? (
           <p>{t?.user.private || 'Esta cuenta es privada'}</p>
@@ -162,6 +166,7 @@ export default function UserProfile({ params }: Props) {
         )}
       </section>
       {editBoardModalIsOpen && <EditBoardModal />}
+      {isCreateBoardModalOpen && <CreateBoardModal />}
     </>
   );
 }

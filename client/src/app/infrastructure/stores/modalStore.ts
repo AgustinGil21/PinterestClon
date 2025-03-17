@@ -3,7 +3,7 @@ import {
   activeScroll,
   bloqScroll,
 } from '@/app/interfaces/helpers/BlockOrActiveScroll';
-import { createRef } from 'react';
+import { createRef, RefObject } from 'react';
 import { TReportType } from '@/app/global-interfaces/translation-interface';
 import {
   IMobileControllerButtonsTranslate,
@@ -164,6 +164,12 @@ export interface ModalStateInterface {
 
   masonryMobileStopScrolling: boolean;
   setMasonryMobileStopScrolling: (isScrolling: boolean) => void;
+
+  createPinOrBoardModalIsOpen: boolean;
+  createPinOrBoardBtnRef: RefObject<HTMLButtonElement>;
+  setCreatePinOrBoardModalIsOpen: (
+    btnRef?: RefObject<HTMLButtonElement>
+  ) => void;
 }
 
 export const createModalStore: StateCreator<ModalStateInterface> = (
@@ -253,6 +259,9 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
   mobileControllerBoardsListModalPinID: '',
 
   masonryMobileStopScrolling: true,
+
+  createPinOrBoardModalIsOpen: false,
+  createPinOrBoardBtnRef: createRef(),
 
   createBoardModalOpen: () => {
     set((state) => ({
@@ -581,5 +590,12 @@ export const createModalStore: StateCreator<ModalStateInterface> = (
     set({
       masonryMobileStopScrolling: isScrolling,
     });
+  },
+
+  setCreatePinOrBoardModalIsOpen: (btnRef?: RefObject<HTMLButtonElement>) => {
+    set((state) => ({
+      createPinOrBoardModalIsOpen: !state.createPinOrBoardModalIsOpen,
+      createPinOrBoardBtnRef: btnRef,
+    }));
   },
 });

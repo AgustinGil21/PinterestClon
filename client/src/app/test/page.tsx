@@ -19,6 +19,7 @@ import { EditBoardModal } from '../boards/edit-board/EditBoardModal';
 import { MobileSavePinButtonsController } from '../home-page-components/MobileSavePinButtonsController';
 import { FaShare } from 'react-icons/fa';
 import { MobileController } from '../home-page-components/MobileController';
+import { CreatePinOrBoardBtn } from '../[username]/CreatePinOrBoardBtn';
 
 export default function Test() {
   const {
@@ -79,9 +80,10 @@ export default function Test() {
   ];
 
   return (
-    <>
+    <section className='min-h-screen w-[400px] '>
       {editBoardModalIsOpen && <EditBoardModal />}
       {/* {boardCoversModalIsOpen && <BoardCoverModal />} */}
-    </>
+      <CreatePinOrBoardBtn />
+    </section>
   );
 }
