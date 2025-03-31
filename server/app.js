@@ -49,6 +49,9 @@ app.use(
 
 const SETTINGS_BASE_URL = `${BASE_URL}/settings`;
 
+app.use(`${BASE_URL}/hello-world`, (req, res) => {
+  res.status(200).json({ message: 'Hello world' });
+});
 app.use(`${BASE_URL}`, UserHomeDataRoute);
 app.use(`${BASE_URL}/auth`, AuthRoutes);
 app.use(`${BASE_URL}/countries`, CountriesRoutes);
