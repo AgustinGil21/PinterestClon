@@ -1,12 +1,1 @@
-{
-  "projects": [
-    {
-      "src": "client",
-      "use": "@vercel/next"
-    },
-    {
-      "src": "server",
-      "use": "@vercel/node"
-    }
-  ]
-}
+
