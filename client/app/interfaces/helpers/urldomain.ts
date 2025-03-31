@@ -1,1 +1,1 @@
-export const URLDOMAIN = `http://localhost:1234/pinterest-clon-api`;
+export const URLDOMAIN = `https://pinterest-clon-server.vercel.app/pinterest-clon-api`;
