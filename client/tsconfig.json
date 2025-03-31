@@ -28,5 +28,7 @@
     ".next/types/**/*.ts",
     "app/[username]"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "skipLibCheck": true,
+  "noEmitOnError": false
 }
