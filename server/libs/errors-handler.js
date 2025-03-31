@@ -110,19 +110,3 @@ export class SchemasErrors {
     return `${field1} does not match ${field2}.`;
   }
 }
-
-// Como usar la función de handleError con
-// zodErrors para los schemas:
-
-/*
- try {
-    userSchema.safeParse(req.body);
-
-    res.status(201).json({ message: 'User registered successfully!' });
-
-  } catch (error) {
-  
-    return handleError(res, zodErrors(error)); 
-    
-  }
-*/

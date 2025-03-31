@@ -11,6 +11,7 @@ export const {
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,
   NODE_ENV,
+  DATABASE_URL,
 } = process.env;
 
 export const BASE_URL = '/pinterest-clon-api';
