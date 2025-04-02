@@ -6,6 +6,7 @@ import { CustomInput } from '../../components/Basic/CustomInput';
 import { useAppsStore } from '../../infrastructure/stores/useAppStore';
 import { Required } from '../../interfaces/components/Basic/Required';
 import { useLockScroll } from '../../hooks/useLockScroll';
+import { SubmitHandler } from 'react-hook-form';
 
 interface IntefaceCreateBoardModal {
   setOpenModalCreate?: (state: boolean) => void;
@@ -21,6 +22,7 @@ interface IHandleChange {
 interface IOnSubmit {
   name: string;
   description?: string;
+  pinId?: string;
 }
 
 const CreateBoardModal = ({
@@ -43,7 +45,8 @@ const CreateBoardModal = ({
     schema: CreateBoardDataSchema,
   });
 
-  const onSubmit = (values: IOnSubmit) => {
+  const onSubmit: SubmitHandler<IOnSubmit> = (values: IOnSubmit) => {
+    if (!values.name) return;
     const dataToSubmit = {
       ...values,
       ...(pinId ? { pinId } : {}),
@@ -97,7 +100,7 @@ const CreateBoardModal = ({
 
                 <form
                   className='flex flex-col justify-start gap-3 w-full'
-                  onSubmit={handleSubmit(onSubmit)}
+                  onSubmit={handleSubmit(onSubmit as any)}
                   id='createBoardForm'
                 >
                   <label className='text-xs hover:cursor-pointer flex flex-col gap-1'>
