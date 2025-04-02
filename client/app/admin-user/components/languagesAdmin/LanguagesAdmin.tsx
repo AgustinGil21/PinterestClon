@@ -2,6 +2,7 @@ import { UseFormRegister, FieldValues, UseFormSetValue } from 'react-hook-form';
 import useLanguagesAdmin from './useLanguagesAdmin';
 import { useAppsStore } from '../../../infrastructure/stores/useAppStore';
 import { CustomSelect } from '../../../components/Basic/CustomSelect';
+import { ILanguages } from '../../../global-interfaces/translation-interface';
 
 interface LanguagesAdminInterface {
   register: UseFormRegister<FieldValues>;
@@ -24,7 +25,7 @@ const LanguagesAdmin = ({ register, setValue }: LanguagesAdminInterface) => {
             value={elem.id}
             className='text-ellipsis text-nowrap'
           >
-            {t?.languages[`${elem.name}`] || elem.name}
+            {t?.languages?.[elem.name as keyof typeof t.languages] && elem.name}
           </option>
         ))}
       </CustomSelect>
