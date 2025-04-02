@@ -2,8 +2,13 @@
 
 import { useRef, useState } from 'react';
 
+interface IPosition {
+  left: number;
+  top: number;
+}
+
 const DynamicPositioning = () => {
-  const parentRef = useRef(null);
+  const parentRef = useRef<HTMLDivElement>(null);
   const [popupStyle, setPopupStyle] = useState<any>(null);
 
   // Definimos los umbrales en una constante
@@ -17,7 +22,7 @@ const DynamicPositioning = () => {
   const handleButtonClick = (event: React.MouseEvent) => {
     if (parentRef.current) {
       const parentRect = parentRef.current.getBoundingClientRect();
-      const buttonRect = event.target.getBoundingClientRect();
+      const buttonRect = (event.target as HTMLElement).getBoundingClientRect();
 
       // Calcula la posición del botón relativo al contenedor
       const buttonPosition = {
@@ -28,7 +33,10 @@ const DynamicPositioning = () => {
       };
 
       // Determina dónde posicionar el popup
-      let position = {};
+      let position: IPosition = {
+        left: 0,
+        top: 0,
+      };
 
       if (buttonPosition.top < THRESHOLD.top) {
         // Cerca del borde superior
