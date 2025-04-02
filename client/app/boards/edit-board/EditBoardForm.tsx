@@ -48,7 +48,7 @@ export const EditBoardForm = () => {
   return (
     <form
       className='flex flex-col justify-start gap-3 w-full'
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit as any)}
       id='editBoardModalForm'
     >
       <EditBoardNameInput
