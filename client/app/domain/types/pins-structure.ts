@@ -136,7 +136,7 @@ export interface PinViewInterface {
   follows_you?: boolean;
   following?: boolean;
   followers?: string;
-  board?: IPinBoard;
+  board?: IPinBoard | null;
   saved_in_profile: boolean;
 }
 

@@ -158,7 +158,7 @@ export const getPinViewAdapter = async (
         follows_you: response.follows_you,
         following: response.following,
         followers: response.followers,
-        saved_in_profile: response.saved_in_profile,
+        saved_in_profile: response.saved_in_profile || false,
         board: response.board,
       };
     }
