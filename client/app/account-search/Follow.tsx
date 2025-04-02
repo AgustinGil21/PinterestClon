@@ -19,7 +19,7 @@ const Follow = ({
 
   const [isFollowing, setFollowing] = useState(following);
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -38,7 +38,9 @@ const Follow = ({
           ? `${classPropsTrueIsFollowing}  `
           : `${classPropsFalseIsFollowing} `
       }  `}
-      handleClick={(e: React.MouseEvent) => handleClick(e)}
+      handleClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+        handleClick(event)
+      }
     >
       {isFollowing
         ? t?.user.buttons.following || 'Siguiendo'
